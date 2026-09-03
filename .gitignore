@@ -1,0 +1,26 @@
+# Node / Frontend
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+frontend/.env.local
+frontend/.env.*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python / Backend
+backend/__pycache__/
+backend/*/__pycache__/
+*.py[cod]
+*$py.class
+backend/venv/
+backend/env/
+backend/.env
+
+# Large scraped data files / temporary files (optional, but good to exclude node_modules and venv)
+.DS_Store
+Thumbs.db
+
+# IDE / Editor files
+.vscode/
+.idea/

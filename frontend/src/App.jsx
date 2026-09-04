@@ -14,6 +14,11 @@ import PipelineHealthView from './components/PipelineHealthView';
 import APIDocsView from './components/APIDocsView';
 import CorridorClusteringView from './components/CorridorClusteringView';
 
+// Dynamic API Base URL configuration: uses VITE_API_URL env variable if set, otherwise defaults to relative /api or localhost
+export const API_BASE_URL = import.meta.env.VITE_API_URL 
+  ? import.meta.env.VITE_API_URL.replace(/\/$/, '') 
+  : (import.meta.env.PROD ? '' : 'http://localhost:8000');
+
 export default function App() {
   const [activeTab, setActiveTab] = useState('overview');
   const [liveMode, setLiveMode] = useState(false);
@@ -44,247 +49,207 @@ export default function App() {
   const fetchBaseData = useCallback(async () => {
     try {
       const [resIdx, resRoutes, resClusters, resAirlines, resElas, resAnom, resObs, resBack, resExp, resHealth] = await Promise.all([
-        fetch('http://localhost:8000/api/index/current').then(r => r.ok ? r.json() : null),
-        fetch('http://localhost:8000/api/routes').then(r => r.ok ? r.json() : null),
-        fetch('http://localhost:8000/api/clusters').then(r => r.ok ? r.json() : null),
-        fetch('http://localhost:8000/api/airlines').then(r => r.ok ? r.json() : null),
-        fetch('http://localhost:8000/api/elasticity').then(r => r.ok ? r.json() : null),
-        fetch('http://localhost:8000/api/anomalies').then(r => r.ok ? r.json() : null),
-        fetch('http://localhost:8000/api/observations?limit=150').then(r => r.ok ? r.json() : null),
-        fetch('http://localhost:8000/api/backtest').then(r => r.ok ? r.json() : null),
-        fetch('http://localhost:8000/api/explainability').then(r => r.ok ? r.json() : null),
-        fetch('http://localhost:8000/api/health').then(r => r.ok ? r.json() : null),
+        fetch(`${API_BASE_URL}/api/index/current`).then(r => r.ok ? r.json() : null),
+        fetch(`${API_BASE_URL}/api/routes`).then(r => r.ok ? r.json() : null),
+        fetch(`${API_BASE_URL}/api/clusters`).then(r => r.ok ? r.json() : null),
+        fetch(`${API_BASE_URL}/api/airlines`).then(r => r.ok ? r.json() : null),
+        fetch(`${API_BASE_URL}/api/elasticity`).then(r => r.ok ? r.json() : null),
+        fetch(`${API_BASE_URL}/api/anomalies`).then(r => r.ok ? r.json() : null),
+        fetch(`${API_BASE_URL}/api/observations?limit=150`).then(r => r.ok ? r.json() : null),
+        fetch(`${API_BASE_URL}/api/backtest`).then(r => r.ok ? r.json() : null),
+        fetch(`${API_BASE_URL}/api/explainability`).then(r => r.ok ? r.json() : null),
+        fetch(`${API_BASE_URL}/api/health`).then(r => r.ok ? r.json() : null),
       ]);
 
       if (resIdx) setIndexData(resIdx);
       if (resRoutes?.routes) setRoutesData(resRoutes.routes);
       if (resClusters) setClusterData(resClusters);
       if (resAirlines?.airlines) setAirlineData(resAirlines.airlines);
-      if (resElas?.booking_windows) setElasticityData(resElas.booking_windows);
+      if (resElas?.elasticity) setElasticityData(resElas.elasticity);
       if (resAnom?.anomalies) setAnomaliesData(resAnom.anomalies);
-      if (resObs?.data) setRawObservations(resObs.data);
+      if (resObs?.observations) setRawObservations(resObs.observations);
       if (resBack) setBacktestData(resBack);
       if (resExp) setExplainabilityData(resExp);
-      if (resHealth) setHealthData(resHealth);
+      if (resHealth) {
+        setHealthData(resHealth);
+        if (resHealth.last_scrape_status === 'running') setIsScraping(true);
+      }
     } catch (err) {
-      console.log("Backend offline or loading, using fixture datasets.");
+      console.error('Failed to fetch base data from backend:', err);
     }
   }, []);
 
-  useEffect(() => {
-    fetchBaseData();
-  }, [fetchBaseData, liveMode]);
-
-  // Live Scrape Trigger Handler across major corridors
+  // Trigger Live Scraping via Backend
   const handleTriggerScrape = async () => {
+    if (isScraping) return;
     setIsScraping(true);
-    setScrapeNotification("Initiating Playwright scraper for MakeMyTrip & Ixigo across major domestic corridors...");
+    setScrapeNotification({ type: 'info', message: 'Triggered 50+ route scrape background job...' });
 
     try {
-      const res = await fetch('http://localhost:8000/api/scrape/trigger', { method: 'POST' });
-      const data = await res.json();
-      setScrapeNotification(data.message || "Scrape job running in background.");
-
-      const interval = setInterval(async () => {
-        try {
-          const statusRes = await fetch('http://localhost:8000/api/scrape/status');
-          const statusData = await statusRes.json();
-
-          if (!statusData.in_progress) {
+      const res = await fetch(`${API_BASE_URL}/api/scrape/trigger`, { method: 'POST' });
+      if (res.ok) {
+        let attempts = 0;
+        const interval = setInterval(async () => {
+          attempts++;
+          try {
+            const statusRes = await fetch(`${API_BASE_URL}/api/scrape/status`);
+            if (statusRes.ok) {
+              const status = await statusRes.json();
+              if (status.status === 'idle' || status.status === 'completed') {
+                clearInterval(interval);
+                setIsScraping(false);
+                setScrapeNotification({ type: 'success', message: 'Scrape completed! Refreshing metrics.' });
+                fetchBaseData();
+                fetchHistoryData();
+                setTimeout(() => setScrapeNotification(null), 5000);
+              }
+            }
+          } catch (e) {
+            console.error('Error polling scrape status:', e);
+          }
+          if (attempts > 30) {
             clearInterval(interval);
             setIsScraping(false);
-            setScrapeNotification(`Scrape complete! Loaded ${statusData.total_live_scraped_observations} live observations.`);
-            fetchBaseData();
-            setTimeout(() => setScrapeNotification(null), 5000);
+            setScrapeNotification({ type: 'warning', message: 'Scrape job sent to backend worker.' });
           }
-        } catch (e) {
-          clearInterval(interval);
-          setIsScraping(false);
-        }
-      }, 3000);
-
+        }, 3000);
+      } else {
+        setIsScraping(false);
+        setScrapeNotification({ type: 'error', message: `Scrape error (HTTP ${res.status}): Failed to trigger backend scraper.` });
+      }
     } catch (err) {
       setIsScraping(false);
-      setScrapeNotification("Could not connect to backend scraper trigger.");
-      setTimeout(() => setScrapeNotification(null), 4000);
+      setScrapeNotification({ type: 'error', message: `Could not connect to backend scraper trigger at ${API_BASE_URL}. Ensure VITE_API_URL is configured on Vercel.` });
     }
   };
 
-  // Dynamic Query when Filters Change
-  useEffect(() => {
-    const fetchFilteredTrend = async () => {
-      try {
-        const queryParams = new URLSearchParams({
-          route: filters.route,
-          airline: filters.airline,
-          window: filters.window,
-          frequency: filters.frequency
-        });
+  // Fetch History / Filtered Trend Data
+  const fetchHistoryData = useCallback(async () => {
+    try {
+      const queryParams = new URLSearchParams();
+      if (filters.route !== 'ALL') queryParams.append('route', filters.route);
+      if (filters.airline !== 'ALL') queryParams.append('airline', filters.airline);
+      if (filters.window !== 'ALL') queryParams.append('window', filters.window);
+      if (filters.frequency) queryParams.append('frequency', filters.frequency);
 
-        const res = await fetch(`http://localhost:8000/api/index/history?${queryParams.toString()}`);
-        if (res.ok) {
-          const json = await res.json();
-          setTrendData(json.history || []);
-          if (json.stats) {
-            setIndexData(prev => ({
-              ...prev,
-              current_index: json.stats.current_index ?? prev?.current_index,
-              change_24h_pct: json.stats.change_24h ?? prev?.change_24h_pct,
-              change_7d_pct: json.stats.change_7d ?? prev?.change_7d_pct,
-              overall_avg_fare_inr: json.stats.overall_avg_fare ?? prev?.overall_avg_fare_inr,
-              usable_observations: json.stats.usable_observations ?? prev?.usable_observations,
-            }));
-          }
-          if (json.routes && json.routes.length > 0 && filters.route === 'ALL') {
-            setRoutesData(json.routes);
-          }
-          if (json.airlines && json.airlines.length > 0 && filters.airline === 'ALL') {
-            setAirlineData(json.airlines);
-          }
-          if (json.elasticity && json.elasticity.length > 0 && filters.window === 'ALL') {
-            setElasticityData(json.elasticity);
-          }
-        }
-      } catch (err) {
-        console.log("Filter query fallback to local state.");
+      const res = await fetch(`${API_BASE_URL}/api/index/history?${queryParams.toString()}`);
+      if (res.ok) {
+        const data = await res.json();
+        setTrendData(data.daily_trend || []);
       }
-    };
+    } catch (err) {
+      console.error('Failed to fetch index history:', err);
+    }
+  }, [filters]);
 
-    fetchFilteredTrend();
-  }, [filters, liveMode]);
+  useEffect(() => {
+    fetchBaseData();
+  }, [fetchBaseData]);
 
-  const handleFilterChange = useCallback((newFilters) => {
-    setFilters(newFilters);
-  }, []);
+  useEffect(() => {
+    fetchHistoryData();
+  }, [fetchHistoryData]);
 
-  const handleRouteSelect = useCallback((routeCode) => {
-    setFilters(prev => ({ ...prev, route: routeCode }));
-  }, []);
-
-  const handleAirlineSelect = useCallback((airlineName) => {
-    setFilters(prev => ({ ...prev, airline: airlineName }));
-  }, []);
-
-  const handleWindowSelect = useCallback((windowCode) => {
-    setFilters(prev => ({ ...prev, window: windowCode }));
-  }, []);
+  const handleFilterChange = (newFilters) => {
+    setFilters(prev => ({ ...prev, ...newFilters }));
+  };
 
   return (
-    <div className="min-h-screen bg-navy-950 text-slate-100 flex flex-col font-sans">
-      {/* Top Navbar */}
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-cyan-500 selection:text-white">
+      {/* Top Banner / Scrape Notification */}
+      {scrapeNotification && (
+        <div className={`py-2 px-4 text-center text-xs font-semibold flex items-center justify-center gap-2 ${
+          scrapeNotification.type === 'success' ? 'bg-emerald-600 text-white' :
+          scrapeNotification.type === 'error' ? 'bg-rose-600 text-white' : 'bg-cyan-600 text-white'
+        }`}>
+          {isScraping && <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></div>}
+          <span>{scrapeNotification.message}</span>
+        </div>
+      )}
+
+      {/* Main Navbar */}
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         liveMode={liveMode}
         setLiveMode={setLiveMode}
-        lastUpdated={indexData?.last_updated}
-        isScraping={isScraping}
         onTriggerScrape={handleTriggerScrape}
+        isScraping={isScraping}
+        healthData={healthData}
       />
 
-      {/* Scrape Notification Banner */}
-      {scrapeNotification && (
-        <div className="bg-gradient-to-r from-blue-900/90 via-indigo-900/90 to-navy-900 border-b border-blue-500/30 px-4 py-2 text-center text-xs font-mono text-blue-200 flex items-center justify-center space-x-2 animate-fadeIn">
-          <span className="w-2 h-2 rounded-full bg-blue-400 animate-ping"></span>
-          <span>{scrapeNotification}</span>
-        </div>
-      )}
-
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+        {/* Navigation Tabs */}
         {activeTab === 'overview' && (
-          <div className="animate-fadeIn space-y-6">
-            <KPICards data={indexData} filters={filters} />
+          <>
+            {/* Top KPI Cards */}
+            <KPICards
+              indexData={indexData}
+              healthData={healthData}
+              rawObsCount={rawObservations.length}
+            />
+
+            {/* Main Interactive Index Trend Chart */}
             <IndexTrendChart
               trendData={trendData}
-              routes={routesData}
-              airlines={airlineData}
               filters={filters}
               onFilterChange={handleFilterChange}
+              routes={routesData}
             />
+
+            {/* Grid 1: Route Heatmap & Airline Comparison */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <AirlineComparisonChart
-                airlineData={airlineData}
-                selectedAirline={filters.airline}
-                onSelectAirline={handleAirlineSelect}
-              />
-              <BookingWindowElasticity
-                elasticityData={elasticityData}
-                selectedWindow={filters.window}
-                onSelectWindow={handleWindowSelect}
-              />
+              <RouteHeatmap routes={routesData} />
+              <AirlineComparisonChart airlines={airlineData} />
             </div>
-            <RouteHeatmap
-              routes={routesData}
-              selectedRoute={filters.route}
-              onSelectRoute={handleRouteSelect}
-            />
-            <SurgeAlertsPanel anomalies={anomaliesData} />
-          </div>
+
+            {/* Grid 2: Elasticity & Surge Alerts */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <BookingWindowElasticity elasticityData={elasticityData} />
+              <SurgeAlertsPanel anomalies={anomaliesData} />
+            </div>
+          </>
         )}
 
-        {activeTab === 'routes' && (
-          <div className="animate-fadeIn space-y-6">
-            <CorridorClusteringView
-              clusterData={clusterData}
-              routes={routesData}
-              selectedRoute={filters.route}
-              onSelectRoute={handleRouteSelect}
-            />
-            <RouteHeatmap
-              routes={routesData}
-              selectedRoute={filters.route}
-              onSelectRoute={handleRouteSelect}
-            />
-          </div>
-        )}
-
-        {activeTab === 'explainability' && (
-          <div className="animate-fadeIn">
-            <ExplainabilityView explainabilityData={explainabilityData} />
-          </div>
-        )}
-
-        {activeTab === 'anomalies' && (
-          <div className="animate-fadeIn">
-            <SurgeAlertsPanel anomalies={anomaliesData} />
-          </div>
-        )}
-
-        {activeTab === 'backtest' && (
-          <div className="animate-fadeIn">
-            <BacktestValidationView backtestData={backtestData} />
-          </div>
+        {activeTab === 'clustering' && (
+          <CorridorClusteringView clusterData={clusterData} routesData={routesData} />
         )}
 
         {activeTab === 'explorer' && (
-          <div className="animate-fadeIn">
-            <DataExplorerView observations={rawObservations} routes={routesData} />
-          </div>
+          <DataExplorerView observations={rawObservations} routes={routesData} />
+        )}
+
+        {activeTab === 'explainability' && (
+          <ExplainabilityView data={explainabilityData} />
+        )}
+
+        {activeTab === 'backtest' && (
+          <BacktestValidationView data={backtestData} />
         )}
 
         {activeTab === 'methodology' && (
-          <div className="animate-fadeIn">
-            <MethodologyView />
-          </div>
+          <MethodologyView />
         )}
 
         {activeTab === 'health' && (
-          <div className="animate-fadeIn">
-            <PipelineHealthView healthData={healthData} />
-          </div>
+          <PipelineHealthView healthData={healthData} />
         )}
 
         {activeTab === 'api' && (
-          <div className="animate-fadeIn">
-            <APIDocsView />
-          </div>
+          <APIDocsView />
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-navy-800 bg-navy-900/50 py-4 text-center text-xs text-slate-500 font-mono">
-        <p>AirIndex India — Real-Time Airfare Price Index & Intelligence Platform (MoSPI / DIID — SIH26056)</p>
+      {/* Minimal Footer */}
+      <footer className="border-t border-slate-800 bg-slate-900/50 py-4 mt-12">
+        <div className="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-2">
+          <span>AirIndex India — Real-Time Airfare Price Index Platform (MoSPI Compliant)</span>
+          <span className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+            System API Status: Operational ({API_BASE_URL || 'Local Prototyping'})
+          </span>
+        </div>
       </footer>
     </div>
   );

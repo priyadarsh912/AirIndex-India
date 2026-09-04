@@ -267,7 +267,7 @@ async def _async_scrape_task(routes: List[str], sources: List[str], cluster: Opt
         SCRAPE_IN_PROGRESS = False
 
 
-@app.post("/api/scrape/trigger")
+@app.api_route("/api/scrape/trigger", methods=["GET", "POST"])
 async def trigger_live_scrape(
     background_tasks: BackgroundTasks,
     routes: Optional[List[str]] = Query(default=["all"]),

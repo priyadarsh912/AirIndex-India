@@ -13,6 +13,7 @@ import MethodologyView from './components/MethodologyView';
 import PipelineHealthView from './components/PipelineHealthView';
 import APIDocsView from './components/APIDocsView';
 import CorridorClusteringView from './components/CorridorClusteringView';
+import DataIntegrityView from './components/DataIntegrityView';
 import { DEFAULT_52_ROUTES, DEFAULT_CLUSTERS, DEFAULT_30_DAY_TREND } from './defaultData';
 
 import SCRAPED_OBSERVATIONS from './data/scrapedObservations.json';
@@ -339,6 +340,10 @@ export default function App() {
 
         {activeTab === 'health' && (
           <PipelineHealthView healthData={healthData} />
+        )}
+
+        {activeTab === 'integrity' && (
+          <DataIntegrityView observations={rawObservations} />
         )}
 
         {activeTab === 'api' && (

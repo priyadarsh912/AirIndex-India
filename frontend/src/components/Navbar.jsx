@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Activity, ShieldCheck, Database, RefreshCw, Layers, Terminal, AlertTriangle, FileCheck, CheckCircle2, Loader2 } from 'lucide-react';
+import { Activity, ShieldCheck, ShieldAlert, Database, RefreshCw, Layers, Terminal, AlertTriangle, FileCheck, CheckCircle2, Loader2 } from 'lucide-react';
 
 export default function Navbar({ activeTab, setActiveTab, liveMode, setLiveMode, lastUpdated, isScraping, onTriggerScrape }) {
   return (
@@ -98,6 +98,7 @@ export default function Navbar({ activeTab, setActiveTab, liveMode, setLiveMode,
           { id: 'anomalies', label: 'Surge Intelligence', icon: AlertTriangle },
           { id: 'backtest', label: 'DGCA 30-Day Backtest', icon: CheckCircle2 },
           { id: 'explorer', label: 'Data Explorer', icon: Database },
+          { id: 'integrity', label: 'Data Integrity', icon: ShieldAlert },
           { id: 'methodology', label: 'Methodology', icon: FileCheck },
           { id: 'health', label: 'Pipeline Status', icon: ShieldCheck },
           { id: 'api', label: 'Institutional API', icon: Terminal },

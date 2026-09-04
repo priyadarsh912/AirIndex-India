@@ -23,6 +23,7 @@ from backtest_engine import run_dgca_backtest
 from clustering_engine import compute_route_clusters
 from data_loader import load_scraped_observations, merge_scraped_with_fixture, get_latest_scrape_metadata
 from scrape_flights import run_scraping_job
+from integrity_engine import run_integrity_engine, detect_cross_route_price_contamination
 
 app = FastAPI(
     title="AirIndex India API",
@@ -44,7 +45,12 @@ FIXTURE_DATA = generate_fixture_dataset(30)
 SCRAPED_DATA = load_scraped_observations()
 COMBINED_OBSERVATIONS = merge_scraped_with_fixture(FIXTURE_DATA["raw_observations"], SCRAPED_DATA)
 
-CLEANED_DATA, QUALITY_STATS = process_data_quality(COMBINED_OBSERVATIONS)
+# Run integrity engine BEFORE quality engine to fix misattributed data
+INTEGRITY_CORRECTED, INTEGRITY_REPORT = run_integrity_engine(COMBINED_OBSERVATIONS)
+CONTAMINATION_WARNINGS = detect_cross_route_price_contamination(INTEGRITY_CORRECTED)
+INTEGRITY_REPORT["contamination_warnings"] = CONTAMINATION_WARNINGS
+
+CLEANED_DATA, QUALITY_STATS = process_data_quality(INTEGRITY_CORRECTED)
 INDEX_RESULTS = compute_airfare_indexes(CLEANED_DATA)
 ANOMALIES_RESULTS = detect_airfare_anomalies(CLEANED_DATA)
 CLUSTER_RESULTS = compute_route_clusters(CLEANED_DATA)
@@ -56,10 +62,14 @@ LAST_SCRAPE_STATUS = get_latest_scrape_metadata()
 
 def refresh_pipeline_data():
     """Recalculate pipeline state across all 52 routes and clusters when new scraped observations arrive."""
-    global SCRAPED_DATA, COMBINED_OBSERVATIONS, CLEANED_DATA, QUALITY_STATS, INDEX_RESULTS, ANOMALIES_RESULTS, CLUSTER_RESULTS, BACKTEST_RESULTS, LAST_SCRAPE_STATUS
+    global SCRAPED_DATA, COMBINED_OBSERVATIONS, INTEGRITY_CORRECTED, INTEGRITY_REPORT, CONTAMINATION_WARNINGS
+    global CLEANED_DATA, QUALITY_STATS, INDEX_RESULTS, ANOMALIES_RESULTS, CLUSTER_RESULTS, BACKTEST_RESULTS, LAST_SCRAPE_STATUS
     SCRAPED_DATA = load_scraped_observations()
     COMBINED_OBSERVATIONS = merge_scraped_with_fixture(FIXTURE_DATA["raw_observations"], SCRAPED_DATA)
-    CLEANED_DATA, QUALITY_STATS = process_data_quality(COMBINED_OBSERVATIONS)
+    INTEGRITY_CORRECTED, INTEGRITY_REPORT = run_integrity_engine(COMBINED_OBSERVATIONS)
+    CONTAMINATION_WARNINGS = detect_cross_route_price_contamination(INTEGRITY_CORRECTED)
+    INTEGRITY_REPORT["contamination_warnings"] = CONTAMINATION_WARNINGS
+    CLEANED_DATA, QUALITY_STATS = process_data_quality(INTEGRITY_CORRECTED)
     INDEX_RESULTS = compute_airfare_indexes(CLEANED_DATA)
     ANOMALIES_RESULTS = detect_airfare_anomalies(CLEANED_DATA)
     CLUSTER_RESULTS = compute_route_clusters(CLEANED_DATA)
@@ -316,9 +326,27 @@ def get_pipeline_health():
             {"airline": "Akasa Air (Direct)", "status": "ONLINE", "latency_ms": 210, "records_today": 190, "robots_txt": "COMPLIANT"},
         ],
         "quality_statistics": QUALITY_STATS,
+        "integrity_report": INTEGRITY_REPORT,
         "rate_limiting": "ACTIVE (3.0s per request + Jitter)",
         "live_scraped_records": len(SCRAPED_DATA),
         "last_execution": INDEX_RESULTS.get("last_updated")
+    }
+
+
+@app.get("/api/integrity")
+def get_integrity_report():
+    """Returns full data integrity report from the AI/ML Integrity Engine."""
+    # Run a fresh integrity check on current data
+    _, fresh_report = run_integrity_engine(COMBINED_OBSERVATIONS)
+    fresh_report["contamination_warnings"] = detect_cross_route_price_contamination(INTEGRITY_CORRECTED)
+    return {
+        "engine": "AirIndex Integrity Engine v1.0",
+        "description": "AI/ML integrity validation: registry-based flight-route cross-check, fare arithmetic validation, carrier prefix mismatch detection, and price contamination analysis.",
+        "report": fresh_report,
+        "registry_size": 60,  # entries in master flight registry
+        "validated_observations": len(COMBINED_OBSERVATIONS),
+        "integrity_pct": fresh_report.get("data_integrity_pct"),
+        "top_issues": fresh_report.get("top_issues", [])[:10],
     }
 
 

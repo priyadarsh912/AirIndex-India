@@ -5,7 +5,12 @@ Supports 52+ domestic routes, corridor clustering, live scraping, and multi-sour
 """
 
 import os
+import sys
 import asyncio
+
+# Ensure backend directory is in Python path when executed from root or subfolder on Render
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from fastapi import FastAPI, Query, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional, List, Dict, Any

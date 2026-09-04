@@ -22,7 +22,7 @@ This repository contains the full **AirIndex India** platform (Frontend React/Vi
    - **Root Directory**: `backend` (or leave empty if at repo root)
    - **Environment**: `Python 3`
    - **Build Command**: `python -m pip install --upgrade pip setuptools wheel && pip install -r backend/requirements.txt`
-   - **Start Command**: `uvicorn backend.main:app --host 0.0.0.0 --port $PORT`
+   - **Start Command**: `PYTHONPATH=backend uvicorn backend.main:app --host 0.0.0.0 --port $PORT`
 5. Click **Deploy**. Copy your public Render URL (e.g. `https://airindex-backend.onrender.com`).
 
 ---

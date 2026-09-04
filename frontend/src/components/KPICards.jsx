@@ -61,13 +61,24 @@ export default function KPICards({ data, indexData, routes = [], healthData, raw
           <span className="text-3xl font-extrabold text-white tracking-tight font-mono">
             ₹{Math.round(Number(avgFare)).toLocaleString('en-IN')}
           </span>
-          <div className="flex items-center text-xs font-semibold px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20">
-            <ArrowUpRight className="w-3.5 h-3.5 mr-1" />
-            +6.1% vs base
-          </div>
+          {(() => {
+            const baseRef = filters.route !== 'ALL'
+              ? (routes?.find(r => r.route === filters.route)?.base_fare || 4600)
+              : 4600;
+            const diffPct = parseFloat((((Number(avgFare) - baseRef) / baseRef) * 100).toFixed(1));
+            const isDiffPositive = diffPct >= 0;
+            return (
+              <div className={`flex items-center text-xs font-semibold px-2 py-0.5 rounded-full ${
+                isDiffPositive ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+              }`}>
+                {isDiffPositive ? <ArrowUpRight className="w-3.5 h-3.5 mr-1" /> : <TrendingDown className="w-3.5 h-3.5 mr-1" />}
+                {isDiffPositive ? `+${diffPct}%` : `${diffPct}%`} vs base
+              </div>
+            );
+          })()}
         </div>
         <div className="text-xs text-slate-400 flex justify-between items-center pt-2 border-t border-navy-800">
-          <span>{isFiltered ? `Scoped to ${filterLabel}` : 'Weighted across 6 corridors'}</span>
+          <span>{isFiltered ? `Scoped: ${filterLabel}` : `Weighted across ${totalCorridorsCount} corridors`}</span>
           <span className="text-emerald-400 font-mono text-[11px]">Economy Standard</span>
         </div>
       </div>

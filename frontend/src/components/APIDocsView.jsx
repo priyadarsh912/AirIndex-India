@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Terminal, Play, CheckCircle2, Copy } from 'lucide-react';
+import { API_BASE_URL } from '../App';
 
 export default function APIDocsView() {
   const [selectedEndpoint, setSelectedEndpoint] = useState('/api/index/current');
@@ -9,7 +10,7 @@ export default function APIDocsView() {
   const endpoints = [
     { path: '/api/index/current', method: 'GET', desc: 'Get latest national Base-100 Airfare Index & changes' },
     { path: '/api/index/history', method: 'GET', desc: 'Get 30-day index time-series with filters' },
-    { path: '/api/routes', method: 'GET', desc: 'Get 6 representative flight corridor statistics & weights' },
+    { path: '/api/routes', method: 'GET', desc: 'Get 50+ representative flight corridor statistics & weights' },
     { path: '/api/airlines', method: 'GET', desc: 'Get carrier fare comparison metrics' },
     { path: '/api/elasticity', method: 'GET', desc: 'Get booking window elasticity curve (T+45 to T+1)' },
     { path: '/api/anomalies', method: 'GET', desc: 'Get active surge alerts & deviation scores' },
@@ -20,7 +21,7 @@ export default function APIDocsView() {
   const testEndpoint = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:8000${selectedEndpoint}`);
+      const res = await fetch(`${API_BASE_URL}${selectedEndpoint}`);
       if (res.ok) {
         const data = await res.json();
         setApiResponse(data);
@@ -80,7 +81,7 @@ export default function APIDocsView() {
           <div className="flex items-center justify-between mb-4 pb-3 border-b border-navy-800">
             <div className="font-mono text-xs text-white">
               <span className="text-emerald-400 font-bold mr-2">GET</span>
-              <span>http://localhost:8000{selectedEndpoint}</span>
+              <span>{API_BASE_URL}{selectedEndpoint}</span>
             </div>
             <button
               onClick={testEndpoint}

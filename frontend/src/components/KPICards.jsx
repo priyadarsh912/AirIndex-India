@@ -1,13 +1,15 @@
 import React from 'react';
 import { TrendingUp, TrendingDown, ArrowUpRight, Plane, Database, Layers, CheckCircle2 } from 'lucide-react';
 
-export default function KPICards({ data, filters = { route: 'ALL', airline: 'ALL', window: 'ALL' } }) {
-  const currentIdx = data?.current_index ?? 128.6;
-  const change24h = data?.change_24h_pct ?? (data?.change_24h ?? 4.2);
-  const change7d = data?.change_7d_pct ?? (data?.change_7d ?? 1.7);
-  const avgFare = data?.overall_avg_fare_inr ?? (data?.overall_avg_fare ?? 5284);
-  const observations = data?.total_observations ?? 12486;
-  const usableObs = data?.usable_observations ?? 11840;
+export default function KPICards({ data, indexData, routes = [], healthData, rawObsCount, filters = { route: 'ALL', airline: 'ALL', window: 'ALL' } }) {
+  const activeData = indexData || data;
+  const currentIdx = activeData?.current_index ?? 128.6;
+  const change24h = activeData?.change_24h_pct ?? (activeData?.change_24h ?? 4.2);
+  const change7d = activeData?.change_7d_pct ?? (activeData?.change_7d ?? 1.7);
+  const avgFare = activeData?.overall_avg_fare_inr ?? (activeData?.overall_avg_fare ?? 5284);
+  const observations = activeData?.total_observations ?? (rawObsCount || 12486);
+  const usableObs = activeData?.usable_observations ?? (rawObsCount || 11840);
+  const totalCorridorsCount = routes?.length || activeData?.tracked_routes_count || 52;
 
   const isFiltered = filters.route !== 'ALL' || filters.airline !== 'ALL' || filters.window !== 'ALL';
   const filterLabel = [
@@ -101,7 +103,7 @@ export default function KPICards({ data, filters = { route: 'ALL', airline: 'ALL
         </div>
         <div className="flex items-baseline space-x-3 mb-2">
           <span className="text-3xl font-extrabold text-white tracking-tight font-mono">
-            {filters.route !== 'ALL' ? '1 Corridor' : '6 Corridors'}
+            {filters.route !== 'ALL' ? '1 Corridor' : `${totalCorridorsCount} Corridors`}
           </span>
           <div className="flex items-center text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20">
             <Plane className="w-3.5 h-3.5 mr-1 text-amber-400" />

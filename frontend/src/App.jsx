@@ -14,10 +14,10 @@ import PipelineHealthView from './components/PipelineHealthView';
 import APIDocsView from './components/APIDocsView';
 import CorridorClusteringView from './components/CorridorClusteringView';
 
-// Dynamic API Base URL configuration: uses VITE_API_URL env variable if set, otherwise defaults to relative /api or localhost
+// Dynamic API Base URL configuration: uses VITE_API_URL env variable if set, otherwise defaults to live Render backend in production
 export const API_BASE_URL = import.meta.env.VITE_API_URL 
   ? import.meta.env.VITE_API_URL.replace(/\/$/, '') 
-  : (import.meta.env.PROD ? '' : 'http://localhost:8000');
+  : (import.meta.env.PROD ? 'https://airindex-india-181v.onrender.com' : 'http://localhost:8000');
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('overview');
@@ -186,6 +186,8 @@ export default function App() {
             {/* Top KPI Cards */}
             <KPICards
               indexData={indexData}
+              routes={routesData}
+              filters={filters}
               healthData={healthData}
               rawObsCount={rawObservations.length}
             />

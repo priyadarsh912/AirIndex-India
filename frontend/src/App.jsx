@@ -15,6 +15,8 @@ import APIDocsView from './components/APIDocsView';
 import CorridorClusteringView from './components/CorridorClusteringView';
 import { DEFAULT_52_ROUTES, DEFAULT_CLUSTERS, DEFAULT_30_DAY_TREND } from './defaultData';
 
+import SCRAPED_OBSERVATIONS from './data/scrapedObservations.json';
+
 // Dynamic API Base URL configuration: uses VITE_API_URL env variable if set, otherwise defaults to live Render backend in production
 export const API_BASE_URL = import.meta.env.VITE_API_URL 
   ? import.meta.env.VITE_API_URL.replace(/\/$/, '') 
@@ -37,7 +39,7 @@ export default function App() {
     usable_observations: 11840,
     tracked_routes_count: 52,
     tracked_airlines_count: 4,
-    live_scraped_count: 323
+    live_scraped_count: SCRAPED_OBSERVATIONS.length
   });
   const [routesData, setRoutesData] = useState(DEFAULT_52_ROUTES);
   const [clusterData, setClusterData] = useState({ clusters: DEFAULT_CLUSTERS });
@@ -45,7 +47,7 @@ export default function App() {
   const [elasticityData, setElasticityData] = useState([]);
   const [anomaliesData, setAnomaliesData] = useState([]);
   const [trendData, setTrendData] = useState(DEFAULT_30_DAY_TREND);
-  const [rawObservations, setRawObservations] = useState([]);
+  const [rawObservations, setRawObservations] = useState(SCRAPED_OBSERVATIONS);
   const [backtestData, setBacktestData] = useState(null);
   const [explainabilityData, setExplainabilityData] = useState(null);
   const [healthData, setHealthData] = useState(null);

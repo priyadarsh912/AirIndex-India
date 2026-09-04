@@ -2,7 +2,7 @@ import React from 'react';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Cell } from 'recharts';
 import { Plane, CheckCircle2 } from 'lucide-react';
 
-export default function AirlineComparisonChart({ airlineData, selectedAirline = 'ALL', onSelectAirline }) {
+export default function AirlineComparisonChart({ airlineData, airlines, selectedAirline = 'ALL', onSelectAirline }) {
   const defaultAirlines = [
     { airline: 'IndiGo', avg_fare: 5400, min_fare: 4200, max_fare: 7800, observation_count: 7420 },
     { airline: 'Air India', avg_fare: 5150, min_fare: 4100, max_fare: 8200, observation_count: 2750 },
@@ -10,7 +10,8 @@ export default function AirlineComparisonChart({ airlineData, selectedAirline = 
     { airline: 'Akasa Air', avg_fare: 4710, min_fare: 3650, max_fare: 6500, observation_count: 1076 },
   ];
 
-  const data = (airlineData && airlineData.length > 0) ? airlineData : defaultAirlines;
+  const incomingData = airlineData || airlines;
+  const data = (incomingData && incomingData.length > 0) ? incomingData : defaultAirlines;
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {

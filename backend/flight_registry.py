@@ -86,9 +86,36 @@ INDIGO_REGISTRY: Dict[str, Dict] = {
     "6E-513":  {"origin": "DEL", "destination": "JAI", "route": "DEL-JAI"},
     # BLR-COK corridor
     "6E-541":  {"origin": "BLR", "destination": "COK", "route": "BLR-COK"},
-    # DEL-LKO corridor
-    "6E-361":  {"origin": "DEL", "destination": "LKO", "route": "DEL-LKO"},
-    "6E-363":  {"origin": "DEL", "destination": "LKO", "route": "DEL-LKO"},
+    # Additional Corridors for 52-Corridor Completeness
+    "6E-2411": {"origin": "PNQ", "destination": "DEL", "route": "PNQ-DEL"},
+    "6E-211":  {"origin": "DEL", "destination": "AMD", "route": "DEL-AMD"},
+    "6E-362":  {"origin": "LKO", "destination": "DEL", "route": "LKO-DEL"},
+    "6E-531":  {"origin": "BOM", "destination": "HYD", "route": "BOM-HYD"},
+    "6E-532":  {"origin": "HYD", "destination": "BOM", "route": "HYD-BOM"},
+    "6E-201":  {"origin": "DEL", "destination": "PAT", "route": "DEL-PAT"},
+    "6E-621":  {"origin": "BOM", "destination": "PAT", "route": "BOM-PAT"},
+    "6E-451":  {"origin": "BLR", "destination": "PNQ", "route": "BLR-PNQ"},
+    "6E-2212": {"origin": "GAU", "destination": "DEL", "route": "GAU-DEL"},
+    "6E-311":  {"origin": "CCU", "destination": "GAU", "route": "CCU-GAU"},
+    "6E-2051": {"origin": "DEL", "destination": "IXB", "route": "DEL-IXB"},
+    "6E-612":  {"origin": "CCU", "destination": "IXB", "route": "CCU-IXB"},
+    "6E-2121": {"origin": "DEL", "destination": "IXC", "route": "DEL-IXC"},
+    "6E-7111": {"origin": "MAA", "destination": "TRZ", "route": "MAA-TRZ"},
+    "6E-542":  {"origin": "COK", "destination": "BLR", "route": "COK-BLR"},
+    "6E-7201": {"origin": "HYD", "destination": "VGA", "route": "HYD-VGA"},
+    "6E-2762": {"origin": "GOI", "destination": "DEL", "route": "GOI-DEL"},
+    "6E-602":  {"origin": "GOI", "destination": "BOM", "route": "GOI-BOM"},
+    "6E-551":  {"origin": "BLR", "destination": "GOI", "route": "BLR-GOI"},
+    "6E-5011": {"origin": "SXR", "destination": "DEL", "route": "SXR-DEL"},
+    "6E-2181": {"origin": "DEL", "destination": "IXL", "route": "DEL-IXL"},
+    "6E-2201": {"origin": "DEL", "destination": "VNS", "route": "DEL-VNS"},
+    "6E-641":  {"origin": "BOM", "destination": "VNS", "route": "BOM-VNS"},
+    "6E-491":  {"origin": "BLR", "destination": "IXE", "route": "BLR-IXE"},
+    "6E-7241": {"origin": "HYD", "destination": "RPR", "route": "HYD-RPR"},
+    "6E-631":  {"origin": "BOM", "destination": "NAG", "route": "BOM-NAG"},
+    "6E-7181": {"origin": "BLR", "destination": "VTZ", "route": "BLR-VTZ"},
+    "6E-651":  {"origin": "BOM", "destination": "IDR", "route": "BOM-IDR"},
+    "6E-2151": {"origin": "DEL", "destination": "UDR", "route": "DEL-UDR"},
 }
 
 # Real representative Air India (AI) flights
@@ -119,13 +146,39 @@ AIR_INDIA_REGISTRY: Dict[str, Dict] = {
     "AI-532": {"origin": "DEL", "destination": "MAA", "route": "DEL-MAA"},
     # DEL-GOI
     "AI-651": {"origin": "DEL", "destination": "GOI", "route": "DEL-GOI"},
+    "AI-652": {"origin": "GOI", "destination": "DEL", "route": "GOI-DEL"},
     # DEL-GAU
     "AI-891": {"origin": "DEL", "destination": "GAU", "route": "DEL-GAU"},
+    "AI-892": {"origin": "GAU", "destination": "DEL", "route": "GAU-DEL"},
     # BLR-HYD
     "AI-541": {"origin": "BLR", "destination": "HYD", "route": "BLR-HYD"},
     # HYD-VTZ (real AI flight on this corridor)
     "AI-677": {"origin": "HYD", "destination": "VTZ", "route": "HYD-VTZ"},
     "AI-679": {"origin": "HYD", "destination": "VTZ", "route": "HYD-VTZ"},
+    # AMD-BOM & BOM-AMD corridors
+    "AI-031": {"origin": "AMD", "destination": "BOM", "route": "AMD-BOM"},
+    "AI-033": {"origin": "AMD", "destination": "BOM", "route": "AMD-BOM"},
+    "AI-030": {"origin": "BOM", "destination": "AMD", "route": "BOM-AMD"},
+    # Other Key Domestic Corridors
+    "AI-849": {"origin": "DEL", "destination": "PNQ", "route": "DEL-PNQ"},
+    "AI-850": {"origin": "PNQ", "destination": "DEL", "route": "PNQ-DEL"},
+    "AI-011": {"origin": "DEL", "destination": "AMD", "route": "DEL-AMD"},
+    "AI-431": {"origin": "DEL", "destination": "LKO", "route": "DEL-LKO"},
+    "AI-432": {"origin": "LKO", "destination": "DEL", "route": "LKO-DEL"},
+    "AI-615": {"origin": "BOM", "destination": "HYD", "route": "BOM-HYD"},
+    "AI-616": {"origin": "HYD", "destination": "BOM", "route": "HYD-BOM"},
+    "AI-409": {"origin": "DEL", "destination": "PAT", "route": "DEL-PAT"},
+    "AI-673": {"origin": "BOM", "destination": "PAT", "route": "BOM-PAT"},
+    "AI-883": {"origin": "DEL", "destination": "IXB", "route": "DEL-IXB"},
+    "AI-825": {"origin": "DEL", "destination": "SXR", "route": "DEL-SXR"},
+    "AI-826": {"origin": "SXR", "destination": "DEL", "route": "SXR-DEL"},
+    "AI-447": {"origin": "DEL", "destination": "IXL", "route": "DEL-IXL"},
+    "AI-407": {"origin": "DEL", "destination": "VNS", "route": "DEL-VNS"},
+    "AI-695": {"origin": "BOM", "destination": "VNS", "route": "BOM-VNS"},
+    "AI-491": {"origin": "DEL", "destination": "JAI", "route": "DEL-JAI"},
+    "AI-629": {"origin": "BOM", "destination": "NAG", "route": "BOM-NAG"},
+    "AI-635": {"origin": "BOM", "destination": "IDR", "route": "BOM-IDR"},
+    "AI-471": {"origin": "DEL", "destination": "UDR", "route": "DEL-UDR"},
 }
 
 # Real representative Air India Express (IX) flights

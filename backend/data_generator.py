@@ -94,7 +94,7 @@ def generate_fixture_dataset(days_back: int = 30) -> Dict[str, Any]:
     """Generates 30 days of realistic observations across all 52 routes."""
     random.seed(42)  # Reproducible high-quality baseline
     
-    end_date = datetime(2026, 9, 3)
+    end_date = datetime(2026, 9, 4)
     start_date = end_date - timedelta(days=days_back - 1)
     
     raw_observations: List[Dict[str, Any]] = []

@@ -31,7 +31,7 @@ class TestAirIndexBackend(unittest.TestCase):
     def test_index_computation(self):
         self.assertGreater(self.index_results["current_index"], 50.0)
         self.assertEqual(len(self.index_results["daily_trend"]), 30)
-        self.assertEqual(len(self.index_results["routes"]), 6)
+        self.assertEqual(len(self.index_results["routes"]), 52)
         self.assertEqual(len(self.index_results["airlines"]), 4)
 
     def test_anomalies(self):

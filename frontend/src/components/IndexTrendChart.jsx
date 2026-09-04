@@ -43,11 +43,20 @@ export default function IndexTrendChart({
     onFilterChange?.({ route: 'ALL', airline: 'ALL', window: 'ALL', frequency: 'Daily' });
   };
 
-  // Ensure format fits frequency
+  // Ensure format fits frequency and clearly highlights the current month
+  const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  
   const formattedData = (trendData || []).map((d) => {
     let displayDate = d.date;
     if (frequency === 'Daily' && d.date && d.date.length >= 10) {
-      displayDate = d.date.substring(5); // MM-DD
+      // Convert YYYY-MM-DD to "Aug 15" or "Sep 04" so current month is immediately obvious
+      const mIdx = parseInt(d.date.substring(5, 7), 10) - 1;
+      const day = d.date.substring(8, 10);
+      if (mIdx >= 0 && mIdx < 12) {
+        displayDate = `${MONTH_NAMES[mIdx]} ${day}`;
+      } else {
+        displayDate = d.date.substring(5);
+      }
     }
     return {
       date: displayDate,
@@ -63,11 +72,20 @@ export default function IndexTrendChart({
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
+      const fullDateStr = payload[0]?.payload?.fullDate || label;
+      const isCurrentMonth = fullDateStr?.includes('2026-09') || fullDateStr?.includes('Sep') || fullDateStr?.includes('September');
       return (
         <div className="bg-navy-950/95 border border-navy-700 p-3.5 rounded-xl shadow-2xl backdrop-blur-md text-xs font-mono">
-          <p className="font-semibold text-slate-300 mb-1.5 border-b border-navy-800 pb-1">
-            Period: {payload[0]?.payload?.fullDate || label}
-          </p>
+          <div className="flex items-center justify-between gap-2 mb-1.5 border-b border-navy-800 pb-1">
+            <span className="font-semibold text-slate-300">
+              Period: {fullDateStr}
+            </span>
+            {isCurrentMonth && (
+              <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.2 rounded border border-emerald-500/30">
+                Current Month
+              </span>
+            )}
+          </div>
           <div className="space-y-1">
             <p className="text-blue-400 flex justify-between space-x-4">
               <span>Weighted Index (APIx):</span>
@@ -119,12 +137,24 @@ export default function IndexTrendChart({
                 Showing filtered metrics for {selectedRoute !== 'ALL' ? selectedRoute : 'All Routes'}
                 {selectedAirline !== 'ALL' ? ` • ${selectedAirline}` : ''}
                 {selectedWindow !== 'ALL' ? ` • ${selectedWindow}` : ''}
-                {` • ${frequency} View (${formattedData.length} data intervals)`}
+                {` • ${frequency} View (Aug - Sep 2026)`}
               </span>
             ) : (
-              'High-frequency national index aggregated across representative domestic corridors'
+              'High-frequency national index aggregated across representative domestic corridors (Rolling 30-Day Window: Aug - Sep 2026)'
             )}
           </p>
+          {selectedWindow !== 'ALL' && (
+            <div className="mt-1.5 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-900/30 border border-blue-500/20 text-[11px] text-blue-300 font-mono">
+              <Info className="w-3 h-3 text-blue-400 flex-shrink-0" />
+              <span>
+                {selectedWindow === 'T+1' && 'T+1 Immediate Window: Highest spot fare tier reflecting last-minute seat inventory demand surge.'}
+                {selectedWindow === 'T+7' && 'T+7 Near-Term Window: Short advance booking window with moderate peak-load pricing.'}
+                {selectedWindow === 'T+15' && 'T+15 Standard Window: Baseline standard booking tariff.'}
+                {selectedWindow === 'T+30' && 'T+30 Advance Purchase: Discounted early-bird tariff (standard airline revenue yield management).'}
+                {selectedWindow === 'T+45' && 'T+45 Advance Purchase: Maximum early-bird discount booking window.'}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Filter Controls */}

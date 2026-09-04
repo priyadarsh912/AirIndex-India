@@ -103,17 +103,36 @@ export const DEFAULT_52_ROUTES = [
   {"route": "DEL-UDR", "name": "Delhi to Udaipur", "cluster": "Emerging Hubs", "current_fare": 3880, "base_fare": 3500, "change_24h": 3.4, "weight": 0.008, "price_relative": 110.9}
 ];
 
-export const DEFAULT_30_DAY_TREND = Array.from({ length: 30 }, (_, i) => {
-  const day = i + 1;
-  const dateStr = `2026-08-${day.toString().padStart(2, '0')}`;
-  const base = 120 + Math.sin(day / 3.5) * 5.5 + (day * 0.28);
-  const avgFare = 4800 + Math.round(Math.sin(day / 3.5) * 260 + (day * 15));
-  return {
-    date: dateStr,
-    full_date: dateStr,
-    weighted_index: parseFloat(base.toFixed(1)),
-    jevons_index: parseFloat((base - 1.2).toFixed(1)),
-    fisher_index: parseFloat((base - 0.6).toFixed(1)),
-    avg_fare: avgFare
-  };
-});
+export const DEFAULT_30_DAY_TREND = (() => {
+  // Rolling 30-day window ending on current system date (2026-09-04)
+  const endDate = new Date('2026-09-04T00:00:00Z');
+  // Daily market variations representing realistic weekday/weekend travel spikes and dynamic pricing
+  const dayVariations = [
+    -1.8, -0.9, 1.4, 3.1, 2.5, -0.8, -1.5,
+    -1.1, 0.4, 2.2, 3.8, 1.9, -0.4, -1.2,
+    -0.6, 1.1, 2.8, 4.2, 2.1, -0.7, -1.4,
+    -0.2, 1.8, 3.5, 4.8, 3.2, 0.6, -0.5, 1.2, 2.4
+  ];
+
+  return Array.from({ length: 30 }, (_, i) => {
+    const d = new Date(endDate);
+    d.setDate(d.getDate() - (29 - i));
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    const dateStr = `${year}-${month}-${day}`;
+    
+    const variation = dayVariations[i] ?? 0;
+    const base = 124.5 + variation + (i * 0.12);
+    const avgFare = Math.round(4950 + (variation * 48) + (i * 12));
+
+    return {
+      date: dateStr,
+      full_date: dateStr,
+      weighted_index: parseFloat(base.toFixed(1)),
+      jevons_index: parseFloat((base - 1.2).toFixed(1)),
+      fisher_index: parseFloat((base - 0.6).toFixed(1)),
+      avg_fare: avgFare
+    };
+  });
+})();

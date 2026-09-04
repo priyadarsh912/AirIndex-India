@@ -10,10 +10,16 @@ export default function BacktestValidationView({ backtestData }) {
     days_backtested: 30,
     benchmark_source: 'DGCA Domestic Passenger Traffic & Average Fare Monthly Statistics (Public Data)',
     series: Array.from({ length: 30 }, (_, i) => {
-      const day = i + 1;
-      const base = 120 + Math.sin(day / 3) * 6;
+      const d = new Date('2026-09-04T00:00:00Z');
+      d.setDate(d.getDate() - (29 - i));
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      const dateStr = `${year}-${month}-${day}`;
+      const dayNum = i + 1;
+      const base = 120 + Math.sin(dayNum / 3) * 6;
       return {
-        date: `2026-08-${day.toString().padStart(2, '0')}`,
+        date: dateStr,
         airindex_val: parseFloat((base + (i % 2 === 0 ? 0.8 : -0.6)).toFixed(1)),
         dgca_val: parseFloat(base.toFixed(1)),
       };

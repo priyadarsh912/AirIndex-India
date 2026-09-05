@@ -1,6 +1,6 @@
 """
 AirIndex India - Data Generator Module (52+ Route Expansion)
-Generates 30-day realistic fixture data and DGCA benchmark datasets for SIH26056.
+Generates 30-day realistic fixture data and simulated benchmark datasets (modeled on DGCA fare structure) for SIH26056.
 Covers 52 major Indian domestic flight corridors across 5 strategic clusters.
 """
 

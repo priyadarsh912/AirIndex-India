@@ -34,8 +34,12 @@ app = FastAPI(
 # Enable CORS for Next.js / React frontend cross-origin requests
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:5173",
+        "https://air-index-india.vercel.app",
+    ],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -318,12 +322,14 @@ def get_pipeline_health():
         "status": "HEALTHY",
         "tracked_routes_count": len(ROUTES_CONFIG),
         "connectors": [
-            {"airline": "MakeMyTrip (OTA)", "status": "ONLINE", "latency_ms": 280, "records_scraped": len(SCRAPED_DATA), "robots_txt": "COMPLIANT"},
-            {"airline": "Ixigo (OTA)", "status": "ONLINE", "latency_ms": 310, "records_scraped": len(SCRAPED_DATA), "robots_txt": "COMPLIANT"},
-            {"airline": "IndiGo (Direct)", "status": "ONLINE", "latency_ms": 142, "records_today": 320, "robots_txt": "COMPLIANT"},
-            {"airline": "Air India (Direct)", "status": "ONLINE", "latency_ms": 185, "records_today": 280, "robots_txt": "COMPLIANT"},
-            {"airline": "Air India Express (Direct)", "status": "ONLINE", "latency_ms": 160, "records_today": 210, "robots_txt": "COMPLIANT"},
-            {"airline": "Akasa Air (Direct)", "status": "ONLINE", "latency_ms": 210, "records_today": 190, "robots_txt": "COMPLIANT"},
+            {"source": "MakeMyTrip (OTA)", "type": "Playwright Scraper", "status": "IMPLEMENTED", "records_scraped": len(SCRAPED_DATA), "robots_txt": "COMPLIANT"},
+            {"source": "Ixigo (OTA)", "type": "Playwright Scraper", "status": "IMPLEMENTED", "records_scraped": len(SCRAPED_DATA), "robots_txt": "COMPLIANT"},
+        ],
+        "planned_connectors": [
+            {"source": "IndiGo (Direct API)", "status": "NOT_IMPLEMENTED", "notes": "Planned for production — requires airline data partnership"},
+            {"source": "Air India (Direct API)", "status": "NOT_IMPLEMENTED", "notes": "Planned for production — requires airline data partnership"},
+            {"source": "Air India Express (Direct API)", "status": "NOT_IMPLEMENTED", "notes": "Planned for production — requires airline data partnership"},
+            {"source": "Akasa Air (Direct API)", "status": "NOT_IMPLEMENTED", "notes": "Planned for production — requires airline data partnership"},
         ],
         "quality_statistics": QUALITY_STATS,
         "integrity_report": INTEGRITY_REPORT,
@@ -335,13 +341,13 @@ def get_pipeline_health():
 
 @app.get("/api/integrity")
 def get_integrity_report():
-    """Returns full data integrity report from the AI/ML Integrity Engine."""
+    """Returns full data integrity report from the Statistical Integrity Engine."""
     # Run a fresh integrity check on current data
     _, fresh_report = run_integrity_engine(COMBINED_OBSERVATIONS)
     fresh_report["contamination_warnings"] = detect_cross_route_price_contamination(INTEGRITY_CORRECTED)
     return {
         "engine": "AirIndex Integrity Engine v1.0",
-        "description": "AI/ML integrity validation: registry-based flight-route cross-check, fare arithmetic validation, carrier prefix mismatch detection, and price contamination analysis.",
+        "description": "Rule-based integrity validation: registry-based flight-route cross-check, fare arithmetic validation, carrier prefix mismatch detection, and price contamination analysis.",
         "report": fresh_report,
         "registry_size": 60,  # entries in master flight registry
         "validated_observations": len(COMBINED_OBSERVATIONS),

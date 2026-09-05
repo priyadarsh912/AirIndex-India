@@ -3,8 +3,9 @@
 ```text
  ┌────────────────────────────────────────────────────────┐
  │                 DATA SOURCES & CONNECTORS              │
- │  IndiGo | Air India | Air India Express | Akasa Air    │
- │  (Rate limiting: 1.5s, robots.txt verification)        │
+ │  MakeMyTrip (OTA) | Ixigo (OTA) [Playwright Scrapers] │
+ │  Airline Direct APIs: Planned (IndiGo, AI, IX, QP)    │
+ │  (Rate limiting: 3.0s + jitter, robots.txt compliant) │
  └──────────────────────────┬─────────────────────────────┘
                             ↓
  ┌────────────────────────────────────────────────────────┐

@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import {
   ResponsiveContainer,
   AreaChart,
@@ -109,8 +110,11 @@ export default function IndexTrendChart({
   };
 
   return (
-    <div className="gov-card p-6 rounded-2xl mb-6 border border-blue-500/20 relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-blue-600 via-cyan-400 to-indigo-600"></div>
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, type: 'spring', stiffness: 200 }}
+      className="gov-card rounded-2xl mb-6 relative overflow-hidden border border-blue-500/20"
+    >
+      <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-blue-500 to-indigo-500"></div>
 
       {/* Header & Controls */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-800/80">
@@ -305,6 +309,6 @@ export default function IndexTrendChart({
           <span>Showing <strong className="text-slate-200">{formattedData.length}</strong> {frequency.toLowerCase()} time periods</span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

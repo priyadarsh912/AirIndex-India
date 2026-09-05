@@ -31,27 +31,27 @@ export default function AirlineComparisonChart({ airlineData, airlines, selected
   };
 
   return (
-    <div className="gov-card p-6 rounded-2xl mb-6 border border-emerald-500/20 relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-emerald-500 to-teal-400"></div>
+    <div className="p-4 rounded-2xl border border-teal-500/30 bg-[#091026] relative flex flex-col justify-between h-full overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-emerald-400 to-teal-400"></div>
 
-      <div className="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-800/80">
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-2 pb-2.5 border-b border-slate-800/80">
         <div>
-          <h3 className="text-base font-bold text-white flex items-center space-x-2">
+          <h3 className="text-sm font-bold text-white flex items-center space-x-2">
             <Plane className="w-4 h-4 text-emerald-400" />
-            <span>Airline Carrier Fare Comparison</span>
+            <span>Airline Carrier Comparison</span>
             {selectedAirline !== 'ALL' && (
-              <span className="text-xs font-mono bg-emerald-950 text-emerald-300 px-2 py-0.5 rounded border border-emerald-500/30 font-semibold">
+              <span className="text-[11px] font-mono bg-emerald-950 text-emerald-300 px-2 py-0.5 rounded border border-emerald-500/30 font-semibold">
                 Filtered: {selectedAirline}
               </span>
             )}
           </h3>
-          <p className="text-xs text-slate-400">Click a carrier chip below to isolate its pricing trend</p>
+          <p className="text-[11px] text-slate-400">Click a carrier chip below to isolate its pricing trend</p>
         </div>
         <div className="flex items-center space-x-1">
           {selectedAirline !== 'ALL' && (
             <button
               onClick={() => onSelectAirline?.('ALL')}
-              className="text-xs font-mono text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 px-2.5 py-1 rounded-lg border border-slate-700 transition-all"
+              className="text-xs font-mono text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 px-2 py-0.5 rounded-lg border border-slate-700 transition-all"
             >
               Reset to All
             </button>
@@ -67,22 +67,22 @@ export default function AirlineComparisonChart({ airlineData, airlines, selected
             <button
               key={item.airline}
               onClick={() => onSelectAirline?.(isSelected ? 'ALL' : item.airline)}
-              className={`px-2.5 py-1 rounded-lg text-xs font-mono transition-all flex items-center space-x-1.5 border ${
+              className={`px-3 py-1 rounded-lg text-xs font-mono transition-all flex items-center space-x-1 border ${
                 isSelected
-                  ? 'bg-emerald-600 text-white border-emerald-400 shadow-md shadow-emerald-600/30 font-bold'
-                  : 'bg-navy-950 text-slate-300 border-navy-800 hover:border-navy-700'
+                  ? 'bg-blue-600 text-white border-blue-400 shadow-md shadow-blue-500/30 font-bold'
+                  : 'bg-[#111c38] text-slate-300 border-slate-800 hover:border-slate-700'
               }`}
             >
               <span>{item.airline}</span>
-              <span className="text-[10px] opacity-80">₹{Math.round(item.avg_fare)}</span>
+              <span className="text-[10px] opacity-80 ml-1">₹{Math.round(item.avg_fare)}</span>
             </button>
           );
         })}
       </div>
 
-      <div className="h-[230px] w-full">
+      <div className="flex-1 min-h-[220px] w-full">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
+          <BarChart data={data} margin={{ top: 15, right: 10, left: -10, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#1c2f5e" vertical={false} />
             <XAxis dataKey="airline" stroke="#64748b" tick={{ fill: '#94a3b8', fontSize: 11 }} />
             <YAxis stroke="#64748b" tick={{ fill: '#94a3b8', fontSize: 11 }} />
@@ -90,7 +90,7 @@ export default function AirlineComparisonChart({ airlineData, airlines, selected
             <Bar
               dataKey="avg_fare"
               name="Average Fare (₹)"
-              radius={[6, 6, 0, 0]}
+              radius={[4, 4, 0, 0]}
               cursor="pointer"
               onClick={(entry) => onSelectAirline?.(selectedAirline === entry.airline ? 'ALL' : entry.airline)}
             >

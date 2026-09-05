@@ -134,16 +134,10 @@ export default function App() {
         setScrapeNotification({ type: 'error', message: `Scrape error (HTTP ${res.status}): Failed to trigger backend scraper.` });
       }
     } catch (err) {
-      console.warn(`Direct connection to ${API_BASE_URL} failed, activating local scraping pipeline simulation:`, err);
-      // Graceful fallback for demo/prototype: simulate 52-route scrape update smoothly
-      setScrapeNotification({ type: 'info', message: 'Triggered 52-corridor data collection & cluster synchronization...' });
-      setTimeout(() => {
-        setIsScraping(false);
-        setScrapeNotification({ type: 'success', message: 'Pipeline refreshed across all 52 corridors & 5 cluster segments!' });
-        fetchBaseData();
-        fetchHistoryData();
-        setTimeout(() => setScrapeNotification(null), 4000);
-      }, 3500);
+      console.warn(`Direct connection to ${API_BASE_URL} failed:`, err);
+      setIsScraping(false);
+      setScrapeNotification({ type: 'warning', message: 'Backend unreachable — displaying cached demo data. Live scraping requires an active backend connection.' });
+      setTimeout(() => setScrapeNotification(null), 6000);
     }
   };
 
@@ -358,10 +352,17 @@ export default function App() {
               routes={routesData}
             />
 
-            {/* Grid 1: Route Heatmap & Airline Comparison */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <RouteHeatmap routes={routesData} selectedRoute={filters.route} onSelectRoute={(r) => handleFilterChange({ route: r })} />
-              <AirlineComparisonChart airlines={airlineData} selectedAirline={filters.airline} onSelectAirline={(a) => handleFilterChange({ airline: a })} />
+            {/* Grid 1: Route Heatmap Full Width */}
+            <div className="grid grid-cols-1 gap-6">
+              <RouteHeatmap
+                routes={routesData}
+                selectedRoute={filters.route}
+                onSelectRoute={(r) => handleFilterChange({ route: r })}
+                observations={rawObservations}
+                airlineData={airlineData}
+                selectedAirline={filters.airline}
+                onSelectAirline={(a) => handleFilterChange({ airline: a })}
+              />
             </div>
 
             {/* Grid 2: Elasticity & Surge Alerts */}

@@ -1,6 +1,6 @@
 """
 AirIndex India - Backtest Validation Engine Module
-Evaluates 30-day AirIndex India values against official public DGCA monthly fare data.
+Evaluates 30-day AirIndex India values against a simulated reference series modeled on DGCA fare structure.
 Computes Pearson Correlation, MAPE %, and RMSE.
 """
 
@@ -10,7 +10,8 @@ from typing import List, Dict, Any
 
 def run_dgca_backtest(daily_index_trend: List[Dict[str, Any]], dgca_benchmark: List[Dict[str, Any]]) -> Dict[str, Any]:
     """
-    Compares prototype index daily trend against public DGCA benchmark series.
+    Compares prototype index daily trend against simulated benchmark series
+    (modeled on DGCA domestic fare structure; not actual DGCA data).
     """
     if not daily_index_trend or not dgca_benchmark:
         return {"correlation": 0.0, "mape": 0.0, "series": []}
@@ -51,7 +52,7 @@ def run_dgca_backtest(daily_index_trend: List[Dict[str, Any]], dgca_benchmark: L
         "mape_pct": round(mape, 2),
         "rmse": round(rmse, 2),
         "days_backtested": len(merged),
-        "benchmark_source": "DGCA Domestic Passenger Traffic & Average Fare Monthly Statistics (Public Dataset)",
+        "benchmark_source": "Simulated Reference Series (modeled on DGCA domestic fare structure; prototype validation only — not actual DGCA data)",
         "status": "VALIDATED" if correlation >= 0.75 and mape <= 10.0 else "UNVERIFIED",
         "series": series
     }

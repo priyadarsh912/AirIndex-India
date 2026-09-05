@@ -24,11 +24,11 @@ AirIndex India is an institutional statistical intelligence platform designed to
    - IQR outlier bounds ($[Q_1 - 1.5\text{IQR}, Q_3 + 1.5\text{IQR}]$)
    - 0–100 quality scoring based on metadata completeness
 5. **AI-Assisted Surge & Anomaly Detection:** Real-time alert engine flagging price spikes against 7-day rolling median baselines with severity scoring (HIGH, MEDIUM, NORMAL).
-6. **30-Day DGCA Backtest Validation:** Evaluates prototype index values against public DGCA monthly average-fare statistics ($r \ge 0.84$, $\text{MAPE} \le 5.84\%$).
+6. **30-Day Backtest Validation:** Evaluates prototype index against a simulated reference series modeled on DGCA domestic fare structure ($r \ge 0.84$, $\text{MAPE} \le 5.84\%$). Production deployment would validate against actual published DGCA monthly statistics.
 7. **Index Explainability ("Why did the index move?"):** Decomposes index movement into route-level and airline-level contribution points.
 8. **Raw Data Explorer & Export:** Filterable, searchable observation registry with CSV export capability.
 9. **Institutional REST API:** Exposes endpoints (`/api/index/current`, `/api/index/history`, `/api/anomalies`, `/api/backtest`, etc.) for MoSPI/RBI data consumption.
-10. **Hybrid Collection Strategy:** Toggle between Live Connector mode (ethical scraping with rate limiting & `robots.txt` compliance) and Demo Fixture mode (12,000+ observations over 30 days).
+10. **Hybrid Collection Strategy:** Toggle between Live Connector mode (OTA scraping via Playwright for MakeMyTrip & Ixigo, with rate limiting & `robots.txt` compliance) and Demo Fixture mode (30,000+ synthetic observations over 30 days). Airline direct API connectors are planned for production.
 
 ---
 
@@ -46,12 +46,12 @@ AirIndex India is an institutional statistical intelligence platform designed to
 sih/
 ├── backend/
 │   ├── main.py                # FastAPI REST API service
-│   ├── data_generator.py      # 30-day realistic fixture & DGCA benchmark generator
+│   ├── data_generator.py      # 30-day realistic fixture & simulated benchmark generator
 │   ├── quality_engine.py       # Deduplication, IQR outlier detection, 0-100 quality score
 │   ├── index_engine.py         # Base-100 weighted index, Jevons, Fisher, elasticity
 │   ├── anomaly_engine.py       # Rolling median surge alert detection
 │   ├── backtest_engine.py      # 30-day DGCA benchmark comparison (Pearson r, MAPE)
-│   ├── connectors/            # Scraper connectors (IndiGo, Air India, Akasa Air)
+│   ├── connectors/            # OTA scraper connectors (MakeMyTrip Playwright, Ixigo Playwright)
 │   └── test_backend.py        # Backend unit tests
 ├── frontend/
 │   ├── src/

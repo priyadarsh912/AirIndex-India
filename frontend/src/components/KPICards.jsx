@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { TrendingUp, TrendingDown, ArrowUpRight, Plane, Database, Layers, CheckCircle2, Award, Building2 } from 'lucide-react';
 
 export default function KPICards({ data, indexData, routes = [], healthData, rawObsCount, filters = { route: 'ALL', airline: 'ALL', window: 'ALL' } }) {
@@ -21,7 +22,10 @@ export default function KPICards({ data, indexData, routes = [], healthData, raw
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
       {/* Card 1: Airfare Price Index */}
-      <div className="gov-card p-5 rounded-2xl relative overflow-hidden group border border-blue-500/20">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, type: 'spring', stiffness: 200 }} whileHover={{ scale: 1.02 }}
+        className="gov-card p-5 rounded-2xl relative overflow-hidden group border border-blue-500/20"
+      >
         <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-blue-500 to-cyan-400"></div>
         <div className="absolute -right-6 -bottom-6 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition-all"></div>
         
@@ -49,12 +53,15 @@ export default function KPICards({ data, indexData, routes = [], healthData, raw
 
         <div className="text-xs text-slate-400 flex justify-between items-center pt-2.5 border-t border-slate-800/80">
           <span>7-Day Trend: <strong className="text-slate-200">+{change7d}%</strong></span>
-          <span className="text-slate-500 text-[11px] font-mono">Base: Jan 2026</span>
+          <span className="text-slate-400">Target Range: 100-115</span>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Card 2: Average National Fare */}
-      <div className="gov-card p-5 rounded-2xl relative overflow-hidden group border border-emerald-500/20">
+      {/* Card 2: Current Avg Fare */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, type: 'spring', stiffness: 200 }} whileHover={{ scale: 1.02 }}
+        className="gov-card p-5 rounded-2xl relative overflow-hidden group border border-emerald-500/20"
+      >
         <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-emerald-500 to-teal-400"></div>
         <div className="absolute -right-6 -bottom-6 w-28 h-28 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all"></div>
 
@@ -93,12 +100,15 @@ export default function KPICards({ data, indexData, routes = [], healthData, raw
 
         <div className="text-xs text-slate-400 flex justify-between items-center pt-2.5 border-t border-slate-800/80">
           <span className="truncate">{isFiltered ? `Filter: ${filterLabel}` : `Weighted ${totalCorridorsCount} Corridors`}</span>
-          <span className="text-emerald-400 font-mono text-[11px] font-semibold">Economy Class</span>
+          <span className="text-emerald-400 font-mono text-[11px] font-semibold">Economy</span>
         </div>
-      </div>
+      </motion.div>
 
-      {/* Card 3: Observations Collected */}
-      <div className="gov-card p-5 rounded-2xl relative overflow-hidden group border border-purple-500/20">
+      {/* Card 3: 52 Corridors / Data Density */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, type: 'spring', stiffness: 200 }} whileHover={{ scale: 1.02 }}
+        className="gov-card p-5 rounded-2xl relative overflow-hidden group border border-indigo-500/20"
+      >
         <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-purple-500 to-indigo-400"></div>
         <div className="absolute -right-6 -bottom-6 w-28 h-28 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-all"></div>
 
@@ -126,10 +136,13 @@ export default function KPICards({ data, indexData, routes = [], healthData, raw
           <span>{isFiltered ? 'Active sample pool' : 'Harvested live daily'}</span>
           <span className="text-purple-300 font-mono text-[11px] font-semibold">Confidence 98.4%</span>
         </div>
-      </div>
+      </motion.div>
 
       {/* Card 4: Tracked Basket Coverage */}
-      <div className="gov-card p-5 rounded-2xl relative overflow-hidden group border border-amber-500/20">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, type: 'spring', stiffness: 200 }} whileHover={{ scale: 1.02 }}
+        className="gov-card p-5 rounded-2xl relative overflow-hidden group border border-amber-500/20"
+      >
         <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-amber-500 to-orange-400"></div>
         <div className="absolute -right-6 -bottom-6 w-28 h-28 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all"></div>
 
@@ -157,7 +170,7 @@ export default function KPICards({ data, indexData, routes = [], healthData, raw
           <span className="truncate">{filters.airline !== 'ALL' ? filters.airline : 'IndiGo, AI, Express, Akasa'}</span>
           <span className="text-amber-400 font-mono text-[11px] font-semibold">{filters.window !== 'ALL' ? filters.window : 'T+1 to T+45'}</span>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

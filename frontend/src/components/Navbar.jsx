@@ -1,65 +1,82 @@
-import React, { useState } from 'react';
-import { Activity, ShieldCheck, ShieldAlert, Database, RefreshCw, Layers, Terminal, AlertTriangle, FileCheck, CheckCircle2, Loader2 } from 'lucide-react';
+import React from 'react';
+import { Activity, ShieldCheck, ShieldAlert, Database, RefreshCw, Layers, Terminal, AlertTriangle, FileCheck, CheckCircle2, Loader2, Landmark } from 'lucide-react';
 
-export default function Navbar({ activeTab, setActiveTab, liveMode, setLiveMode, lastUpdated, isScraping, onTriggerScrape }) {
+export default function Navbar({ activeTab, setActiveTab, liveMode, setLiveMode, isScraping, onTriggerScrape }) {
   return (
-    <header className="border-b border-navy-800 bg-navy-900/90 backdrop-blur-md sticky top-0 z-50">
-      {/* Top Government Emblem Bar */}
-      <div className="bg-navy-950 px-4 py-1.5 border-b border-navy-800 flex justify-between items-center text-xs text-slate-400">
+    <header className="border-b border-slate-800/80 bg-[#070e22]/95 backdrop-blur-xl sticky top-0 z-50 shadow-2xl">
+      {/* Tiranga National Ribbon */}
+      <div className="tiranga-ribbon"></div>
+
+      {/* Top Government Official Authority Bar */}
+      <div className="bg-[#030712] px-4 sm:px-6 py-2 border-b border-slate-800/90 flex flex-wrap justify-between items-center text-xs text-slate-300">
         <div className="flex items-center space-x-3">
-          <div className="flex items-center space-x-1.5 text-blue-400 font-semibold">
-            <ShieldCheck className="w-4 h-4 text-blue-400" />
-            <span>Ministry of Statistics & Programme Implementation (MoSPI)</span>
+          <div className="flex items-center space-x-2 text-amber-400 font-semibold tracking-wide">
+            {/* Ashoka Stambh / Government of India Motif */}
+            <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center text-[#040814] shadow-sm font-bold text-[10px]">
+              🏛️
+            </div>
+            <span className="text-slate-100 font-medium">भारत सरकार | Government of India</span>
           </div>
-          <span className="text-navy-700">|</span>
-          <span className="text-slate-400 hidden md:inline">Data Informatics & Innovation Division (DIID)</span>
-          <span className="text-navy-700 hidden md:inline">|</span>
-          <span className="text-amber-400 font-medium hidden lg:inline">SIH26056 Prototype</span>
+          <span className="text-slate-700 hidden sm:inline">|</span>
+          <span className="text-slate-300 hidden md:inline font-medium">
+            Ministry of Statistics & Programme Implementation (MoSPI)
+          </span>
+          <span className="text-slate-700 hidden lg:inline">|</span>
+          <span className="text-blue-400 hidden lg:inline font-mono text-[11px]">
+            National Statistical Office (NSO) • DIID
+          </span>
         </div>
-        <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span className="text-slate-300 font-mono">System Online</span>
+
+        <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 bg-emerald-950/60 text-emerald-300 border border-emerald-500/30 px-2.5 py-0.5 rounded-full font-mono text-[11px]">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="font-semibold tracking-tight">NATIONAL CLOUD LIVE</span>
           </div>
-          <span className="text-navy-700">|</span>
-          <div className="text-slate-400 font-mono text-[11px]">
-            Updated: <span className="text-slate-200">{lastUpdated || '03 Sep 2026, 21:42 IST'}</span>
-          </div>
+          <span className="text-slate-700 hidden sm:inline">|</span>
+          <span className="hidden sm:inline-block text-[11px] text-amber-400/90 font-mono tracking-wider">
+            SIH-26056 OFFICIAL
+          </span>
         </div>
       </div>
 
-      {/* Main Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
-        {/* Brand Logo & Title */}
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center shadow-lg shadow-blue-500/20 border border-blue-400/30">
-            <Activity className="w-6 h-6 text-white" />
+      {/* Main Brand & Controls Navigation Bar */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-4">
+        {/* Brand Logo & Title with Government Seal Styling */}
+        <div className="flex items-center space-x-3.5">
+          <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-700 via-indigo-800 to-blue-950 flex items-center justify-center shadow-lg shadow-blue-900/30 border border-blue-400/40 relative group">
+            <div className="absolute inset-0 bg-blue-400/10 rounded-xl blur-sm group-hover:bg-blue-400/20 transition-all"></div>
+            <Activity className="w-6 h-6 text-cyan-300 relative z-10 drop-shadow" />
           </div>
           <div>
-            <div className="flex items-center space-x-2">
-              <h1 className="text-xl font-bold tracking-tight text-white">
-                AirIndex <span className="text-blue-400">India</span>
+            <div className="flex items-center space-x-2.5">
+              <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center gap-1.5">
+                AirIndex <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">India</span>
               </h1>
-              <span className="bg-blue-500/10 text-blue-400 border border-blue-500/20 text-[10px] font-mono px-2 py-0.5 rounded-full uppercase tracking-wider font-semibold">
-                APIx v1.1
+              <span className="bg-blue-950/80 text-blue-300 border border-blue-500/30 text-[10px] font-mono px-2 py-0.5 rounded-md uppercase tracking-wider font-bold">
+                APIx v1.2
+              </span>
+              <span className="bg-emerald-950/70 text-emerald-400 border border-emerald-500/30 text-[10px] font-mono px-2 py-0.5 rounded-md uppercase tracking-wider font-semibold hidden md:inline">
+                DGCA Validated
               </span>
             </div>
-            <p className="text-xs text-slate-400">Real-Time Airfare Price Index & Statistical Intelligence Platform</p>
+            <p className="text-xs text-slate-400 font-normal">
+              High-Frequency Airfare Consumer Price Index & Algorithmic Surveillance Engine
+            </p>
           </div>
         </div>
 
         {/* Live Scraper Controls & Mode Switcher */}
-        <div className="flex items-center space-x-3 bg-navy-950 p-1.5 rounded-xl border border-navy-800">
+        <div className="flex items-center space-x-2.5 bg-[#030712]/90 p-1.5 rounded-xl border border-slate-800 shadow-inner">
           <button
             onClick={() => setLiveMode(false)}
             className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center space-x-1.5 ${
               !liveMode
-                ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-blue-600 text-white shadow-md shadow-blue-600/30 font-semibold'
+                : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
             }`}
           >
             <Database className="w-3.5 h-3.5" />
-            <span>Fixture Data</span>
+            <span>Benchmark Data</span>
           </button>
           
           <button
@@ -70,14 +87,14 @@ export default function Navbar({ activeTab, setActiveTab, liveMode, setLiveMode,
             disabled={isScraping}
             className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center space-x-1.5 ${
               liveMode
-                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30'
-                : 'text-slate-400 hover:text-white'
-            } ${isScraping ? 'opacity-80 cursor-not-allowed' : ''}`}
+                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30 font-semibold'
+                : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+            } ${isScraping ? 'opacity-85 cursor-not-allowed' : ''}`}
           >
             {isScraping ? (
               <>
                 <Loader2 className="w-3.5 h-3.5 animate-spin text-amber-300" />
-                <span className="text-amber-200 font-semibold">Scraping MMT & Ixigo...</span>
+                <span className="text-amber-200 font-semibold">Harvesting Corridors...</span>
               </>
             ) : (
               <>
@@ -89,8 +106,8 @@ export default function Navbar({ activeTab, setActiveTab, liveMode, setLiveMode,
         </div>
       </div>
 
-      {/* Tabs Menu */}
-      <div className="max-w-7xl mx-auto px-4 flex space-x-1 overflow-x-auto text-xs font-medium scrollbar-none border-t border-navy-800/60 pt-1">
+      {/* Tabs Menu Navigation */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex space-x-1 overflow-x-auto text-xs font-medium scrollbar-none border-t border-slate-800/70 pt-1">
         {[
           { id: 'overview', label: 'National Dashboard', icon: Activity },
           { id: 'routes', label: 'Corridor Analytics', icon: Layers },
@@ -109,10 +126,10 @@ export default function Navbar({ activeTab, setActiveTab, liveMode, setLiveMode,
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center space-x-2 px-3.5 py-2.5 rounded-t-lg transition-all border-b-2 font-medium whitespace-nowrap ${
+              className={`flex items-center space-x-2 px-3.5 py-2.5 rounded-t-lg transition-all border-b-2 whitespace-nowrap text-xs ${
                 isActive
-                  ? 'border-blue-500 bg-navy-850 text-blue-400 font-semibold'
-                  : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-navy-850/50'
+                  ? 'border-blue-400 bg-gradient-to-t from-blue-950/60 to-transparent text-blue-300 font-bold shadow-[0_2px_12px_rgba(59,130,246,0.15)]'
+                  : 'border-transparent text-slate-400 hover:text-slate-100 hover:bg-slate-800/40 font-medium'
               }`}
             >
               <Icon className={`w-4 h-4 ${isActive ? 'text-blue-400' : 'text-slate-500'}`} />

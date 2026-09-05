@@ -31,14 +31,16 @@ export default function AirlineComparisonChart({ airlineData, airlines, selected
   };
 
   return (
-    <div className="glass-card p-6 rounded-2xl mb-6">
-      <div className="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-navy-800">
+    <div className="gov-card p-6 rounded-2xl mb-6 border border-emerald-500/20 relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-emerald-500 to-teal-400"></div>
+
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-800/80">
         <div>
           <h3 className="text-base font-bold text-white flex items-center space-x-2">
             <Plane className="w-4 h-4 text-emerald-400" />
             <span>Airline Carrier Fare Comparison</span>
             {selectedAirline !== 'ALL' && (
-              <span className="text-xs font-mono bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/30">
+              <span className="text-xs font-mono bg-emerald-950 text-emerald-300 px-2 py-0.5 rounded border border-emerald-500/30 font-semibold">
                 Filtered: {selectedAirline}
               </span>
             )}
@@ -49,9 +51,9 @@ export default function AirlineComparisonChart({ airlineData, airlines, selected
           {selectedAirline !== 'ALL' && (
             <button
               onClick={() => onSelectAirline?.('ALL')}
-              className="text-xs font-mono text-slate-400 hover:text-white bg-navy-950 px-2 py-1 rounded-lg border border-navy-800"
+              className="text-xs font-mono text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 px-2.5 py-1 rounded-lg border border-slate-700 transition-all"
             >
-              All Carriers
+              Reset to All
             </button>
           )}
         </div>

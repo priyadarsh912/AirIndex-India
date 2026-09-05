@@ -23,15 +23,20 @@ export default function ExplainabilityView({ explainabilityData }) {
   return (
     <div className="space-y-6">
       {/* Top Explanation Banner */}
-      <div className="glass-card p-6 rounded-2xl border-l-4 border-l-blue-500">
-        <div className="flex items-center space-x-3 mb-2">
-          <FileCheck className="w-6 h-6 text-blue-400" />
-          <h2 className="text-lg font-bold text-white">Index Movement Explainability — "Why Did the Index Move?"</h2>
+      <div className="gov-card p-6 rounded-2xl border-l-4 border-l-blue-500 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-blue-500 to-cyan-400"></div>
+        <div className="flex items-center space-x-3.5 mb-2">
+          <div className="p-2.5 bg-blue-950 text-blue-300 rounded-xl border border-blue-500/30 shadow-inner">
+            <FileCheck className="w-6 h-6" />
+          </div>
+          <div>
+            <h2 className="text-lg font-bold text-white">Index Movement Explainability — Statistical Decomposition</h2>
+            <p className="text-xs text-slate-300">
+              Granular econometric decomposition of the <strong className="text-blue-400">+{data.index_change_24h_pct}%</strong> 24-hour index movement.
+              Primary upward pressure was driven by <strong className="text-white">{data.primary_driver_corridor}</strong> (+{data.primary_driver_impact_pct}%), while <strong className="text-slate-300">{data.stabilizing_corridor}</strong> exerted stabilizing downward pressure.
+            </p>
+          </div>
         </div>
-        <p className="text-xs text-slate-300">
-          Statistical decomposition of the <strong className="text-blue-400">+{data.index_change_24h_pct}%</strong> 24-hour index movement.
-          The primary upward pressure was driven by <strong className="text-white">{data.primary_driver_corridor}</strong> (+{data.primary_driver_impact_pct}%), while <strong className="text-slate-300">{data.stabilizing_corridor}</strong> exerted stabilizing downward pressure.
-        </p>
       </div>
 
       {/* Contribution Table */}

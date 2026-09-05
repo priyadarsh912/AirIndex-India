@@ -31,19 +31,20 @@ export default function BacktestValidationView({ backtestData }) {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="glass-card p-6 rounded-2xl border-l-4 border-l-emerald-500">
+      <div className="gov-card p-6 rounded-2xl border-l-4 border-l-emerald-500 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-emerald-500 to-teal-400"></div>
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center space-x-3">
-            <div className="p-2.5 bg-emerald-500/20 text-emerald-400 rounded-xl border border-emerald-500/30">
+          <div className="flex items-center space-x-3.5">
+            <div className="p-3 bg-emerald-950/80 text-emerald-300 rounded-xl border border-emerald-500/30 shadow-inner">
               <CheckCircle2 className="w-6 h-6" />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-white">30-Day Backtest Validation vs. Public DGCA Benchmark Data</h2>
-              <p className="text-xs text-slate-400">Official Problem Statement Requirement: Validation against DGCA Monthly Average-Fare Series</p>
+              <h2 className="text-lg font-bold text-white">30-Day Backtest Validation vs. Official DGCA Benchmark Series</h2>
+              <p className="text-xs text-slate-300">Statutory Benchmark Validation against Directorate General of Civil Aviation (DGCA) monthly tariff records</p>
             </div>
           </div>
-          <span className="text-xs font-mono bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 px-3 py-1 rounded-full font-bold">
-            STATUS: VALIDATED (Correlation ≥ 0.75)
+          <span className="text-xs font-mono bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 px-3.5 py-1.5 rounded-full font-bold shadow-sm">
+            STATUS: STATISTICALLY VALIDATED (r ≥ 0.75)
           </span>
         </div>
       </div>

@@ -43,14 +43,19 @@ export default function APIDocsView() {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="glass-card p-6 rounded-2xl border-l-4 border-l-cyan-500">
-        <div className="flex items-center space-x-3 mb-2">
-          <Terminal className="w-6 h-6 text-cyan-400" />
-          <h2 className="text-lg font-bold text-white">Institutional RESTful API Portal (MoSPI & RBI Integration)</h2>
+      <div className="gov-card p-6 rounded-2xl border-l-4 border-l-cyan-500 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-cyan-500 to-blue-500"></div>
+        <div className="flex items-center space-x-3.5 mb-2">
+          <div className="p-2.5 bg-cyan-950 text-cyan-300 rounded-xl border border-cyan-500/30 shadow-inner">
+            <Terminal className="w-6 h-6" />
+          </div>
+          <div>
+            <h2 className="text-lg font-bold text-white">Institutional RESTful API Portal (MoSPI & RBI Integration)</h2>
+            <p className="text-xs text-slate-300">
+              High-frequency data streaming API endpoints for official price index calculation and monetary policy research.
+            </p>
+          </div>
         </div>
-        <p className="text-xs text-slate-300">
-          High-frequency data streaming API endpoints for official price index calculation and monetary policy research.
-        </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

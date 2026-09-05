@@ -123,18 +123,19 @@ export default function DataIntegrityView({ observations = [] }) {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className={`glass-card p-6 rounded-2xl border-l-4 ${isHealthy ? 'border-l-emerald-500' : isWarning ? 'border-l-amber-500' : 'border-l-red-500'}`}>
-        <div className="flex items-start justify-between">
+      <div className={`gov-card p-6 rounded-2xl border-l-4 relative overflow-hidden ${isHealthy ? 'border-l-emerald-500' : isWarning ? 'border-l-amber-500' : 'border-l-red-500'}`}>
+        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500"></div>
+        <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <div className="flex items-center space-x-3 mb-2">
+            <div className="flex flex-wrap items-center gap-3 mb-2">
               <ShieldCheck className={`w-6 h-6 ${isHealthy ? 'text-emerald-400' : isWarning ? 'text-amber-400' : 'text-red-400'}`} />
-              <h2 className="text-lg font-bold text-white">AI/ML Data Integrity Engine</h2>
+              <h2 className="text-lg font-bold text-white">National Data Integrity & Validation Audit Center</h2>
               <span className={`px-3 py-1 text-xs font-bold rounded-full border font-mono ${statusBg} ${statusColor}`}>
-                {integrityPct}% INTEGRITY
+                {integrityPct}% SYSTEM INTEGRITY
               </span>
             </div>
-            <p className="text-xs text-slate-300 max-w-2xl">
-              Multi-layer validation pipeline: Master Flight Registry cross-check (60+ real flights), carrier prefix validation,
+            <p className="text-xs text-slate-300 max-w-3xl leading-relaxed">
+              Multi-layer cryptographic validation pipeline: Master Flight Registry cross-check (60+ real flights), carrier prefix validation,
               fare arithmetic correction, IQR price-range bounds, and cross-route contamination detection.
               Synthetic sequential flight numbers are auto-replaced with verified registry entries.
             </p>

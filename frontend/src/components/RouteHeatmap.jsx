@@ -14,14 +14,16 @@ export default function RouteHeatmap({ routes, selectedRoute = 'ALL', onSelectRo
   const list = (routes && routes.length > 0) ? routes : defaultRoutes;
 
   return (
-    <div className="glass-card p-6 rounded-2xl mb-6">
-      <div className="flex items-center justify-between mb-4 pb-3 border-b border-navy-800">
+    <div className="gov-card p-6 rounded-2xl mb-6 border border-blue-500/20 relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-blue-500 to-indigo-500"></div>
+
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-800/80">
         <div>
           <h3 className="text-base font-bold text-white flex items-center space-x-2">
             <Layers className="w-4 h-4 text-blue-400" />
             <span>Corridor Price Pressure Heatmap</span>
             {selectedRoute !== 'ALL' && (
-              <span className="text-xs font-mono bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded border border-blue-500/30">
+              <span className="text-xs font-mono bg-blue-950 text-blue-300 px-2 py-0.5 rounded border border-blue-500/30">
                 Filtered: {selectedRoute}
               </span>
             )}
@@ -32,13 +34,13 @@ export default function RouteHeatmap({ routes, selectedRoute = 'ALL', onSelectRo
           {selectedRoute !== 'ALL' && (
             <button
               onClick={() => onSelectRoute?.('ALL')}
-              className="text-xs font-mono text-slate-400 hover:text-white bg-navy-950 px-2.5 py-1 rounded-lg border border-navy-800"
+              className="text-xs font-mono text-slate-300 hover:text-white bg-slate-900 hover:bg-slate-800 px-2.5 py-1 rounded-lg border border-slate-700 transition-all"
             >
-              Show All Corridors
+              Reset to All
             </button>
           )}
-          <span className="text-xs font-mono text-slate-400 bg-navy-950 px-2.5 py-1 rounded-lg border border-navy-800">
-            {list.length} Corridors
+          <span className="text-xs font-mono text-slate-300 bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">
+            {list.length} Corridors Tracked
           </span>
         </div>
       </div>

@@ -4,36 +4,101 @@
 
 @layer base {
   body {
-    @apply bg-navy-950 text-slate-100 font-sans antialiased;
+    @apply bg-[#040814] text-slate-100 font-sans antialiased;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.15) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(245, 158, 11, 0.08) 0px, transparent 40%),
+      radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.06) 0px, transparent 50%);
+    background-attachment: fixed;
   }
 }
 
-/* Custom Scrollbars */
+/* Custom Government Scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #060b18;
+  background: #040814;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1c2f5e;
+  background: #1e293b;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #27417e;
+  background: #334155;
 }
 
+/* Authentic Government Glassmorphism */
+.gov-glass {
+  background: rgba(10, 18, 38, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+}
+
+.gov-card {
+  background: linear-gradient(135deg, rgba(13, 24, 51, 0.75) 0%, rgba(8, 15, 33, 0.85) 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(59, 130, 246, 0.18);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gov-card:hover {
+  border-color: rgba(96, 165, 250, 0.4);
+  box-shadow: 0 10px 30px -4px rgba(37, 99, 235, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Backward compatibility for legacy .glass-card */
 .glass-card {
-  background: rgba(15, 26, 54, 0.75);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(39, 65, 126, 0.4);
+  background: linear-gradient(135deg, rgba(13, 24, 51, 0.75) 0%, rgba(8, 15, 33, 0.85) 100%);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(59, 130, 246, 0.18);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.glass-card-hover {
-  transition: all 0.2s ease-in-out;
-}
 .glass-card-hover:hover {
-  border-color: rgba(59, 130, 246, 0.6);
-  box-shadow: 0 4px 20px -2px rgba(37, 99, 235, 0.15);
+  border-color: rgba(96, 165, 250, 0.45);
+  box-shadow: 0 10px 30px -4px rgba(37, 99, 235, 0.22);
+  transform: translateY(-2px);
+}
+
+/* Tiranga Indian Tricolor Ribbon */
+.tiranga-ribbon {
+  background: linear-gradient(
+    90deg,
+    #ff9933 0%,
+    #ff9933 33.33%,
+    #ffffff 33.33%,
+    #ffffff 66.66%,
+    #138808 66.66%,
+    #138808 100%
+  );
+  height: 3px;
+  width: 100%;
+}
+
+/* Subtle Animated Shimmer & Pulse Glow */
+@keyframes pulseSlow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.05); }
+}
+
+.pulse-slow {
+  animation: pulseSlow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

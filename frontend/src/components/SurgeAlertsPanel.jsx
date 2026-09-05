@@ -14,8 +14,10 @@ export default function SurgeAlertsPanel({ anomalies }) {
   const alerts = (anomalies && anomalies.length > 0) ? anomalies : defaultAnomalies;
 
   return (
-    <div className="glass-card p-6 rounded-2xl mb-6">
-      <div className="flex items-center justify-between mb-4 pb-3 border-b border-navy-800">
+    <div className="gov-card p-6 rounded-2xl mb-6 border border-rose-500/20 relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-rose-500 to-amber-500"></div>
+
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-800/80">
         <div>
           <h3 className="text-base font-bold text-white flex items-center space-x-2">
             <AlertTriangle className="w-4 h-4 text-rose-400" />
@@ -23,8 +25,8 @@ export default function SurgeAlertsPanel({ anomalies }) {
           </h3>
           <p className="text-xs text-slate-400">Automated deviation detection against 7-day rolling median baselines</p>
         </div>
-        <span className="text-xs font-mono text-rose-400 bg-rose-500/10 px-2.5 py-1 rounded-lg border border-rose-500/20 font-medium">
-          {alerts.length} Active Alerts
+        <span className="text-xs font-mono text-rose-300 bg-rose-950/80 px-2.5 py-1 rounded-lg border border-rose-500/30 font-semibold">
+          {alerts.length} Active Alerts Detected
         </span>
       </div>
 

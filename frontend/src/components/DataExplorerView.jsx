@@ -55,7 +55,8 @@ export default function DataExplorerView({ observations, routes = [] }) {
   return (
     <div className="space-y-6">
       {/* Search & Export Toolbar */}
-      <div className="glass-card p-4 rounded-2xl flex flex-wrap items-center justify-between gap-4">
+      <div className="gov-card p-5 rounded-2xl flex flex-wrap items-center justify-between gap-4 border border-blue-500/20 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-blue-500 to-indigo-500"></div>
         <div className="flex flex-wrap items-center gap-3 flex-1">
           <div className="relative flex-1 min-w-[200px]">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />

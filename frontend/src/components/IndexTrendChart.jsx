@@ -109,21 +109,23 @@ export default function IndexTrendChart({
   };
 
   return (
-    <div className="glass-card p-6 rounded-2xl mb-6">
+    <div className="gov-card p-6 rounded-2xl mb-6 border border-blue-500/20 relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-blue-600 via-cyan-400 to-indigo-600"></div>
+
       {/* Header & Controls */}
-      <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-navy-800">
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-800/80">
         <div>
-          <div className="flex items-center space-x-2">
-            <h2 className="text-lg font-bold text-white flex items-center space-x-2">
+          <div className="flex items-center space-x-2.5">
+            <h2 className="text-lg sm:text-xl font-bold text-white flex items-center space-x-2.5">
               <span>Airfare Price Index (APIx) — {frequency} Trend</span>
-              <span className="text-xs font-mono font-normal text-slate-400 bg-navy-800 px-2.5 py-0.5 rounded-full border border-navy-700">
+              <span className="text-xs font-mono font-semibold text-blue-300 bg-blue-950/80 px-2.5 py-0.5 rounded-full border border-blue-500/30">
                 Base 100 = Jan 2026
               </span>
             </h2>
             {hasActiveFilters && (
               <button
                 onClick={handleReset}
-                className="text-[11px] font-mono text-amber-400 hover:text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 px-2 py-0.5 rounded-lg border border-amber-500/30 flex items-center space-x-1 transition-all"
+                className="text-[11px] font-mono text-amber-300 hover:text-amber-200 bg-amber-500/15 hover:bg-amber-500/25 px-2.5 py-1 rounded-lg border border-amber-500/30 flex items-center space-x-1.5 transition-all shadow-sm"
                 title="Reset all filters to default"
               >
                 <RotateCcw className="w-3 h-3" />
@@ -131,16 +133,16 @@ export default function IndexTrendChart({
               </button>
             )}
           </div>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-slate-400 mt-1">
             {hasActiveFilters ? (
-              <span className="text-blue-400">
-                Showing filtered metrics for {selectedRoute !== 'ALL' ? selectedRoute : 'All Routes'}
+              <span className="text-blue-300 font-medium">
+                Active filter: {selectedRoute !== 'ALL' ? selectedRoute : 'All Corridors'}
                 {selectedAirline !== 'ALL' ? ` • ${selectedAirline}` : ''}
                 {selectedWindow !== 'ALL' ? ` • ${selectedWindow}` : ''}
-                {` • ${frequency} View (Aug - Sep 2026)`}
+                {` • ${frequency} View`}
               </span>
             ) : (
-              'High-frequency national index aggregated across representative domestic corridors (Rolling 30-Day Window: Aug - Sep 2026)'
+              'High-frequency national index aggregated across representative domestic corridors (Rolling 30-Day Window)'
             )}
           </p>
           {selectedWindow !== 'ALL' && (

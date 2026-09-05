@@ -27,21 +27,23 @@ export default function BookingWindowElasticity({ elasticityData, selectedWindow
   };
 
   return (
-    <div className="glass-card p-6 rounded-2xl mb-6">
-      <div className="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-navy-800">
+    <div className="gov-card p-6 rounded-2xl mb-6 border border-amber-500/20 relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-amber-500 to-orange-400"></div>
+
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-800/80">
         <div>
           <h3 className="text-base font-bold text-white flex items-center space-x-2">
             <Clock className="w-4 h-4 text-amber-400" />
             <span>Advance Booking Window Price Elasticity Curve</span>
             {selectedWindow !== 'ALL' && (
-              <span className="text-xs font-mono bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded border border-amber-500/30">
+              <span className="text-xs font-mono bg-amber-950 text-amber-300 px-2 py-0.5 rounded border border-amber-500/30 font-semibold">
                 Filtered: {selectedWindow}
               </span>
             )}
           </h3>
           <p className="text-xs text-slate-400">Click any window button to isolate its price elasticity</p>
         </div>
-        <span className="text-xs font-mono text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/20 font-medium">
+        <span className="text-xs font-mono text-amber-300 bg-amber-950/80 px-2.5 py-1 rounded-lg border border-amber-500/30 font-semibold">
           T+45 to T+1
         </span>
       </div>

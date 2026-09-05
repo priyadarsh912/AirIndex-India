@@ -14,14 +14,19 @@ export default function PipelineHealthView({ healthData }) {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="glass-card p-6 rounded-2xl border-l-4 border-l-emerald-500">
-        <div className="flex items-center space-x-3 mb-2">
-          <ShieldCheck className="w-6 h-6 text-emerald-400" />
-          <h2 className="text-lg font-bold text-white">Data Pipeline & Scraper Connector Status</h2>
+      <div className="gov-card p-6 rounded-2xl border-l-4 border-l-emerald-500 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-emerald-500 to-teal-400"></div>
+        <div className="flex items-center space-x-3.5 mb-2">
+          <div className="p-2.5 bg-emerald-950 text-emerald-300 rounded-xl border border-emerald-500/30 shadow-inner">
+            <ShieldCheck className="w-6 h-6" />
+          </div>
+          <div>
+            <h2 className="text-lg font-bold text-white">National Data Pipeline & Scraper Connector Surveillance</h2>
+            <p className="text-xs text-slate-300">
+              Continuous health surveillance of automated ingestion nodes, rate limiting compliance, and ethical data collection safeguards.
+            </p>
+          </div>
         </div>
-        <p className="text-xs text-slate-300">
-          Real-time monitoring of automated collection connectors, rate limiting, and ethical scraping safeguards.
-        </p>
       </div>
 
       {/* Connectors Table */}

@@ -1,6 +1,6 @@
 # AirIndex India — High-Frequency Airfare Price Intelligence for India  
 
-**SIH26056** — *Development of a Real-time Airfare Price Index for India through Automated Web Scraping of Airline and Online Travel Aggregator Portals for Augmentation of the Consumer Price Index (CPI).*
+**SIH26056** — *Development of High-Frequency Airfare Price Intelligence for India through Automated Web Scraping of Airline and Online Travel Aggregator Portals for Augmentation of the Consumer Price Index (CPI).*
 
 **Organization:** Ministry of Statistics & Programme Implementation (MoSPI)  
 **Department:** Data Informatics & Innovation Division (DIID)  

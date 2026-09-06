@@ -20,10 +20,10 @@ import { DEFAULT_52_ROUTES, DEFAULT_CLUSTERS, DEFAULT_30_DAY_TREND } from './def
 
 import SCRAPED_OBSERVATIONS from './data/scrapedObservations.json';
 
-// Dynamic API Base URL configuration: uses VITE_API_URL env variable if set, otherwise defaults to live Render backend in production
+// Dynamic API Base URL configuration: uses VITE_API_URL env variable if set, otherwise empty string for Vite reverse proxy
 export const API_BASE_URL = import.meta.env.VITE_API_URL 
   ? import.meta.env.VITE_API_URL.replace(/\/$/, '') 
-  : (import.meta.env.PROD ? 'https://airindex-india-181v.onrender.com' : 'http://localhost:8000');
+  : '';
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -102,7 +102,7 @@ export default function App() {
   const handleTriggerScrape = async () => {
     if (isScraping) return;
     setIsScraping(true);
-    setScrapeNotification({ type: 'info', message: 'Triggered 50+ route scrape background job...' });
+    setScrapeNotification({ type: 'info', message: 'Triggered live OTA corridor scrape background job...' });
 
     try {
       const res = await fetch(`${API_BASE_URL}/api/scrape/trigger`, { method: 'POST' });
@@ -114,13 +114,15 @@ export default function App() {
             const statusRes = await fetch(`${API_BASE_URL}/api/scrape/status`);
             if (statusRes.ok) {
               const status = await statusRes.json();
-              if (status.status === 'idle' || status.status === 'completed') {
+              const isCompleted = !status.in_progress && (status.status === 'idle' || status.status === 'completed' || status.status === undefined);
+              if (isCompleted && attempts >= 2) {
                 clearInterval(interval);
                 setIsScraping(false);
-                setScrapeNotification({ type: 'success', message: 'Scrape completed! Refreshing metrics.' });
+                const count = status.total_live_scraped_observations || status.latest_scrape_metadata?.total_records || 'Fresh';
+                setScrapeNotification({ type: 'success', message: `Live scrape completed! Synced ${count} real-time observations into national index.` });
                 fetchBaseData();
                 fetchHistoryData();
-                setTimeout(() => setScrapeNotification(null), 5000);
+                setTimeout(() => setScrapeNotification(null), 6000);
               }
             }
           } catch (e) {
@@ -129,12 +131,15 @@ export default function App() {
           if (attempts > 30) {
             clearInterval(interval);
             setIsScraping(false);
-            setScrapeNotification({ type: 'warning', message: 'Scrape job sent to backend worker.' });
+            setScrapeNotification({ type: 'info', message: 'Scrape background worker active. Data stream syncing.' });
+            fetchBaseData();
+            setTimeout(() => setScrapeNotification(null), 5000);
           }
-        }, 3000);
+        }, 2000);
       } else {
         setIsScraping(false);
         setScrapeNotification({ type: 'error', message: `Scrape error (HTTP ${res.status}): Failed to trigger backend scraper.` });
+        setTimeout(() => setScrapeNotification(null), 5000);
       }
     } catch (err) {
       console.warn(`Direct connection to ${API_BASE_URL} failed:`, err);

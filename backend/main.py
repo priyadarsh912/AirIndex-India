@@ -31,14 +31,10 @@ app = FastAPI(
     version="1.2.0"
 )
 
-# Enable CORS for Next.js / React frontend cross-origin requests
+# Enable CORS for cross-origin requests from any frontend port or host
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://localhost:5173",
-        "https://air-index-india.vercel.app",
-    ],
+    allow_origins=["*"],
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -64,11 +60,25 @@ SCRAPE_IN_PROGRESS = False
 LAST_SCRAPE_STATUS = get_latest_scrape_metadata()
 
 
+def sync_to_frontend():
+    """Sync latest scraped observations to frontend/src/data/scrapedObservations.json."""
+    import json
+    frontend_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "frontend", "src", "data", "scrapedObservations.json")
+    if os.path.exists(os.path.dirname(frontend_path)):
+        try:
+            with open(frontend_path, "w", encoding="utf-8") as f:
+                json.dump(SCRAPED_DATA, f, indent=2)
+            print(f"[Sync] Saved {len(SCRAPED_DATA)} observations to frontend/src/data/scrapedObservations.json")
+        except Exception as e:
+            print(f"Warning: Failed to sync scraped observations to frontend: {e}")
+
+
 def refresh_pipeline_data():
     """Recalculate pipeline state across all 52 routes and clusters when new scraped observations arrive."""
     global SCRAPED_DATA, COMBINED_OBSERVATIONS, INTEGRITY_CORRECTED, INTEGRITY_REPORT, CONTAMINATION_WARNINGS
     global CLEANED_DATA, QUALITY_STATS, INDEX_RESULTS, ANOMALIES_RESULTS, CLUSTER_RESULTS, BACKTEST_RESULTS, LAST_SCRAPE_STATUS
     SCRAPED_DATA = load_scraped_observations()
+    sync_to_frontend()
     COMBINED_OBSERVATIONS = merge_scraped_with_fixture(FIXTURE_DATA["raw_observations"], SCRAPED_DATA)
     INTEGRITY_CORRECTED, INTEGRITY_REPORT = run_integrity_engine(COMBINED_OBSERVATIONS)
     CONTAMINATION_WARNINGS = detect_cross_route_price_contamination(INTEGRITY_CORRECTED)
@@ -308,7 +318,9 @@ async def trigger_live_scrape(
 @app.get("/api/scrape/status")
 def get_scrape_status():
     meta = get_latest_scrape_metadata()
+    status_str = "running" if SCRAPE_IN_PROGRESS else "completed" if meta.get("status") == "AVAILABLE" else "idle"
     return {
+        "status": status_str,
         "in_progress": SCRAPE_IN_PROGRESS,
         "total_live_scraped_observations": len(SCRAPED_DATA),
         "latest_scrape_metadata": meta,

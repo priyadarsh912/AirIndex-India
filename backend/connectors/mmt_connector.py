@@ -61,34 +61,22 @@ class MMTConnector(BaseAirlineConnector):
             await self.apply_rate_limit_async()
 
             # Navigate to search page
-            response = await self._page.goto(url, wait_until="domcontentloaded", timeout=30000)
+            response = await self._page.goto(url, wait_until="domcontentloaded", timeout=10000)
 
             if not response or response.status >= 400:
                 logger.warning(f"[MMT] HTTP {response.status if response else 'None'} for {url}")
                 self.scrape_stats["failed"] += 1
                 return observations
 
-            # Wait for flight results to load (MMT uses dynamic rendering)
-            # Try multiple selectors as MMT changes their DOM frequently
-            flight_selectors = [
-                '[class*="listingCard"]',
-                '[class*="fli-list"]',
-                '[class*="flight-listing"]',
-                '[class*="splitVw-item"]',
-                '[data-testid*="flight"]',
-                '.listingCard',
-                '.fli-list',
-            ]
-
+            # Wait for flight results to load using combined selector for rapid detection
+            flight_selector = '[class*="listingCard"], [class*="fli-list"], [class*="flight-listing"], [class*="splitVw-item"], [data-testid*="flight"], .listingCard, .fli-list'
             loaded = False
-            for selector in flight_selectors:
-                try:
-                    await self._page.wait_for_selector(selector, timeout=12000)
-                    loaded = True
-                    logger.info(f"[MMT] Results loaded with selector: {selector}")
-                    break
-                except Exception:
-                    continue
+            try:
+                await self._page.wait_for_selector(flight_selector, timeout=4000)
+                loaded = True
+                logger.info("[MMT] Results loaded with selector match")
+            except Exception:
+                loaded = False
 
             if not loaded:
                 logger.warning("[MMT] Could not detect flight results - trying page content extraction")

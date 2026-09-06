@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import SplashScreen from './components/SplashScreen';
 import Navbar from './components/Navbar';
 import KPICards from './components/KPICards';
 import IndexTrendChart from './components/IndexTrendChart';
@@ -24,6 +26,7 @@ export const API_BASE_URL = import.meta.env.VITE_API_URL
   : (import.meta.env.PROD ? 'https://airindex-india-181v.onrender.com' : 'http://localhost:8000');
 
 export default function App() {
+  const [showSplash, setShowSplash] = useState(true);
   const [activeTab, setActiveTab] = useState('overview');
   const [liveMode, setLiveMode] = useState(false);
   const [isScraping, setIsScraping] = useState(false);
@@ -308,6 +311,13 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-cyan-500 selection:text-white">
+      {/* 2 to 3 second Opening Splash/Flash Screen */}
+      <AnimatePresence>
+        {showSplash && (
+          <SplashScreen onComplete={() => setShowSplash(false)} />
+        )}
+      </AnimatePresence>
+
       {/* Top Banner / Scrape Notification */}
       {scrapeNotification && (
         <div className={`py-2 px-4 text-center text-xs font-semibold flex items-center justify-center gap-2 ${

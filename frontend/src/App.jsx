@@ -202,7 +202,7 @@ export default function App() {
           {/* Top AirScope Welcome Hero Banner */}
           <div className="relative w-full rounded-2xl bg-gradient-to-r from-[#EAECE5] via-[#F5F6F2] to-[#E5E8E0] border border-border-hairline shadow-sm p-6 lg:p-7 overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
             {/* Left Welcome Copy */}
-            <div className="flex flex-col z-10 max-w-lg">
+            <div className="flex flex-col z-10 max-w-sm xl:max-w-md">
               <div className="flex items-center gap-2">
                 <span className="font-headline text-2xl lg:text-3xl font-bold text-slate-900">
                   Welcome to
@@ -220,11 +220,11 @@ export default function App() {
             </div>
 
             {/* Middle Jet Graphic Feature - Pure Aircraft Object Cutout */}
-            <div className="hidden lg:flex absolute left-1/2 -translate-x-[42%] top-0 bottom-0 w-96 xl:w-[460px] pointer-events-none z-10 items-center justify-center">
+            <div className="hidden lg:flex absolute left-1/2 -translate-x-[16%] xl:-translate-x-[12%] top-0 bottom-0 w-[360px] xl:w-[420px] pointer-events-none z-0 items-center justify-center">
               <img 
                 src="/flight-header-transparent.png" 
                 alt="Commercial airliner jet soaring" 
-                className="w-full h-auto object-contain filter contrast-[1.06] brightness-[0.98] drop-shadow-[0_14px_28px_rgba(15,23,42,0.12)] scale-105 -rotate-1 animate-flight-float"
+                className="w-full h-auto object-contain filter contrast-[1.06] brightness-[0.98] drop-shadow-[0_14px_28px_rgba(15,23,42,0.12)] scale-100 -rotate-1 animate-flight-float"
               />
             </div>
 

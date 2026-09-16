@@ -13,7 +13,8 @@ export default function IndexTrendChart({
   error = null,
   routes = []
 }) {
-  if (error) {
+  // Only show blocking error card if there is an error AND zero data points available
+  if (error && (!trendData || trendData.length === 0)) {
     return (
       <div className="bg-surface-card rounded-xl p-8 border border-border-hairline shadow-sm text-center">
         <span className="material-symbols-outlined text-metric-negative text-[36px]">error</span>

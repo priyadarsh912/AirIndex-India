@@ -16,7 +16,13 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 import pandas as pd
-from sklearn.ensemble import IsolationForest
+
+try:
+    from sklearn.ensemble import IsolationForest
+    SKLEARN_AVAILABLE = True
+except ImportError:
+    SKLEARN_AVAILABLE = False
+    IsolationForest = None
 
 from flight_registry import (
     CARRIER_CODE_MAP,
@@ -73,15 +79,21 @@ class AntiContaminationEngine:
 
     def __init__(self, master_registry: Optional[Dict[str, Dict[str, Any]]] = None):
         self.registry = master_registry or MASTER_FLIGHT_REGISTRY
-        self.iso_forest = IsolationForest(
-            n_estimators=100,
-            contamination=0.02,
-            random_state=42,
-        )
-        self._initialize_baseline_models()
+        if SKLEARN_AVAILABLE and IsolationForest is not None:
+            self.iso_forest = IsolationForest(
+                n_estimators=100,
+                contamination=0.02,
+                random_state=42,
+            )
+            self._initialize_baseline_models()
+        else:
+            self.iso_forest = None
+            logger.warning("scikit-learn is not available; falling back to statistical heuristics.")
 
     def _initialize_baseline_models(self):
         """Fits baseline calibration distribution for fare_per_km, tax_ratio, and window z-score."""
+        if self.iso_forest is None:
+            return
         X_train = np.array([
             [4.2, 0.18, 0.1],
             [5.1, 0.19, 0.4],
@@ -157,9 +169,12 @@ class AntiContaminationEngine:
             rule_score -= 50.0
             reasons.append(f"INVALID_CARRIER_PREFIX: {carrier_prefix}")
 
-        # 3. STATISTICAL MODEL: Isolation Forest Evaluation
-        feature_vec = np.array([[fare_per_km, tax_ratio, 0.0]])
-        iso_pred = self.iso_forest.predict(feature_vec)[0]  # 1 for inlier, -1 for outlier
+        # 3. STATISTICAL MODEL: Isolation Forest Evaluation (with heuristic fallback)
+        if self.iso_forest is not None:
+            feature_vec = np.array([[fare_per_km, tax_ratio, 0.0]])
+            iso_pred = self.iso_forest.predict(feature_vec)[0]  # 1 for inlier, -1 for outlier
+        else:
+            iso_pred = 1 if (1.5 <= fare_per_km <= 25.0 and 0.05 <= tax_ratio <= 0.65) else -1
         ml_score = 95.0 if iso_pred == 1 else 30.0
         if iso_pred == -1:
             reasons.append(
@@ -228,7 +243,13 @@ def partition_observations(
         feature_matrix.append([fare_km, tax_r, 0.0])
 
     if feature_matrix:
-        batch_iso_preds = active_engine.iso_forest.predict(np.array(feature_matrix))
+        if active_engine.iso_forest is not None:
+            batch_iso_preds = active_engine.iso_forest.predict(np.array(feature_matrix))
+        else:
+            batch_iso_preds = np.array([
+                1 if (1.5 <= row[0] <= 25.0 and 0.05 <= row[1] <= 0.65) else -1
+                for row in feature_matrix
+            ])
     else:
         batch_iso_preds = np.array([])
 

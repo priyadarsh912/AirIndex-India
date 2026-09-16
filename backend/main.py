@@ -340,7 +340,7 @@ async def get_index_history_v2(
     route: Optional[str] = Query(None, description="Filtered corridor, e.g. DEL-BOM"),
     airline: Optional[str] = Query(None, description="Filtered carrier, e.g. IndiGo"),
     window: Optional[str] = Query(None, description="Booking tier: T+1, T+7, T+15, T+30, T+45"),
-    frequency: str = Query("Daily", regex="^(Daily|Weekly|Monthly)$"),
+    frequency: str = Query("Daily", pattern="^(Daily|Weekly|Monthly)$"),
     tz: str = Query("Asia/Kolkata", description="Timezone name"),
 ):
     """

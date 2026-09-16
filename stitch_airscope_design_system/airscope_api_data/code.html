@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-container":"#39b9b4","surface-dim":"#d8dadc","badge-negative-bg":"#FEE2E2","primary-fixed-dim":"#aec6ff","on-primary-fixed":"#001a42","text-muted":"#64748B","surface-container-lowest":"#ffffff","surface-container":"#eceef0","secondary-fixed":"#dae2ff","tertiary-container":"#004543","surface-container-highest":"#e0e3e5","inverse-primary":"#aec6ff","chart-accent-cyan":"#38BDF8","on-secondary-fixed":"#001847","inverse-surface":"#2d3133","on-tertiary-fixed-variant":"#00504d","inverse-on-surface":"#eff1f3","secondary-container":"#2d6deb","metric-warning":"#EA580C","surface":"#f7f9fb","metric-positive":"#16A34A","error-container":"#ffdad6","on-surface":"#191c1e","tertiary-fixed-dim":"#60d9d3","surface-container-low":"#f2f4f6","on-secondary-fixed-variant":"#0040a0","error":"#ba1a1a","text-primary":"#0F172A","on-surface-variant":"#434750","secondary":"#0054cb","on-error":"#ffffff","on-tertiary-fixed":"#00201f","surface-canvas":"#F8FAFC","surface-card":"#FFFFFF","metric-negative":"#DC2626","badge-warning-bg":"#FFEDD5","on-secondary":"#ffffff","primary":"#002558","on-primary":"#ffffff","on-secondary-container":"#fefcff","text-secondary":"#475569","tertiary":"#002d2b","primary-container":"#123b7a","surface-subtle":"#F1F5F9","tertiary-fixed":"#7ff5ef","surface-tint":"#3b5d9e","surface-bright":"#f7f9fb","on-error-container":"#93000a","on-tertiary":"#ffffff","outline-variant":"#c4c6d2","surface-container-high":"#e6e8ea","background":"#f7f9fb","badge-positive-bg":"#DCFCE7","on-primary-container":"#87a7ed","outline":"#747781","surface-variant":"#e0e3e5","border-hairline":"#E2E8F0","on-background":"#191c1e","secondary-fixed-dim":"#b1c5ff","border-focus":"#2F6FED","on-primary-fixed-variant":"#204584","primary-fixed":"#d8e2ff"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"gutter-dense":"0.5rem","space-lg":"1rem","space-xl":"1.5rem",gutter:"1rem","space-xs":"0.25rem","space-md":"0.75rem","space-sm":"0.5rem",margin:"1.5rem","margin-mobile":"1rem"},fontFamily:{"headline-lg":["IBM Plex Sans"],"headline-xl":["IBM Plex Sans"],"label-md":["Inter"],"headline-xl-mobile":["IBM Plex Sans"],caption:["Inter"],"body-md":["Inter"],"data-metric-md":["IBM Plex Sans"],"label-sm":["Inter"],"data-metric-xl":["IBM Plex Sans"],"body-sm":["Inter"],"body-lg":["Inter"],"headline-md":["IBM Plex Sans"]},fontSize:{"headline-lg":["22px",{lineHeight:"28px",letterSpacing:"-0.015em",fontWeight:"600"}],"headline-xl":["30px",{lineHeight:"38px",letterSpacing:"-0.02em",fontWeight:"700"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.01em",fontWeight:"600"}],"headline-xl-mobile":["24px",{lineHeight:"32px",letterSpacing:"-0.015em",fontWeight:"700"}],caption:["10px",{lineHeight:"12px",fontWeight:"500"}],"body-md":["13px",{lineHeight:"18px",fontWeight:"400"}],"data-metric-md":["18px",{lineHeight:"24px",letterSpacing:"-0.01em",fontWeight:"600"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.02em",fontWeight:"500"}],"data-metric-xl":["28px",{lineHeight:"32px",letterSpacing:"-0.02em",fontWeight:"700"}],"body-sm":["12px",{lineHeight:"16px",fontWeight:"400"}],"body-lg":["15px",{lineHeight:"22px",fontWeight:"400"}],"headline-md":["16px",{lineHeight:"22px",letterSpacing:"-0.01em",fontWeight:"600"}]}}}}</script></head><body class="bg-surface-canvas font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-64 bg-surface-card z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)] overflow-y-auto"><div class="flex flex-col"><div class="px-space-xl pt-space-xl pb-space-lg"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-lg bg-primary-container text-on-primary flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">flight</span></div><div><span class="font-headline-md text-headline-md font-bold tracking-tight text-primary block leading-none">AIRSCOPE</span><span class="font-caption text-caption text-text-muted mt-0.5 block tracking-normal">Price Index India</span></div></div><p class="mt-space-sm font-caption text-caption text-text-secondary leading-tight">Real-Time Airfare Price Index for India</p></div><nav class="flex flex-col gap-0.5 px-space-md py-space-xs" data-active-classes="bg-primary-container text-on-primary font-semibold shadow-sm"><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[19px]">space_dashboard</span><span>Dashboard</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="airfare-index" href="#"><span class="material-symbols-outlined text-[19px]">stacked_line_chart</span><span>Airfare Index</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="route-explorer" href="#"><span class="material-symbols-outlined text-[19px]">alt_route</span><span>Route Explorer</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="lead-time-analytics" href="#"><span class="material-symbols-outlined text-[19px]">schedule</span><span>Lead-Time Analytics</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="market-monitor" href="#"><span class="material-symbols-outlined text-[19px]">query_stats</span><span>Market Monitor</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="data-quality" href="#"><span class="material-symbols-outlined text-[19px]">verified</span><span>Data Quality</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="collection-monitor" href="#"><span class="material-symbols-outlined text-[19px]">hub</span><span>Collection Monitor</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="source-comparison" href="#"><span class="material-symbols-outlined text-[19px]">compare_arrows</span><span>Source Comparison</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="api-and-data" href="#"><span class="material-symbols-outlined text-[19px]">api</span><span>API &amp; Data</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="policy-and-research" href="#"><span class="material-symbols-outlined text-[19px]">menu_book</span><span>Policy &amp; Research</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="settings" href="#"><span class="material-symbols-outlined text-[19px]">settings</span><span>Settings</span></a></nav></div><div class="p-space-md"><div class="bg-surface-subtle rounded-xl p-space-md"><div class="flex items-center gap-1.5 mb-1 text-primary"><span class="material-symbols-outlined text-[16px]">public</span><span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider">Mission</span></div><p class="font-headline-md text-headline-md font-semibold text-text-primary">Data for a Better Tomorrow</p><p class="font-caption text-caption text-text-muted mt-1 leading-snug">Transparent. Comparable. Policy-Ready.</p></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-card/90 backdrop-blur-xl z-40 px-space-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] flex items-center justify-between"><div class="w-96"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-3 text-text-muted text-[18px]">search</span><input class="w-full h-10 pl-9 pr-3 rounded-lg bg-surface-canvas font-body-sm text-body-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:bg-surface-card transition-all" placeholder="Search route, airline, or keyword... ⌘K" type="text"/></div></div><div class="flex items-center gap-space-lg"><div class="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-subtle"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-metric-positive opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-metric-positive"></span></span><span class="font-label-sm text-label-sm text-text-secondary">Live Data | Last updated 14 Sep 2025, 11:42 AM IST</span></div><button aria-label="Notifications" class="relative w-9 h-9 rounded-lg flex items-center justify-center text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-metric-negative text-on-error font-caption text-[9px] flex items-center justify-center font-bold">3</span></button><div class="flex items-center gap-space-sm pl-space-sm"><div class="w-8 h-8 rounded-full bg-primary-container text-on-primary font-headline-md text-headline-md flex items-center justify-center font-semibold">S</div><div class="hidden md:flex flex-col"><span class="font-label-md text-label-md text-text-primary font-semibold leading-tight">Subham</span><span class="font-caption text-caption text-text-muted leading-tight">Policy &amp; Price Statistics Division</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UlVHDMEeTE5a3KBjZ_G65mz5EVGFu45jSXW4YP4x3UdsvERnRom2tBop4Lvj8sEIlNjusXdpDxb59YCpU0OD4q6dkkOrTF01ktXlefHn39aXtYIyPRQbaSsI0ktHMVo-tLlIuP7_asbfbKOUaS8-3GFRh44yUlk2hUarlvRIhfySBKtAuasICpvFerF5oQ4RaIlR5nchXkPA7kkRlLXmFk2R2uGgzQPh8ecR3Z-kjEa4JHlGfzlUb1K3dn"/><span class="material-symbols-outlined text-text-muted text-[18px] cursor-pointer hover:text-on-surface transition-colors">arrow_drop_down</span></div></div></header><main class="relative pt-16 bg-surface-canvas min-h-screen"><div class="flex flex-col w-full">
+<!-- Interactive View State Controller & Shell Sync -->
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+      // Highlight correct sidebar item in global shell
+      const navLinks = document.querySelectorAll('aside nav a[data-path]');
+      navLinks.forEach(link => {
+        if (link.getAttribute('data-path') === 'api-and-data') {
+          link.className = 'flex items-center gap-space-md px-space-md py-2.5 rounded-lg font-body-md text-body-md bg-primary-container text-on-primary font-semibold shadow-sm';
+        } else {
+          link.className = 'flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md';
+        }
+      });
+    });
+
+    const endpointData = {
+      'current-apix': {
+        method: 'GET',
+        path: '/v2/index/current',
+        description: 'Fetch real-time national composite Airfare Price Index (APIx) along with sub-indices, weight vectors, and WoW deltas calculated across 124 domestic corridors.',
+        queryParams: [
+          { name: 'corridor_type', type: 'string', req: 'Optional', default: 'all', desc: 'Filter by corridor: all, metro_trunk, tier2_connect, tourist_seasonal' },
+          { name: 'base_period', type: 'string', req: 'Optional', default: '2024-Q1', desc: 'Reference baseline period for index pegging (100.0)' },
+          { name: 'format', type: 'string', req: 'Optional', default: 'json', desc: 'Payload structure format: json, proto3, csv' }
+        ],
+        jsonPayload: `{
+  "status": "success",
+  "data_version": "v2.4.1",
+  "timestamp": "2025-09-14T11:42:00.000Z",
+  "base_year": "2024=100",
+  "national_apix": {
+    "composite_index": 128.42,
+    "delta_wow_pct": 3.2,
+    "confidence_interval_95": [127.88, 128.96],
+    "sample_observations": 124560
+  },
+  "sub_indices": {
+    "metro_trunk": 134.15,
+    "tier_2_capital": 119.80,
+    "regional_udans": 104.22
+  },
+  "benchmark_currency": "INR",
+  "governance": {
+    "authority": "MoCA / Price Intelligence Unit",
+    "hash": "0x89fd4e27bb12"
+  }
+}`
+      },
+      'historical-index': {
+        method: 'GET',
+        path: '/v2/index/historical',
+        description: 'Retrieve normalized time series records of composite airfare price indices with flexible aggregation windows (Daily, Weekly, Monthly) since Jan 2023.',
+        queryParams: [
+          { name: 'start_date', type: 'date', req: 'Required', default: '2025-01-01', desc: 'ISO 8601 start date of observation horizon' },
+          { name: 'end_date', type: 'date', req: 'Optional', default: 'today', desc: 'ISO 8601 boundary date' },
+          { name: 'aggregation_window', type: 'enum', req: 'Optional', default: '1d', desc: 'Time-bucket aggregation: 1h, 1d, 7d, 1m' }
+        ],
+        jsonPayload: `{
+  "status": "success",
+  "window": "1d",
+  "records_count": 258,
+  "series": [
+    { "date": "2025-09-12", "apix": 126.80, "volume_weights": 0.38 },
+    { "date": "2025-09-13", "apix": 127.65, "volume_weights": 0.41 },
+    { "date": "2025-09-14", "apix": 128.42, "volume_weights": 0.44 }
+  ],
+  "p95_spread_inr": 2150.00
+}`
+      },
+      'route-data': {
+        method: 'GET',
+        path: '/v2/routes/{origin}-{dest}/series',
+        description: 'Extract corridor-level directional fare distributions, carrier market shares, and median booking yield curves for any certified airport pair.',
+        queryParams: [
+          { name: 'origin', type: 'IATA (3)', req: 'Required', default: 'DEL', desc: 'Origin airport IATA code (e.g. DEL, BOM, BLR)' },
+          { name: 'dest', type: 'IATA (3)', req: 'Required', default: 'BOM', desc: 'Destination airport IATA code' },
+          { name: 'include_carriers', type: 'boolean', req: 'Optional', default: 'true', desc: 'Disaggregate by operating airline' }
+        ],
+        jsonPayload: `{
+  "route": "DEL-BOM",
+  "direction": "bi-directional",
+  "distance_km": 1148,
+  "median_current_fare": 7420,
+  "wow_shift_pct": 12.4,
+  "carriers": [
+    { "carrier": "6E", "market_share_pct": 58.2, "median_fare_inr": 7280 },
+    { "carrier": "AI", "market_share_pct": 27.4, "median_fare_inr": 8100 },
+    { "carrier": "SG", "market_share_pct": 14.4, "median_fare_inr": 6890 }
+  ]
+}`
+      },
+      'lead-time-data': {
+        method: 'GET',
+        path: '/v2/analytics/lead-time-curve',
+        description: 'Provides dynamic booking advance horizon curves (T-0 to T-90 days), capturing carrier inventory repricing cascades and late-booking risk premiums.',
+        queryParams: [
+          { name: 'corridor', type: 'string', req: 'Optional', default: 'national_avg', desc: 'Specific route pair or national aggregate bucket' },
+          { name: 'bucket_steps', type: 'array', req: 'Optional', default: '0,1,3,7,14,30,60', desc: 'Advance departure day buckets (T-days)' }
+        ],
+        jsonPayload: `{
+  "corridor": "national_avg",
+  "curve_points": [
+    { "t_minus": 1, "median_fare_inr": 12430, "surge_multiplier": 1.67 },
+    { "t_minus": 7, "median_fare_inr": 10880, "surge_multiplier": 1.46 },
+    { "t_minus": 15, "median_fare_inr": 8950, "surge_multiplier": 1.20 },
+    { "t_minus": 30, "median_fare_inr": 7420, "surge_multiplier": 1.00 },
+    { "t_minus": 45, "median_fare_inr": 6980, "surge_multiplier": 0.94 }
+  ],
+  "optimal_purchase_window_days": [21, 35]
+}`
+      },
+      'microdata-obs': {
+        method: 'GET',
+        path: '/v2/microdata/observations',
+        description: 'Access high-density anonymized transaction-level scrape captures including fare breakdown, cabin class, tax pass-throughs, and timestamp markers.',
+        queryParams: [
+          { name: 'batch_id', type: 'string', req: 'Optional', default: 'latest', desc: 'Daily extraction run batch ID' },
+          { name: 'limit', type: 'integer', req: 'Optional', default: '500', desc: 'Record pagination cap (Max 5,000 per token call)' },
+          { name: 'cursor', type: 'string', req: 'Optional', default: 'null', desc: 'Opaque pagination cursor token' }
+        ],
+        jsonPayload: `{
+  "batch_id": "BATCH-20250914-1100",
+  "records_returned": 500,
+  "total_batch_size": 124560,
+  "next_cursor": "eyJwYWdlIjoxLCJvZmZzZXQiOjUwMH0=",
+  "items": [
+    {
+      "obs_id": "OBS-DEL-BOM-6E204-20250915",
+      "flight_no": "6E-204",
+      "dep_time": "2025-09-15T06:00:00+05:30",
+      "base_fare": 6450,
+      "fuel_surcharge": 850,
+      "user_fee": 380,
+      "total_fare_inr": 7680,
+      "scraped_at": "2025-09-14T11:41:20Z"
+    }
+  ]
+}`
+      },
+      'data-quality-feed': {
+        method: 'GET',
+        path: '/v2/telemetry/quality-audit',
+        description: 'Direct ingestion telemetry stream exposing anomaly flags, missing route detection, scraper health indices, and validation integrity scores.',
+        queryParams: [
+          { name: 'status_threshold', type: 'enum', req: 'Optional', default: 'all', desc: 'Filter incidents: all, healthy, degraded, critical' },
+          { name: 'interval', type: 'string', req: 'Optional', default: '24h', desc: 'Evaluation interval window' }
+        ],
+        jsonPayload: `{
+  "pipeline_health": "OPTIMAL",
+  "audit_window": "24h",
+  "completeness_score": 0.964,
+  "validation_passed_pct": 99.82,
+  "source_integrity": {
+    "carrier_direct": { "status": "ONLINE", "uptime_pct": 99.94 },
+    "gds_aggregate": { "status": "ONLINE", "uptime_pct": 99.88 },
+    "ota_market": { "status": "NOMINAL", "uptime_pct": 98.40 }
+  }
+}`
+      }
+    };
+
+    function switchEndpointTab(tabKey, element) {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-primary-container', 'text-on-primary', 'font-semibold', 'shadow-sm');
+        btn.classList.add('text-text-secondary', 'hover:bg-surface-subtle', 'hover:text-text-primary');
+      });
+      element.classList.add('bg-primary-container', 'text-on-primary', 'font-semibold', 'shadow-sm');
+      element.classList.remove('text-text-secondary', 'hover:bg-surface-subtle', 'hover:text-text-primary');
+
+      const data = endpointData[tabKey];
+      if (!data) return;
+
+      document.getElementById('endpoint-method').textContent = data.method;
+      document.getElementById('endpoint-path').textContent = data.path;
+      document.getElementById('endpoint-desc').textContent = data.description;
+      document.getElementById('code-display').textContent = data.jsonPayload;
+
+      // Populate Query Params
+      const tbody = document.getElementById('params-tbody');
+      tbody.innerHTML = '';
+      data.queryParams.forEach(p => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-surface-canvas transition-colors';
+        tr.innerHTML = `
+          <td class="py-2.5 px-4 font-headline-md text-[13px] font-semibold text-primary font-mono">${p.name}</td>
+          <td class="py-2.5 px-4 font-body-sm text-body-sm text-text-secondary">${p.type}</td>
+          <td class="py-2.5 px-4 font-caption text-caption uppercase tracking-wider">
+            <span class="px-2 py-0.5 rounded-full font-medium ${p.req === 'Required' ? 'bg-badge-negative-bg text-metric-negative' : 'bg-surface-subtle text-text-muted'}">${p.req}</span>
+          </td>
+          <td class="py-2.5 px-4 font-body-sm text-body-sm font-mono text-text-secondary">${p.default}</td>
+          <td class="py-2.5 px-4 font-body-sm text-body-sm text-text-secondary">${p.desc}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function copyToClipboard(textId) {
+      const text = document.getElementById(textId).innerText;
+      navigator.clipboard.writeText(text);
+      const toast = document.getElementById('copy-toast');
+      toast.classList.remove('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'pointer-events-none');
+      }, 2000);
+    }
+
+    function runEndpointSimulation() {
+      const btn = document.getElementById('test-run-btn');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">refresh</span> Fetching...';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">check_circle</span> 200 OK (38ms)';
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+        }, 1800);
+      }, 450);
+    }
+
+    function generateKeyModalToggle(open) {
+      const modal = document.getElementById('keygen-modal');
+      if (open) {
+        modal.classList.remove('hidden');
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+  </script>
+<!-- Notification Toast -->
+<div class="fixed bottom-6 right-8 z-50 px-4 py-2.5 rounded-xl bg-primary text-on-primary font-body-sm text-body-sm shadow-xl flex items-center gap-2 transition-opacity duration-300 opacity-0 pointer-events-none" id="copy-toast">
+<span class="material-symbols-outlined text-[18px] text-on-tertiary-container">done</span>
+<span>Copied payload to clipboard</span>
+</div>
+<!-- Header Banner Area -->
+<div class="px-space-xl py-space-lg">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-lg">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-semibold">Institutional Access Gate</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-caption text-caption text-text-muted">Public Data Directive § 14-B</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-text-primary tracking-tight">API &amp; Data</h1>
+<p class="font-body-md text-body-md text-text-secondary mt-1">
+          Programmatic endpoints, microdata downloads, and schema documentation for sovereign price indices
+        </p>
+</div>
+<div class="flex flex-wrap items-center gap-space-md">
+<a class="px-4 h-10 rounded-lg bg-surface-card text-text-primary font-body-md text-body-md font-semibold hover:bg-surface-subtle shadow-sm flex items-center gap-2 transition-all" href="#microdata-catalog">
+<span class="material-symbols-outlined text-[18px] text-text-muted">dataset</span>
+<span>Browse Microdata</span>
+</a>
+<button class="px-4 h-10 rounded-lg bg-primary-container text-on-primary font-body-md text-body-md font-semibold hover:bg-primary shadow-sm flex items-center gap-2 transition-all" onclick="generateKeyModalToggle(true)">
+<span class="material-symbols-outlined text-[18px]">key</span>
+<span>Manage API Credentials</span>
+</button>
+</div>
+</div>
+<!-- Quick Telemetry Metric Tiles -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-gutter mt-space-xl">
+<!-- Metric 1 -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-muted uppercase tracking-wider">API Version</span>
+<div class="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+</div>
+</div>
+<div class="mt-space-md flex items-baseline gap-2">
+<span class="font-data-metric-xl text-data-metric-xl text-text-primary font-bold">v2.4</span>
+<span class="px-2 py-0.5 rounded-full bg-badge-positive-bg text-metric-positive font-label-sm text-label-sm font-semibold">OpenAPI 3.1</span>
+</div>
+<p class="font-caption text-caption text-text-muted mt-2">REST + gRPC + Proto3 Schema sync</p>
+</div>
+<!-- Metric 2 -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-muted uppercase tracking-wider">Endpoint Latency (p95)</span>
+<div class="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center text-metric-positive">
+<span class="material-symbols-outlined text-[18px]">speed</span>
+</div>
+</div>
+<div class="mt-space-md flex items-baseline gap-2">
+<span class="font-data-metric-xl text-data-metric-xl text-text-primary font-bold">42 ms</span>
+<span class="px-2 py-0.5 rounded-full bg-badge-positive-bg text-metric-positive font-label-sm text-label-sm font-semibold">▲ 8ms optimal</span>
+</div>
+<p class="font-caption text-caption text-text-muted mt-2">Edge routed via NIC / Delhi Cloud-Edge</p>
+</div>
+<!-- Metric 3 -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-muted uppercase tracking-wider">Daily API Queries</span>
+<div class="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">query_stats</span>
+</div>
+</div>
+<div class="mt-space-md flex items-baseline gap-2">
+<span class="font-data-metric-xl text-data-metric-xl text-text-primary font-bold">840,200</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-subtle text-text-secondary font-label-sm text-label-sm font-semibold">+14.2% DoD</span>
+</div>
+<p class="font-caption text-caption text-text-muted mt-2">31 sovereign entities connected</p>
+</div>
+<!-- Metric 4 -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-muted uppercase tracking-wider">Authentication Protocol</span>
+<div class="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center text-tertiary-container">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+</div>
+<div class="mt-space-md flex items-baseline gap-2">
+<span class="font-data-metric-xl text-data-metric-xl text-text-primary font-bold">Bearer / PKI</span>
+<span class="px-2 py-0.5 rounded-full bg-badge-positive-bg text-metric-positive font-label-sm text-label-sm font-semibold">Active</span>
+</div>
+<p class="font-caption text-caption text-text-muted mt-2">Govt Data Key | Rate Cap: Tier-1</p>
+</div>
+</div>
+<!-- Main Workspace: Interactive API Explorer + Code Preview -->
+<div class="mt-space-xl grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Tabs & Parameters (7 Cols) -->
+<div class="lg:col-span-7 bg-surface-card rounded-xl p-space-xl shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">code_blocks</span>
+<h2 class="font-headline-md text-headline-md text-text-primary font-bold">REST API Explorer</h2>
+</div>
+<span class="font-caption text-caption text-text-muted font-mono">SPEC: OAS 3.1.0</span>
+</div>
+<!-- Navigation Sub-Tabs -->
+<div class="flex flex-wrap gap-1.5 p-1 bg-surface-canvas rounded-lg">
+<button class="tab-btn px-3 py-1.5 rounded-md font-body-sm text-body-sm bg-primary-container text-on-primary font-semibold shadow-sm transition-all" onclick="switchEndpointTab('current-apix', this)">Current APIx</button>
+<button class="tab-btn px-3 py-1.5 rounded-md font-body-sm text-body-sm text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all" onclick="switchEndpointTab('historical-index', this)">Historical Index</button>
+<button class="tab-btn px-3 py-1.5 rounded-md font-body-sm text-body-sm text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all" onclick="switchEndpointTab('route-data', this)">Route Data</button>
+<button class="tab-btn px-3 py-1.5 rounded-md font-body-sm text-body-sm text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all" onclick="switchEndpointTab('lead-time-data', this)">Lead-Time Data</button>
+<button class="tab-btn px-3 py-1.5 rounded-md font-body-sm text-body-sm text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all" onclick="switchEndpointTab('microdata-obs', this)">Observation Microdata</button>
+<button class="tab-btn px-3 py-1.5 rounded-md font-body-sm text-body-sm text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all" onclick="switchEndpointTab('data-quality-feed', this)">Data Quality Feed</button>
+</div>
+<!-- Endpoint Banner -->
+<div class="mt-space-lg p-space-md rounded-xl bg-surface-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm overflow-x-auto">
+<span class="px-2.5 py-1 rounded-md bg-metric-positive text-on-primary font-headline-md text-[12px] font-bold tracking-wider" id="endpoint-method">GET</span>
+<span class="font-headline-md text-headline-md font-mono text-primary font-semibold truncate" id="endpoint-path">/v2/index/current</span>
+</div>
+<div class="flex items-center gap-2 self-end sm:self-auto">
+<button class="px-3 py-1.5 rounded-lg bg-surface-card hover:bg-surface-canvas text-text-secondary hover:text-text-primary font-body-sm text-body-sm font-semibold flex items-center gap-1.5 shadow-sm transition-all" onclick="copyToClipboard('endpoint-path')">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span>Copy Endpoint</span>
+</button>
+<button class="px-3.5 py-1.5 rounded-lg bg-secondary text-on-primary hover:bg-primary transition-all font-body-sm text-body-sm font-semibold flex items-center gap-1.5 shadow-sm" id="test-run-btn" onclick="runEndpointSimulation()">
+<span class="material-symbols-outlined text-[16px]">play_arrow</span>
+<span>Test Request</span>
+</button>
+</div>
+</div>
+<p class="mt-space-md font-body-md text-body-md text-text-secondary" id="endpoint-desc">
+            Fetch real-time national composite Airfare Price Index (APIx) along with sub-indices, weight vectors, and WoW deltas calculated across 124 domestic corridors.
+          </p>
+<!-- Query Parameters Table -->
+<div class="mt-space-lg">
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-md text-label-md uppercase tracking-wider text-text-muted">Query Parameters</span>
+<span class="font-caption text-caption text-text-muted">Request Header: <code class="font-mono bg-surface-subtle px-1.5 py-0.5 rounded text-primary">Authorization: Bearer &lt;TOKEN&gt;</code></span>
+</div>
+<div class="overflow-x-auto rounded-lg bg-surface-subtle">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container font-label-sm text-label-sm text-text-muted uppercase tracking-wider">
+<th class="py-2 px-4 font-semibold">Parameter</th>
+<th class="py-2 px-4 font-semibold">Type</th>
+<th class="py-2 px-4 font-semibold">Status</th>
+<th class="py-2 px-4 font-semibold">Default</th>
+<th class="py-2 px-4 font-semibold">Description</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container text-text-primary" id="params-tbody">
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="py-2.5 px-4 font-headline-md text-[13px] font-semibold text-primary font-mono">corridor_type</td>
+<td class="py-2.5 px-4 font-body-sm text-body-sm text-text-secondary">string</td>
+<td class="py-2.5 px-4 font-caption text-caption uppercase tracking-wider">
+<span class="px-2 py-0.5 rounded-full font-medium bg-surface-subtle text-text-muted">Optional</span>
+</td>
+<td class="py-2.5 px-4 font-body-sm text-body-sm font-mono text-text-secondary">all</td>
+<td class="py-2.5 px-4 font-body-sm text-body-sm text-text-secondary">Filter by corridor: all, metro_trunk, tier2_connect, tourist_seasonal</td>
+</tr>
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="py-2.5 px-4 font-headline-md text-[13px] font-semibold text-primary font-mono">base_period</td>
+<td class="py-2.5 px-4 font-body-sm text-body-sm text-text-secondary">string</td>
+<td class="py-2.5 px-4 font-caption text-caption uppercase tracking-wider">
+<span class="px-2 py-0.5 rounded-full font-medium bg-surface-subtle text-text-muted">Optional</span>
+</td>
+<td class="py-2.5 px-4 font-body-sm text-body-sm font-mono text-text-secondary">2024-Q1</td>
+<td class="py-2.5 px-4 font-body-sm text-body-sm text-text-secondary">Reference baseline period for index pegging (100.0)</td>
+</tr>
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="py-2.5 px-4 font-headline-md text-[13px] font-semibold text-primary font-mono">format</td>
+<td class="py-2.5 px-4 font-body-sm text-body-sm text-text-secondary">string</td>
+<td class="py-2.5 px-4 font-caption text-caption uppercase tracking-wider">
+<span class="px-2 py-0.5 rounded-full font-medium bg-surface-subtle text-text-muted">Optional</span>
+</td>
+<td class="py-2.5 px-4 font-body-sm text-body-sm font-mono text-text-secondary">json</td>
+<td class="py-2.5 px-4 font-body-sm text-body-sm text-text-secondary">Payload structure format: json, proto3, csv</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Quick Integration Hint -->
+<div class="mt-space-xl p-space-md rounded-xl bg-surface-canvas flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">terminal</span>
+<span class="font-body-sm text-body-sm text-text-secondary">Official SDKs ready for Python (<code class="font-mono text-primary font-semibold">pip install airscope-py</code>) &amp; R Stat packages.</span>
+</div>
+<a class="font-label-md text-label-md text-secondary hover:text-primary font-semibold" href="#">Read SDK Guide →</a>
+</div>
+</div>
+<!-- Right Column: Interactive Code & Response Viewer (5 Cols) -->
+<div class="lg:col-span-5 flex flex-col gap-space-lg">
+<!-- Interactive Code Payload Box -->
+<div class="bg-primary text-on-primary rounded-xl shadow-lg flex flex-col h-full overflow-hidden">
+<div class="px-space-md py-3 bg-tertiary flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-metric-negative inline-block"></span>
+<span class="w-3 h-3 rounded-full bg-metric-warning inline-block"></span>
+<span class="w-3 h-3 rounded-full bg-metric-positive inline-block"></span>
+<span class="font-caption text-caption font-mono text-text-muted ml-2">Response: 200 OK • application/json</span>
+</div>
+<button class="text-text-muted hover:text-on-primary transition-colors flex items-center gap-1 font-caption text-caption uppercase tracking-wider" onclick="copyToClipboard('code-display')">
+<span class="material-symbols-outlined text-[14px]">file_copy</span>
+<span>Copy</span>
+</button>
+</div>
+<div class="p-space-lg flex-1 overflow-x-auto bg-[#001738]">
+<pre class="font-mono text-[12px] leading-relaxed text-[#7ff5ef] whitespace-pre" id="code-display">{
+  "status": "success",
+  "data_version": "v2.4.1",
+  "timestamp": "2025-09-14T11:42:00.000Z",
+  "base_year": "2024=100",
+  "national_apix": {
+    "composite_index": 128.42,
+    "delta_wow_pct": 3.2,
+    "confidence_interval_95": [127.88, 128.96],
+    "sample_observations": 124560
+  },
+  "sub_indices": {
+    "metro_trunk": 134.15,
+    "tier_2_capital": 119.80,
+    "regional_udans": 104.22
+  },
+  "benchmark_currency": "INR",
+  "governance": {
+    "authority": "MoCA / Price Intelligence Unit",
+    "hash": "0x89fd4e27bb12"
+  }
+}</pre>
+</div>
+<div class="px-space-md py-2.5 bg-[#001738] flex items-center justify-between font-caption text-caption text-text-muted">
+<span>Compression: gzip (-72%)</span>
+<span class="text-on-tertiary-container">Payload size: 1.2 KB</span>
+</div>
+</div>
+<!-- Schema Governance & Certification Card -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-badge-positive-bg text-metric-positive flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">verified</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-headline-md text-headline-md font-bold text-text-primary">National Statistics Compliant</h4>
+<span class="px-2 py-0.5 rounded-full bg-surface-subtle font-caption text-caption font-semibold text-text-secondary">ISO 20022 ready</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary mt-0.5">
+              Weighted Laspeyres formulation validated for direct feed ingestion into MOSPI Macroeconomic indicators.
+            </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Microdata Repository & Data Catalog -->
+<div class="mt-space-xl bg-surface-card rounded-xl p-space-xl shadow-sm" id="microdata-catalog">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md pb-space-lg">
+<div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[22px]">database</span>
+<h2 class="font-headline-lg text-headline-lg font-bold text-text-primary">Data Catalog &amp; Microdata Repository</h2>
+</div>
+<p class="font-body-md text-body-md text-text-secondary mt-1">
+            Certified open microdata releases for econometric policy research, academic analysis, and civil aviation forecasting.
+          </p>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-caption text-caption text-text-muted uppercase tracking-wider">Catalog Filter:</span>
+<select class="px-3 py-1.5 bg-surface-canvas text-text-primary rounded-lg font-body-sm text-body-sm focus:outline-none cursor-pointer">
+<option>All Sectors &amp; Frequencies</option>
+<option>High Frequency (Hourly)</option>
+<option>Daily Composite</option>
+<option>Monthly Archive</option>
+</select>
+</div>
+</div>
+<!-- Microdata Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-canvas font-label-sm text-label-sm text-text-muted uppercase tracking-wider">
+<th class="py-3 px-space-md font-semibold">Dataset Identifier</th>
+<th class="py-3 px-space-md font-semibold">Coverage Domain</th>
+<th class="py-3 px-space-md font-semibold">Temporal Frequency</th>
+<th class="py-3 px-space-md font-semibold">Latest Snapshot</th>
+<th class="py-3 px-space-md font-semibold">Compressed Size</th>
+<th class="py-3 px-space-md font-semibold text-right">Direct Download Formats</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-subtle text-text-primary">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="py-3.5 px-space-md">
+<div class="flex flex-col">
+<span class="font-headline-md text-body-md font-semibold text-primary">apix_national_daily_summary</span>
+<span class="font-caption text-caption text-text-muted">Standard Laspeyres composite price index per day</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="font-body-sm text-body-sm text-text-secondary">124 Domestic Corridors</span>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-primary font-caption text-caption font-semibold">Daily at 00:00 IST</span>
+</td>
+<td class="py-3.5 px-space-md font-body-sm text-body-sm text-text-secondary">14 Sep 2025</td>
+<td class="py-3.5 px-space-md font-mono text-body-sm text-text-secondary">14.8 MB</td>
+<td class="py-3.5 px-space-md text-right">
+<div class="inline-flex items-center gap-1.5">
+<button class="px-2.5 py-1 rounded-md bg-surface-subtle hover:bg-surface-container text-primary font-caption text-caption font-bold flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[14px]">download</span> JSON
+                  </button>
+<button class="px-2.5 py-1 rounded-md bg-surface-subtle hover:bg-surface-container text-primary font-caption text-caption font-bold flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[14px]">table_chart</span> CSV
+                  </button>
+<button class="px-2.5 py-1 rounded-md bg-primary-container hover:bg-primary text-on-primary font-caption text-caption font-bold flex items-center gap-1 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[14px]">layers</span> Parquet
+                  </button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="py-3.5 px-space-md">
+<div class="flex flex-col">
+<span class="font-headline-md text-body-md font-semibold text-primary">microdata_route_fare_scrapes</span>
+<span class="font-caption text-caption text-text-muted">Full granular scrape records with carrier sub-tariffs</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="font-body-sm text-body-sm text-text-secondary">Pan-India (Metros + Regional)</span>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="px-2 py-0.5 rounded-full bg-badge-positive-bg text-metric-positive font-caption text-caption font-semibold">Hourly Ingestion</span>
+</td>
+<td class="py-3.5 px-space-md font-body-sm text-body-sm text-text-secondary">14 Sep, 11:00 AM</td>
+<td class="py-3.5 px-space-md font-mono text-body-sm text-text-secondary">2.4 GB</td>
+<td class="py-3.5 px-space-md text-right">
+<div class="inline-flex items-center gap-1.5">
+<button class="px-2.5 py-1 rounded-md bg-surface-subtle hover:bg-surface-container text-primary font-caption text-caption font-bold flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[14px]">table_chart</span> CSV (gz)
+                  </button>
+<button class="px-2.5 py-1 rounded-md bg-primary-container hover:bg-primary text-on-primary font-caption text-caption font-bold flex items-center gap-1 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[14px]">layers</span> Parquet
+                  </button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="py-3.5 px-space-md">
+<div class="flex flex-col">
+<span class="font-headline-md text-body-md font-semibold text-primary">advance_lead_time_matrix</span>
+<span class="font-caption text-caption text-text-muted">Booking horizon curves mapped by T-0 through T-90 days</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="font-body-sm text-body-sm text-text-secondary">Top 50 Heavy Density Corridors</span>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-primary font-caption text-caption font-semibold">Daily Snapshot</span>
+</td>
+<td class="py-3.5 px-space-md font-body-sm text-body-sm text-text-secondary">14 Sep 2025</td>
+<td class="py-3.5 px-space-md font-mono text-body-sm text-text-secondary">86.2 MB</td>
+<td class="py-3.5 px-space-md text-right">
+<div class="inline-flex items-center gap-1.5">
+<button class="px-2.5 py-1 rounded-md bg-surface-subtle hover:bg-surface-container text-primary font-caption text-caption font-bold flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[14px]">download</span> JSON
+                  </button>
+<button class="px-2.5 py-1 rounded-md bg-surface-subtle hover:bg-surface-container text-primary font-caption text-caption font-bold flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[14px]">table_chart</span> CSV
+                  </button>
+<button class="px-2.5 py-1 rounded-md bg-primary-container hover:bg-primary text-on-primary font-caption text-caption font-bold flex items-center gap-1 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[14px]">layers</span> Parquet
+                  </button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="py-3.5 px-space-md">
+<div class="flex flex-col">
+<span class="font-headline-md text-body-md font-semibold text-primary">data_quality_anomalies_log</span>
+<span class="font-caption text-caption text-text-muted">Filtered telemetry events, carrier outage windows, and data scrub metrics</span>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="font-body-sm text-body-sm text-text-secondary">Scraper Engine Cluster</span>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="px-2 py-0.5 rounded-full bg-badge-warning-bg text-metric-warning font-caption text-caption font-semibold">Continuous 5m</span>
+</td>
+<td class="py-3.5 px-space-md font-body-sm text-body-sm text-text-secondary">14 Sep, 11:35 AM</td>
+<td class="py-3.5 px-space-md font-mono text-body-sm text-text-secondary">4.1 MB</td>
+<td class="py-3.5 px-space-md text-right">
+<div class="inline-flex items-center gap-1.5">
+<button class="px-2.5 py-1 rounded-md bg-surface-subtle hover:bg-surface-container text-primary font-caption text-caption font-bold flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[14px]">download</span> JSONL
+                  </button>
+<button class="px-2.5 py-1 rounded-md bg-surface-subtle hover:bg-surface-container text-primary font-caption text-caption font-bold flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[14px]">table_chart</span> CSV
+                  </button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Institutional Key Tier Allocation & Webhook Management -->
+<div class="mt-space-xl grid grid-cols-1 lg:grid-cols-3 gap-gutter pb-space-xl">
+<!-- Token & Quota Card (2 Cols) -->
+<div class="lg:col-span-2 bg-surface-card rounded-xl p-space-xl shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">vpn_key</span>
+<h3 class="font-headline-md text-headline-md font-bold text-text-primary">Institutional Tier Quota &amp; Key</h3>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-badge-positive-bg text-metric-positive font-label-sm text-label-sm font-semibold">Authorized: Subham (MoCA Division)</span>
+</div>
+<!-- Active Key Display -->
+<div class="mt-space-lg p-space-md bg-surface-subtle rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex flex-col">
+<span class="font-caption text-caption text-text-muted uppercase tracking-wider">Primary Production Key</span>
+<div class="flex items-center gap-2 mt-1">
+<code class="font-mono text-body-sm text-text-primary font-bold" id="active-api-key">ak_live_moca_9f928e3b79dae27bb12ff0a340</code>
+<span class="material-symbols-outlined text-[16px] text-metric-positive">check_circle</span>
+</div>
+</div>
+<div class="flex items-center gap-2 self-end sm:self-auto">
+<button class="px-3 py-1.5 rounded-lg bg-surface-card text-text-secondary hover:text-text-primary font-body-sm text-body-sm font-semibold hover:bg-surface-canvas shadow-sm flex items-center gap-1" onclick="copyToClipboard('active-api-key')">
+<span class="material-symbols-outlined text-[16px]">content_copy</span> Copy
+              </button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-card text-text-secondary hover:text-text-primary font-body-sm text-body-sm font-semibold hover:bg-surface-canvas shadow-sm flex items-center gap-1" onclick="generateKeyModalToggle(true)">
+<span class="material-symbols-outlined text-[16px]">refresh</span> Roll Key
+              </button>
+</div>
+</div>
+<!-- Progress and Limits -->
+<div class="mt-space-lg">
+<div class="flex justify-between items-baseline mb-1">
+<span class="font-label-md text-label-md text-text-secondary font-semibold">Daily Rate Limit Allocation</span>
+<span class="font-caption text-caption text-text-primary font-mono font-semibold">5,840 / 100,000 reqs (94.1% remaining)</span>
+</div>
+<div class="w-full h-2.5 rounded-full bg-surface-subtle overflow-hidden">
+<div class="h-full rounded-full bg-secondary" style="width: 5.84%;"></div>
+</div>
+<div class="flex justify-between items-center mt-2 font-caption text-caption text-text-muted">
+<span>Concurrent connections limit: 50 requests/sec</span>
+<span>Quota resets daily at 00:00:00 UTC</span>
+</div>
+</div>
+</div>
+<div class="mt-space-lg pt-space-md border-t border-surface-subtle flex flex-wrap items-center justify-between gap-space-sm font-body-sm text-body-sm">
+<span class="text-text-muted">Need institutional unlimited quota or private sFTP pipe?</span>
+<a class="text-secondary hover:text-primary font-semibold flex items-center gap-1" href="#">
+            Request High-Throughput Bridge <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Webhook Dispatch & Event Stream Card (1 Col) -->
+<div class="bg-surface-card rounded-xl p-space-xl shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">notifications_active</span>
+<h3 class="font-headline-md text-headline-md font-bold text-text-primary">Event Webhooks</h3>
+</div>
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-metric-positive opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-metric-positive"></span>
+</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary mt-1">
+            Receive automated real-time HTTP POST alerts on extreme route fare spikes or daily index calculation completions.
+          </p>
+<div class="mt-space-md space-y-2">
+<div class="p-2.5 rounded-lg bg-surface-canvas flex items-center justify-between">
+<div>
+<span class="font-label-md text-label-md text-text-primary block font-semibold">index.published.daily</span>
+<span class="font-caption text-caption text-text-muted">Triggered at 00:05 IST</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-badge-positive-bg text-metric-positive font-caption text-caption font-semibold">Active</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-canvas flex items-center justify-between">
+<div>
+<span class="font-label-md text-label-md text-text-primary block font-semibold">corridor.spike.alert</span>
+<span class="font-caption text-caption text-text-muted">&gt; 15% WoW sudden variance</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-badge-positive-bg text-metric-positive font-caption text-caption font-semibold">Active</span>
+</div>
+</div>
+</div>
+<button class="mt-space-lg w-full py-2.5 rounded-lg bg-surface-subtle hover:bg-surface-container text-text-primary font-body-sm text-body-sm font-semibold transition-all flex items-center justify-center gap-1.5" onclick="alert('Webhook Configuration panel is active. Dispatch tests logged to console.')">
+<span class="material-symbols-outlined text-[16px] text-text-secondary">tune</span>
+<span>Configure Webhook URLs</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Key Generation / Roll Modal -->
+<div class="fixed inset-0 z-50 bg-primary/40 backdrop-blur-sm flex items-center justify-center hidden p-4" id="keygen-modal">
+<div class="bg-surface-card rounded-2xl max-w-md w-full p-space-xl shadow-2xl">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[24px]">vpn_key_alert</span>
+<h3 class="font-headline-md text-headline-md font-bold text-text-primary">Rotate API Credentials</h3>
+</div>
+<button class="text-text-muted hover:text-text-primary" onclick="generateKeyModalToggle(false)">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-text-secondary mb-4">
+        Generating a new sovereign access key will immediately decommission the previous key after a 24-hour grace overlapping period.
+      </p>
+<div class="space-y-3">
+<div>
+<label class="font-label-sm text-label-sm text-text-secondary uppercase tracking-wider block mb-1">Key Description / Purpose</label>
+<input class="w-full h-10 px-3 rounded-lg bg-surface-canvas font-body-sm text-body-sm text-text-primary focus:outline-none focus:bg-surface-subtle" type="text" value="MoCA Policy Analysis Engine - Production"/>
+</div>
+<div>
+<label class="font-label-sm text-label-sm text-text-secondary uppercase tracking-wider block mb-1">IP Whitelisting (Optional)</label>
+<input class="w-full h-10 px-3 rounded-lg bg-surface-canvas font-body-sm text-body-sm text-text-primary focus:outline-none focus:bg-surface-subtle" placeholder="164.100.0.0/16 (Gov NIC CIDR)" type="text"/>
+</div>
+</div>
+<div class="mt-6 flex items-center justify-end gap-2">
+<button class="px-4 py-2 rounded-lg text-text-secondary hover:bg-surface-subtle font-body-md text-body-md font-semibold" onclick="generateKeyModalToggle(false)">Cancel</button>
+<button class="px-4 py-2 rounded-lg bg-primary-container hover:bg-primary text-on-primary font-body-md text-body-md font-semibold shadow-sm" onclick="generateKeyModalToggle(false); alert('New Government API Key generated and sent to verified institutional email.');">Confirm &amp; Generate</button>
+</div>
+</div>
+</div>
+</div></main></div></body></html>

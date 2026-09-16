@@ -1,314 +1,169 @@
+// frontend/src/components/IndexTrendChart.jsx
 import React from 'react';
-import { motion } from 'framer-motion';
 import {
-  ResponsiveContainer,
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
-  ReferenceLine
+  ResponsiveContainer, AreaChart, Area, XAxis, YAxis,
+  Tooltip, CartesianGrid, ReferenceLine
 } from 'recharts';
-import { Filter, Calendar, Info, RotateCcw } from 'lucide-react';
 
 export default function IndexTrendChart({
-  trendData,
-  routes,
-  airlines,
+  trendData = [],
   filters = { route: 'ALL', airline: 'ALL', window: 'ALL', frequency: 'Daily' },
-  onFilterChange
+  onFilterChange = () => {},
+  isLoading = false,
+  error = null,
+  routes = []
 }) {
-  const selectedRoute = filters.route || 'ALL';
-  const selectedAirline = filters.airline || 'ALL';
-  const selectedWindow = filters.window || 'ALL';
-  const frequency = filters.frequency || 'Daily';
-
-  const handleRouteSelect = (e) => {
-    onFilterChange?.({ ...filters, route: e.target.value });
-  };
-
-  const handleAirlineSelect = (e) => {
-    onFilterChange?.({ ...filters, airline: e.target.value });
-  };
-
-  const handleWindowSelect = (e) => {
-    onFilterChange?.({ ...filters, window: e.target.value });
-  };
-
-  const handleFrequencySelect = (f) => {
-    onFilterChange?.({ ...filters, frequency: f });
-  };
-
-  const handleReset = () => {
-    onFilterChange?.({ route: 'ALL', airline: 'ALL', window: 'ALL', frequency: 'Daily' });
-  };
-
-  // Ensure format fits frequency and clearly highlights the current month
-  const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  
-  const formattedData = (trendData || []).map((d) => {
-    let displayDate = d.date;
-    if (frequency === 'Daily' && d.date && d.date.length >= 10) {
-      // Convert YYYY-MM-DD to "Aug 15" or "Sep 04" so current month is immediately obvious
-      const mIdx = parseInt(d.date.substring(5, 7), 10) - 1;
-      const day = d.date.substring(8, 10);
-      if (mIdx >= 0 && mIdx < 12) {
-        displayDate = `${MONTH_NAMES[mIdx]} ${day}`;
-      } else {
-        displayDate = d.date.substring(5);
-      }
-    }
-    return {
-      date: displayDate,
-      fullDate: d.full_date || d.date,
-      Index: d.weighted_index,
-      Jevons: d.jevons_index,
-      Fisher: d.fisher_index,
-      AvgFare: d.avg_fare
-    };
-  });
-
-  const hasActiveFilters = selectedRoute !== 'ALL' || selectedAirline !== 'ALL' || selectedWindow !== 'ALL' || frequency !== 'Daily';
-
-  const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-      const fullDateStr = payload[0]?.payload?.fullDate || label;
-      const isCurrentMonth = fullDateStr?.includes('2026-09') || fullDateStr?.includes('Sep') || fullDateStr?.includes('September');
-      return (
-        <div className="bg-navy-950/95 border border-navy-700 p-3.5 rounded-xl shadow-2xl backdrop-blur-md text-xs font-mono">
-          <div className="flex items-center justify-between gap-2 mb-1.5 border-b border-navy-800 pb-1">
-            <span className="font-semibold text-slate-300">
-              Period: {fullDateStr}
-            </span>
-            {isCurrentMonth && (
-              <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.2 rounded border border-emerald-500/30">
-                Current Month
-              </span>
-            )}
-          </div>
-          <div className="space-y-1">
-            <p className="text-blue-400 flex justify-between space-x-4">
-              <span>Weighted Index (APIx):</span>
-              <strong className="font-extrabold">{payload[0]?.value?.toFixed(1)}</strong>
-            </p>
-            {payload[1] && (
-              <p className="text-cyan-400 flex justify-between space-x-4">
-                <span>Jevons Index:</span>
-                <span>{payload[1]?.value?.toFixed(1)}</span>
-              </p>
-            )}
-            <p className="text-emerald-400 flex justify-between space-x-4 pt-1 border-t border-navy-800">
-              <span>Average Fare:</span>
-              <span>₹{payload[0]?.payload?.AvgFare ? Math.round(payload[0]?.payload?.AvgFare).toLocaleString('en-IN') : 'N/A'}</span>
-            </p>
-          </div>
-        </div>
-      );
-    }
-    return null;
-  };
+  if (error) {
+    return (
+      <div className="bg-surface-card rounded-xl p-8 border border-border-hairline shadow-sm text-center">
+        <span className="material-symbols-outlined text-metric-negative text-[36px]">error</span>
+        <h4 className="font-headline font-bold text-base text-text-primary mt-2">API Connection Interrupted</h4>
+        <p className="text-xs text-text-muted mt-1">{error}</p>
+        <button 
+          onClick={() => onFilterChange({})} 
+          className="mt-4 px-4 py-2 bg-primary-container text-white text-xs font-semibold rounded-lg hover:opacity-90 transition-all shadow-sm"
+        >
+          Retry Real-Time Query
+        </button>
+      </div>
+    );
+  }
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, type: 'spring', stiffness: 200 }}
-      className="gov-card rounded-2xl mb-6 relative overflow-hidden border border-blue-500/20"
-    >
-      <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-blue-500 to-indigo-500"></div>
-
-      {/* Header & Controls */}
-      <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-800/80">
-        <div>
-          <div className="flex items-center space-x-2.5">
-            <h2 className="text-lg sm:text-xl font-bold text-white flex items-center space-x-2.5">
-              <span>Airfare Price Index (APIx) — {frequency} Trend</span>
-              <span className="text-xs font-mono font-semibold text-blue-300 bg-blue-950/80 px-2.5 py-0.5 rounded-full border border-blue-500/30">
-                Base 100 = Jan 2026
-              </span>
-            </h2>
-            {hasActiveFilters && (
-              <button
-                onClick={handleReset}
-                className="text-[11px] font-mono text-amber-300 hover:text-amber-200 bg-amber-500/15 hover:bg-amber-500/25 px-2.5 py-1 rounded-lg border border-amber-500/30 flex items-center space-x-1.5 transition-all shadow-sm"
-                title="Reset all filters to default"
-              >
-                <RotateCcw className="w-3 h-3" />
-                <span>Reset Filters</span>
-              </button>
-            )}
+    <div className="bg-surface-card rounded-xl p-6 shadow-sm border border-border-hairline relative">
+      {/* Loading Overlay */}
+      {isLoading && (
+        <div className="absolute inset-0 bg-surface-canvas/75 backdrop-blur-[2px] z-20 flex items-center justify-center rounded-xl">
+          <div className="flex items-center gap-2 bg-surface-card px-4 py-2 rounded-lg border border-border-hairline shadow-md">
+            <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+            <span className="text-xs font-semibold text-text-primary">Calculating Live Index...</span>
           </div>
-          <p className="text-xs text-slate-400 mt-1">
-            {hasActiveFilters ? (
-              <span className="text-blue-300 font-medium">
-                Active filter: {selectedRoute !== 'ALL' ? selectedRoute : 'All Corridors'}
-                {selectedAirline !== 'ALL' ? ` • ${selectedAirline}` : ''}
-                {selectedWindow !== 'ALL' ? ` • ${selectedWindow}` : ''}
-                {` • ${frequency} View`}
-              </span>
-            ) : (
-              'High-frequency national index aggregated across representative domestic corridors (Rolling 30-Day Window)'
-            )}
+        </div>
+      )}
+
+      {/* Filter Control Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-border-hairline">
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="material-symbols-outlined text-primary text-[22px]">stacked_line_chart</span>
+            <h2 className="font-headline text-lg font-bold text-text-primary">
+              Airfare Price Index (APIx) — {filters.frequency || 'Daily'} Trend
+            </h2>
+          </div>
+          <p className="text-xs text-text-muted mt-0.5">
+            Active Corridor: <strong className="text-primary">{filters.route || 'ALL'}</strong> | 
+            Carrier: <strong className="text-primary">{filters.airline || 'ALL'}</strong> | 
+            Window: <strong className="text-primary">{filters.window || 'ALL'}</strong>
           </p>
-          {selectedWindow !== 'ALL' && (
-            <div className="mt-1.5 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-900/30 border border-blue-500/20 text-[11px] text-blue-300 font-mono">
-              <Info className="w-3 h-3 text-blue-400 flex-shrink-0" />
-              <span>
-                {selectedWindow === 'T+1' && 'T+1 Immediate Window: Highest spot fare tier reflecting last-minute seat inventory demand surge.'}
-                {selectedWindow === 'T+7' && 'T+7 Near-Term Window: Short advance booking window with moderate peak-load pricing.'}
-                {selectedWindow === 'T+15' && 'T+15 Standard Window: Baseline standard booking tariff.'}
-                {selectedWindow === 'T+30' && 'T+30 Advance Purchase: Discounted early-bird tariff (standard airline revenue yield management).'}
-                {selectedWindow === 'T+45' && 'T+45 Advance Purchase: Maximum early-bird discount booking window.'}
-              </span>
-            </div>
-          )}
         </div>
 
-        {/* Filter Controls */}
-        <div className="flex flex-wrap items-center gap-2.5">
-          {/* Frequency Selector: Daily | Weekly | Monthly */}
-          <div className="flex items-center bg-navy-950 p-1 rounded-lg border border-navy-800 text-xs font-medium">
-            {['Daily', 'Weekly', 'Monthly'].map((f) => (
+        {/* Quick Filter Controls */}
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Route selector dropdown */}
+          {routes && routes.length > 0 && (
+            <select
+              value={filters.route || 'ALL'}
+              onChange={(e) => onFilterChange({ route: e.target.value })}
+              className="bg-surface-canvas border border-border-hairline text-xs font-semibold px-2.5 py-1.5 rounded-lg text-text-primary focus:outline-none focus:ring-1 focus:ring-primary"
+            >
+              <option value="ALL">All Corridors (National)</option>
+              {routes.map(r => (
+                <option key={r.code || r.route} value={r.code || r.route}>
+                  {r.code || r.route} - {r.name || r.route}
+                </option>
+              ))}
+            </select>
+          )}
+
+          {/* Frequency Toggle Buttons */}
+          <div className="flex items-center gap-1 bg-surface-canvas p-1 rounded-lg border border-border-hairline">
+            {['Daily', 'Weekly', 'Monthly'].map(f => (
               <button
                 key={f}
-                onClick={() => handleFrequencySelect(f)}
-                className={`px-3 py-1 rounded-md transition-all font-semibold ${
-                  frequency === f
-                    ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
-                    : 'text-slate-400 hover:text-slate-200 hover:bg-navy-900'
+                onClick={() => onFilterChange({ frequency: f })}
+                className={`px-3 py-1 rounded-md text-xs font-semibold transition-all ${
+                  (filters.frequency || 'Daily') === f
+                    ? 'bg-primary-container text-white shadow-sm'
+                    : 'text-text-muted hover:text-text-primary'
                 }`}
               >
                 {f}
               </button>
             ))}
           </div>
-
-          {/* Route Filter Dropdown - Dynamically populated with all 52+ corridors */}
-          <select
-            value={selectedRoute}
-            onChange={handleRouteSelect}
-            className="bg-navy-950 border border-navy-700 text-slate-200 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:border-blue-500 font-medium max-w-[260px] truncate"
-          >
-            <option value="ALL">All Tracked Corridors ({routes?.length || 52})</option>
-            {/* If routes are categorized by cluster, group them into optgroups */}
-            {['Metro Trunk', 'Metro-Tier2 Link', 'Regional & NE', 'Leisure & Tourist', 'Emerging Hubs'].map((clusterName) => {
-              const clusterRoutes = (routes || []).filter((r) => (r.cluster || 'Metro Trunk') === clusterName);
-              if (clusterRoutes.length === 0) return null;
-              return (
-                <optgroup key={clusterName} label={`── ${clusterName} (${clusterRoutes.length}) ──`}>
-                  {clusterRoutes.map((r) => (
-                    <option key={r.route} value={r.route}>
-                      {r.route} ({r.name})
-                    </option>
-                  ))}
-                </optgroup>
-              );
-            })}
-            {/* Fallback if no cluster grouping found */}
-            {(!routes || routes.length === 0 || !routes.some(r => r.cluster)) && (routes || []).map((r) => (
-              <option key={r.route} value={r.route}>
-                {r.route} ({r.name})
-              </option>
-            ))}
-          </select>
-
-          {/* Airline Filter Dropdown */}
-          <select
-            value={selectedAirline}
-            onChange={handleAirlineSelect}
-            className="bg-navy-950 border border-navy-700 text-slate-200 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:border-blue-500 font-medium"
-          >
-            <option value="ALL">All Airlines (4)</option>
-            <option value="IndiGo">IndiGo (6E)</option>
-            <option value="Air India">Air India (AI)</option>
-            <option value="Air India Express">Air India Express (IX)</option>
-            <option value="Akasa Air">Akasa Air (QP)</option>
-          </select>
-
-          {/* Advance Window Dropdown */}
-          <select
-            value={selectedWindow}
-            onChange={handleWindowSelect}
-            className="bg-navy-950 border border-navy-700 text-slate-200 text-xs rounded-lg px-3 py-1.5 focus:outline-none focus:border-blue-500 font-medium"
-          >
-            <option value="ALL">All Windows (T+1 to T+45)</option>
-            <option value="T+1">T+1 (Immediate 1-day)</option>
-            <option value="T+7">T+7 (7-Day Advance)</option>
-            <option value="T+15">T+15 (15-Day Advance)</option>
-            <option value="T+30">T+30 (30-Day Advance)</option>
-            <option value="T+45">T+45 (45-Day Advance)</option>
-          </select>
         </div>
       </div>
 
-      {/* Main Area Chart */}
-      <div className="h-[320px] w-full">
-        <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={formattedData} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
-            <defs>
-              <linearGradient id="indexGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.4} />
-                <stop offset="95%" stopColor="#3B82F6" stopOpacity={0.0} />
-              </linearGradient>
-              <linearGradient id="jevonsGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#06B6D4" stopOpacity={0.3} />
-                <stop offset="95%" stopColor="#06B6D4" stopOpacity={0.0} />
-              </linearGradient>
-            </defs>
-            <CartesianGrid strokeDasharray="3 3" stroke="#1c2f5e" vertical={false} />
-            <XAxis dataKey="date" stroke="#64748b" tick={{ fill: '#94a3b8', fontSize: 11 }} />
-            <YAxis domain={['auto', 'auto']} stroke="#64748b" tick={{ fill: '#94a3b8', fontSize: 11 }} />
-            <Tooltip content={<CustomTooltip />} />
-            <ReferenceLine
-              y={100}
-              stroke="#f59e0b"
-              strokeDasharray="4 4"
-              label={{ value: 'Base Period (100.0)', fill: '#f59e0b', fontSize: 10, position: 'insideTopLeft' }}
-            />
-            <Area
-              type="monotone"
-              dataKey="Index"
-              name="Weighted Index"
-              stroke="#3B82F6"
-              strokeWidth={3}
-              fillOpacity={1}
-              fill="url(#indexGradient)"
-              activeDot={{ r: 6, stroke: '#60a5fa', strokeWidth: 2 }}
-            />
-            <Area
-              type="monotone"
-              dataKey="Jevons"
-              name="Jevons Geometric"
-              stroke="#06B6D4"
-              strokeWidth={1.5}
-              strokeDasharray="4 4"
-              fillOpacity={1}
-              fill="url(#jevonsGradient)"
-            />
-          </AreaChart>
-        </ResponsiveContainer>
-      </div>
-
-      {/* Legend & Stats Footer */}
-      <div className="flex flex-wrap items-center justify-between text-xs text-slate-400 mt-4 pt-3 border-t border-navy-800">
-        <div className="flex items-center space-x-6">
-          <div className="flex items-center space-x-2">
-            <span className="w-3 h-1 bg-blue-500 rounded-full"></span>
-            <span className="text-slate-300 font-medium">Weighted Base-100 APIx</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <span className="w-3 h-0.5 bg-cyan-400 border-t border-dashed border-cyan-400"></span>
-            <span className="text-slate-400">Jevons Geometric Index</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <span className="w-3 h-0.5 bg-amber-500 border-t border-dashed border-amber-500"></span>
-            <span className="text-amber-400">Base Period (100.0)</span>
-          </div>
+      {/* Empty State */}
+      {!isLoading && (!trendData || trendData.length === 0) ? (
+        <div className="h-[280px] flex flex-col items-center justify-center text-center p-6">
+          <span className="material-symbols-outlined text-text-muted text-[44px]">query_stats</span>
+          <p className="font-headline font-bold text-sm text-text-primary mt-2">No Observational Records Found</p>
+          <p className="text-xs text-text-muted mt-1 max-w-sm">
+            No scraped or verified records exist matching the selected parameters. Adjust your filters or select "All Corridors".
+          </p>
+          <button
+            onClick={() => onFilterChange({ route: 'ALL', airline: 'ALL', window: 'ALL' })}
+            className="mt-3 px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-surface-canvas border border-border-hairline text-primary hover:bg-slate-100"
+          >
+            Reset Filters to National Basket
+          </button>
         </div>
-        <div className="flex items-center space-x-2 text-slate-400">
-          <Info className="w-3.5 h-3.5 text-blue-400" />
-          <span>Showing <strong className="text-slate-200">{formattedData.length}</strong> {frequency.toLowerCase()} time periods</span>
+      ) : (
+        <div className="h-[320px] w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart data={trendData} margin={{ top: 10, right: 15, left: -10, bottom: 0 }}>
+              <defs>
+                <linearGradient id="liveIndexGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#2F6FED" stopOpacity={0.35} />
+                  <stop offset="95%" stopColor="#2F6FED" stopOpacity={0.0} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" vertical={false} />
+              <XAxis dataKey="date" stroke="#64748B" tick={{ fill: '#64748B', fontSize: 11 }} />
+              <YAxis domain={['auto', 'auto']} stroke="#64748B" tick={{ fill: '#64748B', fontSize: 11 }} />
+              <Tooltip 
+                content={({ active, payload, label }) => {
+                  if (active && payload && payload.length) {
+                    const item = payload[0].payload;
+                    return (
+                      <div className="bg-surface-card border border-border-hairline p-3 rounded-lg shadow-lg text-xs space-y-1">
+                        <div className="font-bold text-text-primary border-b border-border-hairline pb-1 mb-1">
+                          {item.full_date || label}
+                        </div>
+                        <div className="text-secondary font-bold">
+                          Weighted Index (APIx): {item.weighted_index !== undefined ? item.weighted_index.toFixed(1) : '--'}
+                        </div>
+                        {item.jevons_index && (
+                          <div className="text-text-muted text-[11px]">
+                            Jevons Index: {item.jevons_index.toFixed(1)}
+                          </div>
+                        )}
+                        <div className="text-text-primary font-medium">
+                          Average Fare: ₹{Math.round(item.avg_fare || 0).toLocaleString('en-IN')}
+                        </div>
+                        <div className="text-[10px] text-text-muted pt-1 border-t border-border-hairline">
+                          Live Clean Sample: {item.observation_count || 1} flights
+                        </div>
+                      </div>
+                    );
+                  }
+                  return null;
+                }}
+              />
+              <ReferenceLine y={100} stroke="#EA580C" strokeDasharray="3 3" label={{ value: 'Base 100', fill: '#EA580C', fontSize: 10, position: 'insideTopLeft' }} />
+              <Area
+                type="monotone"
+                dataKey="weighted_index"
+                stroke="#2F6FED"
+                strokeWidth={2.5}
+                fill="url(#liveIndexGrad)"
+                activeDot={{ r: 6, stroke: '#123B7A', strokeWidth: 2 }}
+              />
+            </AreaChart>
+          </ResponsiveContainer>
         </div>
-      </div>
-    </motion.div>
+      )}
+    </div>
   );
 }

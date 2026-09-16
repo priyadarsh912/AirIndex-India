@@ -1,0 +1,13 @@
+{
+  "name": "airscope-airindex-india",
+  "version": "2.0.0",
+  "private": true,
+  "description": "AirScope / AirIndex India - Production Airfare Price Index & Reactive Analytics Stack",
+  "scripts": {
+    "dev": "python run_dev.py",
+    "start": "python run_dev.py",
+    "build": "npm --prefix frontend run build",
+    "frontend": "npm --prefix frontend run dev",
+    "backend": "python -m uvicorn backend.main:app --port 8000"
+  }
+}

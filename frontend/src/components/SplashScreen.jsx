@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Activity, ShieldCheck, Plane, CheckCircle2 } from 'lucide-react';
 
 export default function SplashScreen({ onComplete }) {
   const [stage, setStage] = useState(0);
 
   useEffect(() => {
-    // Step 1: Initial load
     const timer1 = setTimeout(() => setStage(1), 700);
-    // Step 2: Verification / System initialization
-    const timer2 = setTimeout(() => setStage(2), 1600);
-    // Step 3: Complete and dismiss
+    const timer2 = setTimeout(() => setStage(2), 1500);
     const timerComplete = setTimeout(() => {
       onComplete?.();
-    }, 2600);
+    }, 2400);
 
     return () => {
       clearTimeout(timer1);
@@ -26,166 +22,146 @@ export default function SplashScreen({ onComplete }) {
     <motion.div
       key="splash-screen"
       initial={{ opacity: 1 }}
-      exit={{ opacity: 0, scale: 1.02, transition: { duration: 0.5, ease: "easeInOut" } }}
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#030712] text-white select-none overflow-hidden"
+      exit={{ opacity: 0, transition: { duration: 0.5, ease: "easeInOut" } }}
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-between bg-[#F3F4F1] text-slate-800 select-none overflow-hidden py-10 px-6"
     >
-      {/* Background Ambient Glows & Grid */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-blue-600/15 rounded-full blur-[120px]" />
-        <div className="absolute bottom-10 left-1/3 w-[400px] h-[400px] bg-cyan-500/10 rounded-full blur-[100px]" />
-        <div className="absolute top-10 right-1/4 w-[300px] h-[300px] bg-amber-500/10 rounded-full blur-[90px]" />
-        <div 
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0)`,
-            backgroundSize: '32px 32px'
-          }}
-        />
+      {/* Background Ambient Radial Glow */}
+      <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+        <div className="w-[800px] h-[500px] bg-gradient-to-r from-blue-100/40 via-amber-50/30 to-emerald-100/40 rounded-full blur-[130px]" />
       </div>
 
-      {/* Top Tiranga Ribbon Accent */}
-      <div className="absolute top-0 left-0 right-0 h-1.5 tiranga-ribbon shadow-sm z-10" />
-
-      {/* Main Card Container */}
+      {/* Top Header Accreditation */}
       <motion.div 
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="relative z-10 flex flex-col items-center text-center px-6 max-w-lg w-full"
+        transition={{ duration: 0.6 }}
+        className="relative z-10 flex items-center gap-3 px-4 py-2 rounded-full bg-surface-card border border-border-hairline shadow-sm"
       >
-        {/* Government Emblem / Emblem Header Badge */}
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-800 text-slate-300 text-xs tracking-wider mb-6 font-medium shadow-inner">
-          <span className="w-4 h-4 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center text-[9px] text-slate-950 font-bold">
-            🏛️
-          </span>
-          <span>भारत सरकार • Government of India</span>
+        <div className="w-5 h-5 rounded-full bg-[#002b66] text-white flex items-center justify-center font-bold text-[10px]">
+          🇮🇳
         </div>
+        <span className="text-xs font-semibold text-slate-700 tracking-wide">
+          Government of India • MoSPI SIH-26056
+        </span>
+      </motion.div>
 
-        {/* Central Logo & Pulse Halo */}
-        <div className="relative mb-6">
-          <motion.div
-            animate={{ 
-              scale: [1, 1.15, 1],
-              opacity: [0.3, 0.6, 0.3] 
-            }}
-            transition={{ 
-              duration: 2.4, 
-              repeat: Infinity,
-              ease: "easeInOut" 
-            }}
-            className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-blue-600 to-cyan-400 blur-xl opacity-40"
+      {/* Main Center Container */}
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.98 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="relative z-10 flex flex-col items-center text-center max-w-lg w-full"
+      >
+        {/* Transparent Airliner Floating Graphic */}
+        <div className="relative w-64 sm:w-80 h-auto mb-5 flex items-center justify-center pointer-events-none">
+          <img 
+            src="/flight-header-transparent.png" 
+            alt="AirScope Airliner" 
+            className="w-full h-auto object-contain filter contrast-[1.06] brightness-[0.98] drop-shadow-[0_12px_24px_rgba(15,23,42,0.14)] animate-flight-float"
           />
-
-          <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-gradient-to-br from-blue-600 via-indigo-700 to-slate-900 p-0.5 shadow-2xl border border-blue-400/40 flex items-center justify-center">
-            <div className="w-full h-full rounded-[22px] bg-[#070e24] flex items-center justify-center relative overflow-hidden">
-              <motion.div
-                initial={{ rotate: -20, scale: 0.8 }}
-                animate={{ rotate: 0, scale: 1 }}
-                transition={{ duration: 0.6 }}
-                className="relative z-10"
-              >
-                <Activity className="w-12 h-12 text-cyan-300 drop-shadow-[0_0_12px_rgba(6,182,212,0.6)]" />
-              </motion.div>
-
-              <motion.div 
-                animate={{ 
-                  x: [-60, 100],
-                  y: [40, -60],
-                  opacity: [0, 0.8, 0]
-                }}
-                transition={{ 
-                  duration: 2.2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                className="absolute text-blue-400/30"
-              >
-                <Plane className="w-8 h-8" />
-              </motion.div>
-            </div>
-          </div>
         </div>
 
-        {/* Brand Names & Subtitle */}
-        <motion.h1 
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-          className="text-3xl sm:text-4xl font-black tracking-tight text-white mb-1.5"
-        >
-          AirIndex <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-emerald-400">India</span>
-        </motion.h1>
+        {/* Brand Name */}
+        <div className="flex items-center justify-center gap-2 mb-1">
+          <h1 className="font-headline font-black text-3xl sm:text-4xl tracking-tight text-[#002b66]">
+            AIRSCOPE
+          </h1>
+          <span className="px-2 py-0.5 rounded-md bg-[#1a56db] text-white text-[10px] font-bold uppercase tracking-wider">
+            APIx India
+          </span>
+        </div>
 
-        <motion.p 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-          className="text-xs sm:text-sm text-slate-400 max-w-sm mx-auto mb-6"
-        >
-          National Airfare Price Index & Algorithmic Surveillance Engine
-        </motion.p>
+        <p className="text-xs sm:text-sm font-semibold text-[#1a56db] mb-6 tracking-wide">
+          Real-Time Airfare Price Index & Analytics Engine
+        </p>
+
+        {/* Telemetry Feature Chips */}
+        <div className="flex items-center justify-center gap-2 sm:gap-3 mb-6">
+          <span className="px-2.5 py-1 rounded-lg bg-surface-card border border-border-hairline text-[11px] font-medium text-slate-600 shadow-xs">
+            ✈️ 52 DGCA Corridors
+          </span>
+          <span className="px-2.5 py-1 rounded-lg bg-surface-card border border-border-hairline text-[11px] font-medium text-slate-600 shadow-xs">
+            🛡️ Zero-Contamination
+          </span>
+          <span className="px-2.5 py-1 rounded-lg bg-surface-card border border-border-hairline text-[11px] font-medium text-slate-600 shadow-xs">
+            📊 Calendar Day Sync
+          </span>
+        </div>
 
         {/* Progress Loading Bar */}
-        <div className="w-64 sm:w-72 bg-slate-900/90 rounded-full h-1.5 border border-slate-800 overflow-hidden mb-4 shadow-inner">
+        <div className="w-72 sm:w-80 bg-surface-subtle rounded-full h-2 overflow-hidden mb-3.5 border border-border-hairline p-0.5 shadow-inner">
           <motion.div
             initial={{ width: "10%" }}
             animate={{ 
-              width: stage === 0 ? "35%" : stage === 1 ? "75%" : "100%" 
+              width: stage === 0 ? "45%" : stage === 1 ? "85%" : "100%" 
             }}
-            transition={{ duration: 0.7, ease: "easeInOut" }}
-            className="h-full bg-gradient-to-r from-blue-500 via-cyan-400 to-emerald-400 rounded-full"
+            transition={{ duration: 0.65, ease: "easeInOut" }}
+            className="h-full bg-gradient-to-r from-[#1a56db] to-[#2F6FED] rounded-full shadow-sm"
           />
         </div>
 
-        {/* Dynamic Status Badges */}
-        <div className="h-6 flex items-center justify-center font-mono text-xs text-slate-400">
+        {/* Status Text */}
+        <div className="h-6 flex items-center justify-center text-xs text-slate-600 font-medium">
           <AnimatePresence mode="wait">
             {stage === 0 && (
               <motion.span
                 key="loading-models"
-                initial={{ opacity: 0, y: 4 }}
+                initial={{ opacity: 0, y: 3 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
-                className="flex items-center gap-1.5 text-blue-300/90"
+                exit={{ opacity: 0, y: -3 }}
+                className="flex items-center gap-2 text-slate-700"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-ping" />
-                Initializing National Index Matrix...
+                <span className="w-2 h-2 rounded-full bg-[#1a56db] animate-ping" />
+                Connecting to Live OTA Data Feeds...
               </motion.span>
             )}
 
             {stage === 1 && (
               <motion.span
                 key="syncing-dgca"
-                initial={{ opacity: 0, y: 4 }}
+                initial={{ opacity: 0, y: 3 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
-                className="flex items-center gap-1.5 text-cyan-300/90"
+                exit={{ opacity: 0, y: -3 }}
+                className="flex items-center gap-2 text-[#1a56db] font-semibold"
               >
-                <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
-                Calibrating MoSPI / DGCA weights...
+                <span className="material-symbols-outlined text-[16px]">verified</span>
+                Calibrating DGCA Route Weights & Index Base...
               </motion.span>
             )}
 
             {stage >= 2 && (
               <motion.span
                 key="ready"
-                initial={{ opacity: 0, y: 4 }}
+                initial={{ opacity: 0, y: 3 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex items-center gap-1.5 text-emerald-400 font-semibold"
+                className="flex items-center gap-2 text-emerald-700 font-bold"
               >
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                System Ready • Launching Portal
+                <span className="material-symbols-outlined text-[16px]">check_circle</span>
+                System Calibrated • Launching Dashboard
               </motion.span>
             )}
           </AnimatePresence>
         </div>
       </motion.div>
 
-      {/* Footer Credentials */}
-      <div className="absolute bottom-6 flex flex-col items-center gap-1 text-[11px] text-slate-400 font-mono tracking-wide">
-        <span>Ministry of Statistics & Programme Implementation (MoSPI)</span>
-        <span className="text-slate-400">SIH-26056 • High-Frequency Economic Indicator</span>
-      </div>
+      {/* Footer Accreditation & Tricolor Strip */}
+      <motion.div 
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="relative z-10 flex flex-col items-center gap-2 w-full max-w-md"
+      >
+        <div className="h-1 w-32 rounded-full flex overflow-hidden shadow-xs">
+          <div className="w-1/3 bg-[#ff9933]"></div>
+          <div className="w-1/3 bg-white"></div>
+          <div className="w-1/3 bg-[#138808]"></div>
+        </div>
+        <div className="flex flex-col items-center text-[11px] text-slate-500 font-sans">
+          <span className="font-semibold text-slate-700">Ministry of Statistics & Programme Implementation</span>
+          <span className="text-[10px] text-slate-400">National Airfare Price Index & Algorithmic Surveillance Platform</span>
+        </div>
+      </motion.div>
     </motion.div>
   );
 }
+

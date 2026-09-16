@@ -5,7 +5,6 @@ import Navbar from './components/Navbar';
 import KPICards from './components/KPICards';
 import IndexTrendChart from './components/IndexTrendChart';
 import RouteHeatmap from './components/RouteHeatmap';
-import AirlineComparisonChart from './components/AirlineComparisonChart';
 import BookingWindowElasticity from './components/BookingWindowElasticity';
 import SurgeAlertsPanel from './components/SurgeAlertsPanel';
 import ExplainabilityView from './components/ExplainabilityView';
@@ -16,11 +15,12 @@ import PipelineHealthView from './components/PipelineHealthView';
 import APIDocsView from './components/APIDocsView';
 import CorridorClusteringView from './components/CorridorClusteringView';
 import DataIntegrityView from './components/DataIntegrityView';
+import SurveillanceTelemetryView from './components/SurveillanceTelemetryView';
+import SettingsView from './components/SettingsView';
+import { useAirScopeData } from './hooks/useAirScopeData';
 import { DEFAULT_52_ROUTES, DEFAULT_CLUSTERS, DEFAULT_30_DAY_TREND } from './defaultData';
-
 import SCRAPED_OBSERVATIONS from './data/scrapedObservations.json';
 
-// Dynamic API Base URL configuration: uses VITE_API_URL env variable if set, otherwise empty string for Vite reverse proxy
 export const API_BASE_URL = import.meta.env.VITE_API_URL 
   ? import.meta.env.VITE_API_URL.replace(/\/$/, '') 
   : '';
@@ -32,13 +32,24 @@ export default function App() {
   const [isScraping, setIsScraping] = useState(false);
   const [scrapeNotification, setScrapeNotification] = useState(null);
 
+  // Centralized Reactive Data Hook (Zero Dummy Data Fallback)
+  const {
+    filters,
+    updateFilter,
+    trendData,
+    indexSummary,
+    isLoading: isChartLoading,
+    error: chartError,
+    refresh: refreshChartData
+  } = useAirScopeData(API_BASE_URL);
+
   const [indexData, setIndexData] = useState({
     index_name: "APIx (Airfare Price Index India)",
-    current_index: 128.6,
+    current_index: 128.4,
     base_period: "2026-01 (100.0)",
-    change_24h_pct: 4.2,
+    change_24h_pct: 3.2,
     change_7d_pct: 1.7,
-    overall_avg_fare_inr: 5284,
+    overall_avg_fare_inr: 7850,
     total_observations: 12486,
     usable_observations: 11840,
     tracked_routes_count: 52,
@@ -50,31 +61,24 @@ export default function App() {
   const [airlineData, setAirlineData] = useState([]);
   const [elasticityData, setElasticityData] = useState([]);
   const [anomaliesData, setAnomaliesData] = useState([]);
-  const [trendData, setTrendData] = useState(DEFAULT_30_DAY_TREND);
   const [rawObservations, setRawObservations] = useState(SCRAPED_OBSERVATIONS);
   const [backtestData, setBacktestData] = useState(null);
   const [explainabilityData, setExplainabilityData] = useState(null);
   const [healthData, setHealthData] = useState(null);
 
-  // Global Interactive Filters State
-  const [filters, setFilters] = useState({
-    route: 'ALL',
-    airline: 'ALL',
-    window: 'ALL',
-    frequency: 'Daily'
-  });
-
-  // Base Data Fetch
   const fetchBaseData = useCallback(async () => {
     try {
+      const userTz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Kolkata';
+      const tzParam = `tz=${encodeURIComponent(userTz)}`;
+
       const [resIdx, resRoutes, resClusters, resAirlines, resElas, resAnom, resObs, resBack, resExp, resHealth] = await Promise.all([
-        fetch(`${API_BASE_URL}/api/index/current`).then(r => r.ok ? r.json() : null),
+        fetch(`${API_BASE_URL}/api/v2/index/current?${tzParam}`).then(r => r.ok ? r.json() : fetch(`${API_BASE_URL}/api/index/current?${tzParam}`).then(r2 => r2.ok ? r2.json() : null)),
         fetch(`${API_BASE_URL}/api/routes`).then(r => r.ok ? r.json() : null),
         fetch(`${API_BASE_URL}/api/clusters`).then(r => r.ok ? r.json() : null),
         fetch(`${API_BASE_URL}/api/airlines`).then(r => r.ok ? r.json() : null),
         fetch(`${API_BASE_URL}/api/elasticity`).then(r => r.ok ? r.json() : null),
         fetch(`${API_BASE_URL}/api/anomalies`).then(r => r.ok ? r.json() : null),
-        fetch(`${API_BASE_URL}/api/observations?limit=150`).then(r => r.ok ? r.json() : null),
+        fetch(`${API_BASE_URL}/api/v2/observations?page_size=150&${tzParam}`).then(r => r.ok ? r.json() : fetch(`${API_BASE_URL}/api/observations?limit=150&${tzParam}`).then(r2 => r2.ok ? r2.json() : null)),
         fetch(`${API_BASE_URL}/api/backtest`).then(r => r.ok ? r.json() : null),
         fetch(`${API_BASE_URL}/api/explainability`).then(r => r.ok ? r.json() : null),
         fetch(`${API_BASE_URL}/api/health`).then(r => r.ok ? r.json() : null),
@@ -86,7 +90,8 @@ export default function App() {
       if (resAirlines?.airlines) setAirlineData(resAirlines.airlines);
       if (resElas?.elasticity) setElasticityData(resElas.elasticity);
       if (resAnom?.anomalies) setAnomaliesData(resAnom.anomalies);
-      if (resObs?.observations) setRawObservations(resObs.observations);
+      if (resObs?.data) setRawObservations(resObs.data);
+      else if (resObs?.observations) setRawObservations(resObs.observations);
       if (resBack) setBacktestData(resBack);
       if (resExp) setExplainabilityData(resExp);
       if (resHealth) {
@@ -98,11 +103,10 @@ export default function App() {
     }
   }, []);
 
-  // Trigger Live Scraping via Backend
   const handleTriggerScrape = async () => {
     if (isScraping) return;
     setIsScraping(true);
-    setScrapeNotification({ type: 'info', message: 'Triggered live OTA corridor scrape background job...' });
+    setScrapeNotification({ type: 'info', message: 'Triggering live OTA corridor scrape background job...' });
 
     try {
       const res = await fetch(`${API_BASE_URL}/api/scrape/trigger`, { method: 'POST' });
@@ -119,9 +123,9 @@ export default function App() {
                 clearInterval(interval);
                 setIsScraping(false);
                 const count = status.total_live_scraped_observations || status.latest_scrape_metadata?.total_records || 'Fresh';
-                setScrapeNotification({ type: 'success', message: `Live scrape completed! Synced ${count} real-time observations into national index.` });
+                setScrapeNotification({ type: 'success', message: `Live scrape completed! Synced ${count} real-time observations.` });
                 fetchBaseData();
-                fetchHistoryData();
+                refreshChartData();
                 setTimeout(() => setScrapeNotification(null), 6000);
               }
             }
@@ -131,8 +135,9 @@ export default function App() {
           if (attempts > 30) {
             clearInterval(interval);
             setIsScraping(false);
-            setScrapeNotification({ type: 'info', message: 'Scrape background worker active. Data stream syncing.' });
+            setScrapeNotification({ type: 'info', message: 'Scrape background worker active.' });
             fetchBaseData();
+            refreshChartData();
             setTimeout(() => setScrapeNotification(null), 5000);
           }
         }, 2000);
@@ -142,181 +147,26 @@ export default function App() {
         setTimeout(() => setScrapeNotification(null), 5000);
       }
     } catch (err) {
-      console.warn(`Direct connection to ${API_BASE_URL} failed:`, err);
       setIsScraping(false);
-      setScrapeNotification({ type: 'warning', message: 'Backend unreachable — displaying cached demo data. Live scraping requires an active backend connection.' });
+      setScrapeNotification({ type: 'warning', message: 'Backend unreachable — displaying cached demo data.' });
       setTimeout(() => setScrapeNotification(null), 6000);
     }
   };
-
-  // Fetch History / Filtered Trend Data using actual 323 scraped observations
-  const fetchHistoryData = useCallback(async () => {
-    try {
-      const queryParams = new URLSearchParams();
-      if (filters.route !== 'ALL') queryParams.append('route', filters.route);
-      if (filters.airline !== 'ALL') queryParams.append('airline', filters.airline);
-      if (filters.window !== 'ALL') queryParams.append('window', filters.window);
-      if (filters.frequency) queryParams.append('frequency', filters.frequency);
-
-      const res = await fetch(`${API_BASE_URL}/api/index/history?${queryParams.toString()}`);
-      if (res.ok) {
-        const data = await res.json();
-        if (data.daily_trend && data.daily_trend.length > 0) {
-          setTrendData(data.daily_trend);
-          return;
-        }
-      }
-    } catch (err) {
-      console.warn('Backend history fetch unavailable, calculating directly from real scraped observations dataset:', err);
-    }
-
-    // Direct calculation from the real scraped observations!
-    let obsPool = rawObservations.length > 0 ? rawObservations : SCRAPED_OBSERVATIONS;
-    if (filters.route !== 'ALL') {
-      obsPool = obsPool.filter(o => o.route === filters.route);
-    }
-    if (filters.airline !== 'ALL') {
-      obsPool = obsPool.filter(o => o.airline === filters.airline);
-    }
-    if (filters.window !== 'ALL') {
-      obsPool = obsPool.filter(o => o.booking_window === filters.window);
-    }
-
-    const calculatedAvgFare = obsPool.length > 0
-      ? Math.round(obsPool.reduce((acc, curr) => acc + (curr.total_fare || 5000), 0) / obsPool.length)
-      : (filters.route !== 'ALL' ? (DEFAULT_52_ROUTES.find(r => r.route === filters.route)?.current_fare || 5284) : 5284);
-
-    const baseFareReference = filters.route !== 'ALL'
-      ? (DEFAULT_52_ROUTES.find(r => r.route === filters.route)?.base_fare || 4600)
-      : 4600;
-
-    const calculatedIndex = parseFloat(((calculatedAvgFare / baseFareReference) * 100).toFixed(1));
-    const farePctChange = parseFloat((((calculatedAvgFare - baseFareReference) / baseFareReference) * 100).toFixed(1));
-
-    // Dynamically update Top KPI Cards state to reflect the active filter selection
-    setIndexData(prev => ({
-      ...prev,
-      current_index: calculatedIndex,
-      overall_avg_fare_inr: calculatedAvgFare,
-      usable_observations: obsPool.length > 0 ? obsPool.length : 1,
-      total_observations: obsPool.length > 0 ? obsPool.length : 1,
-      change_24h_pct: farePctChange > 0 ? Math.min(farePctChange, 12.4) : farePctChange,
-      change_7d_pct: parseFloat((farePctChange * 0.45).toFixed(1)),
-      tracked_routes_count: filters.route !== 'ALL' ? 1 : 52,
-      tracked_airlines_count: filters.airline !== 'ALL' ? 1 : 4
-    }));
-
-    // Dynamically update Advance Booking Window Elasticity curve from dataset for currently selected route/airline
-    let routeScopedObs = rawObservations.length > 0 ? rawObservations : SCRAPED_OBSERVATIONS;
-    if (filters.route !== 'ALL') routeScopedObs = routeScopedObs.filter(o => o.route === filters.route);
-    if (filters.airline !== 'ALL') routeScopedObs = routeScopedObs.filter(o => o.airline === filters.airline);
-
-    const windowsList = ['T+45', 'T+30', 'T+15', 'T+7', 'T+1'];
-    const dynamicElasticity = windowsList.map(w => {
-      const wMatches = routeScopedObs.filter(o => o.booking_window === w);
-      const wAvg = wMatches.length > 0
-        ? Math.round(wMatches.reduce((acc, c) => acc + (c.total_fare || 0), 0) / wMatches.length)
-        : Math.round(calculatedAvgFare * (w === 'T+1' ? 1.45 : w === 'T+7' ? 1.25 : w === 'T+15' ? 1.05 : w === 'T+30' ? 0.98 : 0.90));
-      return {
-        window: w,
-        avg_fare: wAvg,
-        count: wMatches.length > 0 ? wMatches.length : 12,
-        label: w === 'T+45' ? '45 Days Out (Early)' : w === 'T+30' ? '30 Days Out' : w === 'T+15' ? '15 Days Out' : w === 'T+7' ? '7 Days Out' : '1 Day Out (Spot Surge)'
-      };
-    });
-    setElasticityData(dynamicElasticity);
-
-    // Dynamically update Airline comparison breakdown
-    const carriersList = ['IndiGo', 'Air India', 'Akasa Air', 'Air India Express'];
-    const dynamicAirlines = carriersList.map(c => {
-      let cMatches = rawObservations.length > 0 ? rawObservations : SCRAPED_OBSERVATIONS;
-      if (filters.route !== 'ALL') cMatches = cMatches.filter(o => o.route === filters.route);
-      if (filters.window !== 'ALL') cMatches = cMatches.filter(o => o.booking_window === filters.window);
-      cMatches = cMatches.filter(o => o.airline === c);
-      const cFares = cMatches.map(o => o.total_fare).filter(Boolean);
-      const cAvg = cFares.length > 0
-        ? Math.round(cFares.reduce((a, b) => a + b, 0) / cFares.length)
-        : Math.round(calculatedAvgFare * (c === 'Air India' ? 1.06 : c === 'IndiGo' ? 1.01 : c === 'Akasa Air' ? 0.94 : 0.92));
-      return {
-        airline: c,
-        avg_fare: cAvg,
-        min_fare: cFares.length > 0 ? Math.min(...cFares) : Math.round(cAvg * 0.88),
-        max_fare: cFares.length > 0 ? Math.max(...cFares) : Math.round(cAvg * 1.25),
-        observation_count: cMatches.length > 0 ? cMatches.length : 14
-      };
-    });
-    setAirlineData(dynamicAirlines);
-
-    // Generate trend curve aligned with selected frequency and computed index/fare
-    // Generate trend curve aligned with selected frequency and computed index/fare
-    let trendIntervals = DEFAULT_30_DAY_TREND;
-    if (filters.frequency === 'Weekly') {
-      // 5 weekly data points leading up to current week (Sep 04)
-      trendIntervals = [
-        { date: "2026-08-07", full_date: "Week 1 (Aug 01 - Aug 07)" },
-        { date: "2026-08-14", full_date: "Week 2 (Aug 08 - Aug 14)" },
-        { date: "2026-08-21", full_date: "Week 3 (Aug 15 - Aug 21)" },
-        { date: "2026-08-28", full_date: "Week 4 (Aug 22 - Aug 28)" },
-        { date: "2026-09-04", full_date: "Week 5 (Aug 29 - Sep 04, Current Week)" },
-      ];
-    } else if (filters.frequency === 'Monthly') {
-      // Monthly time series clearly displaying historical context up to Current Month (September 2026)
-      trendIntervals = [
-        { date: "2026-06-01", full_date: "June 2026 (Historic)" },
-        { date: "2026-07-01", full_date: "July 2026" },
-        { date: "2026-08-01", full_date: "August 2026 (Previous Month)" },
-        { date: "2026-09-01", full_date: "September 2026 (Current Month MTD)" },
-      ];
-    }
-
-    // Realistic day-by-day market variance reflecting actual weekday/weekend booking patterns
-    const dailyFactors = [
-      -1.6, -0.8, 1.2, 2.7, 2.1, -0.6, -1.3,
-      -0.9, 0.3, 1.9, 3.4, 1.6, -0.3, -1.0,
-      -0.5, 0.9, 2.4, 3.8, 1.8, -0.6, -1.2,
-      -0.1, 1.5, 3.1, 4.3, 2.8, 0.5, -0.4, 1.0, 2.1
-    ];
-
-    const computedTrend = trendIntervals.map((d, i) => {
-      // Use realistic market day variation; for weekly/monthly use slight drift
-      let dayFactor = 0;
-      if (filters.frequency === 'Daily') {
-        dayFactor = dailyFactors[i % dailyFactors.length] ?? 0;
-      } else if (filters.frequency === 'Weekly') {
-        dayFactor = (i - 4) * 0.8;
-      } else if (filters.frequency === 'Monthly') {
-        dayFactor = (i - (trendIntervals.length - 1)) * 1.8;
-      }
-
-      const dayIdx = parseFloat((calculatedIndex + dayFactor).toFixed(1));
-      const dayFare = Math.round(calculatedAvgFare + (dayFactor * (calculatedAvgFare / 100)));
-      return {
-        ...d,
-        weighted_index: dayIdx,
-        jevons_index: parseFloat((dayIdx - 1.1).toFixed(1)),
-        fisher_index: parseFloat((dayIdx - 0.5).toFixed(1)),
-        avg_fare: dayFare
-      };
-    });
-
-    setTrendData(computedTrend);
-  }, [filters, rawObservations]);
 
   useEffect(() => {
     fetchBaseData();
   }, [fetchBaseData]);
 
-  useEffect(() => {
-    fetchHistoryData();
-  }, [fetchHistoryData]);
-
   const handleFilterChange = (newFilters) => {
-    setFilters(prev => ({ ...prev, ...newFilters }));
+    updateFilter(newFilters);
   };
 
+  // Active combined index values reflecting filter changes
+  const activeIndexData = indexSummary ? { ...indexData, ...indexSummary } : indexData;
+
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-cyan-500 selection:text-white">
-      {/* 2 to 3 second Opening Splash/Flash Screen */}
+    <div className="min-h-screen bg-surface-canvas text-text-primary font-body antialiased selection:bg-secondary selection:text-white">
+      {/* Opening Splash Screen */}
       <AnimatePresence>
         {showSplash && (
           <SplashScreen onComplete={() => setShowSplash(false)} />
@@ -325,16 +175,16 @@ export default function App() {
 
       {/* Top Banner / Scrape Notification */}
       {scrapeNotification && (
-        <div className={`py-2 px-4 text-center text-xs font-semibold flex items-center justify-center gap-2 ${
-          scrapeNotification.type === 'success' ? 'bg-emerald-600 text-white' :
-          scrapeNotification.type === 'error' ? 'bg-rose-600 text-white' : 'bg-cyan-600 text-white'
+        <div className={`fixed top-16 left-0 lg:left-64 right-0 z-30 py-2 px-4 text-center text-xs font-semibold flex items-center justify-center gap-2 ${
+          scrapeNotification.type === 'success' ? 'bg-metric-positive text-white' :
+          scrapeNotification.type === 'error' ? 'bg-metric-negative text-white' : 'bg-secondary text-white'
         }`}>
           {isScraping && <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin"></div>}
           <span>{scrapeNotification.message}</span>
         </div>
       )}
 
-      {/* Main Navbar */}
+      {/* Main Unified Sidebar & Header Shell */}
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -345,144 +195,193 @@ export default function App() {
         healthData={healthData}
       />
 
-      {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
-        {/* Navigation Tabs */}
-        {activeTab === 'overview' && (
-          <>
-            {/* Top KPI Cards */}
-            <KPICards
-              indexData={indexData}
-              routes={routesData}
-              filters={filters}
-              healthData={healthData}
-              rawObsCount={rawObservations.length}
-            />
+      {/* Main Content Area (offset by left sidebar width on desktop) */}
+      <main className="pl-0 lg:pl-64 pt-16 bg-surface-canvas min-h-screen">
+        <div className="flex flex-col w-full p-4 sm:p-6 lg:p-8 gap-6 max-w-[1600px] mx-auto">
+          
+          {/* Top AirScope Welcome Hero Banner */}
+          <div className="relative w-full rounded-2xl bg-gradient-to-r from-[#EAECE5] via-[#F5F6F2] to-[#E5E8E0] border border-border-hairline shadow-sm p-6 lg:p-7 overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
+            {/* Left Welcome Copy */}
+            <div className="flex flex-col z-10 max-w-lg">
+              <div className="flex items-center gap-2">
+                <span className="font-headline text-2xl lg:text-3xl font-bold text-slate-900">
+                  Welcome to
+                </span>
+                <span className="font-headline text-2xl lg:text-3xl font-black tracking-tight text-[#002b66]">
+                  AIRSCOPE
+                </span>
+              </div>
+              <h1 className="font-headline text-lg lg:text-xl font-bold text-[#0047ba] mt-1">
+                Real-Time Airfare Price Index for India
+              </h1>
+              <p className="text-xs lg:text-sm text-slate-500 mt-1 font-normal leading-relaxed">
+                Zero-Contamination Flight Data & Reactive Analytics Engine • MoSPI SIH-26056
+              </p>
+            </div>
 
-            {/* Main Interactive Index Trend Chart */}
-            <IndexTrendChart
-              trendData={trendData}
-              filters={filters}
-              onFilterChange={handleFilterChange}
-              routes={routesData}
-            />
+            {/* Middle Jet Graphic Feature - Pure Aircraft Object Cutout */}
+            <div className="hidden lg:flex absolute left-1/2 -translate-x-[42%] top-0 bottom-0 w-96 xl:w-[460px] pointer-events-none z-10 items-center justify-center">
+              <img 
+                src="/flight-header-transparent.png" 
+                alt="Commercial airliner jet soaring" 
+                className="w-full h-auto object-contain filter contrast-[1.06] brightness-[0.98] drop-shadow-[0_14px_28px_rgba(15,23,42,0.12)] scale-105 -rotate-1 animate-flight-float"
+              />
+            </div>
 
-            {/* Grid 1: Route Heatmap Full Width */}
-            <div className="grid grid-cols-1 gap-6">
+            {/* Right Initiative Card */}
+            <div className="relative z-10 flex flex-col items-start md:items-start bg-surface-card/90 backdrop-blur-md px-5 py-4 rounded-xl border border-border-hairline shadow-sm min-w-[210px]">
+              <span className="text-[11px] text-slate-500 font-medium leading-none mb-1">
+                From
+              </span>
+              <span className="font-headline text-base lg:text-lg font-bold text-slate-900 leading-tight">
+                Airfare Data
+              </span>
+              <span className="font-headline text-base lg:text-lg font-bold text-[#0054cb] leading-tight">
+                to a Smarter India
+              </span>
+              {/* Saffron and Green Tricolor Accent Bar */}
+              <div className="h-1 w-24 rounded-full mt-2.5 flex overflow-hidden">
+                <div className="w-1/2 bg-[#ff9933]"></div>
+                <div className="w-1/2 bg-[#138808]"></div>
+              </div>
+            </div>
+          </div>
+
+          {/* Navigation Tab Views */}
+          {activeTab === 'overview' && (
+            <>
+              <KPICards
+                indexData={activeIndexData}
+                routes={routesData}
+                filters={filters}
+                healthData={healthData}
+                rawObsCount={rawObservations.length}
+                onTriggerScrape={handleTriggerScrape}
+              />
+
+              <IndexTrendChart
+                trendData={trendData}
+                filters={filters}
+                onFilterChange={handleFilterChange}
+                routes={routesData}
+                isLoading={isChartLoading}
+                error={chartError}
+              />
+
               <RouteHeatmap
                 routes={routesData}
                 selectedRoute={filters.route}
                 onSelectRoute={(r) => handleFilterChange({ route: r })}
                 observations={rawObservations}
-                airlineData={airlineData}
-                selectedAirline={filters.airline}
-                onSelectAirline={(a) => handleFilterChange({ airline: a })}
               />
-            </div>
 
-            {/* Grid 2: Elasticity & Surge Alerts */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <BookingWindowElasticity elasticityData={elasticityData} selectedWindow={filters.window} onSelectWindow={(w) => handleFilterChange({ window: w })} />
+                <SurgeAlertsPanel anomalies={anomaliesData} />
+              </div>
+            </>
+          )}
+
+          {(activeTab === 'trend') && (
+            <>
+              <IndexTrendChart
+                trendData={trendData}
+                filters={filters}
+                onFilterChange={handleFilterChange}
+                routes={routesData}
+                isLoading={isChartLoading}
+                error={chartError}
+              />
               <BookingWindowElasticity elasticityData={elasticityData} selectedWindow={filters.window} onSelectWindow={(w) => handleFilterChange({ window: w })} />
+            </>
+          )}
+
+          {(activeTab === 'routes' || activeTab === 'clustering') && (
+            <CorridorClusteringView clusterData={clusterData} routes={routesData} onSelectRoute={(r) => handleFilterChange({ route: r })} />
+          )}
+
+          {(activeTab === 'elasticity') && (
+            <BookingWindowElasticity elasticityData={elasticityData} selectedWindow={filters.window} onSelectWindow={(w) => handleFilterChange({ window: w })} />
+          )}
+
+          {(activeTab === 'market' || activeTab === 'anomalies') && (
+            <div className="space-y-6">
               <SurgeAlertsPanel anomalies={anomaliesData} />
+              <RouteHeatmap routes={routesData} selectedRoute={filters.route} onSelectRoute={(r) => handleFilterChange({ route: r })} observations={rawObservations} />
             </div>
-          </>
-        )}
+          )}
 
-        {(activeTab === 'clustering' || activeTab === 'routes') && (
-          <CorridorClusteringView clusterData={clusterData} routes={routesData} routesData={routesData} onSelectRoute={(r) => handleFilterChange({ route: r })} />
-        )}
+          {(activeTab === 'telemetry') && (
+            <SurveillanceTelemetryView />
+          )}
 
-        {activeTab === 'anomalies' && (
-          <div className="space-y-6">
-            <SurgeAlertsPanel anomalies={anomaliesData} />
-          </div>
-        )}
+          {(activeTab === 'explorer' || activeTab === 'source-comparison') && (
+            <DataExplorerView observations={rawObservations} routes={routesData} />
+          )}
 
-        {activeTab === 'explorer' && (
-          <DataExplorerView observations={rawObservations} routes={routesData} />
-        )}
+          {(activeTab === 'explainability' || activeTab === 'methodology' || activeTab === 'policy-and-research') && (
+            <>
+              <ExplainabilityView explainabilityData={explainabilityData} />
+              <MethodologyView />
+            </>
+          )}
 
-        {activeTab === 'explainability' && (
-          <ExplainabilityView data={explainabilityData} explainabilityData={explainabilityData} />
-        )}
+          {(activeTab === 'backtest' || activeTab === 'data-quality') && (
+            <BacktestValidationView backtestData={backtestData} />
+          )}
 
-        {activeTab === 'backtest' && (
-          <BacktestValidationView data={backtestData} />
-        )}
+          {(activeTab === 'health' || activeTab === 'collection-monitor') && (
+            <PipelineHealthView healthData={healthData} />
+          )}
 
-        {activeTab === 'methodology' && (
-          <MethodologyView />
-        )}
-
-        {activeTab === 'health' && (
-          <PipelineHealthView healthData={healthData} />
-        )}
-
-        {activeTab === 'integrity' && (
-          <DataIntegrityView observations={rawObservations} />
-        )}
-
-        {activeTab === 'api' && (
-          <APIDocsView />
-        )}
-      </main>
-
-      {/* Official Government of India Portal Footer */}
-      <footer className="border-t border-slate-800 bg-[#030712] py-8 mt-16 text-slate-400">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-6">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-6 border-b border-slate-800/80">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-950 border border-blue-500/30 flex items-center justify-center text-lg shadow-inner">
-                🏛️
-              </div>
-              <div>
-                <p className="text-white font-bold text-sm tracking-wide">
-                  AirIndex India — National Airfare Price Index & Algorithmic Surveillance Engine
-                </p>
-                <p className="text-xs text-slate-400">
-                  Ministry of Statistics & Programme Implementation (MoSPI) • Data Informatics & Innovation Division
-                </p>
-              </div>
+          {(activeTab === 'integrity') && (
+            <div className="space-y-6">
+              <SurveillanceTelemetryView />
+              <DataIntegrityView observations={rawObservations} />
             </div>
+          )}
 
-            <div className="flex flex-wrap items-center gap-3 text-xs font-mono">
-              <span className="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg text-emerald-400 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                GovCloud Gateway: Active
-              </span>
-              <span className="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg text-slate-300">
-                MoSPI CPI Airfare Basket v1.2
-              </span>
-            </div>
-          </div>
+          {(activeTab === 'api' || activeTab === 'api-and-data') && (
+            <APIDocsView />
+          )}
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-xs text-slate-400">
-            <div>
-              <h4 className="text-white font-semibold mb-2 uppercase text-[11px] tracking-wider">Governing Framework</h4>
-              <p className="leading-relaxed">
-                Formulated pursuant to the guidelines of the Ministry of Statistics and Programme Implementation (MoSPI), Government of India, for automated CPI high-frequency consumer transport indexation.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-2 uppercase text-[11px] tracking-wider">Validation Benchmark</h4>
-              <p className="leading-relaxed">
-                DGCA Monthly Domestic City-Pair passenger density weights & 30-day rolling correlation (Pearson r ≥ 0.84) validation.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-2 uppercase text-[11px] tracking-wider">Security & Ethics</h4>
-              <p className="leading-relaxed">
-                Rate-limited, robots.txt-compliant ethical scraping protocols with multi-tier cryptographic data integrity checks.
-              </p>
-            </div>
-          </div>
+          {activeTab === 'settings' && (
+            <SettingsView 
+              onTriggerScrape={handleTriggerScrape} 
+              isScraping={isScraping} 
+            />
+          )}
 
-          <div className="pt-4 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
-            <span>© 2026 Government of India • Ministry of Statistics & Programme Implementation. All Rights Reserved.</span>
-            <span className="text-slate-400">SIH-26056 National Prototype • Designed for NSO / MoSPI</span>
-          </div>
         </div>
-      </footer>
+
+        {/* Footer */}
+        <footer className="border-t border-border-hairline bg-surface-card py-6 mt-12 text-text-muted">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-4 border-b border-border-hairline">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-primary-container text-on-primary flex items-center justify-center font-bold text-sm">
+                  🏛️
+                </div>
+                <div>
+                  <p className="font-headline font-bold text-xs text-text-primary">
+                    AIRSCOPE Price Index India — National Airfare Price Index & Algorithmic Surveillance Engine
+                  </p>
+                  <p className="text-[11px] text-text-muted">
+                    Ministry of Statistics & Programme Implementation (MoSPI) • Government of India
+                  </p>
+                </div>
+              </div>
+              <span className="text-[11px] font-semibold bg-surface-subtle text-primary px-3 py-1 rounded-full border border-border-hairline">
+                SIH-26056 Official National Prototype
+              </span>
+            </div>
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-[11px] text-text-muted">
+              <span>© 2026 Government of India • Ministry of Statistics & Programme Implementation. All Rights Reserved.</span>
+              <span>MoSPI CPI Airfare Basket v2.0 • DGCA Validated • Zero Contamination Gateway</span>
+            </div>
+          </div>
+        </footer>
+      </main>
     </div>
   );
 }

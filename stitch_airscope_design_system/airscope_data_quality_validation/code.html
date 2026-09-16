@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-container":"#39b9b4","surface-dim":"#d8dadc","badge-negative-bg":"#FEE2E2","primary-fixed-dim":"#aec6ff","on-primary-fixed":"#001a42","text-muted":"#64748B","surface-container-lowest":"#ffffff","surface-container":"#eceef0","secondary-fixed":"#dae2ff","tertiary-container":"#004543","surface-container-highest":"#e0e3e5","inverse-primary":"#aec6ff","chart-accent-cyan":"#38BDF8","on-secondary-fixed":"#001847","inverse-surface":"#2d3133","on-tertiary-fixed-variant":"#00504d","inverse-on-surface":"#eff1f3","secondary-container":"#2d6deb","metric-warning":"#EA580C","surface":"#f7f9fb","metric-positive":"#16A34A","error-container":"#ffdad6","on-surface":"#191c1e","tertiary-fixed-dim":"#60d9d3","surface-container-low":"#f2f4f6","on-secondary-fixed-variant":"#0040a0","error":"#ba1a1a","text-primary":"#0F172A","on-surface-variant":"#434750","secondary":"#0054cb","on-error":"#ffffff","on-tertiary-fixed":"#00201f","surface-canvas":"#F8FAFC","surface-card":"#FFFFFF","metric-negative":"#DC2626","badge-warning-bg":"#FFEDD5","on-secondary":"#ffffff","primary":"#002558","on-primary":"#ffffff","on-secondary-container":"#fefcff","text-secondary":"#475569","tertiary":"#002d2b","primary-container":"#123b7a","surface-subtle":"#F1F5F9","tertiary-fixed":"#7ff5ef","surface-tint":"#3b5d9e","surface-bright":"#f7f9fb","on-error-container":"#93000a","on-tertiary":"#ffffff","outline-variant":"#c4c6d2","surface-container-high":"#e6e8ea","background":"#f7f9fb","badge-positive-bg":"#DCFCE7","on-primary-container":"#87a7ed","outline":"#747781","surface-variant":"#e0e3e5","border-hairline":"#E2E8F0","on-background":"#191c1e","secondary-fixed-dim":"#b1c5ff","border-focus":"#2F6FED","on-primary-fixed-variant":"#204584","primary-fixed":"#d8e2ff"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"gutter-dense":"0.5rem","space-lg":"1rem","space-xl":"1.5rem",gutter:"1rem","space-xs":"0.25rem","space-md":"0.75rem","space-sm":"0.5rem",margin:"1.5rem","margin-mobile":"1rem"},fontFamily:{"headline-lg":["IBM Plex Sans"],"headline-xl":["IBM Plex Sans"],"label-md":["Inter"],"headline-xl-mobile":["IBM Plex Sans"],caption:["Inter"],"body-md":["Inter"],"data-metric-md":["IBM Plex Sans"],"label-sm":["Inter"],"data-metric-xl":["IBM Plex Sans"],"body-sm":["Inter"],"body-lg":["Inter"],"headline-md":["IBM Plex Sans"]},fontSize:{"headline-lg":["22px",{lineHeight:"28px",letterSpacing:"-0.015em",fontWeight:"600"}],"headline-xl":["30px",{lineHeight:"38px",letterSpacing:"-0.02em",fontWeight:"700"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.01em",fontWeight:"600"}],"headline-xl-mobile":["24px",{lineHeight:"32px",letterSpacing:"-0.015em",fontWeight:"700"}],caption:["10px",{lineHeight:"12px",fontWeight:"500"}],"body-md":["13px",{lineHeight:"18px",fontWeight:"400"}],"data-metric-md":["18px",{lineHeight:"24px",letterSpacing:"-0.01em",fontWeight:"600"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.02em",fontWeight:"500"}],"data-metric-xl":["28px",{lineHeight:"32px",letterSpacing:"-0.02em",fontWeight:"700"}],"body-sm":["12px",{lineHeight:"16px",fontWeight:"400"}],"body-lg":["15px",{lineHeight:"22px",fontWeight:"400"}],"headline-md":["16px",{lineHeight:"22px",letterSpacing:"-0.01em",fontWeight:"600"}]}}}}</script></head><body class="bg-surface-canvas font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-64 bg-surface-card z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)] overflow-y-auto"><div class="flex flex-col"><div class="px-space-xl pt-space-xl pb-space-lg"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-lg bg-primary-container text-on-primary flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">flight</span></div><div><span class="font-headline-md text-headline-md font-bold tracking-tight text-primary block leading-none">AIRSCOPE</span><span class="font-caption text-caption text-text-muted mt-0.5 block tracking-normal">Price Index India</span></div></div><p class="mt-space-sm font-caption text-caption text-text-secondary leading-tight">Real-Time Airfare Price Index for India</p></div><nav class="flex flex-col gap-0.5 px-space-md py-space-xs" data-active-classes="bg-primary-container text-on-primary font-semibold shadow-sm"><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[19px]">space_dashboard</span><span>Dashboard</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="airfare-index" href="#"><span class="material-symbols-outlined text-[19px]">stacked_line_chart</span><span>Airfare Index</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="route-explorer" href="#"><span class="material-symbols-outlined text-[19px]">alt_route</span><span>Route Explorer</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="lead-time-analytics" href="#"><span class="material-symbols-outlined text-[19px]">schedule</span><span>Lead-Time Analytics</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="market-monitor" href="#"><span class="material-symbols-outlined text-[19px]">query_stats</span><span>Market Monitor</span></a><a aria-current="page" class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg transition-colors bg-primary-container text-on-primary font-semibold shadow-sm" data-path="data-quality" href="#"><span class="material-symbols-outlined text-[19px]">verified</span><span>Data Quality</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="collection-monitor" href="#"><span class="material-symbols-outlined text-[19px]">hub</span><span>Collection Monitor</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="source-comparison" href="#"><span class="material-symbols-outlined text-[19px]">compare_arrows</span><span>Source Comparison</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="api-and-data" href="#"><span class="material-symbols-outlined text-[19px]">api</span><span>API &amp; Data</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="policy-and-research" href="#"><span class="material-symbols-outlined text-[19px]">menu_book</span><span>Policy &amp; Research</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="settings" href="#"><span class="material-symbols-outlined text-[19px]">settings</span><span>Settings</span></a></nav></div><div class="p-space-md"><div class="bg-surface-subtle rounded-xl p-space-md"><div class="flex items-center gap-1.5 mb-1 text-primary"><span class="material-symbols-outlined text-[16px]">public</span><span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider">Mission</span></div><p class="font-headline-md text-headline-md font-semibold text-text-primary">Data for a Better Tomorrow</p><p class="font-caption text-caption text-text-muted mt-1 leading-snug">Transparent. Comparable. Policy-Ready.</p></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-card/90 backdrop-blur-xl z-40 px-space-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] flex items-center justify-between"><div class="w-96"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-3 text-text-muted text-[18px]">search</span><input class="w-full h-10 pl-9 pr-3 rounded-lg bg-surface-canvas font-body-sm text-body-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:bg-surface-card transition-all" placeholder="Search route, airline, or keyword... ⌘K" type="text"/></div></div><div class="flex items-center gap-space-lg"><div class="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-subtle"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-metric-positive opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-metric-positive"></span></span><span class="font-label-sm text-label-sm text-text-secondary">Live Data | Last updated 14 Sep 2025, 11:42 AM IST</span></div><button aria-label="Notifications" class="relative w-9 h-9 rounded-lg flex items-center justify-center text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-metric-negative text-on-error font-caption text-[9px] flex items-center justify-center font-bold">3</span></button><div class="flex items-center gap-space-sm pl-space-sm"><div class="w-8 h-8 rounded-full bg-primary-container text-on-primary font-headline-md text-headline-md flex items-center justify-center font-semibold">S</div><div class="hidden md:flex flex-col"><span class="font-label-md text-label-md text-text-primary font-semibold leading-tight">Subham</span><span class="font-caption text-caption text-text-muted leading-tight">Policy &amp; Price Statistics Division</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UlVHDMEeTE5a3KBjZ_G65mz5EVGFu45jSXW4YP4x3UdsvERnRom2tBop4Lvj8sEIlNjusXdpDxb59YCpU0OD4q6dkkOrTF01ktXlefHn39aXtYIyPRQbaSsI0ktHMVo-tLlIuP7_asbfbKOUaS8-3GFRh44yUlk2hUarlvRIhfySBKtAuasICpvFerF5oQ4RaIlR5nchXkPA7kkRlLXmFk2R2uGgzQPh8ecR3Z-kjEa4JHlGfzlUb1K3dn"/><span class="material-symbols-outlined text-text-muted text-[18px] cursor-pointer hover:text-on-surface transition-colors">arrow_drop_down</span></div></div></header><main class="relative pt-16 bg-surface-canvas min-h-screen"><div class="flex flex-col w-full">
+<div class="px-space-xl py-space-lg flex flex-col gap-space-lg max-w-[1720px] mx-auto w-full">
+<!-- Header Section with Audit Action Strip -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div>
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-xl text-headline-xl text-text-primary">Data Quality &amp; Validation</span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-badge-positive-bg text-metric-positive font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-metric-positive"></span>
+            MOSPI / DGC-A Compliant
+          </span>
+</div>
+<p class="font-body-md text-body-md text-text-secondary mt-1">
+          Statistical integrity auditing, outlier detection, and sampling frame completeness for the National Airfare Price Index (APIx).
+        </p>
+</div>
+<div class="flex items-center gap-space-sm flex-wrap">
+<div class="flex items-center bg-surface-card px-space-md py-1.5 rounded-lg shadow-sm">
+<span class="material-symbols-outlined text-metric-positive text-[18px] mr-2">verified_user</span>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-text-muted leading-tight uppercase tracking-wider">Audit Protocol</span>
+<span class="font-label-sm text-label-sm text-text-primary font-semibold">Tukey 2.5x IQR + Box-Cox v4.1</span>
+</div>
+</div>
+<button class="flex items-center gap-1.5 px-space-md h-9 rounded-lg bg-surface-card hover:bg-surface-subtle text-text-primary font-label-md text-label-md shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-text-muted">tune</span>
+          Threshold Config
+        </button>
+<button class="flex items-center gap-1.5 px-space-md h-9 rounded-lg bg-primary text-on-primary font-label-md text-label-md shadow-sm hover:bg-primary-container transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">download_for_offline</span>
+          Export Audit Ledger (CSV)
+        </button>
+</div>
+</div>
+<!-- Top KPI Row (6 cards) -->
+<div class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-gutter">
+<!-- KPI 1 -->
+<div class="bg-surface-card rounded-lg p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-muted">Total Observations</span>
+<span class="material-symbols-outlined text-text-muted text-[18px]">dataset</span>
+</div>
+<div class="mt-2">
+<div class="font-data-metric-xl text-data-metric-xl text-text-primary">1,248,950</div>
+<div class="flex items-center gap-1 mt-1 font-caption text-caption text-text-secondary">
+<span class="text-metric-positive font-semibold">↑ +4.2%</span>
+<span>vs. 7D target quota</span>
+</div>
+</div>
+</div>
+<!-- KPI 2 -->
+<div class="bg-surface-card rounded-lg p-space-lg shadow-sm flex flex-col justify-between relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1 bg-metric-positive"></div>
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-muted">Valid Observations</span>
+<span class="material-symbols-outlined text-metric-positive text-[18px]">check_circle</span>
+</div>
+<div class="mt-2">
+<div class="flex items-baseline gap-1.5">
+<span class="font-data-metric-xl text-data-metric-xl text-text-primary">96.4%</span>
+<span class="font-label-sm text-label-sm text-metric-positive bg-badge-positive-bg px-1.5 py-0.2 rounded font-semibold">Nominal</span>
+</div>
+<div class="font-caption text-caption text-text-secondary mt-1">1,204,188 certified quotes</div>
+</div>
+</div>
+<!-- KPI 3 -->
+<div class="bg-surface-card rounded-lg p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-muted">Suspicious Quotes</span>
+<span class="material-symbols-outlined text-metric-warning text-[18px]">flag</span>
+</div>
+<div class="mt-2">
+<div class="flex items-baseline gap-1.5">
+<span class="font-data-metric-xl text-data-metric-xl text-text-primary">2.4%</span>
+<span class="font-label-sm text-label-sm text-metric-warning bg-badge-warning-bg px-1.5 py-0.2 rounded font-semibold">Reviewing</span>
+</div>
+<div class="font-caption text-caption text-text-secondary mt-1">29,974 in algorithmic hold</div>
+</div>
+</div>
+<!-- KPI 4 -->
+<div class="bg-surface-card rounded-lg p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-muted">Outliers Excluded</span>
+<span class="material-symbols-outlined text-metric-negative text-[18px]">block</span>
+</div>
+<div class="mt-2">
+<div class="flex items-baseline gap-1.5">
+<span class="font-data-metric-xl text-data-metric-xl text-text-primary">0.8%</span>
+<span class="font-label-sm text-label-sm text-metric-negative bg-badge-negative-bg px-1.5 py-0.2 rounded font-semibold">&lt; 1.0% Cap</span>
+</div>
+<div class="font-caption text-caption text-text-secondary mt-1">9,991 quotes dropped</div>
+</div>
+</div>
+<!-- KPI 5 -->
+<div class="bg-surface-card rounded-lg p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-muted">Duplicate Rate</span>
+<span class="material-symbols-outlined text-text-muted text-[18px]">content_copy</span>
+</div>
+<div class="mt-2">
+<div class="font-data-metric-xl text-data-metric-xl text-text-primary">0.3%</div>
+<div class="font-caption text-caption text-text-secondary mt-1">Cross-OTA flight matched</div>
+</div>
+</div>
+<!-- KPI 6 -->
+<div class="bg-surface-card rounded-lg p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-muted">Missing Rate</span>
+<span class="material-symbols-outlined text-text-muted text-[18px]">troubleshoot</span>
+</div>
+<div class="mt-2">
+<div class="font-data-metric-xl text-data-metric-xl text-text-primary">0.1%</div>
+<div class="font-caption text-caption text-text-secondary mt-1">Geometric mean imputed</div>
+</div>
+</div>
+</div>
+<!-- Core Visualizations Bento Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-gutter">
+<!-- Source Completeness & Sampling Quota (xl:col-span-4) -->
+<div class="xl:col-span-4 bg-surface-card rounded-xl p-space-xl shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-sm">
+<h2 class="font-headline-md text-headline-md text-text-primary">Source Sampling Frame</h2>
+<span class="font-caption text-caption px-2 py-0.5 rounded bg-surface-subtle text-text-muted font-medium">Daily Quota Met</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary mb-space-lg">
+            Collection health and quota fulfillment per carrier GDS and OTA scrapers against target bounds.
+          </p>
+<div class="flex flex-col gap-space-md">
+<!-- IndiGo -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-label-md text-label-md text-text-primary">IndiGo (6E Direct API)</span>
+</div>
+<div class="font-caption text-caption text-text-secondary font-mono">392k / 400k <span class="text-metric-positive font-semibold">(98%)</span></div>
+</div>
+<div class="h-2 w-full bg-surface-subtle rounded-full overflow-hidden flex">
+<div class="h-full bg-primary" style="width: 98%;"></div>
+</div>
+</div>
+<!-- Air India Group -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-metric-negative"></span>
+<span class="font-label-md text-label-md text-text-primary">Air India &amp; Express</span>
+</div>
+<div class="font-caption text-caption text-text-secondary font-mono">298k / 310k <span class="text-metric-positive font-semibold">(96%)</span></div>
+</div>
+<div class="h-2 w-full bg-surface-subtle rounded-full overflow-hidden flex">
+<div class="h-full bg-secondary-container" style="width: 96%;"></div>
+</div>
+</div>
+<!-- Akasa Air -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-metric-warning"></span>
+<span class="font-label-md text-label-md text-text-primary">Akasa Air (QP Webhook)</span>
+</div>
+<div class="font-caption text-caption text-text-secondary font-mono">118k / 120k <span class="text-metric-positive font-semibold">(98%)</span></div>
+</div>
+<div class="h-2 w-full bg-surface-subtle rounded-full overflow-hidden flex">
+<div class="h-full bg-metric-warning" style="width: 98%;"></div>
+</div>
+</div>
+<!-- SpiceJet -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+<span class="font-label-md text-label-md text-text-primary">SpiceJet (SG API)</span>
+</div>
+<div class="font-caption text-caption text-text-secondary font-mono">74k / 90k <span class="text-metric-warning font-semibold">(82%)</span></div>
+</div>
+<div class="h-2 w-full bg-surface-subtle rounded-full overflow-hidden flex">
+<div class="h-full bg-metric-warning" style="width: 82%;"></div>
+</div>
+</div>
+<!-- Aggregator OTA Layer -->
+<div>
+<div class="flex justify-between items-center mb-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-chart-accent-cyan"></span>
+<span class="font-label-md text-label-md text-text-primary">OTAs (MMT, EaseMyTrip, Yatra)</span>
+</div>
+<div class="font-caption text-caption text-text-secondary font-mono">366k / 360k <span class="text-metric-positive font-semibold">(101%)</span></div>
+</div>
+<div class="h-2 w-full bg-surface-subtle rounded-full overflow-hidden flex">
+<div class="h-full bg-chart-accent-cyan" style="width: 100%;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-lg pt-space-md bg-surface-subtle rounded-lg p-3 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">speed</span>
+<span class="font-caption text-caption text-text-secondary">Overall Ingestion Latency:</span>
+</div>
+<span class="font-label-sm text-label-sm font-semibold text-text-primary">184 ms avg (P95: 410 ms)</span>
+</div>
+</div>
+<!-- Quality Score Distribution (xl:col-span-5) -->
+<div class="xl:col-span-5 bg-surface-card rounded-xl p-space-xl shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-sm">
+<div>
+<h2 class="font-headline-md text-headline-md text-text-primary">Quality Score Distribution</h2>
+<span class="font-caption text-caption text-text-muted">Gaussian kernel density estimation on ₹/seat-km</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 font-caption text-caption text-metric-positive font-medium">
+<span class="w-2 h-2 rounded-full bg-metric-positive"></span> Valid Zone
+              </span>
+<span class="inline-flex items-center gap-1 font-caption text-caption text-metric-negative font-medium">
+<span class="w-2 h-2 rounded-full bg-metric-negative"></span> Truncated Tail
+              </span>
+</div>
+</div>
+<!-- Distribution Chart (SVG) -->
+<div class="relative w-full h-44 mt-space-md">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 450 160">
+<defs>
+<lineargradient id="curveGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#2F6FED" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#2F6FED" stop-opacity="0.01"></stop>
+</lineargradient>
+<lineargradient id="outlierTail" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#DC2626" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#DC2626" stop-opacity="0.02"></stop>
+</lineargradient>
+</defs>
+<!-- Outlier Shaded Regions (left & right tails) -->
+<rect fill="url(#outlierTail)" height="135" rx="2" width="45" x="0" y="0"></rect>
+<rect fill="url(#outlierTail)" height="135" rx="2" width="45" x="405" y="0"></rect>
+<!-- Baseline and Gridlines -->
+<line stroke="#E2E8F0" stroke-width="1.5" x1="0" x2="450" y1="135" y2="135"></line>
+<line stroke="#F1F5F9" stroke-dasharray="3 3" stroke-width="1" x1="0" x2="450" y1="90" y2="90"></line>
+<line stroke="#F1F5F9" stroke-dasharray="3 3" stroke-width="1" x1="0" x2="450" y1="45" y2="45"></line>
+<!-- Threshold Vertical Markers -->
+<line stroke="#DC2626" stroke-dasharray="4 2" stroke-width="1.5" x1="45" x2="45" y1="10" y2="135"></line>
+<line stroke="#DC2626" stroke-dasharray="4 2" stroke-width="1.5" x1="405" x2="405" y1="10" y2="135"></line>
+<!-- Main Distribution Density Area -->
+<path d="M 0 135 L 20 130 Q 45 125 75 110 Q 140 80 185 30 Q 225 5 265 30 Q 310 80 375 110 Q 405 125 430 130 L 450 135 Z" fill="url(#curveGradient)"></path>
+<!-- Curve Stroke Line -->
+<path d="M 0 135 Q 30 128 60 118 Q 130 85 185 30 Q 225 5 265 30 Q 320 85 390 118 Q 420 128 450 135" fill="none" stroke="#2F6FED" stroke-linecap="round" stroke-width="2.5"></path>
+<!-- Mean / Median Indicator Line -->
+<line stroke="#002558" stroke-width="1.5" x1="225" x2="225" y1="5" y2="135"></line>
+<circle cx="225" cy="5" fill="#002558" r="4"></circle>
+<!-- Axis Labels -->
+<text fill="#64748B" font-family="Inter" font-size="10" x="5" y="152">₹1.8/km (IQR Low)</text>
+<text fill="#002558" font-family="Inter" font-size="10" font-weight="600" x="210" y="152">μ: ₹5.42</text>
+<text fill="#64748B" font-family="Inter" font-size="10" x="365" y="152">₹14.2/km (IQR High)</text>
+</svg>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-2 text-center mt-space-md pt-space-sm border-t-0 bg-surface-subtle/60 rounded-lg p-2">
+<div>
+<div class="font-caption text-caption text-text-muted">Kurtosis</div>
+<div class="font-label-sm text-label-sm font-semibold text-text-primary">2.88 (Normal)</div>
+</div>
+<div>
+<div class="font-caption text-caption text-text-muted">Skewness</div>
+<div class="font-label-sm text-label-sm font-semibold text-text-primary">+0.14</div>
+</div>
+<div>
+<div class="font-caption text-caption text-text-muted">Confidence</div>
+<div class="font-label-sm text-label-sm font-semibold text-metric-positive">99.9% (z=3.29)</div>
+</div>
+</div>
+</div>
+<!-- Availability State & Inventory Health (xl:col-span-3) -->
+<div class="xl:col-span-3 bg-surface-card rounded-xl p-space-xl shadow-sm flex flex-col justify-between">
+<div>
+<h2 class="font-headline-md text-headline-md text-text-primary mb-space-xs">Availability Breakdown</h2>
+<p class="font-body-sm text-body-sm text-text-secondary mb-space-md">Live inventory state classification across carriers.</p>
+<!-- State Stack Bars -->
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-primary flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-metric-positive"></span> Active Bookable
+              </span>
+<span class="font-label-sm text-label-sm font-semibold text-text-primary">88.4%</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-primary flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-text-muted"></span> Genuinely Sold Out
+              </span>
+<span class="font-label-sm text-label-sm font-semibold text-text-primary">8.0%</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-primary flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-metric-warning"></span> Phantom Seat / Caching Lag
+              </span>
+<span class="font-label-sm text-label-sm font-semibold text-metric-warning">2.8%</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-primary flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-metric-negative"></span> Cabin Classification Drift
+              </span>
+<span class="font-label-sm text-label-sm font-semibold text-metric-negative">0.8%</span>
+</div>
+</div>
+<!-- Outlier Stability Mini Sparkline -->
+<div class="mt-space-lg bg-surface-subtle p-3 rounded-lg">
+<div class="flex items-center justify-between mb-1.5">
+<span class="font-caption text-caption text-text-muted uppercase font-semibold">Outlier Rate 7D Stability</span>
+<span class="font-caption text-caption text-metric-positive font-semibold">Stable (0.78% - 0.84%)</span>
+</div>
+<div class="h-10 w-full">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 160 36">
+<path d="M0 24 L25 22 L50 26 L75 20 L100 23 L125 18 L160 19" fill="none" stroke="#0054cb" stroke-linecap="round" stroke-width="2"></path>
+<circle cx="160" cy="19" fill="#0054cb" r="3"></circle>
+</svg>
+</div>
+</div>
+</div>
+<div class="mt-space-md">
+<button class="w-full py-2 px-3 rounded-lg bg-surface-subtle hover:bg-surface-container text-text-primary font-label-sm text-label-sm font-medium transition-colors flex items-center justify-center gap-1" type="button">
+<span>View Imputation Log</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Granular Audit Observation Table Section -->
+<div class="bg-surface-card rounded-xl p-space-xl shadow-sm flex flex-col gap-space-md">
+<!-- Table Header Controls: Search, Filters, Tabs -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div>
+<h2 class="font-headline-md text-headline-md text-text-primary">Granular Audit Observation Ledger</h2>
+<p class="font-body-sm text-body-sm text-text-secondary">High-frequency sample feed verifying algorithmic filtering flags, price anomalies, and normalization integrity.</p>
+</div>
+<!-- Filter Tab Strip -->
+<div class="flex items-center gap-1 bg-surface-subtle p-1 rounded-lg overflow-x-auto">
+<button class="px-3 py-1.5 rounded-md font-label-sm text-label-sm font-semibold bg-surface-card text-text-primary shadow-sm" type="button">ALL (1.24M)</button>
+<button class="px-3 py-1.5 rounded-md font-label-sm text-label-sm font-medium text-text-secondary hover:text-text-primary hover:bg-surface-card/60 transition-colors" type="button">VALID (96.4%)</button>
+<button class="px-3 py-1.5 rounded-md font-label-sm text-label-sm font-medium text-text-secondary hover:text-text-primary hover:bg-surface-card/60 transition-colors" type="button">REVIEW (2.4%)</button>
+<button class="px-3 py-1.5 rounded-md font-label-sm text-label-sm font-medium text-text-secondary hover:text-text-primary hover:bg-surface-card/60 transition-colors" type="button">OUTLIER (0.8%)</button>
+<button class="px-3 py-1.5 rounded-md font-label-sm text-label-sm font-medium text-text-secondary hover:text-text-primary hover:bg-surface-card/60 transition-colors" type="button">MISSING (0.1%)</button>
+<button class="px-3 py-1.5 rounded-md font-label-sm text-label-sm font-medium text-text-secondary hover:text-text-primary hover:bg-surface-card/60 transition-colors" type="button">SOLD OUT</button>
+</div>
+</div>
+<!-- Quick Search and Facet Bar -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm bg-surface-canvas p-2 rounded-lg">
+<div class="flex items-center gap-2 flex-1 max-w-md">
+<span class="material-symbols-outlined text-text-muted text-[18px] ml-1">filter_alt</span>
+<input class="bg-transparent border-0 font-body-sm text-body-sm text-text-primary placeholder:text-text-muted focus:outline-none w-full" placeholder="Filter by Route (e.g. DEL-BOM), Flight #, or Source..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-caption text-caption text-text-muted">Showing latest 8 of 1,248,950 sampled frames</span>
+<span class="h-3 w-[1px] bg-outline-variant"></span>
+<button class="font-label-sm text-label-sm text-secondary hover:underline flex items-center gap-1 font-semibold" type="button">
+<span class="material-symbols-outlined text-[14px]">refresh</span> Refresh Buffer
+          </button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-md text-body-md border-collapse">
+<thead>
+<tr class="bg-surface-canvas text-text-muted font-label-sm text-label-sm uppercase tracking-wider h-9 border-b border-transparent">
+<th class="px-space-md py-2 font-semibold">Data Source &amp; Flight</th>
+<th class="px-space-md py-2 font-semibold">Corridor</th>
+<th class="px-space-md py-2 font-semibold">Timestamp</th>
+<th class="px-space-md py-2 text-right font-semibold">Raw Fare (₹)</th>
+<th class="px-space-md py-2 text-right font-semibold">Normalized (₹)</th>
+<th class="px-space-md py-2 text-right font-semibold">Quality Index</th>
+<th class="px-space-md py-2 text-center font-semibold">Status</th>
+<th class="px-space-md py-2 font-semibold">Statistical Intervention Reason</th>
+</tr>
+</thead>
+<tbody class="divide-y-0">
+<!-- Row 1: Valid standard fare -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="px-space-md py-3 font-medium text-text-primary">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>IndiGo 6E-2051</span>
+</div>
+</td>
+<td class="px-space-md py-3 font-semibold text-text-primary">DEL → BOM</td>
+<td class="px-space-md py-3 text-text-secondary font-mono text-body-sm">11:41:09.12</td>
+<td class="px-space-md py-3 text-right font-mono font-medium text-text-primary">₹7,420</td>
+<td class="px-space-md py-3 text-right font-mono font-semibold text-text-primary">₹7,420</td>
+<td class="px-space-md py-3 text-right font-mono text-metric-positive font-semibold">99.8%</td>
+<td class="px-space-md py-3 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-caption font-semibold bg-badge-positive-bg text-metric-positive">
+                  VALID
+                </span>
+</td>
+<td class="px-space-md py-3 text-text-secondary text-body-sm">Standard economy booking bucket (Bucket L)</td>
+</tr>
+<!-- Row 2: Promo artifact caught under review -->
+<tr class="hover:bg-surface-canvas transition-colors bg-surface-subtle/30">
+<td class="px-space-md py-3 font-medium text-text-primary">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-chart-accent-cyan"></span>
+<span>MakeMyTrip (SG-8169)</span>
+</div>
+</td>
+<td class="px-space-md py-3 font-semibold text-text-primary">BOM → GOI</td>
+<td class="px-space-md py-3 text-text-secondary font-mono text-body-sm">11:40:54.02</td>
+<td class="px-space-md py-3 text-right font-mono font-medium text-metric-negative line-through">₹1,199</td>
+<td class="px-space-md py-3 text-right font-mono font-semibold text-metric-warning">₹4,250*</td>
+<td class="px-space-md py-3 text-right font-mono text-metric-warning font-semibold">72.1%</td>
+<td class="px-space-md py-3 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-caption font-semibold bg-badge-warning-bg text-metric-warning">
+                  REVIEW
+                </span>
+</td>
+<td class="px-space-md py-3 text-text-secondary text-body-sm">Coupon code artifact excluded; carrier base tariff restored</td>
+</tr>
+<!-- Row 3: Outlier extreme spike -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="px-space-md py-3 font-medium text-text-primary">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+<span>Air India AI-678</span>
+</div>
+</td>
+<td class="px-space-md py-3 font-semibold text-text-primary">DEL → CCU</td>
+<td class="px-space-md py-3 text-text-secondary font-mono text-body-sm">11:39:12.80</td>
+<td class="px-space-md py-3 text-right font-mono font-medium text-metric-negative">₹48,950</td>
+<td class="px-space-md py-3 text-right font-mono text-text-muted italic">Excluded</td>
+<td class="px-space-md py-3 text-right font-mono text-metric-negative font-semibold">31.4%</td>
+<td class="px-space-md py-3 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-caption font-semibold bg-badge-negative-bg text-metric-negative">
+                  OUTLIER
+                </span>
+</td>
+<td class="px-space-md py-3 text-text-secondary text-body-sm">Exceeds 2.5x Tukey IQR bound (Business class bleed into Y class frame)</td>
+</tr>
+<!-- Row 4: Valid normal row -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="px-space-md py-3 font-medium text-text-primary">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-metric-warning"></span>
+<span>Akasa Air QP-1311</span>
+</div>
+</td>
+<td class="px-space-md py-3 font-semibold text-text-primary">BLR → DEL</td>
+<td class="px-space-md py-3 text-text-secondary font-mono text-body-sm">11:38:40.11</td>
+<td class="px-space-md py-3 text-right font-mono font-medium text-text-primary">₹6,320</td>
+<td class="px-space-md py-3 text-right font-mono font-semibold text-text-primary">₹6,320</td>
+<td class="px-space-md py-3 text-right font-mono text-metric-positive font-semibold">99.1%</td>
+<td class="px-space-md py-3 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-caption font-semibold bg-badge-positive-bg text-metric-positive">
+                  VALID
+                </span>
+</td>
+<td class="px-space-md py-3 text-text-secondary text-body-sm">Standard direct booking, baggage verified</td>
+</tr>
+<!-- Row 5: Multi-leg classification artifact -->
+<tr class="hover:bg-surface-canvas transition-colors bg-surface-subtle/30">
+<td class="px-space-md py-3 font-medium text-text-primary">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-chart-accent-cyan"></span>
+<span>EaseMyTrip (6E Multi)</span>
+</div>
+</td>
+<td class="px-space-md py-3 font-semibold text-text-primary">MAA → HYD</td>
+<td class="px-space-md py-3 text-text-secondary font-mono text-body-sm">11:37:19.49</td>
+<td class="px-space-md py-3 text-right font-mono font-medium text-metric-warning">₹18,400</td>
+<td class="px-space-md py-3 text-right font-mono text-text-muted italic">Excluded</td>
+<td class="px-space-md py-3 text-right font-mono text-metric-warning font-semibold">58.9%</td>
+<td class="px-space-md py-3 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-caption font-semibold bg-badge-warning-bg text-metric-warning">
+                  REVIEW
+                </span>
+</td>
+<td class="px-space-md py-3 text-text-secondary text-body-sm">Multi-leg 1-stop itinerary flagged in direct non-stop basket frame</td>
+</tr>
+<!-- Row 6: Sold Out state -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="px-space-md py-3 font-medium text-text-primary">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+<span>SpiceJet SG-104</span>
+</div>
+</td>
+<td class="px-space-md py-3 font-semibold text-text-primary">DEL → BLR</td>
+<td class="px-space-md py-3 text-text-secondary font-mono text-body-sm">11:36:02.15</td>
+<td class="px-space-md py-3 text-right font-mono font-medium text-text-muted">N/A</td>
+<td class="px-space-md py-3 text-right font-mono text-text-muted">N/A</td>
+<td class="px-space-md py-3 text-right font-mono text-text-muted font-semibold">—</td>
+<td class="px-space-md py-3 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-caption font-semibold bg-surface-subtle text-text-muted">
+                  SOLD OUT
+                </span>
+</td>
+<td class="px-space-md py-3 text-text-secondary text-body-sm">Inventory depletion confirmed via GDS zero-seat response</td>
+</tr>
+<!-- Row 7: Imputed missing fare -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="px-space-md py-3 font-medium text-text-primary">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span>IndiGo 6E-554</span>
+</div>
+</td>
+<td class="px-space-md py-3 font-semibold text-text-primary">HYD → DEL</td>
+<td class="px-space-md py-3 text-text-secondary font-mono text-body-sm">11:35:10.04</td>
+<td class="px-space-md py-3 text-right font-mono font-medium text-text-muted">Missing</td>
+<td class="px-space-md py-3 text-right font-mono font-semibold text-primary">₹7,650*</td>
+<td class="px-space-md py-3 text-right font-mono text-metric-positive font-semibold">94.2%</td>
+<td class="px-space-md py-3 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-caption font-semibold bg-surface-subtle text-secondary font-medium">
+                  IMPUTED
+                </span>
+</td>
+<td class="px-space-md py-3 text-text-secondary text-body-sm">Geometric mean imputation applied from T-15 corridor peer quotes</td>
+</tr>
+<!-- Row 8: Valid Quote -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="px-space-md py-3 font-medium text-text-primary">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+<span>Air India Express IX-1142</span>
+</div>
+</td>
+<td class="px-space-md py-3 font-semibold text-text-primary">BOM → MAA</td>
+<td class="px-space-md py-3 text-text-secondary font-mono text-body-sm">11:34:44.20</td>
+<td class="px-space-md py-3 text-right font-mono font-medium text-text-primary">₹8,980</td>
+<td class="px-space-md py-3 text-right font-mono font-semibold text-text-primary">₹8,980</td>
+<td class="px-space-md py-3 text-right font-mono text-metric-positive font-semibold">98.5%</td>
+<td class="px-space-md py-3 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-caption font-semibold bg-badge-positive-bg text-metric-positive">
+                  VALID
+                </span>
+</td>
+<td class="px-space-md py-3 text-text-secondary text-body-sm">Verified against primary carrier reservation endpoint</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pagination -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pt-space-sm bg-surface-card border-0">
+<div class="font-caption text-caption text-text-muted">
+          Batch Hash: <span class="font-mono text-text-primary">0x9c3f..7a2e</span> • Automated consensus signed by Node IND-DL-04
+        </div>
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 rounded flex items-center justify-center bg-surface-subtle text-text-muted hover:bg-surface-container transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">chevron_left</span>
+</button>
+<span class="font-label-sm text-label-sm font-semibold text-text-primary px-2">Page 1 of 15,612</span>
+<button class="w-8 h-8 rounded flex items-center justify-center bg-surface-subtle text-text-muted hover:bg-surface-container transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Statistical Methodology Banner -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-surface-subtle text-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[24px]">policy</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-text-primary">National Index Compliance Assurance</h3>
+<p class="font-body-sm text-body-sm text-text-secondary mt-0.5">
+            AirScope's multi-stage filtration adheres to IMF Consumer Price Index Manual (2020) and DGCA Air Transport Statistics standards. Outlier rules are locked to prevent seasonal demand distortion.
+          </p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<a class="px-space-md py-2 rounded-lg bg-surface-subtle hover:bg-surface-container text-text-primary font-label-md text-label-md font-semibold transition-colors flex items-center gap-1.5 whitespace-nowrap" href="#">
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+          Methodology Whitepaper
+        </a>
+</div>
+</div>
+</div>
+</div></main></div></body></html>

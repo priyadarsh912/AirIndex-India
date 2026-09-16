@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-container":"#39b9b4","surface-dim":"#d8dadc","badge-negative-bg":"#FEE2E2","primary-fixed-dim":"#aec6ff","on-primary-fixed":"#001a42","text-muted":"#64748B","surface-container-lowest":"#ffffff","surface-container":"#eceef0","secondary-fixed":"#dae2ff","tertiary-container":"#004543","surface-container-highest":"#e0e3e5","inverse-primary":"#aec6ff","chart-accent-cyan":"#38BDF8","on-secondary-fixed":"#001847","inverse-surface":"#2d3133","on-tertiary-fixed-variant":"#00504d","inverse-on-surface":"#eff1f3","secondary-container":"#2d6deb","metric-warning":"#EA580C","surface":"#f7f9fb","metric-positive":"#16A34A","error-container":"#ffdad6","on-surface":"#191c1e","tertiary-fixed-dim":"#60d9d3","surface-container-low":"#f2f4f6","on-secondary-fixed-variant":"#0040a0","error":"#ba1a1a","text-primary":"#0F172A","on-surface-variant":"#434750","secondary":"#0054cb","on-error":"#ffffff","on-tertiary-fixed":"#00201f","surface-canvas":"#F8FAFC","surface-card":"#FFFFFF","metric-negative":"#DC2626","badge-warning-bg":"#FFEDD5","on-secondary":"#ffffff","primary":"#002558","on-primary":"#ffffff","on-secondary-container":"#fefcff","text-secondary":"#475569","tertiary":"#002d2b","primary-container":"#123b7a","surface-subtle":"#F1F5F9","tertiary-fixed":"#7ff5ef","surface-tint":"#3b5d9e","surface-bright":"#f7f9fb","on-error-container":"#93000a","on-tertiary":"#ffffff","outline-variant":"#c4c6d2","surface-container-high":"#e6e8ea","background":"#f7f9fb","badge-positive-bg":"#DCFCE7","on-primary-container":"#87a7ed","outline":"#747781","surface-variant":"#e0e3e5","border-hairline":"#E2E8F0","on-background":"#191c1e","secondary-fixed-dim":"#b1c5ff","border-focus":"#2F6FED","on-primary-fixed-variant":"#204584","primary-fixed":"#d8e2ff"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"gutter-dense":"0.5rem","space-lg":"1rem","space-xl":"1.5rem",gutter:"1rem","space-xs":"0.25rem","space-md":"0.75rem","space-sm":"0.5rem",margin:"1.5rem","margin-mobile":"1rem"},fontFamily:{"headline-lg":["IBM Plex Sans"],"headline-xl":["IBM Plex Sans"],"label-md":["Inter"],"headline-xl-mobile":["IBM Plex Sans"],caption:["Inter"],"body-md":["Inter"],"data-metric-md":["IBM Plex Sans"],"label-sm":["Inter"],"data-metric-xl":["IBM Plex Sans"],"body-sm":["Inter"],"body-lg":["Inter"],"headline-md":["IBM Plex Sans"]},fontSize:{"headline-lg":["22px",{lineHeight:"28px",letterSpacing:"-0.015em",fontWeight:"600"}],"headline-xl":["30px",{lineHeight:"38px",letterSpacing:"-0.02em",fontWeight:"700"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.01em",fontWeight:"600"}],"headline-xl-mobile":["24px",{lineHeight:"32px",letterSpacing:"-0.015em",fontWeight:"700"}],caption:["10px",{lineHeight:"12px",fontWeight:"500"}],"body-md":["13px",{lineHeight:"18px",fontWeight:"400"}],"data-metric-md":["18px",{lineHeight:"24px",letterSpacing:"-0.01em",fontWeight:"600"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.02em",fontWeight:"500"}],"data-metric-xl":["28px",{lineHeight:"32px",letterSpacing:"-0.02em",fontWeight:"700"}],"body-sm":["12px",{lineHeight:"16px",fontWeight:"400"}],"body-lg":["15px",{lineHeight:"22px",fontWeight:"400"}],"headline-md":["16px",{lineHeight:"22px",letterSpacing:"-0.01em",fontWeight:"600"}]}}}}</script></head><body class="bg-surface-canvas font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-64 bg-surface-card z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)] overflow-y-auto"><div class="flex flex-col"><div class="px-space-xl pt-space-xl pb-space-lg"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-lg bg-primary-container text-on-primary flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">flight</span></div><div><span class="font-headline-md text-headline-md font-bold tracking-tight text-primary block leading-none">AIRSCOPE</span><span class="font-caption text-caption text-text-muted mt-0.5 block tracking-normal">Price Index India</span></div></div><p class="mt-space-sm font-caption text-caption text-text-secondary leading-tight">Real-Time Airfare Price Index for India</p></div><nav class="flex flex-col gap-0.5 px-space-md py-space-xs" data-active-classes="bg-primary-container text-on-primary font-semibold shadow-sm"><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[19px]">space_dashboard</span><span>Dashboard</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="airfare-index" href="#"><span class="material-symbols-outlined text-[19px]">stacked_line_chart</span><span>Airfare Index</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="route-explorer" href="#"><span class="material-symbols-outlined text-[19px]">alt_route</span><span>Route Explorer</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="lead-time-analytics" href="#"><span class="material-symbols-outlined text-[19px]">schedule</span><span>Lead-Time Analytics</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="market-monitor" href="#"><span class="material-symbols-outlined text-[19px]">query_stats</span><span>Market Monitor</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="data-quality" href="#"><span class="material-symbols-outlined text-[19px]">verified</span><span>Data Quality</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="collection-monitor" href="#"><span class="material-symbols-outlined text-[19px]">hub</span><span>Collection Monitor</span></a><a aria-current="page" class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg transition-colors bg-primary-container text-on-primary font-semibold shadow-sm" data-path="source-comparison" href="#"><span class="material-symbols-outlined text-[19px]">compare_arrows</span><span>Source Comparison</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="api-and-data" href="#"><span class="material-symbols-outlined text-[19px]">api</span><span>API &amp; Data</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="policy-and-research" href="#"><span class="material-symbols-outlined text-[19px]">menu_book</span><span>Policy &amp; Research</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="settings" href="#"><span class="material-symbols-outlined text-[19px]">settings</span><span>Settings</span></a></nav></div><div class="p-space-md"><div class="bg-surface-subtle rounded-xl p-space-md"><div class="flex items-center gap-1.5 mb-1 text-primary"><span class="material-symbols-outlined text-[16px]">public</span><span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider">Mission</span></div><p class="font-headline-md text-headline-md font-semibold text-text-primary">Data for a Better Tomorrow</p><p class="font-caption text-caption text-text-muted mt-1 leading-snug">Transparent. Comparable. Policy-Ready.</p></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-card/90 backdrop-blur-xl z-40 px-space-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] flex items-center justify-between"><div class="w-96"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-3 text-text-muted text-[18px]">search</span><input class="w-full h-10 pl-9 pr-3 rounded-lg bg-surface-canvas font-body-sm text-body-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:bg-surface-card transition-all" placeholder="Search route, airline, or keyword... ⌘K" type="text"/></div></div><div class="flex items-center gap-space-lg"><div class="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-subtle"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-metric-positive opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-metric-positive"></span></span><span class="font-label-sm text-label-sm text-text-secondary">Live Data | Last updated 14 Sep 2025, 11:42 AM IST</span></div><button aria-label="Notifications" class="relative w-9 h-9 rounded-lg flex items-center justify-center text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-metric-negative text-on-error font-caption text-[9px] flex items-center justify-center font-bold">3</span></button><div class="flex items-center gap-space-sm pl-space-sm"><div class="w-8 h-8 rounded-full bg-primary-container text-on-primary font-headline-md text-headline-md flex items-center justify-center font-semibold">S</div><div class="hidden md:flex flex-col"><span class="font-label-md text-label-md text-text-primary font-semibold leading-tight">Subham</span><span class="font-caption text-caption text-text-muted leading-tight">Policy &amp; Price Statistics Division</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UlVHDMEeTE5a3KBjZ_G65mz5EVGFu45jSXW4YP4x3UdsvERnRom2tBop4Lvj8sEIlNjusXdpDxb59YCpU0OD4q6dkkOrTF01ktXlefHn39aXtYIyPRQbaSsI0ktHMVo-tLlIuP7_asbfbKOUaS8-3GFRh44yUlk2hUarlvRIhfySBKtAuasICpvFerF5oQ4RaIlR5nchXkPA7kkRlLXmFk2R2uGgzQPh8ecR3Z-kjEa4JHlGfzlUb1K3dn"/><span class="material-symbols-outlined text-text-muted text-[18px] cursor-pointer hover:text-on-surface transition-colors">arrow_drop_down</span></div></div></header><main class="relative pt-16 bg-surface-canvas min-h-screen"><div class="flex flex-col w-full">
+<!-- Top View Notification Bar -->
+<div class="px-space-xl py-space-sm bg-surface-subtle flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary-container text-on-primary">
+<span class="material-symbols-outlined text-[13px]">balance</span>
+</span>
+<span class="font-label-md text-label-md text-text-secondary">Statutory Price Scrutiny Division</span>
+<span class="text-text-muted">·</span>
+<span class="font-caption text-caption text-text-muted uppercase tracking-wider">Methodology MoCA-DGCA/2025-Q3</span>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="font-caption text-caption text-text-muted">Ingestion Cluster: <span class="font-semibold text-text-primary">IN-WEST-02</span></span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-badge-positive-bg text-metric-positive font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-metric-positive"></span> Audit Passed
+      </span>
+</div>
+</div>
+<div class="p-space-xl flex flex-col gap-space-xl">
+<!-- Header & Action Ribbon -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div>
+<div class="flex items-center gap-space-sm mb-1">
+<h1 class="font-headline-xl text-headline-xl text-text-primary">Source Comparison</h1>
+<span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold uppercase tracking-wider">
+            Canonical Derivation
+          </span>
+</div>
+<p class="font-body-md text-body-md text-text-muted">
+          Cross-channel fare dispersion and canonical market price derivation engine for domestic air corridors.
+        </p>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-md py-2 rounded-lg bg-surface-card hover:bg-surface-subtle text-text-secondary transition-colors font-label-md text-label-md flex items-center gap-1.5 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[17px]">file_download</span>
+<span>Export Audit (CSV)</span>
+</button>
+<button class="px-space-md py-2 rounded-lg bg-primary-container hover:bg-secondary text-on-primary transition-colors font-label-md text-label-md font-semibold flex items-center gap-1.5 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[17px]">verified_user</span>
+<span>Publish Canonical Price</span>
+</button>
+</div>
+</div>
+<!-- Scenario Selector Bar (Interactive Context Pill Strip) -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm">
+<div class="flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex flex-wrap items-center gap-space-lg">
+<!-- Corridor Filter -->
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-subtle text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">flight_takeoff</span>
+</div>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-text-muted uppercase tracking-wider font-semibold">Corridor</span>
+<div class="flex items-center gap-1">
+<span class="font-headline-md text-headline-md text-text-primary font-bold">DEL → BOM</span>
+<span class="font-caption text-caption text-text-muted">(Indira Gandhi to Chhatrapati Shivaji)</span>
+</div>
+</div>
+</div>
+<div class="hidden lg:block h-8 w-px bg-surface-container-high"></div>
+<!-- Carrier & Flight -->
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-subtle text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">airlines</span>
+</div>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-text-muted uppercase tracking-wider font-semibold">Carrier &amp; Flight</span>
+<span class="font-body-md text-body-md text-text-primary font-semibold">IndiGo 6E-2051</span>
+</div>
+</div>
+<div class="hidden lg:block h-8 w-px bg-surface-container-high"></div>
+<!-- Travel Date -->
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-subtle text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+</div>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-text-muted uppercase tracking-wider font-semibold">Travel Date</span>
+<span class="font-body-md text-body-md text-text-primary font-semibold">17 Sep 2026 (T+3)</span>
+</div>
+</div>
+<div class="hidden lg:block h-8 w-px bg-surface-container-high"></div>
+<!-- Departure & Cabin -->
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-subtle text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+</div>
+<div class="flex flex-col">
+<span class="font-caption text-caption text-text-muted uppercase tracking-wider font-semibold">Departure / Cabin</span>
+<span class="font-body-md text-body-md text-text-primary font-semibold">10:15 IST · Economy (Y)</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg bg-surface-subtle hover:bg-surface-container text-text-secondary font-label-md text-label-md transition-colors flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[15px]">tune</span>
+<span>Switch Flight</span>
+</button>
+<div class="w-2 h-2 rounded-full bg-metric-positive animate-pulse" title="Polling live stream"></div>
+</div>
+</div>
+</div>
+<!-- Key Statistical Principle Banner -->
+<div class="relative overflow-hidden rounded-xl bg-gradient-to-r from-primary via-primary-container to-secondary text-on-primary p-space-lg shadow-md">
+<div class="absolute -right-6 -bottom-6 w-48 h-48 rounded-full bg-chart-accent-cyan/10 blur-2xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-space-lg">
+<div class="flex items-start gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-on-primary/10 backdrop-blur-md flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[26px] text-chart-accent-cyan">account_tree</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-caption text-caption tracking-widest uppercase text-chart-accent-cyan font-bold">Axiom 04 // CPI Core Rigor</span>
+<span class="inline-flex h-1.5 w-1.5 rounded-full bg-chart-accent-cyan"></span>
+<span class="font-caption text-caption text-on-primary/80">DGCA Guideline 2024</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg font-bold text-on-primary mt-0.5">
+              1 Flight → Multiple Observations → 1 Canonical Market Price
+            </h2>
+<p class="font-body-md text-body-md text-on-primary/90 mt-1 max-w-3xl leading-relaxed">
+              Direct airline prices establish statutory baseline; OTA aggregator deviations illustrate markups, convenience surcharges, and discounting incentives. AirScope eliminates opaque channel distortions before index incorporation.
+            </p>
+</div>
+</div>
+<div class="shrink-0 flex items-center gap-space-sm bg-on-primary/10 backdrop-blur-md px-space-md py-space-sm rounded-lg">
+<div class="text-right">
+<span class="font-caption text-caption text-on-primary/75 block">Canonical Median</span>
+<span class="font-headline-md text-headline-md font-bold text-on-primary">₹11,800</span>
+</div>
+<span class="material-symbols-outlined text-[22px] text-chart-accent-cyan">verified</span>
+</div>
+</div>
+</div>
+<!-- Comparative Source Matrix Cards (Horizontal Comparison Grid) -->
+<div>
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-2">
+<h3 class="font-headline-md text-headline-md text-text-primary">Observed Channel Matrix</h3>
+<span class="font-caption text-caption px-2 py-0.5 rounded bg-surface-subtle text-text-secondary font-semibold">5 Active Connectors</span>
+</div>
+<span class="font-caption text-caption text-text-muted">Observation window: 11:35 - 11:42 IST today</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-space-md">
+<!-- 1. Airline Direct (Benchmark) -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between relative overflow-hidden ring-2 ring-primary">
+<div class="absolute top-0 left-0 right-0 h-1 bg-primary"></div>
+<div>
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-bold text-text-primary">IndiGo Direct</span>
+<span class="px-2 py-0.5 rounded-full bg-primary text-on-primary font-caption text-caption font-bold tracking-wide">BASELINE</span>
+</div>
+<p class="font-caption text-caption text-text-muted mt-0.5">Official Airline Portal</p>
+<div class="mt-space-md flex flex-col gap-1.5 py-space-sm bg-surface-subtle/70 rounded-lg px-space-sm">
+<div class="flex justify-between font-body-sm text-body-sm text-text-secondary">
+<span>Base Fare</span>
+<span class="font-medium text-text-primary">₹10,240</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-text-secondary">
+<span>Govt Taxes &amp; UDF</span>
+<span class="font-medium text-text-primary">₹1,560</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-text-secondary">
+<span>Platform Fees</span>
+<span class="font-medium text-metric-positive">₹0</span>
+</div>
+</div>
+<div class="mt-space-md">
+<span class="font-caption text-caption text-text-muted block">Observed Net Fare</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-data-metric-xl text-data-metric-xl font-bold text-text-primary">₹11,800</span>
+<span class="font-caption text-caption text-text-muted">INR</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between bg-badge-positive-bg/40 rounded-lg px-2.5 py-1.5">
+<span class="font-label-sm text-label-sm text-text-secondary font-semibold">Dispersion</span>
+<span class="font-label-sm text-label-sm font-bold text-metric-positive">₹0 (Canonical)</span>
+</div>
+</div>
+<!-- 2. MakeMyTrip -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-bold text-text-primary">MakeMyTrip</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-subtle text-text-secondary font-caption text-caption font-semibold">OTA</span>
+</div>
+<p class="font-caption text-caption text-text-muted mt-0.5">Direct API Ingest</p>
+<div class="mt-space-md flex flex-col gap-1.5 py-space-sm bg-surface-subtle/70 rounded-lg px-space-sm">
+<div class="flex justify-between font-body-sm text-body-sm text-text-secondary">
+<span>Base Fare</span>
+<span class="font-medium text-text-primary">₹10,240</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-text-secondary">
+<span>Govt Taxes &amp; UDF</span>
+<span class="font-medium text-text-primary">₹1,560</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-metric-negative">
+<span>Convenience Fee</span>
+<span class="font-semibold text-metric-negative">+₹250</span>
+</div>
+</div>
+<div class="mt-space-md">
+<span class="font-caption text-caption text-text-muted block">Observed Net Fare</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-data-metric-xl text-data-metric-xl font-bold text-text-primary">₹12,050</span>
+<span class="font-caption text-caption text-text-muted">INR</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between bg-badge-negative-bg/50 rounded-lg px-2.5 py-1.5">
+<span class="font-label-sm text-label-sm text-text-secondary font-semibold">Dispersion</span>
+<span class="font-label-sm text-label-sm font-bold text-metric-negative">+₹250 (+2.1%)</span>
+</div>
+</div>
+<!-- 3. EaseMyTrip -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-bold text-text-primary">EaseMyTrip</span>
+<span class="px-2 py-0.5 rounded-full bg-badge-positive-bg text-metric-positive font-caption text-caption font-semibold">PROMO APPLIED</span>
+</div>
+<p class="font-caption text-caption text-text-muted mt-0.5">Direct API Ingest</p>
+<div class="mt-space-md flex flex-col gap-1.5 py-space-sm bg-surface-subtle/70 rounded-lg px-space-sm">
+<div class="flex justify-between font-body-sm text-body-sm text-text-secondary">
+<span>Base Fare</span>
+<span class="font-medium text-text-primary">₹10,240</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-text-secondary">
+<span>Govt Taxes &amp; UDF</span>
+<span class="font-medium text-text-primary">₹1,560</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-metric-positive">
+<span>Zero-Fee Incentive</span>
+<span class="font-semibold text-metric-positive">-₹150</span>
+</div>
+</div>
+<div class="mt-space-md">
+<span class="font-caption text-caption text-text-muted block">Observed Net Fare</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-data-metric-xl text-data-metric-xl font-bold text-text-primary">₹11,650</span>
+<span class="font-caption text-caption text-text-muted">INR</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between bg-badge-positive-bg/60 rounded-lg px-2.5 py-1.5">
+<span class="font-label-sm text-label-sm text-text-secondary font-semibold">Dispersion</span>
+<span class="font-label-sm text-label-sm font-bold text-metric-positive">-₹150 (-1.3%)</span>
+</div>
+</div>
+<!-- 4. Ixigo -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-bold text-text-primary">Ixigo</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-subtle text-text-secondary font-caption text-caption font-semibold">META-OTA</span>
+</div>
+<p class="font-caption text-caption text-text-muted mt-0.5">Aggregator Scrape Sync</p>
+<div class="mt-space-md flex flex-col gap-1.5 py-space-sm bg-surface-subtle/70 rounded-lg px-space-sm">
+<div class="flex justify-between font-body-sm text-body-sm text-text-secondary">
+<span>Base Fare</span>
+<span class="font-medium text-text-primary">₹10,240</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-text-secondary">
+<span>Govt Taxes &amp; UDF</span>
+<span class="font-medium text-text-primary">₹1,560</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-metric-negative">
+<span>Bundled Assurance</span>
+<span class="font-semibold text-metric-negative">+₹180</span>
+</div>
+</div>
+<div class="mt-space-md">
+<span class="font-caption text-caption text-text-muted block">Observed Net Fare</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-data-metric-xl text-data-metric-xl font-bold text-text-primary">₹11,980</span>
+<span class="font-caption text-caption text-text-muted">INR</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between bg-badge-negative-bg/50 rounded-lg px-2.5 py-1.5">
+<span class="font-label-sm text-label-sm text-text-secondary font-semibold">Dispersion</span>
+<span class="font-label-sm text-label-sm font-bold text-metric-negative">+₹180 (+1.5%)</span>
+</div>
+</div>
+<!-- 5. Cleartrip -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-bold text-text-primary">Cleartrip</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-subtle text-text-secondary font-caption text-caption font-semibold">OTA</span>
+</div>
+<p class="font-caption text-caption text-text-muted mt-0.5">Direct API Ingest</p>
+<div class="mt-space-md flex flex-col gap-1.5 py-space-sm bg-surface-subtle/70 rounded-lg px-space-sm">
+<div class="flex justify-between font-body-sm text-body-sm text-text-secondary">
+<span>Base Fare</span>
+<span class="font-medium text-text-primary">₹10,240</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-text-secondary">
+<span>Govt Taxes &amp; UDF</span>
+<span class="font-medium text-text-primary">₹1,560</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm text-metric-negative">
+<span>Platform Convenience</span>
+<span class="font-semibold text-metric-negative">+₹210</span>
+</div>
+</div>
+<div class="mt-space-md">
+<span class="font-caption text-caption text-text-muted block">Observed Net Fare</span>
+<div class="flex items-baseline gap-1 mt-0.5">
+<span class="font-data-metric-xl text-data-metric-xl font-bold text-text-primary">₹12,010</span>
+<span class="font-caption text-caption text-text-muted">INR</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between bg-badge-negative-bg/50 rounded-lg px-2.5 py-1.5">
+<span class="font-label-sm text-label-sm text-text-secondary font-semibold">Dispersion</span>
+<span class="font-label-sm text-label-sm font-bold text-metric-negative">+₹210 (+1.8%)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Analytic Panes: 2-Column Split -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl">
+<!-- Left: Price Dissection & Dispersion Bar Visualization (7 Cols) -->
+<div class="lg:col-span-7 bg-surface-card rounded-xl p-space-xl shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between">
+<div>
+<span class="font-caption text-caption text-text-muted uppercase tracking-wider font-semibold">Anatomy of Total Customer Fare</span>
+<h3 class="font-headline-lg text-headline-lg text-text-primary mt-0.5">Price Component Dissection</h3>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1.5 font-caption text-caption text-text-secondary">
+<span class="w-3 h-3 rounded-sm bg-primary"></span> Base Fare
+              </div>
+<div class="flex items-center gap-1.5 font-caption text-caption text-text-secondary">
+<span class="w-3 h-3 rounded-sm bg-secondary-container"></span> Taxes
+              </div>
+<div class="flex items-center gap-1.5 font-caption text-caption text-text-secondary">
+<span class="w-3 h-3 rounded-sm bg-metric-warning"></span> Add-on/Fee
+              </div>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">
+            Visual inspection shows pure parity in underlying Airline Tariff (₹10,240) and statutory GST/UDF (₹1,560). Deviations represent downstream reseller pricing strategies.
+          </p>
+<!-- Stacked Horizontal Bar Visualization -->
+<div class="mt-space-xl flex flex-col gap-space-md">
+<!-- IndiGo Direct -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center text-body-sm font-body-sm">
+<span class="font-semibold text-text-primary flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary"></span> IndiGo Direct (Statutory Baseline)
+                </span>
+<span class="font-bold text-text-primary">₹11,800</span>
+</div>
+<div class="w-full h-7 rounded-md bg-surface-subtle flex overflow-hidden">
+<div class="bg-primary h-full flex items-center px-2 text-on-primary font-caption text-caption font-semibold" style="width: 86.8%;">
+                  ₹10,240 (Base)
+                </div>
+<div class="bg-secondary-container h-full flex items-center px-2 text-on-secondary font-caption text-caption font-semibold" style="width: 13.2%;">
+                  ₹1,560
+                </div>
+</div>
+</div>
+<!-- MakeMyTrip -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center text-body-sm font-body-sm">
+<span class="text-text-secondary flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-text-muted"></span> MakeMyTrip
+                </span>
+<span class="font-bold text-text-primary">₹12,050 <span class="font-normal text-metric-negative text-caption font-caption">(+₹250)</span></span>
+</div>
+<div class="w-full h-7 rounded-md bg-surface-subtle flex overflow-hidden">
+<div class="bg-primary h-full flex items-center px-2 text-on-primary font-caption text-caption" style="width: 85.0%;">
+                  ₹10,240
+                </div>
+<div class="bg-secondary-container h-full flex items-center px-2 text-on-secondary font-caption text-caption" style="width: 12.9%;">
+                  ₹1,560
+                </div>
+<div class="bg-metric-warning h-full flex items-center px-1 text-on-secondary font-caption text-caption font-bold" style="width: 2.1%;" title="Convenience Fee ₹250">
+                  +250
+                </div>
+</div>
+</div>
+<!-- EaseMyTrip -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center text-body-sm font-body-sm">
+<span class="text-text-secondary flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-text-muted"></span> EaseMyTrip
+                </span>
+<span class="font-bold text-text-primary">₹11,650 <span class="font-normal text-metric-positive text-caption font-caption">(-₹150)</span></span>
+</div>
+<div class="w-full h-7 rounded-md bg-surface-subtle flex overflow-hidden">
+<div class="bg-primary h-full flex items-center px-2 text-on-primary font-caption text-caption" style="width: 86.6%;">
+                  ₹10,090 (Net Effective Base)
+                </div>
+<div class="bg-secondary-container h-full flex items-center px-2 text-on-secondary font-caption text-caption" style="width: 13.4%;">
+                  ₹1,560
+                </div>
+</div>
+</div>
+<!-- Ixigo -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center text-body-sm font-body-sm">
+<span class="text-text-secondary flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-text-muted"></span> Ixigo
+                </span>
+<span class="font-bold text-text-primary">₹11,980 <span class="font-normal text-metric-negative text-caption font-caption">(+₹180)</span></span>
+</div>
+<div class="w-full h-7 rounded-md bg-surface-subtle flex overflow-hidden">
+<div class="bg-primary h-full flex items-center px-2 text-on-primary font-caption text-caption" style="width: 85.5%;">
+                  ₹10,240
+                </div>
+<div class="bg-secondary-container h-full flex items-center px-2 text-on-secondary font-caption text-caption" style="width: 13.0%;">
+                  ₹1,560
+                </div>
+<div class="bg-metric-warning h-full flex items-center px-1 text-on-secondary font-caption text-caption font-bold" style="width: 1.5%;">
+                  +180
+                </div>
+</div>
+</div>
+<!-- Cleartrip -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center text-body-sm font-body-sm">
+<span class="text-text-secondary flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-text-muted"></span> Cleartrip
+                </span>
+<span class="font-bold text-text-primary">₹12,010 <span class="font-normal text-metric-negative text-caption font-caption">(+₹210)</span></span>
+</div>
+<div class="w-full h-7 rounded-md bg-surface-subtle flex overflow-hidden">
+<div class="bg-primary h-full flex items-center px-2 text-on-primary font-caption text-caption" style="width: 85.3%;">
+                  ₹10,240
+                </div>
+<div class="bg-secondary-container h-full flex items-center px-2 text-on-secondary font-caption text-caption" style="width: 13.0%;">
+                  ₹1,560
+                </div>
+<div class="bg-metric-warning h-full flex items-center px-1 text-on-secondary font-caption text-caption font-bold" style="width: 1.7%;">
+                  +210
+                </div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-lg p-space-md bg-surface-subtle rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">policy</span>
+<span class="font-body-sm text-body-sm text-text-secondary">
+              Canonical Rule Applied: <strong class="text-text-primary">Primary Direct Fare Priority</strong>. OTA auxiliary surcharges excluded from headline CPI weighting.
+            </span>
+</div>
+<span class="font-caption text-caption font-semibold text-primary cursor-pointer hover:underline">Read Rulebook</span>
+</div>
+</div>
+<!-- Right: Historical OTA Dispersion Over Time (5 Cols) -->
+<div class="lg:col-span-5 bg-surface-card rounded-xl p-space-xl shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-start justify-between">
+<div>
+<span class="font-caption text-caption text-text-muted uppercase tracking-wider font-semibold">Corridor Dynamics</span>
+<h3 class="font-headline-lg text-headline-lg text-text-primary mt-0.5">30-Day Markup Dispersion</h3>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-subtle text-text-secondary font-label-sm text-label-sm font-semibold">
+              DEL-BOM Corridors
+            </span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted mt-1">
+            Tracking average aggregator premium vs official carrier rate over time. Zero represents direct airline parity.
+          </p>
+<!-- Dispersion Graph SVG -->
+<div class="mt-space-lg">
+<div class="h-44 w-full relative">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 400 160">
+<!-- Baseline Zero Dash -->
+<line stroke="#CBD5E1" stroke-dasharray="4 4" stroke-width="1.5" x1="0" x2="400" y1="100" y2="100"></line>
+<text class="font-caption" fill="#64748B" font-size="9" x="5" y="94">Baseline (₹0 Parity)</text>
+<!-- Upper Boundary (+3%) -->
+<line stroke="#F1F5F9" stroke-width="1" x1="0" x2="400" y1="30" y2="30"></line>
+<text class="font-caption" fill="#64748B" font-size="9" x="360" y="27">+3.5% OTA</text>
+<!-- Lower Boundary (-2%) -->
+<line stroke="#F1F5F9" stroke-width="1" x1="0" x2="400" y1="145" y2="145"></line>
+<text class="font-caption" fill="#64748B" font-size="9" x="360" y="142">-2.0% Promo</text>
+<!-- Shaded variance envelope -->
+<polygon fill="#38BDF8" fill-opacity="0.12" points="0,90 40,75 80,82 120,60 160,50 200,68 240,72 280,48 320,54 360,65 400,58 400,110 360,115 320,105 280,112 240,118 200,110 160,102 120,108 80,105 40,100 0,95"></polygon>
+<!-- Average OTA Markup Trend Line -->
+<path d="M0,88 Q40,72 80,80 T160,55 T240,70 T320,52 T400,58" fill="none" stroke="#2F6FED" stroke-width="2.5"></path>
+<!-- MakeMyTrip Specific Markup Wave -->
+<path d="M0,70 Q50,62 100,55 T200,45 T300,40 T400,42" fill="none" stroke="#EA580C" stroke-dasharray="2 2" stroke-width="1.5"></path>
+<!-- Markers -->
+<circle cx="400" cy="58" fill="#2F6FED" r="4" stroke="#FFFFFF" stroke-width="2"></circle>
+<circle cx="400" cy="42" fill="#EA580C" r="3.5" stroke="#FFFFFF" stroke-width="1.5"></circle>
+</svg>
+</div>
+<!-- X-Axis Labels -->
+<div class="flex justify-between font-caption text-caption text-text-muted mt-2 pt-1 border-t-0">
+<span>15 Aug</span>
+<span>22 Aug</span>
+<span>29 Aug</span>
+<span>05 Sep</span>
+<span>14 Sep (Today)</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-space-sm mt-space-lg">
+<div class="p-space-sm bg-surface-subtle rounded-lg">
+<span class="font-caption text-caption text-text-muted block">Average OTA Spread</span>
+<span class="font-headline-md text-headline-md font-bold text-text-primary mt-0.5 block">+₹214 <span class="text-caption font-caption text-metric-warning font-semibold">(+1.8%)</span></span>
+</div>
+<div class="p-space-sm bg-surface-subtle rounded-lg">
+<span class="font-caption text-caption text-text-muted block">Suspicious Spike Alert</span>
+<span class="font-headline-md text-headline-md font-bold text-metric-positive mt-0.5 block">0 Anomalies</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Forensic Anomaly & Parity Log Table -->
+<div class="bg-surface-card rounded-xl shadow-sm overflow-hidden">
+<div class="p-space-lg flex flex-col md:flex-row md:items-center justify-between gap-space-sm bg-surface-subtle/50">
+<div>
+<h3 class="font-headline-md text-headline-md text-text-primary font-bold">Corridor Parity Audit Ledger</h3>
+<p class="font-caption text-caption text-text-muted mt-0.5">High-frequency sample records across key metro routes for current booking window</p>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-2.5 top-2 text-text-muted text-[16px]">filter_list</span>
+<input class="h-8 pl-8 pr-3 rounded-lg bg-surface-card text-body-sm font-body-sm placeholder:text-text-muted focus:outline-none ring-1 ring-border-hairline" placeholder="Filter channel or route..." type="text"/>
+</div>
+<button class="px-3 py-1.5 rounded-lg bg-surface-card hover:bg-surface-subtle text-text-primary text-label-sm font-label-sm font-semibold transition-colors shadow-sm" type="button">
+            Audit Flagged Only (2)
+          </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-subtle text-text-secondary font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-3 px-space-lg">Flight / Sector</th>
+<th class="py-3 px-space-md">OTA Channel</th>
+<th class="py-3 px-space-md">Ingest Time</th>
+<th class="py-3 px-space-md text-right">Direct Baseline</th>
+<th class="py-3 px-space-md text-right">Observed Fare</th>
+<th class="py-3 px-space-md text-right">Spread (₹)</th>
+<th class="py-3 px-space-md text-right">Variance (%)</th>
+<th class="py-3 px-space-lg text-center">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 font-body-sm text-body-sm">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-subtle/40 transition-colors">
+<td class="py-3 px-space-lg font-medium text-text-primary">
+                6E-2051 · DEL → BOM
+              </td>
+<td class="py-3 px-space-md text-text-secondary">MakeMyTrip</td>
+<td class="py-3 px-space-md text-text-muted font-caption text-caption">11:42:04 IST</td>
+<td class="py-3 px-space-md text-right font-medium text-text-primary">₹11,800</td>
+<td class="py-3 px-space-md text-right font-medium text-text-primary">₹12,050</td>
+<td class="py-3 px-space-md text-right font-semibold text-metric-negative">+₹250</td>
+<td class="py-3 px-space-md text-right text-metric-negative">+2.1%</td>
+<td class="py-3 px-space-lg text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-caption font-caption font-semibold bg-surface-subtle text-text-secondary">
+                  Normal Markup
+                </span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-subtle/40 transition-colors">
+<td class="py-3 px-space-lg font-medium text-text-primary">
+                6E-2051 · DEL → BOM
+              </td>
+<td class="py-3 px-space-md text-text-secondary">EaseMyTrip</td>
+<td class="py-3 px-space-md text-text-muted font-caption text-caption">11:41:58 IST</td>
+<td class="py-3 px-space-md text-right font-medium text-text-primary">₹11,800</td>
+<td class="py-3 px-space-md text-right font-medium text-text-primary">₹11,650</td>
+<td class="py-3 px-space-md text-right font-semibold text-metric-positive">-₹150</td>
+<td class="py-3 px-space-md text-right text-metric-positive">-1.3%</td>
+<td class="py-3 px-space-lg text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-caption font-caption font-semibold bg-badge-positive-bg text-metric-positive">
+                  Aggressive Discount
+                </span>
+</td>
+</tr>
+<!-- Row 3 (Flagged) -->
+<tr class="bg-badge-warning-bg/15 hover:bg-badge-warning-bg/25 transition-colors">
+<td class="py-3 px-space-lg font-medium text-text-primary flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-metric-warning">warning</span>
+<span>AI-805 · BOM → DEL</span>
+</td>
+<td class="py-3 px-space-md text-text-secondary">HappyEasyGo</td>
+<td class="py-3 px-space-md text-text-muted font-caption text-caption">11:39:12 IST</td>
+<td class="py-3 px-space-md text-right font-medium text-text-primary">₹9,450</td>
+<td class="py-3 px-space-md text-right font-medium text-text-primary">₹10,290</td>
+<td class="py-3 px-space-md text-right font-semibold text-metric-warning">+₹840</td>
+<td class="py-3 px-space-md text-right font-semibold text-metric-warning">+8.9%</td>
+<td class="py-3 px-space-lg text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-caption font-caption font-bold bg-badge-warning-bg text-metric-warning">
+                  Divergence Flag
+                </span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-subtle/40 transition-colors">
+<td class="py-3 px-space-lg font-medium text-text-primary">
+                QP-1332 · BLR → DEL
+              </td>
+<td class="py-3 px-space-md text-text-secondary">Ixigo</td>
+<td class="py-3 px-space-md text-text-muted font-caption text-caption">11:38:40 IST</td>
+<td class="py-3 px-space-md text-right font-medium text-text-primary">₹7,420</td>
+<td class="py-3 px-space-md text-right font-medium text-text-primary">₹7,560</td>
+<td class="py-3 px-space-md text-right font-semibold text-metric-negative">+₹140</td>
+<td class="py-3 px-space-md text-right text-metric-negative">+1.9%</td>
+<td class="py-3 px-space-lg text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-caption font-caption font-semibold bg-surface-subtle text-text-secondary">
+                  Normal Markup
+                </span>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-subtle/40 transition-colors">
+<td class="py-3 px-space-lg font-medium text-text-primary">
+                SG-8169 · DEL → CCU
+              </td>
+<td class="py-3 px-space-md text-text-secondary">Yatra</td>
+<td class="py-3 px-space-md text-text-muted font-caption text-caption">11:35:19 IST</td>
+<td class="py-3 px-space-md text-right font-medium text-text-primary">₹8,900</td>
+<td class="py-3 px-space-md text-right font-medium text-text-primary">₹9,120</td>
+<td class="py-3 px-space-md text-right font-semibold text-metric-negative">+₹220</td>
+<td class="py-3 px-space-md text-right text-metric-negative">+2.5%</td>
+<td class="py-3 px-space-lg text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-caption font-caption font-semibold bg-surface-subtle text-text-secondary">
+                  Normal Markup
+                </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Ledger Footer Pagination -->
+<div class="p-space-md bg-surface-card flex items-center justify-between font-caption text-caption text-text-muted">
+<span>Showing 5 of 1,482 verified cross-channel observations (last 60 mins)</span>
+<div class="flex items-center gap-1">
+<button class="px-2.5 py-1 rounded bg-surface-subtle hover:bg-surface-container text-text-primary" type="button">Previous</button>
+<button class="px-2.5 py-1 rounded bg-primary-container text-on-primary font-bold" type="button">1</button>
+<button class="px-2.5 py-1 rounded bg-surface-subtle hover:bg-surface-container text-text-primary" type="button">2</button>
+<button class="px-2.5 py-1 rounded bg-surface-subtle hover:bg-surface-container text-text-primary" type="button">3</button>
+<button class="px-2.5 py-1 rounded bg-surface-subtle hover:bg-surface-container text-text-primary" type="button">Next</button>
+</div>
+</div>
+</div>
+</div>
+</div></main></div></body></html>

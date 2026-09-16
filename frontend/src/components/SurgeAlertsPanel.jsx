@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { AlertTriangle, ShieldAlert, ArrowUpRight, CheckCircle2, ChevronRight, X, Info } from 'lucide-react';
 
 export default function SurgeAlertsPanel({ anomalies }) {
   const [selectedAlert, setSelectedAlert] = useState(null);
@@ -14,19 +13,17 @@ export default function SurgeAlertsPanel({ anomalies }) {
   const alerts = (anomalies && anomalies.length > 0) ? anomalies : defaultAnomalies;
 
   return (
-    <div className="gov-card p-6 rounded-2xl mb-6 border border-rose-500/20 relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-rose-500 to-amber-500"></div>
-
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-800/80">
+    <div className="bg-surface-card rounded-xl p-5 sm:p-6 shadow-sm border border-border-hairline mb-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-border-hairline">
         <div>
-          <h3 className="text-base font-bold text-white flex items-center space-x-2">
-            <AlertTriangle className="w-4 h-4 text-rose-400" />
-            <span>Airfare Surge & Anomaly Intelligence Center</span>
+          <h3 className="font-headline text-base font-bold text-text-primary flex items-center gap-2">
+            <span className="material-symbols-outlined text-[18px] text-metric-negative">warning</span>
+            <span>Surge & Anomaly Intelligence Center</span>
           </h3>
-          <p className="text-xs text-slate-400">Automated deviation detection against 7-day rolling median baselines</p>
+          <p className="text-xs text-text-muted">Automated deviation detection against 7-day rolling median baselines</p>
         </div>
-        <span className="text-xs font-mono text-rose-300 bg-rose-950/80 px-2.5 py-1 rounded-lg border border-rose-500/30 font-semibold">
-          {alerts.length} Active Alerts Detected
+        <span className="text-xs font-semibold text-metric-negative bg-badge-negative-bg px-2.5 py-1 rounded-lg border border-border-hairline">
+          {alerts.length} Active Alerts
         </span>
       </div>
 
@@ -34,37 +31,37 @@ export default function SurgeAlertsPanel({ anomalies }) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {alerts.slice(0, 6).map((alert) => {
           const isHigh = alert.severity === 'HIGH';
-          const badgeClass = isHigh
-            ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
-            : 'bg-amber-500/20 text-amber-300 border-amber-500/40';
-
           return (
             <div
               key={alert.event_id}
               onClick={() => setSelectedAlert(alert)}
-              className="p-4 rounded-xl bg-navy-900/90 border border-navy-800 hover:border-navy-700 transition-all cursor-pointer flex items-center justify-between group"
+              className="p-4 rounded-lg bg-surface-canvas border border-border-hairline hover:border-border-focus transition-all cursor-pointer flex items-center justify-between group"
             >
-              <div className="flex items-start space-x-3">
-                <div className={`p-2 rounded-lg ${isHigh ? 'bg-rose-500/10 text-rose-400' : 'bg-amber-500/10 text-amber-400'}`}>
-                  <ShieldAlert className="w-5 h-5" />
+              <div className="flex items-start gap-3">
+                <div className={`p-2 rounded-lg ${isHigh ? 'bg-badge-negative-bg text-metric-negative' : 'bg-badge-warning-bg text-metric-warning'}`}>
+                  <span className="material-symbols-outlined text-[20px]">warning</span>
                 </div>
                 <div>
-                  <div className="flex items-center space-x-2 mb-1">
-                    <span className="font-mono text-sm font-bold text-white">{alert.route}</span>
-                    <span className="text-xs text-slate-400">• {alert.airline} ({alert.booking_window})</span>
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <span className="font-headline text-sm font-bold text-text-primary">{alert.route}</span>
+                    <span className="text-xs text-text-muted">• {alert.airline} ({alert.booking_window})</span>
                   </div>
-                  <p className="text-xs text-slate-300 font-medium">{alert.driver}</p>
-                  <p className="text-[11px] text-slate-500 font-mono mt-1">
+                  <p className="text-xs text-text-secondary font-medium">{alert.driver}</p>
+                  <p className="text-[11px] text-text-muted mt-1 tabular-nums">
                     Observed: ₹{alert.observed_price?.toLocaleString('en-IN')} vs Baseline: ₹{alert.expected_price?.toLocaleString('en-IN')}
                   </p>
                 </div>
               </div>
 
-              <div className="flex flex-col items-end space-y-2">
-                <span className={`text-xs font-mono font-bold px-2 py-0.5 rounded-full border ${badgeClass}`}>
+              <div className="flex flex-col items-end gap-2">
+                <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
+                  isHigh ? 'bg-badge-negative-bg text-metric-negative' : 'bg-badge-warning-bg text-metric-warning'
+                }`}>
                   +{alert.deviation_pct?.toFixed(1)}%
                 </span>
-                <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-blue-400 transition-colors" />
+                <span className="material-symbols-outlined text-text-muted group-hover:text-primary transition-colors text-[18px]">
+                  chevron_right
+                </span>
               </div>
             </div>
           );
@@ -73,60 +70,55 @@ export default function SurgeAlertsPanel({ anomalies }) {
 
       {/* Alert Detail Modal */}
       {selectedAlert && (
-        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-navy-900 border border-navy-700 max-w-md w-full rounded-2xl p-6 shadow-2xl relative">
+        <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-surface-card border border-border-hairline max-w-md w-full rounded-xl p-6 shadow-xl relative animate-fade-in">
             <button
               onClick={() => setSelectedAlert(null)}
-              className="absolute top-4 right-4 p-1 rounded-lg text-slate-400 hover:text-white bg-navy-950 border border-navy-800"
+              className="absolute top-4 right-4 text-text-muted hover:text-text-primary"
             >
-              <X className="w-4 h-4" />
+              ✕
             </button>
 
-            <div className="flex items-center space-x-3 mb-4">
-              <div className="p-2.5 rounded-xl bg-rose-500/20 text-rose-400 border border-rose-500/30">
-                <ShieldAlert className="w-6 h-6" />
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2.5 rounded-lg bg-badge-negative-bg text-metric-negative">
+                <span className="material-symbols-outlined text-[24px]">warning</span>
               </div>
               <div>
-                <h4 className="text-base font-bold text-white">Surge Alert Details</h4>
-                <p className="text-xs font-mono text-slate-400">Event ID: {selectedAlert.event_id}</p>
+                <h4 className="font-headline text-base font-bold text-text-primary">Surge Alert Details</h4>
+                <p className="text-xs text-text-muted">Event ID: {selectedAlert.event_id}</p>
               </div>
             </div>
 
-            <div className="space-y-3 text-xs font-mono bg-navy-950 p-4 rounded-xl border border-navy-800 mb-5">
-              <div className="flex justify-between border-b border-navy-800 pb-2">
-                <span className="text-slate-400">Corridor:</span>
-                <span className="text-white font-bold">{selectedAlert.route}</span>
+            <div className="space-y-2 text-xs bg-surface-canvas p-4 rounded-lg border border-border-hairline mb-4 font-medium">
+              <div className="flex justify-between border-b border-border-hairline pb-2">
+                <span className="text-text-muted">Corridor:</span>
+                <span className="text-text-primary font-bold">{selectedAlert.route}</span>
               </div>
-              <div className="flex justify-between border-b border-navy-800 pb-2">
-                <span className="text-slate-400">Airline Carrier:</span>
-                <span className="text-white">{selectedAlert.airline}</span>
+              <div className="flex justify-between border-b border-border-hairline pb-2">
+                <span className="text-text-muted">Carrier:</span>
+                <span className="text-text-primary">{selectedAlert.airline}</span>
               </div>
-              <div className="flex justify-between border-b border-navy-800 pb-2">
-                <span className="text-slate-400">Advance Window:</span>
-                <span className="text-amber-400">{selectedAlert.booking_window}</span>
+              <div className="flex justify-between border-b border-border-hairline pb-2">
+                <span className="text-text-muted">Window:</span>
+                <span className="text-primary font-semibold">{selectedAlert.booking_window}</span>
               </div>
-              <div className="flex justify-between border-b border-navy-800 pb-2">
-                <span className="text-slate-400">Observed Airfare:</span>
-                <span className="text-rose-400 font-extrabold text-sm">₹{selectedAlert.observed_price?.toLocaleString('en-IN')}</span>
+              <div className="flex justify-between border-b border-border-hairline pb-2">
+                <span className="text-text-muted">Observed Fare:</span>
+                <span className="text-metric-negative font-bold tabular-nums">₹{selectedAlert.observed_price?.toLocaleString('en-IN')}</span>
               </div>
-              <div className="flex justify-between border-b border-navy-800 pb-2">
-                <span className="text-slate-400">7-Day Rolling Median:</span>
-                <span className="text-slate-300">₹{selectedAlert.expected_price?.toLocaleString('en-IN')}</span>
+              <div className="flex justify-between border-b border-border-hairline pb-2">
+                <span className="text-text-muted">7-Day Baseline:</span>
+                <span className="text-text-primary tabular-nums">₹{selectedAlert.expected_price?.toLocaleString('en-IN')}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-400">Deviation Spike:</span>
-                <span className="text-rose-400 font-bold">+{selectedAlert.deviation_pct?.toFixed(1)}%</span>
+                <span className="text-text-muted">Deviation:</span>
+                <span className="text-metric-negative font-bold">+{selectedAlert.deviation_pct?.toFixed(1)}%</span>
               </div>
-            </div>
-
-            <div className="bg-blue-500/10 border border-blue-500/20 p-3 rounded-xl mb-5 text-xs text-blue-300 flex items-start space-x-2">
-              <Info className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
-              <span><strong>Primary Driver:</strong> {selectedAlert.driver}. High-frequency pricing algorithms detected a demand spike.</span>
             </div>
 
             <button
               onClick={() => setSelectedAlert(null)}
-              className="w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs rounded-xl shadow-lg transition-all"
+              className="w-full py-2.5 bg-primary-container hover:bg-primary text-on-primary font-semibold text-xs rounded-lg transition-all"
             >
               Acknowledge Alert
             </button>

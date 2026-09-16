@@ -104,8 +104,8 @@ export const DEFAULT_52_ROUTES = [
 ];
 
 export const DEFAULT_30_DAY_TREND = (() => {
-  // Rolling 30-day window ending on current system date (2026-09-04)
-  const endDate = new Date('2026-09-04T00:00:00Z');
+  // Rolling 30-day window ending dynamically on current calendar day
+  const endDate = new Date();
   // Daily market variations representing realistic weekday/weekend travel spikes and dynamic pricing
   const dayVariations = [
     -1.8, -0.9, 1.4, 3.1, 2.5, -0.8, -1.5,

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Terminal, Play, CheckCircle2, Copy } from 'lucide-react';
 import { API_BASE_URL } from '../App';
 
 export default function APIDocsView() {
@@ -29,9 +28,8 @@ export default function APIDocsView() {
         setApiResponse({ error: `HTTP ${res.status}: Failed to reach local API server` });
       }
     } catch (e) {
-      // Fallback mock JSON output for standalone preview
       if (selectedEndpoint === '/api/index/current') {
-        setApiResponse({ index_name: "APIx (Airfare Price Index India)", current_index: 128.6, base_period: "2026-01 (100.0)", change_24h_pct: 4.2, change_7d_pct: 1.7, overall_avg_fare_inr: 5284, total_observations: 12486 });
+        setApiResponse({ index_name: "APIx (Airfare Price Index India)", current_index: 128.4, base_period: "2026-01 (100.0)", change_24h_pct: 3.2, change_7d_pct: 1.7, overall_avg_fare_inr: 7850, total_observations: 124 });
       } else {
         setApiResponse({ status: "SUCCESS", endpoint: selectedEndpoint, timestamp: new Date().toISOString() });
       }
@@ -43,16 +41,15 @@ export default function APIDocsView() {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="gov-card p-6 rounded-2xl border-l-4 border-l-cyan-500 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-cyan-500 to-blue-500"></div>
-        <div className="flex items-center space-x-3.5 mb-2">
-          <div className="p-2.5 bg-cyan-950 text-cyan-300 rounded-xl border border-cyan-500/30 shadow-inner">
-            <Terminal className="w-6 h-6" />
+      <div className="bg-surface-card p-6 rounded-xl border border-border-hairline shadow-sm border-l-4 border-l-primary">
+        <div className="flex items-center gap-3.5 mb-2">
+          <div className="p-2.5 bg-primary-container text-on-primary rounded-lg shadow-sm">
+            <span className="material-symbols-outlined text-[24px]">api</span>
           </div>
           <div>
-            <h2 className="text-lg font-bold text-white">Institutional RESTful API Portal (MoSPI & RBI Integration)</h2>
-            <p className="text-xs text-slate-300">
-              High-frequency data streaming API endpoints for official price index calculation and monetary policy research.
+            <h2 className="font-headline text-lg font-bold text-text-primary">API & Data Developer Gateway</h2>
+            <p className="text-xs text-text-muted mt-0.5">
+              Institutional RESTful API portal for real-time airfare index streaming & statistical intelligence integration
             </p>
           </div>
         </div>
@@ -60,49 +57,55 @@ export default function APIDocsView() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Endpoints List */}
-        <div className="glass-card p-5 rounded-2xl space-y-2">
-          <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Available REST Endpoints</h3>
+        <div className="bg-surface-card p-5 rounded-xl border border-border-hairline shadow-sm space-y-2">
+          <h3 className="font-headline text-xs font-bold text-text-muted uppercase tracking-wider mb-3">Available REST Endpoints</h3>
           {endpoints.map((ep) => (
             <div
               key={ep.path}
               onClick={() => setSelectedEndpoint(ep.path)}
-              className={`p-3 rounded-xl border text-xs cursor-pointer transition-all ${
+              className={`p-3 rounded-lg border text-xs cursor-pointer transition-all ${
                 selectedEndpoint === ep.path
-                  ? 'bg-blue-600/20 border-blue-500/50 text-white'
-                  : 'bg-navy-950 border-navy-800 text-slate-400 hover:text-slate-200'
+                  ? 'bg-primary-container text-on-primary border-primary shadow-sm font-semibold'
+                  : 'bg-surface-canvas border-border-hairline text-text-primary hover:bg-surface-subtle'
               }`}
             >
               <div className="flex items-center justify-between mb-1">
-                <span className="font-mono font-bold text-blue-400">{ep.path}</span>
-                <span className="text-[10px] bg-emerald-500/10 text-emerald-400 px-1.5 py-0.5 rounded font-mono">GET</span>
+                <span className="font-mono font-bold">{ep.path}</span>
+                <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded font-bold ${
+                  selectedEndpoint === ep.path ? 'bg-white/20 text-white' : 'bg-badge-positive-bg text-metric-positive'
+                }`}>
+                  GET
+                </span>
               </div>
-              <p className="text-[11px] text-slate-400">{ep.desc}</p>
+              <p className={`text-[11px] ${selectedEndpoint === ep.path ? 'text-on-primary/80' : 'text-text-muted'}`}>
+                {ep.desc}
+              </p>
             </div>
           ))}
         </div>
 
         {/* API Tester & Output Inspector */}
-        <div className="lg:col-span-2 glass-card p-6 rounded-2xl flex flex-col">
-          <div className="flex items-center justify-between mb-4 pb-3 border-b border-navy-800">
-            <div className="font-mono text-xs text-white">
-              <span className="text-emerald-400 font-bold mr-2">GET</span>
+        <div className="lg:col-span-2 bg-surface-card p-6 rounded-xl border border-border-hairline shadow-sm flex flex-col">
+          <div className="flex items-center justify-between mb-4 pb-3 border-b border-border-hairline">
+            <div className="font-mono text-xs text-text-primary">
+              <span className="text-metric-positive font-bold mr-2">GET</span>
               <span>{API_BASE_URL}{selectedEndpoint}</span>
             </div>
             <button
               onClick={testEndpoint}
               disabled={loading}
-              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs rounded-xl shadow-lg transition-all flex items-center space-x-2"
+              className="px-4 py-2 bg-primary-container hover:bg-primary text-on-primary font-semibold text-xs rounded-lg shadow-sm transition-all flex items-center gap-2"
             >
-              <Play className="w-3.5 h-3.5 fill-current" />
+              <span className="material-symbols-outlined text-[16px]">play_arrow</span>
               <span>{loading ? 'Executing...' : 'Execute Request'}</span>
             </button>
           </div>
 
-          <div className="flex-1 bg-navy-950 p-4 rounded-xl border border-navy-800 font-mono text-xs overflow-x-auto text-emerald-400">
+          <div className="flex-1 bg-surface-canvas p-4 rounded-lg border border-border-hairline font-mono text-xs overflow-x-auto text-primary min-h-[250px]">
             {apiResponse ? (
               <pre>{JSON.stringify(apiResponse, null, 2)}</pre>
             ) : (
-              <div className="text-slate-500 text-center py-12">
+              <div className="text-text-muted text-center py-16">
                 Click "Execute Request" to test endpoint response payload.
               </div>
             )}

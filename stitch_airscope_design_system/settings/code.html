@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "background": "#f8f9ff", "surface-tint": "#3b5d9e", "on-tertiary-fixed-variant": "#004f51", "surface-container": "#e5eeff", "on-surface-variant": "#434750", "tertiary-fixed": "#87f4f5", "surface-container-lowest": "#ffffff", "error": "#ba1a1a", "surface-container-highest": "#d3e4fe", "on-tertiary-fixed": "#002020", "surface-dim": "#cbdbf5", "secondary-fixed": "#dae2ff", "inverse-primary": "#aec6ff", "on-secondary-fixed": "#001847", "inverse-on-surface": "#eaf1ff", "on-tertiary-container": "#45b8ba", "secondary-fixed-dim": "#b1c5ff", "on-primary-container": "#87a7ed", "on-secondary-fixed-variant": "#0040a0", "on-surface": "#0b1c30", "secondary": "#0054cb", "on-secondary-container": "#fefcff", "outline-variant": "#c4c6d2", "primary-fixed": "#d8e2ff", "on-error-container": "#93000a", "primary-container": "#123b7a", "on-error": "#ffffff", "primary-fixed-dim": "#aec6ff", "on-primary": "#ffffff", "on-primary-fixed": "#001a42", "surface": "#f8f9ff", "surface-container-high": "#dce9ff", "on-tertiary": "#ffffff", "secondary-container": "#2d6deb", "on-primary-fixed-variant": "#204584", "on-background": "#0b1c30", "on-secondary": "#ffffff", "surface-bright": "#f8f9ff", "tertiary-container": "#004546", "tertiary": "#002d2e", "error-container": "#ffdad6", "outline": "#747781", "inverse-surface": "#213145", "tertiary-fixed-dim": "#69d7d9", "surface-variant": "#d3e4fe", "surface-container-low": "#eff4ff", "primary": "#002558" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-md": "1rem", "space-xs": "0.25rem", "space-sm": "0.5rem", "gutter": "1.5rem", "space-xl": "2.5rem", "margin": "2rem", "space-lg": "1.5rem" }, "fontFamily": { "body-sm": ["IBM Plex Sans"], "body-md": ["IBM Plex Sans"], "headline-lg-mobile": ["IBM Plex Sans"], "code-md": ["JetBrains Mono"], "code-sm": ["JetBrains Mono"], "label-sm": ["IBM Plex Sans"], "label-md": ["IBM Plex Sans"], "headline-md": ["IBM Plex Sans"], "headline-sm": ["IBM Plex Sans"], "body-lg": ["IBM Plex Sans"], "headline-lg": ["IBM Plex Sans"] }, "fontSize": { "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }], "code-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }], "code-sm": ["11px", { "lineHeight": "16px", "fontWeight": "500" }], "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "600" }], "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }], "headline-sm": ["18px", { "lineHeight": "26px", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }] } } } }</script></head><body class="bg-background font-body-md text-on-surface min-h-screen antialiased selection:bg-primary-fixed selection:text-on-primary-fixed"><aside class="fixed left-0 top-0 h-screen w-72 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col flex-1 min-h-0"><div class="p-space-lg flex items-center gap-space-sm"><div class="w-9 h-9 rounded-lg bg-primary flex items-center justify-center text-on-primary shadow-sm flex-shrink-0"><span class="material-symbols-outlined text-[20px]">flight</span></div><div class="flex flex-col min-w-0"><span class="font-headline-sm text-headline-sm tracking-tight text-primary leading-none">AIRSCOPE</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate mt-space-xs">Real-Time Airfare Price Index India</span></div></div><div class="px-space-sm overflow-y-auto flex-1"><nav class="space-y-1 py-space-xs" data-active-classes="bg-primary-container text-on-primary font-label-md rounded-lg"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-body-md text-body-md transition-colors" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span>Dashboard</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-body-md text-body-md transition-colors" data-path="airfare-index" href="#"><span class="material-symbols-outlined text-[20px]">stacked_line_chart</span><span>Airfare Index</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-body-md text-body-md transition-colors" data-path="route-explorer" href="#"><span class="material-symbols-outlined text-[20px]">explore</span><span>Route Explorer</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-body-md text-body-md transition-colors" data-path="lead-time-analytics" href="#"><span class="material-symbols-outlined text-[20px]">schedule</span><span>Lead-Time Analytics</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-body-md text-body-md transition-colors" data-path="market-monitor" href="#"><span class="material-symbols-outlined text-[20px]">monitoring</span><span>Market Monitor</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-body-md text-body-md transition-colors" data-path="data-quality" href="#"><span class="material-symbols-outlined text-[20px]">verified</span><span>Data Quality</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-body-md text-body-md transition-colors" data-path="collection-monitor" href="#"><span class="material-symbols-outlined text-[20px]">sync</span><span>Collection Monitor</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-body-md text-body-md transition-colors" data-path="api-and-data" href="#"><span class="material-symbols-outlined text-[20px]">terminal</span><span>API &amp; Data</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-body-md text-body-md transition-colors" data-path="reports" href="#"><span class="material-symbols-outlined text-[20px]">description</span><span>Reports</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-colors bg-primary-container text-on-primary font-label-md rounded-lg" data-path="settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span>Settings</span></a></nav></div></div><div class="p-space-md"><div class="bg-surface-container-low rounded-xl p-space-md flex flex-col gap-space-xs"><div class="flex items-center gap-space-xs text-primary font-label-sm text-label-sm"><span class="material-symbols-outlined text-[16px]">verified_user</span><span>Civil Aviation Intelligence</span></div><p class="font-body-sm text-body-sm text-on-surface leading-tight font-medium">Data for a Better Tomorrow</p><p class="font-label-sm text-label-sm text-on-surface-variant">Transparent. Comparable. Policy-Ready.</p></div></div></aside><div class="pl-72"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-md z-40 px-space-lg flex items-center justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-xs font-label-md text-label-md text-on-surface-variant"><span class="hover:text-on-surface cursor-pointer">Platform</span><span class="material-symbols-outlined text-[14px]">chevron_right</span><span class="text-primary font-semibold">Settings</span></div><div class="relative flex items-center w-72"><span class="material-symbols-outlined absolute left- space-sm text-on-surface-variant text-[18px] pointer-events-none pl-2">search</span><input class="w-full h-9 pl-9 pr-12 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:bg-surface-container-lowest" placeholder="Search settings..." type="text"/><span class="absolute right-2 font-code-sm text-code-sm bg-surface-container-lowest text-on-surface-variant px-1.5 py-0.5 rounded shadow-sm pointer-events-none">⌘K</span></div></div><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-xs bg-surface-container-low px-space-md py-1.5 rounded-full"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-tertiary opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-on-tertiary-container"></span></span><span class="font-label-sm text-label-sm text-on-surface-variant">Live Data | Last updated 14 Sep 2025, 11:42 AM IST</span></div><div class="flex items-center gap-space-md"><button aria-label="Notifications" class="relative p-2 rounded-lg hover:bg-surface-container-low text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-error font-code-sm text-[10px] text-on-error font-bold leading-none">3</span></button><div class="h-6 w-px bg-surface-container"></div><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary font-headline-sm text-body-md font-semibold">S</div><div class="flex flex-col text-left"><span class="font-label-md text-label-md text-on-surface leading-tight">Subham</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Team RAG RANGERS</span></div></div></div></div></header><main class="relative pt-16 bg-background min-h-screen"><div class="w-full px-margin py-gutter"><div class="flex flex-col w-full pb-28">
+<!-- PAGE HEADER & STATUS STRIP -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md mb-gutter">
+<div>
+<div class="flex items-center gap-space-sm mb-1">
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">Settings</h1>
+<div class="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container-high text-tertiary">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-on-tertiary-container opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-on-tertiary-container"></span>
+</span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">System Status: Operational</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+        Manage AIRSCOPE configuration, data collection, index methodology and sovereign platform preferences.
+      </p>
+</div>
+<div class="flex items-center gap-space-sm flex-shrink-0">
+<button class="inline-flex items-center gap-1.5 h-9 px-space-md rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md shadow-sm hover:bg-surface-container-low transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-secondary">file_download</span>
+<span>Export Config (.json)</span>
+</button>
+<button class="inline-flex items-center gap-1.5 h-9 px-space-md rounded-lg bg-primary-container text-on-primary font-label-md text-label-md shadow-sm hover:bg-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+<span>Documentation</span>
+</button>
+</div>
+</div>
+<!-- TWO-COLUMN WORKSPACE -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- LEFT STICKY NAVIGATION RAIL (col-span-3) -->
+<aside class="lg:col-span-3 sticky top-20 bg-surface-container-lowest rounded-xl shadow-sm p-space-md">
+<!-- Search Filter -->
+<div class="relative flex items-center mb-space-md">
+<span class="material-symbols-outlined absolute left-2.5 text-on-surface-variant text-[18px] pointer-events-none">filter_list</span>
+<input class="w-full h-9 pl-9 pr-3 rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:bg-surface-container-lowest" id="navSearchInput" onkeyup="filterNavItems(this.value)" placeholder="Filter settings..." type="text"/>
+</div>
+<!-- Navigation Category List -->
+<nav class="flex flex-col gap-0.5" id="settingsNavList">
+<a class="nav-item active flex items-center justify-between px-space-sm py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md transition-all" href="#general">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span class="truncate">General</span>
+</div>
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>
+</a>
+<a class="nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-body-sm text-body-sm transition-all" href="#sampling-matrix">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="material-symbols-outlined text-[18px]">hub</span>
+<span class="truncate">Sampling Matrix</span>
+</div>
+<span class="font-code-sm text-code-sm bg-surface-container px-1.5 py-0.5 rounded text-primary">7</span>
+</a>
+<a class="nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-body-sm text-body-sm transition-all" href="#data-sources">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="material-symbols-outlined text-[18px]">cloud_sync</span>
+<span class="truncate">Data Sources</span>
+</div>
+<span class="font-code-sm text-code-sm bg-surface-container px-1.5 py-0.5 rounded text-primary">10</span>
+</a>
+<a class="nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-body-sm text-body-sm transition-all" href="#index-methodology">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="material-symbols-outlined text-[18px]">calculate</span>
+<span class="truncate">Index Methodology</span>
+</div>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">lock</span>
+</a>
+<a class="nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-body-sm text-body-sm transition-all" href="#data-quality">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="material-symbols-outlined text-[18px]">fact_check</span>
+<span class="truncate">Data Quality Rules</span>
+</div>
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+</a>
+<a class="nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-body-sm text-body-sm transition-all" href="#collection-scheduler">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="material-symbols-outlined text-[18px]">event_repeat</span>
+<span class="truncate">Collection Scheduler</span>
+</div>
+<span class="font-code-sm text-code-sm text-secondary font-medium">3 sweeps</span>
+</a>
+<a class="nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-body-sm text-body-sm transition-all" href="#notifications">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="material-symbols-outlined text-[18px]">notifications_active</span>
+<span class="truncate">Notifications &amp; Webhooks</span>
+</div>
+<span class="font-code-sm text-code-sm bg-error-container text-on-error-container px-1.5 py-0.2 rounded font-bold">7</span>
+</a>
+<a class="nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-body-sm text-body-sm transition-all" href="#api-access">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="material-symbols-outlined text-[18px]">key</span>
+<span class="truncate">API &amp; Access</span>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Tier-1</span>
+</a>
+<a class="nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-body-sm text-body-sm transition-all" href="#users-roles">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+<span class="truncate">Users &amp; Roles</span>
+</div>
+<span class="font-code-sm text-code-sm bg-surface-container px-1.5 py-0.5 rounded text-primary">4</span>
+</a>
+<a class="nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-body-sm text-body-sm transition-all" href="#appearance">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="material-symbols-outlined text-[18px]">palette</span>
+<span class="truncate">Appearance</span>
+</div>
+</a>
+<a class="nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-body-sm text-body-sm transition-all" href="#system-health">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="material-symbols-outlined text-[18px]">health_and_safety</span>
+<span class="truncate">System Health</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-tertiary-container font-semibold">100%</span>
+</a>
+<a class="nav-item flex items-center justify-between px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface font-body-sm text-body-sm transition-all" href="#about">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="material-symbols-outlined text-[18px]">info</span>
+<span class="truncate">About AIRSCOPE</span>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface-variant">v1.0</span>
+</a>
+</nav>
+<!-- Institutional Sync Info Card in Nav -->
+<div class="mt-space-md p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-1 text-on-surface">
+<div class="flex items-center gap-1.5 text-primary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">assured_workload</span>
+<span>MoSPI Governance Node</span>
+</div>
+<p class="font-code-sm text-code-sm text-on-surface-variant leading-tight">Sync ID: IND-DEL-DGCA-0948</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Validated: 14 Sep 2025</p>
+</div>
+</aside>
+<!-- RIGHT MAIN CONTENT (col-span-9) -->
+<main class="lg:col-span-9 flex flex-col gap-space-lg">
+<!-- SECTION 1: GENERAL SETTINGS -->
+<section class="scroll-mt-24 bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col gap-space-md" id="general">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">General Settings</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Platform identity, environment modes, and standard localization conventions.</p>
+</div>
+</div>
+<span class="font-code-sm text-code-sm bg-surface-container px-2 py-1 rounded text-primary">CONFIG_ID: GS-001</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md pt-space-xs">
+<!-- Application Name -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="app-name">Application Name</label>
+<input class="h-9 px-space-sm rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-secondary-container" id="app-name" type="text" value="AIRSCOPE"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Primary display mark across reports and telemetry feeds.</span>
+</div>
+<!-- Platform Subtitle -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="app-sub">Platform Subtitle / Description</label>
+<input class="h-9 px-space-sm rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-secondary-container" id="app-sub" type="text" value="Real-Time Airfare Price Index for India"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Official descriptive tag registered with MoSPI CSO repository.</span>
+</div>
+<!-- Environment Segmented Selector -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface">Target Environment</label>
+<div class="h-9 bg-surface-container-low p-1 rounded-lg flex items-center gap-1">
+<button class="flex-1 h-full rounded text-center font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+                Prototype
+              </button>
+<button class="flex-1 h-full rounded bg-surface-container-lowest text-primary font-label-md text-label-md shadow-sm" type="button">
+                Production (Active)
+              </button>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Live telemetry hooks onto sovereign cluster production endpoints.</span>
+</div>
+<!-- Timezone Dropdown -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="tz-select">System Timezone</label>
+<div class="relative">
+<select class="w-full h-9 px-space-sm appearance-none rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-secondary-container cursor-pointer pr-8" id="tz-select">
+<option selected="">Asia/Kolkata (IST) UTC+05:30</option>
+<option>UTC (Coordinated Universal Time)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2 text-on-surface-variant text-[18px] pointer-events-none">expand_more</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">All scrape timestamps are calibrated against IST.</span>
+</div>
+<!-- Currency Dropdown -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="curr-select">Baseline Currency</label>
+<div class="relative">
+<select class="w-full h-9 px-space-sm appearance-none rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-secondary-container cursor-pointer pr-8" id="curr-select">
+<option selected="">Indian Rupee (INR ₹)</option>
+<option>US Dollar (USD $)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2 text-on-surface-variant text-[18px] pointer-events-none">expand_more</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Canonical index prices normalized before dispersion assessment.</span>
+</div>
+<!-- Date Format Dropdown -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="date-select">Standard Date Format</label>
+<div class="relative">
+<select class="w-full h-9 px-space-sm appearance-none rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-secondary-container cursor-pointer pr-8" id="date-select">
+<option selected="">DD MMM YYYY (e.g. 14 Sep 2025)</option>
+<option>YYYY-MM-DD (ISO 8601)</option>
+<option>DD/MM/YYYY</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2 text-on-surface-variant text-[18px] pointer-events-none">expand_more</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Standard output format applied in analytical reports and CSV downloads.</span>
+</div>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-xs border-t border-surface-container">
+<button class="h-9 px-space-md rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors" type="button">
+            Reset
+          </button>
+<button class="h-9 px-space-md rounded-lg bg-primary text-on-primary hover:bg-primary-container font-label-md text-label-md transition-colors shadow-sm" type="button">
+            Save Changes
+          </button>
+</div>
+</section>
+<!-- SECTION 2: SAMPLING MATRIX -->
+<section class="scroll-mt-24 bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col gap-space-md" id="sampling-matrix">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">hub</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Sampling Matrix</h2>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-semibold">7 Routes Active</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Core route basket, advance booking tranches, observation windows, and cabin classes.</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm flex-wrap">
+<button class="inline-flex items-center gap-1 h-8 px-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+<span>Recalibrate Tranches</span>
+</button>
+<button class="inline-flex items-center gap-1 h-8 px-space-sm rounded-lg bg-primary text-on-primary font-label-sm text-label-sm shadow-sm hover:bg-primary-container transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>Add Route</span>
+</button>
+</div>
+</div>
+<!-- Counter Badges -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm">
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Monitored Routes</span>
+<span class="font-headline-sm text-headline-sm text-primary">7 Pairs</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[28px]">flight_takeoff</span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Booking Tranches</span>
+<span class="font-headline-sm text-headline-sm text-primary">T+1, T+7, T+15, T+30, T+45</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[28px]">calendar_view_week</span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Sweeps Cadence</span>
+<span class="font-headline-sm text-headline-sm text-primary">08:00 • 14:00 • 20:00 IST</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[28px]">schedule</span>
+</div>
+</div>
+<!-- Sampling Basket Table -->
+<div class="overflow-x-auto rounded-lg bg-surface-container-lowest">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-md text-label-md">
+<th class="py-2.5 px-space-sm">Route Pair</th>
+<th class="py-2.5 px-space-sm">Classification</th>
+<th class="py-2.5 px-space-sm">Active Tranches</th>
+<th class="py-2.5 px-space-sm">Observation Windows</th>
+<th class="py-2.5 px-space-sm">Cabin Class</th>
+<th class="py-2.5 px-space-sm text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container font-body-sm text-body-sm text-on-surface">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-2.5 px-space-sm font-semibold text-primary font-code-sm text-code-sm">DEL ⇄ BOM</td>
+<td class="py-2.5 px-space-sm"><span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm">High-Density Trunk</span></td>
+<td class="py-2.5 px-space-sm">
+<div class="flex gap-1 flex-wrap">
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+1</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+7</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+15</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+30</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+45</span>
+</div>
+</td>
+<td class="py-2.5 px-space-sm text-on-surface-variant">3 daily (08, 14, 20h)</td>
+<td class="py-2.5 px-space-sm">Economy (Y)</td>
+<td class="py-2.5 px-space-sm text-right">
+<button class="p-1 hover:bg-surface-container rounded text-on-surface-variant hover:text-primary" type="button"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+<button class="p-1 hover:bg-surface-container rounded text-on-surface-variant hover:text-error" type="button"><span class="material-symbols-outlined text-[16px]">delete</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-2.5 px-space-sm font-semibold text-primary font-code-sm text-code-sm">DEL ⇄ BLR</td>
+<td class="py-2.5 px-space-sm"><span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm">Tech Corridor Trunk</span></td>
+<td class="py-2.5 px-space-sm">
+<div class="flex gap-1 flex-wrap">
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+1</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+7</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+15</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+30</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+45</span>
+</div>
+</td>
+<td class="py-2.5 px-space-sm text-on-surface-variant">3 daily (08, 14, 20h)</td>
+<td class="py-2.5 px-space-sm">Economy (Y)</td>
+<td class="py-2.5 px-space-sm text-right">
+<button class="p-1 hover:bg-surface-container rounded text-on-surface-variant hover:text-primary" type="button"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+<button class="p-1 hover:bg-surface-container rounded text-on-surface-variant hover:text-error" type="button"><span class="material-symbols-outlined text-[16px]">delete</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-2.5 px-space-sm font-semibold text-primary font-code-sm text-code-sm">BOM ⇄ BLR</td>
+<td class="py-2.5 px-space-sm"><span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm">High-Density Trunk</span></td>
+<td class="py-2.5 px-space-sm">
+<div class="flex gap-1 flex-wrap">
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+1</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+7</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+15</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+30</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+45</span>
+</div>
+</td>
+<td class="py-2.5 px-space-sm text-on-surface-variant">3 daily (08, 14, 20h)</td>
+<td class="py-2.5 px-space-sm">Economy (Y)</td>
+<td class="py-2.5 px-space-sm text-right">
+<button class="p-1 hover:bg-surface-container rounded text-on-surface-variant hover:text-primary" type="button"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+<button class="p-1 hover:bg-surface-container rounded text-on-surface-variant hover:text-error" type="button"><span class="material-symbols-outlined text-[16px]">delete</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-2.5 px-space-sm font-semibold text-primary font-code-sm text-code-sm">DEL ⇄ CCU</td>
+<td class="py-2.5 px-space-sm"><span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">Eastern Metro Trunk</span></td>
+<td class="py-2.5 px-space-sm">
+<div class="flex gap-1 flex-wrap">
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+1</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+7</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+15</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+30</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+45</span>
+</div>
+</td>
+<td class="py-2.5 px-space-sm text-on-surface-variant">3 daily (08, 14, 20h)</td>
+<td class="py-2.5 px-space-sm">Economy (Y)</td>
+<td class="py-2.5 px-space-sm text-right">
+<button class="p-1 hover:bg-surface-container rounded text-on-surface-variant hover:text-primary" type="button"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+<button class="p-1 hover:bg-surface-container rounded text-on-surface-variant hover:text-error" type="button"><span class="material-symbols-outlined text-[16px]">delete</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-2.5 px-space-sm font-semibold text-primary font-code-sm text-code-sm">BLR ⇄ HYD</td>
+<td class="py-2.5 px-space-sm"><span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">Southern Regional</span></td>
+<td class="py-2.5 px-space-sm">
+<div class="flex gap-1 flex-wrap">
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+1</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+7</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+15</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+30</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+45</span>
+</div>
+</td>
+<td class="py-2.5 px-space-sm text-on-surface-variant">3 daily (08, 14, 20h)</td>
+<td class="py-2.5 px-space-sm">Economy (Y)</td>
+<td class="py-2.5 px-space-sm text-right">
+<button class="p-1 hover:bg-surface-container rounded text-on-surface-variant hover:text-primary" type="button"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+<button class="p-1 hover:bg-surface-container rounded text-on-surface-variant hover:text-error" type="button"><span class="material-symbols-outlined text-[16px]">delete</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-2.5 px-space-sm font-semibold text-primary font-code-sm text-code-sm">MAA ⇄ DEL</td>
+<td class="py-2.5 px-space-sm"><span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm">High-Density Trunk</span></td>
+<td class="py-2.5 px-space-sm">
+<div class="flex gap-1 flex-wrap">
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+1</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+7</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+15</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+30</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+45</span>
+</div>
+</td>
+<td class="py-2.5 px-space-sm text-on-surface-variant">3 daily (08, 14, 20h)</td>
+<td class="py-2.5 px-space-sm">Economy (Y)</td>
+<td class="py-2.5 px-space-sm text-right">
+<button class="p-1 hover:bg-surface-container rounded text-on-surface-variant hover:text-primary" type="button"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+<button class="p-1 hover:bg-surface-container rounded text-on-surface-variant hover:text-error" type="button"><span class="material-symbols-outlined text-[16px]">delete</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-2.5 px-space-sm font-semibold text-primary font-code-sm text-code-sm">BOM ⇄ GOI</td>
+<td class="py-2.5 px-space-sm"><span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">Leisure &amp; Coastal</span></td>
+<td class="py-2.5 px-space-sm">
+<div class="flex gap-1 flex-wrap">
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+1</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+7</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+15</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+30</span>
+<span class="font-code-sm text-[10px] bg-surface-container px-1 rounded">T+45</span>
+</div>
+</td>
+<td class="py-2.5 px-space-sm text-on-surface-variant">3 daily (08, 14, 20h)</td>
+<td class="py-2.5 px-space-sm">Economy (Y)</td>
+<td class="py-2.5 px-space-sm text-right">
+<button class="p-1 hover:bg-surface-container rounded text-on-surface-variant hover:text-primary" type="button"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+<button class="p-1 hover:bg-surface-container rounded text-on-surface-variant hover:text-error" type="button"><span class="material-symbols-outlined text-[16px]">delete</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="flex items-center justify-between pt-space-xs border-t border-surface-container">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Weights synced with DGCA 2024-25 Q4 manifest.</span>
+<button class="h-8 px-space-md rounded-lg bg-primary text-on-primary font-label-sm text-label-sm hover:bg-primary-container transition-colors shadow-sm" type="button">
+            Save Sampling Plan
+          </button>
+</div>
+</section>
+<!-- SECTION 3: DATA SOURCES (Airlines & OTAs) -->
+<section class="scroll-mt-24 bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col gap-space-md" id="data-sources">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">cloud_sync</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Data Sources &amp; Connectors</h2>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-semibold">10 Configured (9 Active)</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Sovereign scrapers, NDC Direct integrations, and OTA pricing connectors.</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm flex-wrap">
+<button class="inline-flex items-center gap-1 h-8 px-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">speed</span>
+<span>Test All Connections</span>
+</button>
+<button class="inline-flex items-center gap-1 h-8 px-space-sm rounded-lg bg-primary text-on-primary font-label-sm text-label-sm shadow-sm hover:bg-primary-container transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">add_circle</span>
+<span>Add Source</span>
+</button>
+</div>
+</div>
+<!-- Subgroup A: Scheduled Airline Direct APIs -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-primary uppercase tracking-wider">Scheduled Airline Direct APIs (5)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">P95 Latency: 410ms</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm">
+<!-- IndiGo -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded bg-surface-container-lowest flex items-center justify-center font-bold text-primary text-[12px]">6E</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface leading-tight">IndiGo (Direct NDC)</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Last: 45s ago • 380ms</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 font-label-sm text-label-sm text-on-tertiary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span> Online
+                </span>
+<input checked="" class="w-4 h-4 accent-secondary rounded cursor-pointer" type="checkbox"/>
+</div>
+</div>
+<!-- Air India -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded bg-surface-container-lowest flex items-center justify-center font-bold text-error text-[12px]">AI</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface leading-tight">Air India (Direct API)</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Last: 2m ago • 420ms</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 font-label-sm text-label-sm text-on-tertiary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span> Online
+                </span>
+<input checked="" class="w-4 h-4 accent-secondary rounded cursor-pointer" type="checkbox"/>
+</div>
+</div>
+<!-- Air India Express -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded bg-surface-container-lowest flex items-center justify-center font-bold text-on-surface-variant text-[12px]">IX</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface leading-tight">Air India Express</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Last: 3m ago • 450ms</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 font-label-sm text-label-sm text-on-tertiary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span> Online
+                </span>
+<input checked="" class="w-4 h-4 accent-secondary rounded cursor-pointer" type="checkbox"/>
+</div>
+</div>
+<!-- Akasa Air -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded bg-surface-container-lowest flex items-center justify-center font-bold text-secondary text-[12px]">QP</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface leading-tight">Akasa Air (Web API)</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Last: 1m ago • 390ms</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 font-label-sm text-label-sm text-on-tertiary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span> Online
+                </span>
+<input checked="" class="w-4 h-4 accent-secondary rounded cursor-pointer" type="checkbox"/>
+</div>
+</div>
+<!-- SpiceJet (Throttled) -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between md:col-span-2">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded bg-surface-container-lowest flex items-center justify-center font-bold text-error text-[12px]">SG</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface leading-tight">SpiceJet</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Last: 5m ago • 1,200ms</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant font-semibold bg-surface-container px-2 py-0.5 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> Throttled (429 Rate Limit)
+                </span>
+<input checked="" class="w-4 h-4 accent-secondary rounded cursor-pointer" type="checkbox"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Subgroup B: Online Travel Aggregators (OTAs) -->
+<div class="flex flex-col gap-2 pt-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-primary uppercase tracking-wider">Online Travel Aggregators (5)</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Redundancy Cross-Validation</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm">
+<!-- MMT -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-primary">travel_explore</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface leading-tight">MakeMyTrip</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Last run: 30s ago</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 font-label-sm text-label-sm text-on-tertiary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span> Online
+                </span>
+<input checked="" class="w-4 h-4 accent-secondary rounded cursor-pointer" type="checkbox"/>
+</div>
+</div>
+<!-- Goibibo -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-secondary">flight</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface leading-tight">Goibibo</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Last run: 1m ago</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 font-label-sm text-label-sm text-on-tertiary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span> Online
+                </span>
+<input checked="" class="w-4 h-4 accent-secondary rounded cursor-pointer" type="checkbox"/>
+</div>
+</div>
+<!-- Ixigo -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant">alt_route</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface leading-tight">Ixigo</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Last run: 4m ago</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 font-label-sm text-label-sm text-error font-semibold bg-surface-container px-2 py-0.5 rounded">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> Captcha Challenge
+                </span>
+<input checked="" class="w-4 h-4 accent-secondary rounded cursor-pointer" type="checkbox"/>
+</div>
+</div>
+<!-- Cleartrip -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-primary">connecting_airports</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface leading-tight">Cleartrip</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Last run: 2m ago</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 font-label-sm text-label-sm text-on-tertiary-container font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span> Online
+                </span>
+<input checked="" class="w-4 h-4 accent-secondary rounded cursor-pointer" type="checkbox"/>
+</div>
+</div>
+<!-- Yatra (Disabled) -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between md:col-span-2 opacity-75">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant">flight_class</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface leading-tight">Yatra</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Last run: 2h ago • Collector inactive</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span> Offline
+                </span>
+<input class="w-4 h-4 accent-secondary rounded cursor-pointer" type="checkbox"/>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-xs border-t border-surface-container">
+<button class="h-8 px-space-md rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm transition-colors" type="button">
+            Global Scraper Settings
+          </button>
+</div>
+</section>
+<!-- SECTION 4: INDEX METHODOLOGY & FORMULATION -->
+<section class="scroll-mt-24 bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col gap-space-md" id="index-methodology">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">calculate</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Index Methodology &amp; Formulation</h2>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container text-primary font-semibold">v2.4 Sovereign Standard</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Statistical aggregation model, Laspeyres weighting, and outlier mitigation schema.</p>
+</div>
+</div>
+</div>
+<!-- Administrative Lock Banner -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">lock_clock</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary font-semibold">Methodology Locked — Governed under MoSPI M-24-CSO Directives</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Changes to aggregation equations or index weights require DGCA counter-signature and formal revision log generation.
+            </p>
+</div>
+</div>
+<!-- Formulation Controls Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Base Period -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface">Base Period Formulation</label>
+<div class="h-9 px-space-sm rounded-lg bg-surface-container flex items-center justify-between text-on-surface font-code-sm text-code-sm">
+<span>January 2026 = 100.0</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">lock</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Statutory normalization period.</span>
+</div>
+<!-- Aggregation Cadence -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface">Aggregation Cadence</label>
+<div class="h-9 bg-surface-container-low p-1 rounded-lg flex items-center gap-1">
+<button class="flex-1 h-full rounded bg-surface-container-lowest text-primary font-label-md text-label-md shadow-sm" type="button">
+                Daily (Active)
+              </button>
+<button class="flex-1 h-full rounded text-center font-label-md text-label-md text-on-surface-variant hover:text-on-surface" type="button">
+                Weekly
+              </button>
+<button class="flex-1 h-full rounded text-center font-label-md text-label-md text-on-surface-variant hover:text-on-surface" type="button">
+                Monthly
+              </button>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Runs nightly post 23:59 IST audit sweep.</span>
+</div>
+<!-- Route Weighting Model -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="weight-model">Route Weighting Model</label>
+<div class="relative">
+<select class="w-full h-9 px-space-sm appearance-none rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-secondary-container cursor-pointer pr-8" id="weight-model">
+<option selected="">Traffic Weighted (Modified Laspeyres)</option>
+<option>Passenger Kilometer (RPK) Weighted</option>
+<option>Equal-Weighted Index</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2 text-on-surface-variant text-[18px] pointer-events-none">expand_more</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Base weights adjusted every quarter.</span>
+</div>
+<!-- Weight Source -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="weight-source">Weight Calibration Source</label>
+<div class="relative">
+<select class="w-full h-9 px-space-sm appearance-none rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-secondary-container cursor-pointer pr-8" id="weight-source">
+<option selected="">DGCA Passenger Traffic O-D Manifest (Q3 2025 Sync)</option>
+<option>AAI Scheduled Departure Logs 2025</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2 text-on-surface-variant text-[18px] pointer-events-none">expand_more</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Verified against bilateral quota schedules.</span>
+</div>
+<!-- Price Estimator -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="price-est">Price Estimator Metric</label>
+<div class="relative">
+<select class="w-full h-9 px-space-sm appearance-none rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-secondary-container cursor-pointer pr-8" id="price-est">
+<option selected="">Median Canonical Fare (Deduplicated)</option>
+<option>Harmonic Mean Fare</option>
+<option>Trimmed Mean (5% tails)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2 text-on-surface-variant text-[18px] pointer-events-none">expand_more</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Resistant to high-fare surge outliers.</span>
+</div>
+<!-- Outlier Method -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface">Outlier Rejection Method</label>
+<div class="h-9 bg-surface-container-low p-1 rounded-lg flex items-center gap-1">
+<button class="flex-1 h-full rounded bg-surface-container-lowest text-primary font-label-md text-label-md shadow-sm" type="button">
+                IQR (2.5×)
+              </button>
+<button class="flex-1 h-full rounded text-center font-label-md text-label-md text-on-surface-variant hover:text-on-surface" type="button">
+                MAD
+              </button>
+<button class="flex-1 h-full rounded text-center font-label-md text-label-md text-on-surface-variant hover:text-on-surface" type="button">
+                Box-Cox Hybrid
+              </button>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Upper fence: Q3 + (2.5 * IQR).</span>
+</div>
+</div>
+<!-- Monospace Mathematical Formula Preview Box -->
+<div class="p-space-md rounded-lg bg-surface-container-low flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-primary font-semibold">Formulation Architecture (Formal Latex Render)</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Specification doc: M-24/§4.2</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md pt-2">
+<div class="p-space-sm rounded bg-surface-container-lowest">
+<span class="font-label-sm text-label-sm text-on-surface-variant block mb-1">Route Sub-Index (Route_Index_i)</span>
+<p class="font-code-md text-code-md text-primary font-medium">
+                Route_Index_{i,t} = \left( \frac{\tilde{P}_{i,t}}{\tilde{P}_{i,0}} \right) \times 100
+              </p>
+<span class="font-code-sm text-[11px] text-on-surface-variant block mt-1">Where P̃ is the median canonical airfare across tranches.</span>
+</div>
+<div class="p-space-sm rounded bg-surface-container-lowest">
+<span class="font-label-sm text-label-sm text-on-surface-variant block mb-1">Composite National Airfare Index (AIRSCOPE APIx)</span>
+<p class="font-code-md text-code-md text-primary font-medium">
+                APIx_t = \frac{\sum_{i=1}^{M} \left[ w_i \times \text{Route\_Index}_{i,t} \right]}{\sum_{i=1}^{M} w_i}
+              </p>
+<span class="font-code-sm text-[11px] text-on-surface-variant block mt-1">Where w_i is the sovereign DGCA O-D seat volume weight.</span>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 5: DATA QUALITY RULES -->
+<section class="scroll-mt-24 bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col gap-space-md" id="data-quality">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">fact_check</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Data Quality &amp; Hygiene Rules</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Duplicate deduction logic, statistical outlier caps, and validation state classifications.</p>
+</div>
+</div>
+</div>
+<!-- Matching Criteria Card -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[22px]">fingerprint</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Canonical Deduplication Key</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Carrier + Flight_No + Origin + Dest + Dep_Date + Scheduled_Dep_Time</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-semibold">Exact Match</span>
+</div>
+<!-- Sliders & Parameters -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-2 p-space-sm rounded-lg bg-surface-container-low">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-on-surface" for="iqr-slider">IQR Outlier Multiplier Fence</label>
+<span class="font-code-sm text-code-sm font-bold text-primary">2.50×</span>
+</div>
+<input class="accent-primary cursor-pointer w-full" id="iqr-slider" max="3.5" min="1.5" step="0.05" type="range" value="2.5"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Threshold beyond which fare observations are flagged as OUTLIER.</span>
+</div>
+<div class="flex flex-col gap-2 p-space-sm rounded-lg bg-surface-container-low">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-on-surface" for="qa-slider">Quality Acceptance Gate</label>
+<span class="font-code-sm text-code-sm font-bold text-primary">95.0% Pass Rate</span>
+</div>
+<input class="accent-primary cursor-pointer w-full" id="qa-slider" max="99" min="80" step="0.5" type="range" value="95"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Minimum dataset integrity required before calculating daily index.</span>
+</div>
+</div>
+<!-- Validation States Reference -->
+<div class="flex flex-col gap-1.5">
+<span class="font-label-md text-label-md text-on-surface">Telemetry State Definitions</span>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container-low">
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container"></span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">VALID (≥ 95% Confidence)</span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container-low">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">REVIEW (Minor Variance)</span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container-low">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">OUTLIER (Excluded)</span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container-low">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">MISSING (Imputed)</span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-container-low">
+<span class="w-2 h-2 rounded-full bg-outline"></span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold">SOLD OUT (Capacity 0)</span>
+</div>
+</div>
+</div>
+<!-- Policy Toggles -->
+<div class="flex flex-col gap-2 pt-2 border-t border-surface-container">
+<label class="flex items-center justify-between cursor-pointer py-1">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Automatic Anomaly Flagging</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Automatically route fare movements &gt;25% within 3 hours to compliance review queue.</span>
+</div>
+<input checked="" class="w-4 h-4 accent-primary rounded" type="checkbox"/>
+</label>
+<label class="flex items-center justify-between cursor-pointer py-1">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Duplicate Reconciliation Engine</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Deduplicate cross-posted OTA fares against primary airline NDC fares in real time.</span>
+</div>
+<input checked="" class="w-4 h-4 accent-primary rounded" type="checkbox"/>
+</label>
+<label class="flex items-center justify-between cursor-pointer py-1">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Mandatory Multi-Source Cross-Validation</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Require at least two independent corroborations before posting non-NDC records.</span>
+</div>
+<input checked="" class="w-4 h-4 accent-primary rounded" type="checkbox"/>
+</label>
+</div>
+</section>
+<!-- SECTION 6: COLLECTION SCHEDULER -->
+<section class="scroll-mt-24 bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col gap-space-md" id="collection-scheduler">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">event_repeat</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Collection Scheduler</h2>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-semibold">Active (Cron Engine)</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Cadence intervals, retry policies, back-off mechanics, and worker pool parameters.</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="h-8 px-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm transition-colors" type="button">
+              Pause Scheduler
+            </button>
+<button class="h-8 px-space-sm rounded-lg bg-primary text-on-primary font-label-sm text-label-sm shadow-sm hover:bg-primary-container transition-colors" type="button">
+              Run Now
+            </button>
+</div>
+</div>
+<!-- Telemetry Strip -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-sm p-space-sm rounded-lg bg-surface-container-low text-on-surface">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Next Automated Sweep</span>
+<span class="font-code-md text-code-md text-primary font-bold">18 mins (14:00 IST)</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Active Scrape Jobs</span>
+<span class="font-code-md text-code-md text-primary font-bold">48 Workers</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Failed Jobs (Last 24h)</span>
+<span class="font-code-md text-code-md text-error font-bold">2 Retried</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Last Completed Sweep</span>
+<span class="font-code-md text-code-md text-on-surface font-bold">11:30 AM IST</span>
+</div>
+</div>
+<!-- Windows Chips -->
+<div class="flex flex-col gap-2">
+<span class="font-label-md text-label-md text-on-surface">Configured Observation Windows (IST)</span>
+<div class="flex flex-wrap gap-space-sm">
+<div class="flex items-center gap-2 px-space-sm py-2 rounded-lg bg-surface-container text-primary font-code-sm text-code-sm font-medium">
+<span class="material-symbols-outlined text-[16px]">wb_sunny</span>
+<span>08:00 IST (Morning Sweep)</span>
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant hover:text-error cursor-pointer">close</span>
+</div>
+<div class="flex items-center gap-2 px-space-sm py-2 rounded-lg bg-surface-container text-primary font-code-sm text-code-sm font-medium">
+<span class="material-symbols-outlined text-[16px]">wb_twilight</span>
+<span>14:00 IST (Midday Sweep)</span>
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant hover:text-error cursor-pointer">close</span>
+</div>
+<div class="flex items-center gap-2 px-space-sm py-2 rounded-lg bg-surface-container text-primary font-code-sm text-code-sm font-medium">
+<span class="material-symbols-outlined text-[16px]">nightlight</span>
+<span>20:00 IST (Evening Peak)</span>
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant hover:text-error cursor-pointer">close</span>
+</div>
+<button class="h-9 px-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface-variant text-label-sm font-label-sm flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>Add Window</span>
+</button>
+</div>
+</div>
+<!-- Parameters Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md pt-2 border-t border-surface-container">
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="retry-input">Max Retry Attempts</label>
+<input class="h-9 px-space-sm rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none" id="retry-input" type="text" value="3 attempts (Exponential backoff 2^x)"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="rate-input">Request Rate Limit</label>
+<input class="h-9 px-space-sm rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none" id="rate-input" type="text" value="40 req / sec per IP block"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="timeout-input">Worker Job Timeout</label>
+<input class="h-9 px-space-sm rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none" id="timeout-input" type="text" value="30 seconds hard kill"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="fallback-input">Source Failure Handling</label>
+<input class="h-9 px-space-sm rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none" id="fallback-input" type="text" value="Retry → Fallback Source → Impute Geometric Mean"/>
+</div>
+</div>
+</section>
+<!-- SECTION 7: NOTIFICATIONS & WEBHOOKS -->
+<section class="scroll-mt-24 bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col gap-space-md" id="notifications">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">notifications_active</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Notifications &amp; Webhooks</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Alert routing matrix, severity tiers, and sovereign compliance broadcast endpoints.</p>
+</div>
+</div>
+</div>
+<div class="overflow-x-auto rounded-lg">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-md text-label-md">
+<th class="py-2.5 px-space-sm">Event Trigger</th>
+<th class="py-2.5 px-space-sm">Severity Tier</th>
+<th class="py-2.5 px-space-sm text-center">In-App Banner</th>
+<th class="py-2.5 px-space-sm text-center">Email Dispatch</th>
+<th class="py-2.5 px-space-sm text-center">Webhook Target</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container font-body-sm text-body-sm text-on-surface">
+<tr class="hover:bg-surface-container-low">
+<td class="py-2.5 px-space-sm font-medium">Critical scraper cluster failure (&gt;3 sources)</td>
+<td class="py-2.5 px-space-sm"><span class="px-2 py-0.5 rounded font-code-sm text-[10px] bg-error-container text-on-error-container font-bold">Critical</span></td>
+<td class="py-2.5 px-space-sm text-center"><input checked="" class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/></td>
+<td class="py-2.5 px-space-sm text-center"><input checked="" class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/></td>
+<td class="py-2.5 px-space-sm text-center"><input checked="" class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/></td>
+</tr>
+<tr class="hover:bg-surface-container-low">
+<td class="py-2.5 px-space-sm font-medium">Individual carrier NDC connection unavailable</td>
+<td class="py-2.5 px-space-sm"><span class="px-2 py-0.5 rounded font-code-sm text-[10px] bg-surface-container-high text-primary font-bold">High</span></td>
+<td class="py-2.5 px-space-sm text-center"><input checked="" class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/></td>
+<td class="py-2.5 px-space-sm text-center"><input checked="" class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/></td>
+<td class="py-2.5 px-space-sm text-center"><input checked="" class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/></td>
+</tr>
+<tr class="hover:bg-surface-container-low">
+<td class="py-2.5 px-space-sm font-medium">Abrupt airfare movement (&gt;15% intra-day shift)</td>
+<td class="py-2.5 px-space-sm"><span class="px-2 py-0.5 rounded font-code-sm text-[10px] bg-surface-container-high text-primary font-bold">High</span></td>
+<td class="py-2.5 px-space-sm text-center"><input checked="" class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/></td>
+<td class="py-2.5 px-space-sm text-center"><input class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/></td>
+<td class="py-2.5 px-space-sm text-center"><input checked="" class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/></td>
+</tr>
+<tr class="hover:bg-surface-container-low">
+<td class="py-2.5 px-space-sm font-medium">Data-quality degradation (Acceptance &lt;95%)</td>
+<td class="py-2.5 px-space-sm"><span class="px-2 py-0.5 rounded font-code-sm text-[10px] bg-surface-container text-on-surface-variant font-bold">Medium</span></td>
+<td class="py-2.5 px-space-sm text-center"><input checked="" class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/></td>
+<td class="py-2.5 px-space-sm text-center"><input checked="" class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/></td>
+<td class="py-2.5 px-space-sm text-center"><input class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/></td>
+</tr>
+<tr class="hover:bg-surface-container-low">
+<td class="py-2.5 px-space-sm font-medium">Mathematical outlier density violation (&gt;5%)</td>
+<td class="py-2.5 px-space-sm"><span class="px-2 py-0.5 rounded font-code-sm text-[10px] bg-surface-container-high text-primary font-bold">High</span></td>
+<td class="py-2.5 px-space-sm text-center"><input checked="" class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/></td>
+<td class="py-2.5 px-space-sm text-center"><input class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/></td>
+<td class="py-2.5 px-space-sm text-center"><input checked="" class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/></td>
+</tr>
+<tr class="hover:bg-surface-container-low">
+<td class="py-2.5 px-space-sm font-medium">Rate limit exhaustion warnings on partner APIs</td>
+<td class="py-2.5 px-space-sm"><span class="px-2 py-0.5 rounded font-code-sm text-[10px] bg-surface-container text-on-surface-variant font-bold">Medium</span></td>
+<td class="py-2.5 px-space-sm text-center"><input checked="" class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/></td>
+<td class="py-2.5 px-space-sm text-center"><input class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/></td>
+<td class="py-2.5 px-space-sm text-center"><input class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/></td>
+</tr>
+<tr class="hover:bg-surface-container-low">
+<td class="py-2.5 px-space-sm font-medium">Daily executive summary and sovereign index bulletin</td>
+<td class="py-2.5 px-space-sm"><span class="px-2 py-0.5 rounded font-code-sm text-[10px] bg-surface-container text-on-surface-variant">Low</span></td>
+<td class="py-2.5 px-space-sm text-center"><input class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/></td>
+<td class="py-2.5 px-space-sm text-center"><input checked="" class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/></td>
+<td class="py-2.5 px-space-sm text-center"><input class="w-4 h-4 accent-primary rounded cursor-pointer" type="checkbox"/></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- SECTION 8: API ACCESS & CREDENTIALS -->
+<section class="scroll-mt-24 bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col gap-space-md" id="api-access">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">key</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">API Access &amp; Sovereign Keys</h2>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-semibold">Tier-1 Sovereign Quota</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Cryptographic tokens, institutional quotas, and CORS origin whitelisting.</p>
+</div>
+</div>
+<button class="h-8 px-space-sm rounded-lg bg-primary text-on-primary font-label-sm text-label-sm shadow-sm hover:bg-primary-container transition-colors" type="button">
+            + Generate New Key
+          </button>
+</div>
+<div class="flex flex-col gap-space-sm">
+<!-- Production API Key -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-1">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Production Public Access Key</span>
+<span class="font-label-sm text-label-sm text-on-tertiary-container font-semibold">Active • Read Only</span>
+</div>
+<div class="flex items-center gap-2">
+<code class="flex-1 h-9 px-space-sm rounded bg-surface-container-lowest font-code-sm text-code-sm text-primary flex items-center overflow-x-auto" id="prodApiKey">
+                ak_live_airscope_9f928e3b79dae27bb12ff0a340
+              </code>
+<button class="h-9 px-3 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-sm text-label-sm transition-colors flex items-center gap-1 shadow-sm" onclick="copyToClipboard('ak_live_airscope_9f928e3b79dae27bb12ff0a340', this)" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span>Copy</span>
+</button>
+<button class="h-9 px-3 rounded-lg bg-surface-container-lowest text-error hover:bg-error-container hover:text-on-error-container font-label-sm text-label-sm transition-colors" type="button">
+                Revoke Key
+              </button>
+</div>
+</div>
+<!-- Secret Key -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-1">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface font-semibold">HMAC Secret Signing Key</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Signature verification</span>
+</div>
+<div class="flex items-center gap-2">
+<code class="flex-1 h-9 px-space-sm rounded bg-surface-container-lowest font-code-sm text-code-sm text-on-surface-variant flex items-center tracking-widest" id="secretKeyText">
+                ••••••••••••••••••••••••••••••••
+              </code>
+<button class="h-9 px-3 rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-sm text-label-sm transition-colors flex items-center gap-1 shadow-sm" onclick="toggleSecretReveal(this)" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Reveal</span>
+</button>
+</div>
+</div>
+<!-- Meta Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-sm pt-2">
+<div class="flex flex-col gap-1">
+<span class="font-label-md text-label-md text-on-surface">Daily Call Quota</span>
+<div class="h-9 px-space-sm rounded-lg bg-surface-container flex items-center justify-between font-code-sm text-code-sm text-primary">
+<span>100,000 req / day (Tier-1 Sovereign)</span>
+<span class="font-bold">42.8% used</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="origins-input">Allowed Institutional Origins (CORS)</label>
+<input class="h-9 px-space-sm rounded-lg bg-surface-container-low font-code-sm text-code-sm text-on-surface focus:outline-none" id="origins-input" type="text" value="https://mospi.gov.in, https://dgcadata.nic.in"/>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 9: USERS & ACCESS ROLES -->
+<section class="scroll-mt-24 bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col gap-space-md" id="users-roles">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">badge</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Users &amp; Access Roles</h2>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-semibold">RBAC Governed</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Sovereign identity verification, privileged roles, and access audit journals.</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="h-8 px-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm transition-colors" type="button">
+              Audit Log
+            </button>
+<button class="h-8 px-space-sm rounded-lg bg-primary text-on-primary font-label-sm text-label-sm shadow-sm hover:bg-primary-container transition-colors" type="button">
+              + Invite User
+            </button>
+</div>
+</div>
+<div class="overflow-x-auto rounded-lg">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-md text-label-md">
+<th class="py-2.5 px-space-sm">User &amp; Organization</th>
+<th class="py-2.5 px-space-sm">Role</th>
+<th class="py-2.5 px-space-sm">Status</th>
+<th class="py-2.5 px-space-sm">Last Active</th>
+<th class="py-2.5 px-space-sm text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container font-body-sm text-body-sm text-on-surface">
+<tr class="hover:bg-surface-container-low">
+<td class="py-2.5 px-space-sm flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-primary flex items-center justify-center text-on-primary font-bold text-[11px]">S</div>
+<div class="flex flex-col">
+<span class="font-semibold text-primary">Subham</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Team RAG RANGERS (Lead)</span>
+</div>
+</td>
+<td class="py-2.5 px-space-sm"><span class="px-2 py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">Administrator</span></td>
+<td class="py-2.5 px-space-sm"><span class="flex items-center gap-1 font-label-sm text-label-sm text-on-tertiary-container font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>Active</span></td>
+<td class="py-2.5 px-space-sm font-code-sm text-code-sm text-on-surface-variant">Just now</td>
+<td class="py-2.5 px-space-sm text-right"><button class="font-label-sm text-label-sm text-secondary hover:underline" type="button">Edit Role</button></td>
+</tr>
+<tr class="hover:bg-surface-container-low">
+<td class="py-2.5 px-space-sm flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold text-[11px]">R</div>
+<div class="flex flex-col">
+<span class="font-semibold text-primary">Dr. Rajesh K.</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">DGCA Civil Aviation Liaison</span>
+</div>
+</td>
+<td class="py-2.5 px-space-sm"><span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">Analyst</span></td>
+<td class="py-2.5 px-space-sm"><span class="flex items-center gap-1 font-label-sm text-label-sm text-on-tertiary-container font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>Active</span></td>
+<td class="py-2.5 px-space-sm font-code-sm text-code-sm text-on-surface-variant">12m ago</td>
+<td class="py-2.5 px-space-sm text-right"><button class="font-label-sm text-label-sm text-secondary hover:underline" type="button">Edit Role</button></td>
+</tr>
+<tr class="hover:bg-surface-container-low">
+<td class="py-2.5 px-space-sm flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-surface-container-highest flex items-center justify-center text-primary font-bold text-[11px]">A</div>
+<div class="flex flex-col">
+<span class="font-semibold text-primary">Ananya Sharma</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">RBI Macro Policy Unit</span>
+</div>
+</td>
+<td class="py-2.5 px-space-sm"><span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold">Researcher</span></td>
+<td class="py-2.5 px-space-sm"><span class="flex items-center gap-1 font-label-sm text-label-sm text-on-tertiary-container font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>Active</span></td>
+<td class="py-2.5 px-space-sm font-code-sm text-code-sm text-on-surface-variant">1h ago</td>
+<td class="py-2.5 px-space-sm text-right"><button class="font-label-sm text-label-sm text-secondary hover:underline" type="button">Edit Role</button></td>
+</tr>
+<tr class="hover:bg-surface-container-low">
+<td class="py-2.5 px-space-sm flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant font-bold text-[11px]">P</div>
+<div class="flex flex-col">
+<span class="font-semibold text-primary">Priya Patel</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">MoCA Statistical Observer</span>
+</div>
+</td>
+<td class="py-2.5 px-space-sm"><span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold">Viewer</span></td>
+<td class="py-2.5 px-space-sm"><span class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-outline"></span>Inactive</span></td>
+<td class="py-2.5 px-space-sm font-code-sm text-code-sm text-on-surface-variant">3d ago</td>
+<td class="py-2.5 px-space-sm text-right"><button class="font-label-sm text-label-sm text-secondary hover:underline" type="button">Edit Role</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- SECTION 10: APPEARANCE & PREFERENCES -->
+<section class="scroll-mt-24 bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col gap-space-md" id="appearance">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">palette</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Appearance &amp; Preferences</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Interface modes, dashboard landing routes, and visualization animations.</p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Theme -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface">Interface Mode</label>
+<div class="h-9 bg-surface-container-low p-1 rounded-lg flex items-center gap-1">
+<button class="flex-1 h-full rounded bg-surface-container-lowest text-primary font-label-md text-label-md shadow-sm" type="button">
+                Light (Active)
+              </button>
+<button class="flex-1 h-full rounded text-center font-label-md text-label-md text-on-surface-variant hover:text-on-surface" type="button">
+                Dark
+              </button>
+<button class="flex-1 h-full rounded text-center font-label-md text-label-md text-on-surface-variant hover:text-on-surface" type="button">
+                System
+              </button>
+</div>
+</div>
+<!-- UI Density -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface">Display Density</label>
+<div class="h-9 bg-surface-container-low p-1 rounded-lg flex items-center gap-1">
+<button class="flex-1 h-full rounded bg-surface-container-lowest text-primary font-label-md text-label-md shadow-sm" type="button">
+                Comfortable (Active)
+              </button>
+<button class="flex-1 h-full rounded text-center font-label-md text-label-md text-on-surface-variant hover:text-on-surface" type="button">
+                Compact
+              </button>
+</div>
+</div>
+<!-- Default Dashboard -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="dash-select">Default Landing View</label>
+<div class="relative">
+<select class="w-full h-9 px-space-sm appearance-none rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest cursor-pointer pr-8" id="dash-select">
+<option selected="">Executive Dashboard</option>
+<option>Airfare Index</option>
+<option>Route Explorer</option>
+<option>Data Quality</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2 text-on-surface-variant text-[18px] pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Default Date Range -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface" for="obs-range">Default Observation Window</label>
+<div class="relative">
+<select class="w-full h-9 px-space-sm appearance-none rounded-lg bg-surface-container-low font-body-sm text-body-sm text-on-surface focus:outline-none focus:bg-surface-container-lowest cursor-pointer pr-8" id="obs-range">
+<option selected="">30 Days</option>
+<option>7 Days</option>
+<option>90 Days</option>
+<option>Year-to-Date (YTD)</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-2 text-on-surface-variant text-[18px] pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<div class="pt-2 border-t border-surface-container">
+<label class="flex items-center justify-between cursor-pointer">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">High-Performance Chart Animations</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Enable GPU-accelerated bezier transitions for index curves and lead-time dispersion plots.</span>
+</div>
+<input checked="" class="w-4 h-4 accent-primary rounded" type="checkbox"/>
+</label>
+</div>
+</section>
+<!-- SECTION 11: SYSTEM HEALTH -->
+<section class="scroll-mt-24 bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col gap-space-md" id="system-health">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">health_and_safety</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">System Health &amp; Subsystems</h2>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-semibold">99.98% Uptime</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Real-time microservice status, telemetry ingestion pipeline, and database diagnostics.</p>
+</div>
+</div>
+<button class="inline-flex items-center gap-1 h-8 px-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container text-primary font-label-sm text-label-sm transition-colors" type="button">
+<span>View Collection Monitor</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<!-- 5 Compact Health Cards -->
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-space-sm">
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Scraper Pool</span>
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container"></span>
+</div>
+<span class="font-headline-sm text-[16px] text-primary font-bold">48/48 Online</span>
+<span class="font-code-sm text-[11px] text-on-surface-variant">100% capacity</span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">RabbitMQ</span>
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container"></span>
+</div>
+<span class="font-headline-sm text-[16px] text-primary font-bold">412 in queue</span>
+<span class="font-code-sm text-[11px] text-on-surface-variant">0 dead letters</span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">TimescaleDB</span>
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container"></span>
+</div>
+<span class="font-headline-sm text-[16px] text-primary font-bold">99.9% Health</span>
+<span class="font-code-sm text-[11px] text-on-surface-variant">4.8 TB partitioned</span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">API Gateway</span>
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container"></span>
+</div>
+<span class="font-headline-sm text-[16px] text-primary font-bold">42ms p95</span>
+<span class="font-code-sm text-[11px] text-on-surface-variant">0.01% error rate</span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-1 col-span-2 sm:col-span-1">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Dashboard UI</span>
+<span class="w-2 h-2 rounded-full bg-on-tertiary-container"></span>
+</div>
+<span class="font-headline-sm text-[16px] text-primary font-bold">100% Uptime</span>
+<span class="font-code-sm text-[11px] text-on-surface-variant">Edge cached</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-space-sm p-space-sm rounded-lg bg-surface-container font-code-sm text-code-sm text-on-surface">
+<div><span class="text-on-surface-variant">Last Snapshot Backup:</span> <span class="font-semibold">Today 04:00 IST (Encrypted AWS S3 Gov-Cloud)</span></div>
+<div><span class="text-on-surface-variant">Platform Build:</span> <span class="font-semibold">v1.0-prod.04</span></div>
+</div>
+</section>
+<!-- SECTION 12: ABOUT AIRSCOPE -->
+<section class="scroll-mt-24 bg-surface-container-lowest rounded-xl shadow-sm p-space-lg flex flex-col gap-space-md" id="about">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">info</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">About AIRSCOPE</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Sovereign Airfare Price Index for India — Hackathon &amp; Policy Initiative.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-2 p-space-sm rounded-lg bg-surface-container-low">
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Problem Statement</span>
+<span class="font-code-sm text-code-sm bg-surface-container px-1.5 py-0.5 rounded text-primary font-semibold">SIH26056</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Real-Time Airfare Price Index for India</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              An automated, transparent, and statistically rigorous platform computing real-time high-frequency price indices across domestic air routes.
+            </p>
+</div>
+<div class="flex flex-col gap-2 p-space-sm rounded-lg bg-surface-container-low">
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Theme &amp; Authorship</span>
+<span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-container text-primary font-semibold">Smart Automation</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Team RAG RANGERS</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Built with institutional rigor to assist policymakers at MoSPI, DGCA, and the Ministry of Civil Aviation in evaluating passenger welfare.
+            </p>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-space-md pt-2 border-t border-surface-container font-label-md text-label-md">
+<a class="text-secondary hover:underline flex items-center gap-1" href="#">
+<span>Documentation Hub</span>
+<span class="material-symbols-outlined text-[14px]">open_in_new</span>
+</a>
+<a class="text-secondary hover:underline flex items-center gap-1" href="#">
+<span>Methodology Whitepaper (PDF)</span>
+<span class="material-symbols-outlined text-[14px]">open_in_new</span>
+</a>
+<a class="text-secondary hover:underline flex items-center gap-1" href="#">
+<span>API Docs &amp; Endpoints</span>
+<span class="material-symbols-outlined text-[14px]">open_in_new</span>
+</a>
+<a class="text-secondary hover:underline flex items-center gap-1" href="#">
+<span>Research &amp; References</span>
+<span class="material-symbols-outlined text-[14px]">open_in_new</span>
+</a>
+</div>
+</section>
+</main>
+</div>
+<!-- FIXED FLOATING GOVERNANCE ACTION BAR -->
+<aside aria-label="Unsaved changes banner" class="fixed bottom-0 left-72 right-0 h-16 bg-surface-container-lowest shadow-[0_-4px_12px_rgba(15,23,42,0.06)] z-30 px-margin flex items-center justify-between border-t border-surface-container">
+<div class="flex items-center gap-2.5">
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-error opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-error"></span>
+</span>
+<span class="font-label-md text-label-md text-on-surface font-medium">
+        Unsaved changes detected in <span class="font-semibold text-primary">Sampling Matrix</span> and <span class="font-semibold text-primary">Rate Limits</span>.
+      </span>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="h-9 px-space-md rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors" onclick="discardChangesNotification()" type="button">
+        Discard Changes
+      </button>
+<button class="h-9 px-space-lg rounded-lg bg-primary text-on-primary hover:bg-primary-container font-label-md text-label-md transition-colors shadow-sm" onclick="saveChangesNotification()" type="button">
+        Save Changes
+      </button>
+</div>
+</aside>
+</div>
+<script>
+  // Filter settings navigation links
+  function filterNavItems(query) {
+    const text = query.toLowerCase();
+    const items = document.querySelectorAll('#settingsNavList a.nav-item');
+    items.forEach(el => {
+      const label = el.textContent.toLowerCase();
+      if (label.includes(text)) {
+        el.style.display = 'flex';
+      } else {
+        el.style.display = 'none';
+      }
+    });
+  }
+
+  // Copy API key utility with visual feedback
+  function copyToClipboard(text, btnElement) {
+    navigator.clipboard.writeText(text).then(() => {
+      const originalHtml = btnElement.innerHTML;
+      btnElement.innerHTML = `<span class="material-symbols-outlined text-[16px] text-tertiary">check</span><span>Copied!</span>`;
+      setTimeout(() => {
+        btnElement.innerHTML = originalHtml;
+      }, 2000);
+    }).catch(err => {
+      console.error('Failed to copy: ', err);
+    });
+  }
+
+  // Reveal or mask cryptographic secret
+  let isSecretRevealed = false;
+  function toggleSecretReveal(btnElement) {
+    const el = document.getElementById('secretKeyText');
+    if (!isSecretRevealed) {
+      el.textContent = 'sec_air_live_d843bf92a71e4401c29e00049e7b';
+      el.classList.remove('tracking-widest');
+      btnElement.innerHTML = `<span class="material-symbols-outlined text-[16px]">visibility_off</span><span>Hide</span>`;
+      isSecretRevealed = true;
+    } else {
+      el.textContent = '••••••••••••••••••••••••••••••••';
+      el.classList.add('tracking-widest');
+      btnElement.innerHTML = `<span class="material-symbols-outlined text-[16px]">visibility</span><span>Reveal</span>`;
+      isSecretRevealed = false;
+    }
+  }
+
+  // Micro-interaction handlers for bottom bar
+  function discardChangesNotification() {
+    alert('Changes reverted to baseline snapshot (IND-DEL-DGCA-0948).');
+  }
+
+  function saveChangesNotification() {
+    alert('Sovereign configuration updated. All worker scrapers updated successfully.');
+  }
+
+  // ScrollSpy to sync active link in navigation rail
+  window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('main > section');
+    const navLinks = document.querySelectorAll('#settingsNavList a.nav-item');
+    let currentId = '';
+
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 120;
+      if (window.pageYOffset >= sectionTop) {
+        currentId = section.getAttribute('id');
+      }
+    });
+
+    if (currentId) {
+      navLinks.forEach(link => {
+        if (link.getAttribute('href') === `#${currentId}`) {
+          link.classList.add('bg-primary-container', 'text-on-primary', 'font-semibold');
+          link.classList.remove('text-on-surface-variant', 'font-body-sm');
+        } else {
+          link.classList.remove('bg-primary-container', 'text-on-primary', 'font-semibold');
+          link.classList.add('text-on-surface-variant');
+        }
+      });
+    }
+  });
+</script></div></main></div></body></html>

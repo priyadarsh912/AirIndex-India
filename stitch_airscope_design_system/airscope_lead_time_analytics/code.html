@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-container":"#39b9b4","surface-dim":"#d8dadc","badge-negative-bg":"#FEE2E2","primary-fixed-dim":"#aec6ff","on-primary-fixed":"#001a42","text-muted":"#64748B","surface-container-lowest":"#ffffff","surface-container":"#eceef0","secondary-fixed":"#dae2ff","tertiary-container":"#004543","surface-container-highest":"#e0e3e5","inverse-primary":"#aec6ff","chart-accent-cyan":"#38BDF8","on-secondary-fixed":"#001847","inverse-surface":"#2d3133","on-tertiary-fixed-variant":"#00504d","inverse-on-surface":"#eff1f3","secondary-container":"#2d6deb","metric-warning":"#EA580C","surface":"#f7f9fb","metric-positive":"#16A34A","error-container":"#ffdad6","on-surface":"#191c1e","tertiary-fixed-dim":"#60d9d3","surface-container-low":"#f2f4f6","on-secondary-fixed-variant":"#0040a0","error":"#ba1a1a","text-primary":"#0F172A","on-surface-variant":"#434750","secondary":"#0054cb","on-error":"#ffffff","on-tertiary-fixed":"#00201f","surface-canvas":"#F8FAFC","surface-card":"#FFFFFF","metric-negative":"#DC2626","badge-warning-bg":"#FFEDD5","on-secondary":"#ffffff","primary":"#002558","on-primary":"#ffffff","on-secondary-container":"#fefcff","text-secondary":"#475569","tertiary":"#002d2b","primary-container":"#123b7a","surface-subtle":"#F1F5F9","tertiary-fixed":"#7ff5ef","surface-tint":"#3b5d9e","surface-bright":"#f7f9fb","on-error-container":"#93000a","on-tertiary":"#ffffff","outline-variant":"#c4c6d2","surface-container-high":"#e6e8ea","background":"#f7f9fb","badge-positive-bg":"#DCFCE7","on-primary-container":"#87a7ed","outline":"#747781","surface-variant":"#e0e3e5","border-hairline":"#E2E8F0","on-background":"#191c1e","secondary-fixed-dim":"#b1c5ff","border-focus":"#2F6FED","on-primary-fixed-variant":"#204584","primary-fixed":"#d8e2ff"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"gutter-dense":"0.5rem","space-lg":"1rem","space-xl":"1.5rem",gutter:"1rem","space-xs":"0.25rem","space-md":"0.75rem","space-sm":"0.5rem",margin:"1.5rem","margin-mobile":"1rem"},fontFamily:{"headline-lg":["IBM Plex Sans"],"headline-xl":["IBM Plex Sans"],"label-md":["Inter"],"headline-xl-mobile":["IBM Plex Sans"],caption:["Inter"],"body-md":["Inter"],"data-metric-md":["IBM Plex Sans"],"label-sm":["Inter"],"data-metric-xl":["IBM Plex Sans"],"body-sm":["Inter"],"body-lg":["Inter"],"headline-md":["IBM Plex Sans"]},fontSize:{"headline-lg":["22px",{lineHeight:"28px",letterSpacing:"-0.015em",fontWeight:"600"}],"headline-xl":["30px",{lineHeight:"38px",letterSpacing:"-0.02em",fontWeight:"700"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.01em",fontWeight:"600"}],"headline-xl-mobile":["24px",{lineHeight:"32px",letterSpacing:"-0.015em",fontWeight:"700"}],caption:["10px",{lineHeight:"12px",fontWeight:"500"}],"body-md":["13px",{lineHeight:"18px",fontWeight:"400"}],"data-metric-md":["18px",{lineHeight:"24px",letterSpacing:"-0.01em",fontWeight:"600"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.02em",fontWeight:"500"}],"data-metric-xl":["28px",{lineHeight:"32px",letterSpacing:"-0.02em",fontWeight:"700"}],"body-sm":["12px",{lineHeight:"16px",fontWeight:"400"}],"body-lg":["15px",{lineHeight:"22px",fontWeight:"400"}],"headline-md":["16px",{lineHeight:"22px",letterSpacing:"-0.01em",fontWeight:"600"}]}}}}</script></head><body class="bg-surface-canvas font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-64 bg-surface-card z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)] overflow-y-auto"><div class="flex flex-col"><div class="px-space-xl pt-space-xl pb-space-lg"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-lg bg-primary-container text-on-primary flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">flight</span></div><div><span class="font-headline-md text-headline-md font-bold tracking-tight text-primary block leading-none">AIRSCOPE</span><span class="font-caption text-caption text-text-muted mt-0.5 block tracking-normal">Price Index India</span></div></div><p class="mt-space-sm font-caption text-caption text-text-secondary leading-tight">Real-Time Airfare Price Index for India</p></div><nav class="flex flex-col gap-0.5 px-space-md py-space-xs" data-active-classes="bg-primary-container text-on-primary font-semibold shadow-sm"><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[19px]">space_dashboard</span><span>Dashboard</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="airfare-index" href="#"><span class="material-symbols-outlined text-[19px]">stacked_line_chart</span><span>Airfare Index</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="route-explorer" href="#"><span class="material-symbols-outlined text-[19px]">alt_route</span><span>Route Explorer</span></a><a aria-current="page" class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg transition-colors bg-primary-container text-on-primary font-semibold shadow-sm" data-path="lead-time-analytics" href="#"><span class="material-symbols-outlined text-[19px]">schedule</span><span>Lead-Time Analytics</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="market-monitor" href="#"><span class="material-symbols-outlined text-[19px]">query_stats</span><span>Market Monitor</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="data-quality" href="#"><span class="material-symbols-outlined text-[19px]">verified</span><span>Data Quality</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="collection-monitor" href="#"><span class="material-symbols-outlined text-[19px]">hub</span><span>Collection Monitor</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="source-comparison" href="#"><span class="material-symbols-outlined text-[19px]">compare_arrows</span><span>Source Comparison</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="api-and-data" href="#"><span class="material-symbols-outlined text-[19px]">api</span><span>API &amp; Data</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="policy-and-research" href="#"><span class="material-symbols-outlined text-[19px]">menu_book</span><span>Policy &amp; Research</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="settings" href="#"><span class="material-symbols-outlined text-[19px]">settings</span><span>Settings</span></a></nav></div><div class="p-space-md"><div class="bg-surface-subtle rounded-xl p-space-md"><div class="flex items-center gap-1.5 mb-1 text-primary"><span class="material-symbols-outlined text-[16px]">public</span><span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider">Mission</span></div><p class="font-headline-md text-headline-md font-semibold text-text-primary">Data for a Better Tomorrow</p><p class="font-caption text-caption text-text-muted mt-1 leading-snug">Transparent. Comparable. Policy-Ready.</p></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-card/90 backdrop-blur-xl z-40 px-space-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] flex items-center justify-between"><div class="w-96"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-3 text-text-muted text-[18px]">search</span><input class="w-full h-10 pl-9 pr-3 rounded-lg bg-surface-canvas font-body-sm text-body-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:bg-surface-card transition-all" placeholder="Search route, airline, or keyword... ⌘K" type="text"/></div></div><div class="flex items-center gap-space-lg"><div class="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-subtle"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-metric-positive opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-metric-positive"></span></span><span class="font-label-sm text-label-sm text-text-secondary">Live Data | Last updated 14 Sep 2025, 11:42 AM IST</span></div><button aria-label="Notifications" class="relative w-9 h-9 rounded-lg flex items-center justify-center text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-metric-negative text-on-error font-caption text-[9px] flex items-center justify-center font-bold">3</span></button><div class="flex items-center gap-space-sm pl-space-sm"><div class="w-8 h-8 rounded-full bg-primary-container text-on-primary font-headline-md text-headline-md flex items-center justify-center font-semibold">S</div><div class="hidden md:flex flex-col"><span class="font-label-md text-label-md text-text-primary font-semibold leading-tight">Subham</span><span class="font-caption text-caption text-text-muted leading-tight">Policy &amp; Price Statistics Division</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UlVHDMEeTE5a3KBjZ_G65mz5EVGFu45jSXW4YP4x3UdsvERnRom2tBop4Lvj8sEIlNjusXdpDxb59YCpU0OD4q6dkkOrTF01ktXlefHn39aXtYIyPRQbaSsI0ktHMVo-tLlIuP7_asbfbKOUaS8-3GFRh44yUlk2hUarlvRIhfySBKtAuasICpvFerF5oQ4RaIlR5nchXkPA7kkRlLXmFk2R2uGgzQPh8ecR3Z-kjEa4JHlGfzlUb1K3dn"/><span class="material-symbols-outlined text-text-muted text-[18px] cursor-pointer hover:text-on-surface transition-colors">arrow_drop_down</span></div></div></header><main class="relative pt-16 bg-surface-canvas min-h-screen"><div class="flex flex-col w-full px-space-xl py-space-lg gap-space-xl">
+<!-- Page Header & Horizon Selector Controls -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 bg-surface-card p-space-lg rounded-xl shadow-sm">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-caption font-label-md bg-secondary-fixed text-on-secondary-fixed">
+          POLICY STATISTICAL MODULE 4.1
+        </span>
+<span class="text-caption font-label-sm text-text-muted">Updated: 14 Sep 2025, 11:30 IST</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-text-primary tracking-tight">Lead-Time Analytics</h1>
+<p class="font-body-md text-body-md text-text-secondary">Empirical analysis of airline dynamic pricing trajectories across advance purchase windows</p>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<!-- Cohort Selector -->
+<div class="flex items-center bg-surface-subtle p-1 rounded-lg">
+<button class="px-3 py-1.5 rounded-md font-label-md text-label-md bg-primary-container text-on-primary shadow-xs transition-all">All Domestic</button>
+<button class="px-3 py-1.5 rounded-md font-label-md text-label-md text-text-secondary hover:text-text-primary transition-all">Metro-to-Metro</button>
+<button class="px-3 py-1.5 rounded-md font-label-md text-label-md text-text-secondary hover:text-text-primary transition-all">Regional UDAN</button>
+</div>
+<!-- Quick Export and Filters -->
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-1.5 px-3 py-2 bg-surface-subtle hover:bg-surface-container text-text-primary rounded-lg font-label-md text-label-md transition-colors">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span>Lead-Time Filter (T-Day to T+60)</span>
+</button>
+<button class="flex items-center gap-1.5 px-4 py-2 bg-primary-container hover:bg-primary text-on-primary rounded-lg font-label-md text-label-md shadow-sm transition-all">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Export Curve Dataset</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Key Supporting Metrics Row (4 cards) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-gutter">
+<!-- Card 1 -->
+<div class="bg-surface-card p-space-lg rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-muted">Lead-Time Elasticity Index</span>
+<span class="p-1.5 rounded-lg bg-badge-negative-bg text-metric-negative flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">show_chart</span>
+</span>
+</div>
+<div class="my-3">
+<div class="flex items-baseline gap-2">
+<span class="font-data-metric-xl text-data-metric-xl text-text-primary">-1.84</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-badge-negative-bg text-metric-negative font-semibold">
+            ▲ Steep Surge
+          </span>
+</div>
+<p class="font-caption text-caption text-text-muted mt-1">Severe urgency steepening within T-7 corridor</p>
+</div>
+<div class="w-full bg-surface-subtle h-1.5 rounded-full overflow-hidden">
+<div class="bg-metric-negative h-full rounded-full" style="width: 78%;"></div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-card p-space-lg rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-muted">Avg Price Surge (T+45 → T+1)</span>
+<span class="p-1.5 rounded-lg bg-badge-warning-bg text-metric-warning flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">trending_up</span>
+</span>
+</div>
+<div class="my-3">
+<div class="flex items-baseline gap-2">
+<span class="font-data-metric-xl text-data-metric-xl text-text-primary">+84.6%</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-badge-warning-bg text-metric-warning font-semibold">
+            +4.2% MoM
+          </span>
+</div>
+<p class="font-caption text-caption text-text-muted mt-1">₹4,280 baseline shifted to ₹7,890 median</p>
+</div>
+<div class="w-full bg-surface-subtle h-1.5 rounded-full overflow-hidden">
+<div class="bg-metric-warning h-full rounded-full" style="width: 84%;"></div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-card p-space-lg rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-muted">Close-in Volatility (&lt;72h)</span>
+<span class="p-1.5 rounded-lg bg-surface-subtle text-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">speed</span>
+</span>
+</div>
+<div class="my-3">
+<div class="flex items-baseline gap-2">
+<span class="font-data-metric-xl text-data-metric-xl text-text-primary">34.2%</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-badge-positive-bg text-metric-positive font-semibold">
+            ▼ 2.1% lower
+          </span>
+</div>
+<p class="font-caption text-caption text-text-muted mt-1">Intra-day re-pricing spread within departure window</p>
+</div>
+<div class="w-full bg-surface-subtle h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary-container h-full rounded-full" style="width: 44%;"></div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-card p-space-lg rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-muted">Available Inventory Window</span>
+<span class="p-1.5 rounded-lg bg-badge-positive-bg text-metric-positive flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">event_seat</span>
+</span>
+</div>
+<div class="my-3">
+<div class="flex items-baseline gap-2">
+<span class="font-data-metric-xl text-data-metric-xl text-text-primary">98.2% <span class="font-body-md text-body-md text-text-muted">→ 68.4%</span></span>
+</div>
+<p class="font-caption text-caption text-text-muted mt-1">Available at T+30 vs active at T+1 (29.8% capacity cliff)</p>
+</div>
+<div class="w-full bg-surface-subtle h-1.5 rounded-full overflow-hidden">
+<div class="bg-metric-positive h-full rounded-full" style="width: 68%;"></div>
+</div>
+</div>
+</div>
+<!-- Primary Central Analytical Visual (Interactive Dynamic Pricing Escalation Curve) -->
+<div class="bg-surface-card p-space-xl rounded-xl shadow-sm flex flex-col gap-6">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-lg text-headline-lg text-text-primary font-bold">Median Fare vs Booking Lead Time</h2>
+<span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-subtle text-text-secondary">Empirical Curve: 1,240,000 observations</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted mt-0.5">Inflection threshold visible around T-7 where yield management shifts from volume fill to captive distress extraction.</p>
+</div>
+<div class="flex items-center gap-4">
+<!-- Legend Indicators -->
+<div class="hidden sm:flex items-center gap-4 font-caption text-caption text-text-secondary">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-1 bg-secondary rounded"></span>
+<span>National Median Fare</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-1 bg-chart-accent-cyan rounded"></span>
+<span>Trunk Corridors (Top 10)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 bg-secondary-fixed/50 rounded-xs"></span>
+<span>p25 - p75 Dispersion</span>
+</div>
+</div>
+<!-- Metric Switcher -->
+<div class="flex items-center bg-surface-subtle p-1 rounded-lg font-label-sm text-label-sm">
+<button class="px-2.5 py-1 bg-surface-card rounded font-semibold text-text-primary shadow-xs">₹ INR Value</button>
+<button class="px-2.5 py-1 text-text-muted hover:text-text-primary">Index (T+45=100)</button>
+</div>
+</div>
+</div>
+<!-- The SVG Escalation Canvas with Confidence Bands and Annotations -->
+<div class="relative w-full h-80 sm:h-96 bg-surface-subtle/40 rounded-xl p-4 overflow-hidden">
+<!-- Highlighting the Inflection Zone Background -->
+<div class="absolute right-4 top-4 bottom-12 w-1/3 bg-error-container/20 rounded-lg pointer-events-none flex flex-col justify-start p-3">
+<div class="flex items-center gap-1 text-metric-negative">
+<span class="material-symbols-outlined text-[15px]">warning</span>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider">Urgency Escalation Zone (&lt;T-7)</span>
+</div>
+<span class="font-caption text-caption text-text-secondary mt-1">High slope inflection: +56% jump between T-7 and T-1</span>
+</div>
+<svg class="w-full h-full text-secondary" preserveaspectratio="none" viewbox="0 0 1000 360">
+<defs>
+<!-- Gradient for Confidence Band -->
+<lineargradient id="bandGrad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#aec6ff" stop-opacity="0.35"></stop>
+<stop offset="100%" stop-color="#aec6ff" stop-opacity="0.05"></stop>
+</lineargradient>
+<!-- Gradient for Median Area Fill -->
+<lineargradient id="curveFill" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#0054cb" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#0054cb" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Horizontal Grid Lines -->
+<line stroke="#E2E8F0" stroke-dasharray="4 4" stroke-width="1" x1="50" x2="960" y1="50" y2="50"></line>
+<line stroke="#E2E8F0" stroke-dasharray="4 4" stroke-width="1" x1="50" x2="960" y1="120" y2="120"></line>
+<line stroke="#E2E8F0" stroke-dasharray="4 4" stroke-width="1" x1="50" x2="960" y1="190" y2="190"></line>
+<line stroke="#E2E8F0" stroke-dasharray="4 4" stroke-width="1" x1="50" x2="960" y1="260" y2="260"></line>
+<!-- Vertical Grid Markers matching Advance purchase buckets -->
+<!-- X positions: T+45=80, T+30=220, T+15=380, T+7=540, T+3=700, T+1=840, T-Day=940 -->
+<line stroke="#E2E8F0" stroke-width="1" x1="80" x2="80" y1="40" y2="290"></line>
+<line stroke="#E2E8F0" stroke-width="1" x1="220" x2="220" y1="40" y2="290"></line>
+<line stroke="#E2E8F0" stroke-width="1" x1="380" x2="380" y1="40" y2="290"></line>
+<line stroke="#E2E8F0" stroke-dasharray="3 3" stroke-width="1" x1="540" x2="540" y1="40" y2="290"></line>
+<line stroke="#E2E8F0" stroke-width="1" x1="700" x2="700" y1="40" y2="290"></line>
+<line stroke="#E2E8F0" stroke-width="1" x1="840" x2="840" y1="40" y2="290"></line>
+<line stroke="#E2E8F0" stroke-width="1" x1="940" x2="940" y1="40" y2="290"></line>
+<!-- Confidence Dispersion Band (P25 to P75) -->
+<path d="M 80,270 C 180,268 280,260 380,240 C 460,225 500,205 540,185 C 620,140 680,110 700,95 C 780,60 840,40 940,30 L 940,90 C 860,110 800,140 700,175 C 640,195 580,230 540,245 C 460,270 340,285 220,288 C 150,290 100,290 80,290 Z" fill="url(#bandGrad)"></path>
+<!-- Area Fill under Median Line -->
+<path d="M 80,280 C 180,278 280,270 380,250 C 460,235 500,220 540,200 C 620,160 680,125 700,110 C 780,75 840,55 940,45 L 940,290 L 80,290 Z" fill="url(#curveFill)"></path>
+<!-- Trunk Route Line (Top Tier Demand e.g. DEL-BOM) -->
+<path d="M 80,270 C 200,266 300,255 380,235 C 470,210 510,190 540,165 C 620,120 680,80 700,65 C 780,35 840,25 940,20" fill="none" stroke="#38BDF8" stroke-dasharray="5 3" stroke-width="2.5"></path>
+<!-- Primary National Median Empirical Line -->
+<path d="M 80,280 C 180,278 280,270 380,250 C 460,235 500,220 540,200 C 620,160 680,125 700,110 C 780,75 840,55 940,45" fill="none" stroke="#0054cb" stroke-linecap="round" stroke-width="3.5"></path>
+<!-- Data Node Circles along National Median -->
+<circle cx="80" cy="280" fill="#FFFFFF" r="5" stroke="#0054cb" stroke-width="2"></circle>
+<circle cx="220" cy="274" fill="#FFFFFF" r="5" stroke="#0054cb" stroke-width="2"></circle>
+<circle cx="380" cy="250" fill="#FFFFFF" r="5" stroke="#0054cb" stroke-width="2"></circle>
+<circle cx="540" cy="200" fill="#123B7A" r="6" stroke="#FFFFFF" stroke-width="2.5"></circle>
+<circle cx="700" cy="110" fill="#FFFFFF" r="5" stroke="#0054cb" stroke-width="2"></circle>
+<circle cx="840" cy="62" fill="#FFFFFF" r="5" stroke="#0054cb" stroke-width="2"></circle>
+<circle cx="940" cy="45" fill="#DC2626" r="5" stroke="#FFFFFF" stroke-width="2.5"></circle>
+<!-- Inflection Callout Pin at T+7 -->
+<g transform="translate(540, 200)">
+<line stroke="#123B7A" stroke-width="1.5" x1="0" x2="0" y1="0" y2="-45"></line>
+<rect fill="#002558" height="26" rx="4" width="130" x="-65" y="-72"></rect>
+<text fill="#FFFFFF" font-family="Inter" font-size="11" font-weight="600" text-anchor="middle" x="0" y="-55">T-7 Inflection: ₹7,850</text>
+</g>
+<!-- Peak T-Day Callout -->
+<g transform="translate(930, 45)">
+<rect fill="#DC2626" height="22" rx="4" width="80" x="-80" y="-30"></rect>
+<text fill="#FFFFFF" font-family="Inter" font-size="10" font-weight="700" text-anchor="middle" x="-40" y="-15">T-0: ₹14,200</text>
+</g>
+</svg>
+<!-- X-Axis Labels (Reversed Horizon: Earliest Advance to Day of Travel) -->
+<div class="absolute bottom-2 left-0 right-0 flex justify-between px-6 font-label-md text-label-md text-text-secondary">
+<span class="text-left w-16">T+45<br/><span class="font-caption text-caption text-text-muted">₹4,420</span></span>
+<span class="text-center w-16">T+30<br/><span class="font-caption text-caption text-text-muted">₹4,890</span></span>
+<span class="text-center w-16">T+15<br/><span class="font-caption text-caption text-text-muted">₹5,750</span></span>
+<span class="text-center w-20 font-bold text-primary">T+7 (Knee)<br/><span class="font-caption text-caption text-primary">₹7,850</span></span>
+<span class="text-center w-16">T+3<br/><span class="font-caption text-caption text-text-muted">₹10,240</span></span>
+<span class="text-center w-16">T+1<br/><span class="font-caption text-caption text-text-muted">₹12,450</span></span>
+<span class="text-right w-16 font-semibold text-metric-negative">T-Day<br/><span class="font-caption text-caption text-metric-negative">₹14,200</span></span>
+</div>
+</div>
+<!-- Analytical Note Box -->
+<div class="flex items-center gap-3 p-space-md rounded-lg bg-surface-subtle text-text-secondary font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-primary-container text-[20px]">info</span>
+<span><strong>Statistical Takeaway:</strong> The elasticity curve displays a consistent inflection elbow at exactly <strong>T-7.2 days</strong> prior to departure. Airlines absorb volume at base fares between T+45 and T+15, with marginal price variations under 1.1% daily. Sub-7-day yield algorithmic triggers drive price sensitivity up by <strong>4.8x</strong> per day.</span>
+</div>
+</div>
+<!-- Secondary Analytical Matrix: 4-Quadrant Deep Inspection -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<!-- Quadrant 1: Leisure vs Business Trunk Elasticity Curves -->
+<div class="bg-surface-card p-space-xl rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h3 class="font-headline-md text-headline-md text-text-primary font-bold">Route Typology: Leisure vs Business</h3>
+<p class="font-caption text-caption text-text-muted">BOM → GOI (Leisure) vs DEL → BOM (Business Heavy)</p>
+</div>
+<span class="material-symbols-outlined text-text-muted text-[20px]">alt_route</span>
+</div>
+<!-- Comparison Bars across Lead-time Tiers -->
+<div class="space-y-4 my-2">
+<div>
+<div class="flex justify-between text-body-sm font-label-md mb-1">
+<span class="text-text-primary font-semibold">T+30 Advance Stage</span>
+<span class="text-text-muted">Leisure holds -18% lower entry base</span>
+</div>
+<div class="flex gap-2 h-6 items-center">
+<span class="text-caption font-caption w-16 text-text-muted">DEL-BOM</span>
+<div class="flex-1 bg-surface-subtle h-4 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 48%;"></div>
+</div>
+<span class="font-label-sm text-label-sm w-16 text-right font-medium">₹5,200</span>
+</div>
+<div class="flex gap-2 h-6 items-center mt-1">
+<span class="text-caption font-caption w-16 text-text-muted">BOM-GOI</span>
+<div class="flex-1 bg-surface-subtle h-4 rounded-full overflow-hidden">
+<div class="bg-chart-accent-cyan h-full rounded-full" style="width: 32%;"></div>
+</div>
+<span class="font-label-sm text-label-sm w-16 text-right font-medium">₹3,450</span>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-body-sm font-label-md mb-1">
+<span class="text-text-primary font-semibold">T+7 Inflection Stage</span>
+<span class="text-text-muted">Business trunk accelerates faster</span>
+</div>
+<div class="flex gap-2 h-6 items-center">
+<span class="text-caption font-caption w-16 text-text-muted">DEL-BOM</span>
+<div class="flex-1 bg-surface-subtle h-4 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 72%;"></div>
+</div>
+<span class="font-label-sm text-label-sm w-16 text-right font-medium">₹8,950</span>
+</div>
+<div class="flex gap-2 h-6 items-center mt-1">
+<span class="text-caption font-caption w-16 text-text-muted">BOM-GOI</span>
+<div class="flex-1 bg-surface-subtle h-4 rounded-full overflow-hidden">
+<div class="bg-chart-accent-cyan h-full rounded-full" style="width: 46%;"></div>
+</div>
+<span class="font-label-sm text-label-sm w-16 text-right font-medium">₹5,100</span>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-body-sm font-label-md mb-1">
+<span class="text-text-primary font-semibold">T+1 Close-in Flight Window</span>
+<span class="text-metric-negative font-semibold">+145% business surge</span>
+</div>
+<div class="flex gap-2 h-6 items-center">
+<span class="text-caption font-caption w-16 text-text-muted">DEL-BOM</span>
+<div class="flex-1 bg-surface-subtle h-4 rounded-full overflow-hidden">
+<div class="bg-metric-negative h-full rounded-full" style="width: 95%;"></div>
+</div>
+<span class="font-label-sm text-label-sm w-16 text-right font-bold text-metric-negative">₹14,800</span>
+</div>
+<div class="flex gap-2 h-6 items-center mt-1">
+<span class="text-caption font-caption w-16 text-text-muted">BOM-GOI</span>
+<div class="flex-1 bg-surface-subtle h-4 rounded-full overflow-hidden">
+<div class="bg-chart-accent-cyan h-full rounded-full" style="width: 62%;"></div>
+</div>
+<span class="font-label-sm text-label-sm w-16 text-right font-semibold">₹7,650</span>
+</div>
+</div>
+</div>
+<p class="font-caption text-caption text-text-muted mt-2 border-t border-hairline pt-2">Leisure curves exhibit flatter elasticity; holiday travelers show substitution elasticity to trains/rescheduling, while business corridors capture corporate price-insensitivity.</p>
+</div>
+<!-- Quadrant 2: Airline Dynamic Surge Profile -->
+<div class="bg-surface-card p-space-xl rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h3 class="font-headline-md text-headline-md text-text-primary font-bold">Carrier Yield Strategies</h3>
+<p class="font-caption text-caption text-text-muted">Lead-time pricing response profiles by operating airline</p>
+</div>
+<span class="material-symbols-outlined text-text-muted text-[20px]">airlines</span>
+</div>
+<div class="grid grid-cols-3 gap-3 my-2">
+<!-- IndiGo -->
+<div class="bg-surface-subtle p-3 rounded-lg flex flex-col justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span class="font-label-md text-label-md font-bold text-text-primary">IndiGo</span>
+</div>
+<div class="my-2">
+<span class="font-headline-md text-headline-md text-text-primary font-bold">Step-wise</span>
+<p class="font-caption text-caption text-text-muted mt-0.5">Bucket-fill thresholds trigger discrete jumps at 15% occupancy bands.</p>
+</div>
+<div class="pt-2 border-t border-hairline flex items-center justify-between">
+<span class="font-caption text-caption text-text-muted">T-3 Premium</span>
+<span class="font-label-sm text-label-sm font-bold text-metric-warning">+92%</span>
+</div>
+</div>
+<!-- Air India -->
+<div class="bg-surface-subtle p-3 rounded-lg flex flex-col justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-metric-negative"></span>
+<span class="font-label-md text-label-md font-bold text-text-primary">Air India</span>
+</div>
+<div class="my-2">
+<span class="font-headline-md text-headline-md text-text-primary font-bold">Linear Arc</span>
+<p class="font-caption text-caption text-text-muted mt-0.5">Higher baseline includes checked bag, yielding smoother close-in surge.</p>
+</div>
+<div class="pt-2 border-t border-hairline flex items-center justify-between">
+<span class="font-caption text-caption text-text-muted">T-3 Premium</span>
+<span class="font-label-sm text-label-sm font-bold text-metric-positive">+68%</span>
+</div>
+</div>
+<!-- Akasa Air -->
+<div class="bg-surface-subtle p-3 rounded-lg flex flex-col justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-metric-warning"></span>
+<span class="font-label-md text-label-md font-bold text-text-primary">Akasa Air</span>
+</div>
+<div class="my-2">
+<span class="font-headline-md text-headline-md text-text-primary font-bold">Aggressive</span>
+<p class="font-caption text-caption text-text-muted mt-0.5">Discounts heavy early; steep ramp starting early at T-10 to lock yields.</p>
+</div>
+<div class="pt-2 border-t border-hairline flex items-center justify-between">
+<span class="font-caption text-caption text-text-muted">T-3 Premium</span>
+<span class="font-label-sm text-label-sm font-bold text-metric-negative">+114%</span>
+</div>
+</div>
+</div>
+<p class="font-caption text-caption text-text-muted mt-2 border-t border-hairline pt-2">Full-service carriers preserve seat inventory for corporate agreements, while ULCC models prioritize load factor first, urgency extraction second.</p>
+</div>
+<!-- Quadrant 3: Weekday vs Weekend Differential -->
+<div class="bg-surface-card p-space-xl rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-3">
+<div>
+<h3 class="font-headline-md text-headline-md text-text-primary font-bold">Weekday vs Weekend Day-of-Week Spread</h3>
+<p class="font-caption text-caption text-text-muted">Fri/Sun travel return premiums across the advance horizon</p>
+</div>
+<span class="material-symbols-outlined text-text-muted text-[20px]">calendar_view_week</span>
+</div>
+<div class="space-y-3">
+<div class="flex items-center justify-between bg-surface-subtle p-2.5 rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[20px]">flight_takeoff</span>
+<div>
+<span class="font-label-md text-label-md text-text-primary block font-semibold">Friday Outbound &amp; Sunday Return</span>
+<span class="font-caption text-caption text-text-muted">Weekend Peak Cohort (32.4% total weekly traffic)</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-headline-md text-headline-md font-bold text-metric-negative">+26.4%</span>
+<span class="font-caption text-caption text-text-muted block">vs midweek avg</span>
+</div>
+</div>
+<div class="flex items-center justify-between bg-surface-subtle p-2.5 rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-text-secondary text-[20px]">today</span>
+<div>
+<span class="font-label-md text-label-md text-text-primary block font-semibold">Tuesday / Wednesday Mid-Week Base</span>
+<span class="font-caption text-caption text-text-muted">Baseline Travel Corridor</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-headline-md text-headline-md font-bold text-metric-positive">-14.2%</span>
+<span class="font-caption text-caption text-text-muted block">vs weekend avg</span>
+</div>
+</div>
+</div>
+<p class="font-caption text-caption text-text-muted mt-2 border-t border-hairline pt-2">Weekend premiums appear early at T+30 and maintain an elevated baseline across all lead-times without significant late softening.</p>
+</div>
+<!-- Quadrant 4: Festival & Holiday Impact Timeline -->
+<div class="bg-surface-card p-space-xl rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between mb-3">
+<div>
+<h3 class="font-headline-md text-headline-md text-text-primary font-bold">Upcoming Festival Shift Indicator</h3>
+<p class="font-caption text-caption text-text-muted">Advance booking window behavior preceding high-density holidays</p>
+</div>
+<span class="material-symbols-outlined text-text-muted text-[20px]">celebration</span>
+</div>
+<div class="space-y-2.5">
+<div class="flex items-center justify-between p-2 rounded border-l-4 border-l-metric-negative bg-surface-subtle">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md font-bold text-text-primary">Diwali Travel Corridor (Nov 2025)</span>
+<span class="px-1.5 py-0.2 bg-badge-negative-bg text-metric-negative font-label-sm text-label-sm rounded">High Distortion</span>
+</div>
+<span class="font-caption text-caption text-text-muted">Advance booking knee shifted to T+35 (normally T+7)</span>
+</div>
+<span class="font-data-metric-md text-data-metric-md font-bold text-metric-negative">+112% Surge</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded border-l-4 border-l-metric-warning bg-surface-subtle">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-md text-label-md font-bold text-text-primary">Dussehra Travel Window (Oct 2025)</span>
+<span class="px-1.5 py-0.2 bg-badge-warning-bg text-metric-warning font-label-sm text-label-sm rounded">Moderate Shift</span>
+</div>
+<span class="font-caption text-caption text-text-muted">Early capacity dry-out in eastern sectors (CCU/GHY)</span>
+</div>
+<span class="font-data-metric-md text-data-metric-md font-bold text-metric-warning">+48% Surge</span>
+</div>
+</div>
+<p class="font-caption text-caption text-text-muted mt-2 border-t border-hairline pt-2">National holidays invert standard booking behavior: seats sell out early, causing the price jump to occur weeks ahead of conventional dates.</p>
+</div>
+</div>
+<!-- Advance Booking Bucket Tabular Breakdown -->
+<div class="bg-surface-card rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="p-space-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-hairline">
+<div>
+<h3 class="font-headline-md text-headline-md text-text-primary font-bold">Advance Booking Bucket Statistical Matrix</h3>
+<p class="font-caption text-caption text-text-muted">Distributional stats, IQR spread, and active inventory tracking by tranche</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-caption text-caption text-text-muted">Base Year: 2024 = 100</span>
+<button class="px-3 py-1 bg-surface-subtle hover:bg-surface-container rounded font-label-sm text-label-sm text-text-primary">CSV Export</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-subtle font-label-sm text-label-sm text-text-muted uppercase tracking-wider">
+<th class="py-3 px-4 font-semibold">Tranche Horizon</th>
+<th class="py-3 px-4 font-semibold text-right">Avg Fare (₹)</th>
+<th class="py-3 px-4 font-semibold text-right">Median Fare (₹)</th>
+<th class="py-3 px-4 font-semibold text-right">25th Percentile</th>
+<th class="py-3 px-4 font-semibold text-right">75th Percentile</th>
+<th class="py-3 px-4 font-semibold text-right">Seats Available</th>
+<th class="py-3 px-4 font-semibold text-right">MoM Escalation</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-hairline font-body-sm text-body-sm text-text-primary">
+<!-- T+1 -->
+<tr class="hover:bg-surface-subtle/60 transition-colors">
+<td class="py-3.5 px-4 font-semibold flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-metric-negative"></span>
+<span>T+1 (24-48 Hours)</span>
+</td>
+<td class="py-3.5 px-4 text-right font-medium">₹12,430</td>
+<td class="py-3.5 px-4 text-right font-bold text-metric-negative">₹12,450</td>
+<td class="py-3.5 px-4 text-right text-text-secondary">₹9,800</td>
+<td class="py-3.5 px-4 text-right text-text-secondary">₹15,400</td>
+<td class="py-3.5 px-4 text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-sm text-label-sm bg-badge-negative-bg text-metric-negative font-semibold">68.4% (Low)</span>
+</td>
+<td class="py-3.5 px-4 text-right font-semibold text-metric-negative">▲ +14.2%</td>
+</tr>
+<!-- T+3 -->
+<tr class="hover:bg-surface-subtle/60 transition-colors">
+<td class="py-3.5 px-4 font-semibold flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-metric-warning"></span>
+<span>T+3 (72 Hours)</span>
+</td>
+<td class="py-3.5 px-4 text-right font-medium">₹10,180</td>
+<td class="py-3.5 px-4 text-right font-bold">₹10,240</td>
+<td class="py-3.5 px-4 text-right text-text-secondary">₹8,100</td>
+<td class="py-3.5 px-4 text-right text-text-secondary">₹12,650</td>
+<td class="py-3.5 px-4 text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-sm text-label-sm bg-badge-warning-bg text-metric-warning font-semibold">78.1% (Constrained)</span>
+</td>
+<td class="py-3.5 px-4 text-right font-semibold text-metric-negative">▲ +8.9%</td>
+</tr>
+<!-- T+7 -->
+<tr class="hover:bg-surface-subtle/60 transition-colors bg-secondary-fixed/15">
+<td class="py-3.5 px-4 font-semibold flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span>
+<span class="text-primary font-bold">T+7 (1 Week Threshold)</span>
+</td>
+<td class="py-3.5 px-4 text-right font-medium text-primary">₹7,910</td>
+<td class="py-3.5 px-4 text-right font-bold text-primary">₹7,850</td>
+<td class="py-3.5 px-4 text-right text-text-secondary">₹6,200</td>
+<td class="py-3.5 px-4 text-right text-text-secondary">₹9,400</td>
+<td class="py-3.5 px-4 text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-sm text-label-sm bg-badge-positive-bg text-metric-positive font-semibold">88.5% (Adequate)</span>
+</td>
+<td class="py-3.5 px-4 text-right font-semibold text-metric-warning">▲ +3.4%</td>
+</tr>
+<!-- T+15 -->
+<tr class="hover:bg-surface-subtle/60 transition-colors">
+<td class="py-3.5 px-4 font-semibold flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-chart-accent-cyan"></span>
+<span>T+15 (Fringe Window)</span>
+</td>
+<td class="py-3.5 px-4 text-right font-medium">₹5,820</td>
+<td class="py-3.5 px-4 text-right font-bold">₹5,750</td>
+<td class="py-3.5 px-4 text-right text-text-secondary">₹4,800</td>
+<td class="py-3.5 px-4 text-right text-text-secondary">₹6,900</td>
+<td class="py-3.5 px-4 text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-sm text-label-sm bg-badge-positive-bg text-metric-positive font-semibold">94.2% (Open)</span>
+</td>
+<td class="py-3.5 px-4 text-right font-semibold text-metric-positive">▼ -0.8%</td>
+</tr>
+<!-- T+30 -->
+<tr class="hover:bg-surface-subtle/60 transition-colors">
+<td class="py-3.5 px-4 font-semibold flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-surface-dim"></span>
+<span>T+30 (1 Month Advance)</span>
+</td>
+<td class="py-3.5 px-4 text-right font-medium">₹4,910</td>
+<td class="py-3.5 px-4 text-right font-bold">₹4,890</td>
+<td class="py-3.5 px-4 text-right text-text-secondary">₹3,900</td>
+<td class="py-3.5 px-4 text-right text-text-secondary">₹5,600</td>
+<td class="py-3.5 px-4 text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-sm text-label-sm bg-badge-positive-bg text-metric-positive font-semibold">98.2% (Full)</span>
+</td>
+<td class="py-3.5 px-4 text-right font-semibold text-metric-positive">▼ -2.1%</td>
+</tr>
+<!-- T+45 -->
+<tr class="hover:bg-surface-subtle/60 transition-colors">
+<td class="py-3.5 px-4 font-semibold flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-surface-dim"></span>
+<span>T+45 (Base Planning)</span>
+</td>
+<td class="py-3.5 px-4 text-right font-medium">₹4,390</td>
+<td class="py-3.5 px-4 text-right font-bold">₹4,420</td>
+<td class="py-3.5 px-4 text-right text-text-secondary">₹3,450</td>
+<td class="py-3.5 px-4 text-right text-text-secondary">₹5,100</td>
+<td class="py-3.5 px-4 text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-sm text-label-sm bg-badge-positive-bg text-metric-positive font-semibold">99.4% (Full)</span>
+</td>
+<td class="py-3.5 px-4 text-right font-semibold text-text-secondary">━ 0.0%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="bg-surface-subtle p-3 text-caption font-caption text-text-muted flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<span>Statistical Standard: Interquartile Range (IQR) computed using Winsorized 5% trims to eliminate extreme non-scheduled flight anomalies.</span>
+<span class="font-semibold text-text-primary">Source: DGCA Monitoring API &amp; GDS Scrape Synced via AIRSCOPE Live Stream</span>
+</div>
+</div>
+</div></main></div></body></html>

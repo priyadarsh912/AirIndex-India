@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-container":"#39b9b4","surface-dim":"#d8dadc","badge-negative-bg":"#FEE2E2","primary-fixed-dim":"#aec6ff","on-primary-fixed":"#001a42","text-muted":"#64748B","surface-container-lowest":"#ffffff","surface-container":"#eceef0","secondary-fixed":"#dae2ff","tertiary-container":"#004543","surface-container-highest":"#e0e3e5","inverse-primary":"#aec6ff","chart-accent-cyan":"#38BDF8","on-secondary-fixed":"#001847","inverse-surface":"#2d3133","on-tertiary-fixed-variant":"#00504d","inverse-on-surface":"#eff1f3","secondary-container":"#2d6deb","metric-warning":"#EA580C","surface":"#f7f9fb","metric-positive":"#16A34A","error-container":"#ffdad6","on-surface":"#191c1e","tertiary-fixed-dim":"#60d9d3","surface-container-low":"#f2f4f6","on-secondary-fixed-variant":"#0040a0","error":"#ba1a1a","text-primary":"#0F172A","on-surface-variant":"#434750","secondary":"#0054cb","on-error":"#ffffff","on-tertiary-fixed":"#00201f","surface-canvas":"#F8FAFC","surface-card":"#FFFFFF","metric-negative":"#DC2626","badge-warning-bg":"#FFEDD5","on-secondary":"#ffffff","primary":"#002558","on-primary":"#ffffff","on-secondary-container":"#fefcff","text-secondary":"#475569","tertiary":"#002d2b","primary-container":"#123b7a","surface-subtle":"#F1F5F9","tertiary-fixed":"#7ff5ef","surface-tint":"#3b5d9e","surface-bright":"#f7f9fb","on-error-container":"#93000a","on-tertiary":"#ffffff","outline-variant":"#c4c6d2","surface-container-high":"#e6e8ea","background":"#f7f9fb","badge-positive-bg":"#DCFCE7","on-primary-container":"#87a7ed","outline":"#747781","surface-variant":"#e0e3e5","border-hairline":"#E2E8F0","on-background":"#191c1e","secondary-fixed-dim":"#b1c5ff","border-focus":"#2F6FED","on-primary-fixed-variant":"#204584","primary-fixed":"#d8e2ff"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"gutter-dense":"0.5rem","space-lg":"1rem","space-xl":"1.5rem",gutter:"1rem","space-xs":"0.25rem","space-md":"0.75rem","space-sm":"0.5rem",margin:"1.5rem","margin-mobile":"1rem"},fontFamily:{"headline-lg":["IBM Plex Sans"],"headline-xl":["IBM Plex Sans"],"label-md":["Inter"],"headline-xl-mobile":["IBM Plex Sans"],caption:["Inter"],"body-md":["Inter"],"data-metric-md":["IBM Plex Sans"],"label-sm":["Inter"],"data-metric-xl":["IBM Plex Sans"],"body-sm":["Inter"],"body-lg":["Inter"],"headline-md":["IBM Plex Sans"]},fontSize:{"headline-lg":["22px",{lineHeight:"28px",letterSpacing:"-0.015em",fontWeight:"600"}],"headline-xl":["30px",{lineHeight:"38px",letterSpacing:"-0.02em",fontWeight:"700"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.01em",fontWeight:"600"}],"headline-xl-mobile":["24px",{lineHeight:"32px",letterSpacing:"-0.015em",fontWeight:"700"}],caption:["10px",{lineHeight:"12px",fontWeight:"500"}],"body-md":["13px",{lineHeight:"18px",fontWeight:"400"}],"data-metric-md":["18px",{lineHeight:"24px",letterSpacing:"-0.01em",fontWeight:"600"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.02em",fontWeight:"500"}],"data-metric-xl":["28px",{lineHeight:"32px",letterSpacing:"-0.02em",fontWeight:"700"}],"body-sm":["12px",{lineHeight:"16px",fontWeight:"400"}],"body-lg":["15px",{lineHeight:"22px",fontWeight:"400"}],"headline-md":["16px",{lineHeight:"22px",letterSpacing:"-0.01em",fontWeight:"600"}]}}}}</script></head><body class="bg-surface-canvas font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-64 bg-surface-card z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)] overflow-y-auto"><div class="flex flex-col"><div class="px-space-xl pt-space-xl pb-space-lg"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-lg bg-primary-container text-on-primary flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">flight</span></div><div><span class="font-headline-md text-headline-md font-bold tracking-tight text-primary block leading-none">AIRSCOPE</span><span class="font-caption text-caption text-text-muted mt-0.5 block tracking-normal">Price Index India</span></div></div><p class="mt-space-sm font-caption text-caption text-text-secondary leading-tight">Real-Time Airfare Price Index for India</p></div><nav class="flex flex-col gap-0.5 px-space-md py-space-xs" data-active-classes="bg-primary-container text-on-primary font-semibold shadow-sm"><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[19px]">space_dashboard</span><span>Dashboard</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="airfare-index" href="#"><span class="material-symbols-outlined text-[19px]">stacked_line_chart</span><span>Airfare Index</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="route-explorer" href="#"><span class="material-symbols-outlined text-[19px]">alt_route</span><span>Route Explorer</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="lead-time-analytics" href="#"><span class="material-symbols-outlined text-[19px]">schedule</span><span>Lead-Time Analytics</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="market-monitor" href="#"><span class="material-symbols-outlined text-[19px]">query_stats</span><span>Market Monitor</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="data-quality" href="#"><span class="material-symbols-outlined text-[19px]">verified</span><span>Data Quality</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="collection-monitor" href="#"><span class="material-symbols-outlined text-[19px]">hub</span><span>Collection Monitor</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="source-comparison" href="#"><span class="material-symbols-outlined text-[19px]">compare_arrows</span><span>Source Comparison</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="api-and-data" href="#"><span class="material-symbols-outlined text-[19px]">api</span><span>API &amp; Data</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="policy-and-research" href="#"><span class="material-symbols-outlined text-[19px]">menu_book</span><span>Policy &amp; Research</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="settings" href="#"><span class="material-symbols-outlined text-[19px]">settings</span><span>Settings</span></a></nav></div><div class="p-space-md"><div class="bg-surface-subtle rounded-xl p-space-md"><div class="flex items-center gap-1.5 mb-1 text-primary"><span class="material-symbols-outlined text-[16px]">public</span><span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider">Mission</span></div><p class="font-headline-md text-headline-md font-semibold text-text-primary">Data for a Better Tomorrow</p><p class="font-caption text-caption text-text-muted mt-1 leading-snug">Transparent. Comparable. Policy-Ready.</p></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-card/90 backdrop-blur-xl z-40 px-space-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] flex items-center justify-between"><div class="w-96"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-3 text-text-muted text-[18px]">search</span><input class="w-full h-10 pl-9 pr-3 rounded-lg bg-surface-canvas font-body-sm text-body-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:bg-surface-card transition-all" placeholder="Search route, airline, or keyword... ⌘K" type="text"/></div></div><div class="flex items-center gap-space-lg"><div class="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-subtle"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-metric-positive opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-metric-positive"></span></span><span class="font-label-sm text-label-sm text-text-secondary">Live Data | Last updated 14 Sep 2025, 11:42 AM IST</span></div><button aria-label="Notifications" class="relative w-9 h-9 rounded-lg flex items-center justify-center text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-metric-negative text-on-error font-caption text-[9px] flex items-center justify-center font-bold">3</span></button><div class="flex items-center gap-space-sm pl-space-sm"><div class="w-8 h-8 rounded-full bg-primary-container text-on-primary font-headline-md text-headline-md flex items-center justify-center font-semibold">S</div><div class="hidden md:flex flex-col"><span class="font-label-md text-label-md text-text-primary font-semibold leading-tight">Subham</span><span class="font-caption text-caption text-text-muted leading-tight">Policy &amp; Price Statistics Division</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UlVHDMEeTE5a3KBjZ_G65mz5EVGFu45jSXW4YP4x3UdsvERnRom2tBop4Lvj8sEIlNjusXdpDxb59YCpU0OD4q6dkkOrTF01ktXlefHn39aXtYIyPRQbaSsI0ktHMVo-tLlIuP7_asbfbKOUaS8-3GFRh44yUlk2hUarlvRIhfySBKtAuasICpvFerF5oQ4RaIlR5nchXkPA7kkRlLXmFk2R2uGgzQPh8ecR3Z-kjEa4JHlGfzlUb1K3dn"/><span class="material-symbols-outlined text-text-muted text-[18px] cursor-pointer hover:text-on-surface transition-colors">arrow_drop_down</span></div></div></header><main class="relative pt-16 bg-surface-canvas min-h-screen"><div class="flex flex-col w-full">
+<div class="p-space-xl flex flex-col gap-space-xl">
+<!-- Top Policy & Macro Intelligence Banner -->
+<div class="relative overflow-hidden rounded-xl bg-gradient-to-r from-primary via-primary-container to-secondary p-space-xl shadow-md text-on-primary">
+<div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-space-lg">
+<div class="max-w-3xl">
+<div class="flex items-center gap-space-sm mb-2">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-card/15 backdrop-blur-md font-label-sm text-label-sm tracking-wide text-primary-fixed uppercase">
+<span class="material-symbols-outlined text-[14px]">account_balance</span>
+              MoSPI • RBI • MoCA Analytical Workbench
+            </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-metric-positive/20 text-badge-positive-bg font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-metric-positive"></span>
+              Live DGCA Synced
+            </span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-surface-container-lowest font-bold tracking-tight">Policy &amp; Research</h1>
+<p class="font-body-lg text-body-lg text-primary-fixed mt-1 opacity-90 leading-relaxed">
+            Macroeconomic airfare inflation modeling, passenger-weighted deflators, and civil aviation market dynamics for regulatory assessment.
+          </p>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="inline-flex items-center gap-2 px-space-md py-2.5 rounded-lg bg-surface-card/10 hover:bg-surface-card/20 backdrop-blur text-surface-container-lowest font-label-md text-label-md transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">sim_card_download</span>
+<span>Export Microdata (.dta)</span>
+</button>
+<button class="inline-flex items-center gap-2 px-space-md py-2.5 rounded-lg bg-secondary-container hover:bg-secondary text-on-secondary shadow-sm font-label-md text-label-md transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+<span>Methodology Spec (v2.4)</span>
+</button>
+</div>
+</div>
+<!-- Subtle Decorative Aviation Graphic Motif -->
+<div class="absolute -right-12 -bottom-10 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[260px] text-surface-card">analytics</span>
+</div>
+</div>
+<!-- Top Research Summary Metric Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-space-lg">
+<!-- Metric 1: CPI Transport Impact -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-muted">Airfare Impact on Urban CPI</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">percent</span>
+</div>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="font-data-metric-xl text-data-metric-xl font-bold text-text-primary">+0.42%</span>
+<span class="font-label-sm text-label-sm text-text-muted">pts</span>
+</div>
+</div>
+<div class="mt-4 pt-3 flex items-center justify-between bg-surface-subtle -mx-space-lg -mb-space-lg p-space-sm px-space-lg rounded-b-xl">
+<span class="font-caption text-caption text-text-secondary">Headline Urban Transport sub-basket</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-badge-negative-bg text-metric-negative font-label-sm text-label-sm font-semibold">+18 bps MoM</span>
+</div>
+</div>
+<!-- Metric 2: Passenger Traffic Weight Calibration -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-muted">Pax Weight Calibration</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">tune</span>
+</div>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="font-data-metric-xl text-data-metric-xl font-bold text-text-primary">DGCA Q3 2025</span>
+</div>
+</div>
+<div class="mt-4 pt-3 flex items-center justify-between bg-surface-subtle -mx-space-lg -mb-space-lg p-space-sm px-space-lg rounded-b-xl">
+<span class="font-caption text-caption text-text-secondary">Corridor matrix updated weekly</span>
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-metric-positive font-semibold">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> 100% Synced
+          </span>
+</div>
+</div>
+<!-- Metric 3: Close-In Surge Premium -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-muted">Close-In Surge (T-7 Window)</span>
+<span class="material-symbols-outlined text-metric-warning text-[20px]">bolt</span>
+</div>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="font-data-metric-xl text-data-metric-xl font-bold text-text-primary">+84.6%</span>
+<span class="font-label-sm text-label-sm text-text-muted">nominal yield</span>
+</div>
+</div>
+<div class="mt-4 pt-3 flex items-center justify-between bg-surface-subtle -mx-space-lg -mb-space-lg p-space-sm px-space-lg rounded-b-xl">
+<span class="font-caption text-caption text-text-secondary">Vs. T-30 baseline advance fare</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-badge-warning-bg text-metric-warning font-label-sm text-label-sm font-semibold">High Volatility</span>
+</div>
+</div>
+<!-- Metric 4: AeroVIX -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-muted">Market Volatility (AeroVIX)</span>
+<span class="material-symbols-outlined text-primary text-[20px]">speed</span>
+</div>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="font-data-metric-xl text-data-metric-xl font-bold text-text-primary">24.2</span>
+<span class="font-label-sm text-label-sm text-metric-positive font-medium">• Stable range</span>
+</div>
+</div>
+<div class="mt-4 pt-3 flex items-center justify-between bg-surface-subtle -mx-space-lg -mb-space-lg p-space-sm px-space-lg rounded-b-xl">
+<span class="font-caption text-caption text-text-secondary">Benchmark scale: 0-100</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-badge-positive-bg text-metric-positive font-label-sm text-label-sm font-semibold">-3.1 pts MoM</span>
+</div>
+</div>
+</div>
+<!-- Benchmark Comparative Analysis Chart (AIRSCOPE Index vs Macro Indicators) -->
+<div class="bg-surface-card rounded-xl p-space-xl shadow-sm flex flex-col gap-space-lg">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-headline-lg text-headline-lg font-bold text-text-primary">Macro Index Benchmarking &amp; Deflator Cross-Walk</span>
+<span class="px-2 py-0.5 rounded bg-surface-subtle font-caption text-caption text-text-muted uppercase tracking-wider font-semibold">Normalized 2024=100</span>
+</div>
+<p class="font-body-md text-body-md text-text-muted mt-0.5">
+            Empirical alignment of high-frequency AirScope fares against official CPI Transport basket, OMC ATF bulk spot, and Indian Railways 2AC/3AC fares.
+          </p>
+</div>
+<!-- Interactive Scenario Toggles & Horizon Segment -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="flex items-center bg-surface-subtle rounded-lg p-0.5">
+<button class="px-3 py-1.5 rounded-md text-on-primary bg-primary-container font-label-md text-label-md shadow-sm" type="button">12M View</button>
+<button class="px-3 py-1.5 rounded-md text-text-secondary hover:text-text-primary font-label-md text-label-md transition-colors" type="button">FY 24-25</button>
+<button class="px-3 py-1.5 rounded-md text-text-secondary hover:text-text-primary font-label-md text-label-md transition-colors" type="button">3-Year Triennium</button>
+</div>
+<div class="flex items-center gap-1 bg-surface-subtle rounded-lg px-2.5 py-1.5">
+<span class="material-symbols-outlined text-secondary text-[18px]">insights</span>
+<span class="font-label-sm text-label-sm text-text-primary font-semibold">ATF Pass-through (β):</span>
+<span class="font-label-sm text-label-sm text-metric-positive font-bold">+0.78</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-subtle rounded-lg px-2.5 py-1.5">
+<span class="material-symbols-outlined text-metric-warning text-[18px]">holiday_village</span>
+<span class="font-label-sm text-label-sm text-text-primary font-semibold">Festive Elasticity:</span>
+<span class="font-label-sm text-label-sm text-metric-warning font-bold">1.42x</span>
+</div>
+</div>
+</div>
+<!-- Chart Visual Legend -->
+<div class="flex flex-wrap items-center gap-space-lg text-label-sm font-label-sm pt-2">
+<div class="flex items-center gap-2">
+<span class="w-3.5 h-1 rounded-full bg-primary"></span>
+<span class="font-semibold text-text-primary">AirScope Composite Index (APIx)</span>
+<span class="font-caption text-caption text-text-muted">(128.4)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3.5 h-1 rounded-full bg-secondary"></span>
+<span class="text-text-secondary">Urban CPI Transport Sub-Index</span>
+<span class="font-caption text-caption text-text-muted">(114.8)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3.5 h-1 rounded-full bg-chart-accent-cyan"></span>
+<span class="text-text-secondary">OMC Domestic ATF Price Index</span>
+<span class="font-caption text-caption text-text-muted">(131.2)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3.5 h-1 rounded-full bg-outline-variant"></span>
+<span class="text-text-secondary">IRCTC 2AC/3AC Composite Fare</span>
+<span class="font-caption text-caption text-text-muted">(103.5)</span>
+</div>
+</div>
+<!-- High-Precision Comparative Macro SVG Chart -->
+<div class="w-full h-80 relative bg-surface-canvas rounded-xl p-space-md flex flex-col justify-between overflow-hidden">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 1000 240">
+<defs>
+<lineargradient id="apixGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#002558" stop-opacity="0.22"></stop>
+<stop offset="100%" stop-color="#002558" stop-opacity="0.0"></stop>
+</lineargradient>
+<lineargradient id="atfGradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#38BDF8" stop-opacity="0.15"></stop>
+<stop offset="100%" stop-color="#38BDF8" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Horizontal Reference Gridlines -->
+<line stroke="#E2E8F0" stroke-dasharray="3,3" stroke-width="1" x1="40" x2="980" y1="20" y2="20"></line>
+<line stroke="#E2E8F0" stroke-dasharray="3,3" stroke-width="1" x1="40" x2="980" y1="65" y2="65"></line>
+<line stroke="#E2E8F0" stroke-dasharray="3,3" stroke-width="1" x1="40" x2="980" y1="110" y2="110"></line>
+<line stroke="#E2E8F0" stroke-dasharray="3,3" stroke-width="1" x1="40" x2="980" y1="155" y2="155"></line>
+<line stroke="#E2E8F0" stroke-width="1" x1="40" x2="980" y1="200" y2="200"></line>
+<!-- Y-Axis Labels -->
+<text class="font-caption text-[10px] fill-text-muted" text-anchor="end" x="32" y="24">150</text>
+<text class="font-caption text-[10px] fill-text-muted" text-anchor="end" x="32" y="69">135</text>
+<text class="font-caption text-[10px] fill-text-muted" text-anchor="end" x="32" y="114">120</text>
+<text class="font-caption text-[10px] fill-text-muted" text-anchor="end" x="32" y="159">105</text>
+<text class="font-caption text-[10px] fill-text-muted" text-anchor="end" x="32" y="204">90</text>
+<!-- Area fill for APIx -->
+<polygon fill="url(#apixGradient)" points="50,200 50,170 130,165 210,150 290,140 370,145 450,130 530,135 610,115 690,120 770,95 850,85 930,75 970,68 970,200"></polygon>
+<!-- Rail Line (Flat / Regulated Administered Pricing) -->
+<polyline fill="none" points="50,175 130,175 210,173 290,173 370,172 450,170 530,170 610,169 690,169 770,168 850,168 930,167 970,167" stroke="#C4C6D2" stroke-dasharray="4,4" stroke-width="2"></polyline>
+<!-- ATF Line (Fuel Volatility Curve) -->
+<polyline fill="none" points="50,160 130,150 210,140 290,125 370,135 450,140 530,120 610,105 690,112 770,80 850,70 930,60 970,55" stroke="#38BDF8" stroke-width="2"></polyline>
+<!-- Urban CPI Transport Sub-Index (Sticky Headline Inflation) -->
+<polyline fill="none" points="50,180 130,175 210,170 290,165 370,160 450,156 530,152 610,148 690,144 770,138 850,135 930,131 970,129" stroke="#0054CB" stroke-width="2.5"></polyline>
+<!-- AirScope Composite Line (Primary Trajectory) -->
+<polyline fill="none" points="50,170 130,165 210,150 290,140 370,145 450,130 530,135 610,115 690,120 770,95 850,85 930,75 970,68" stroke="#002558" stroke-width="3.5"></polyline>
+<!-- Active Marker Callout on AirScope -->
+<circle cx="970" cy="68" fill="#002558" r="5"></circle>
+<circle cx="970" cy="68" fill="#002558" fill-opacity="0.25" r="9"></circle>
+<!-- X-Axis Labels -->
+<text class="font-caption text-[10px] fill-text-muted" text-anchor="middle" x="50" y="222">Oct '24</text>
+<text class="font-caption text-[10px] fill-text-muted" text-anchor="middle" x="130" y="222">Nov '24</text>
+<text class="font-caption text-[10px] fill-text-muted" text-anchor="middle" x="210" y="222">Dec '24</text>
+<text class="font-caption text-[10px] fill-text-muted" text-anchor="middle" x="290" y="222">Jan '25</text>
+<text class="font-caption text-[10px] fill-text-muted" text-anchor="middle" x="370" y="222">Feb '25</text>
+<text class="font-caption text-[10px] fill-text-muted" text-anchor="middle" x="450" y="222">Mar '25</text>
+<text class="font-caption text-[10px] fill-text-muted" text-anchor="middle" x="530" y="222">Apr '25</text>
+<text class="font-caption text-[10px] fill-text-muted" text-anchor="middle" x="610" y="222">May '25</text>
+<text class="font-caption text-[10px] fill-text-muted" text-anchor="middle" x="690" y="222">Jun '25</text>
+<text class="font-caption text-[10px] fill-text-muted" text-anchor="middle" x="770" y="222">Jul '25</text>
+<text class="font-caption text-[10px] fill-text-muted" text-anchor="middle" x="850" y="222">Aug '25</text>
+<text class="font-caption text-[10px] fill-text-muted" text-anchor="middle" x="940" y="222">Sep '25</text>
+</svg>
+<!-- Floating Statistical Explainer -->
+<div class="absolute top-4 right-4 bg-surface-card/90 backdrop-blur-md rounded-lg p-space-sm shadow-sm max-w-xs pointer-events-none">
+<span class="font-caption text-caption text-text-muted block">Empirical Finding</span>
+<p class="font-body-sm text-body-sm text-text-primary font-medium mt-0.5">
+            Airfare price adjustments lag ATF swings by ~18-24 days, demonstrating sticky dynamic revenue optimization on top routes.
+          </p>
+</div>
+</div>
+</div>
+<!-- Econometric Deep-Dives: Bento Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- Left: Corridor Pareto Decomposition (5 Cols) -->
+<div class="lg:col-span-5 bg-surface-card rounded-xl p-space-xl shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<span class="font-headline-md text-headline-md font-semibold text-text-primary">Trunk Corridor Pareto Concentration</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">hub</span>
+</div>
+<p class="font-body-md text-body-md text-text-muted mt-1">
+            Top 20 trunk corridors generate <strong>68.4%</strong> of national Revenue Passenger Kilometers (RPKs).
+          </p>
+<!-- Pareto Route Breakdown Progress Bars -->
+<div class="flex flex-col gap-3.5 mt-space-lg">
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="font-semibold text-text-primary">Top 5 Metro Pairs (DEL-BOM, BLR-DEL, BOM-BLR...)</span>
+<span class="font-bold text-text-primary">34.8% weight</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-subtle overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 34.8%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="font-semibold text-text-primary">Corridors 6 to 20 (Secondary Metro / State Capitals)</span>
+<span class="font-bold text-text-primary">33.6% weight</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-subtle overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 33.6%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="font-semibold text-text-primary">Tier-2 to Tier-1 Feeders (48 active pairs)</span>
+<span class="font-bold text-text-primary">21.2% weight</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-subtle overflow-hidden">
+<div class="h-full bg-chart-accent-cyan rounded-full" style="width: 21.2%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="font-semibold text-text-primary">RCS-UDAN &amp; Remote Regional Sectors</span>
+<span class="font-bold text-text-primary">10.4% weight</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-subtle overflow-hidden">
+<div class="h-full bg-surface-dim rounded-full" style="width: 10.4%"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-lg p-space-md rounded-lg bg-surface-canvas flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-[20px] shrink-0 mt-0.5">policy</span>
+<div>
+<span class="font-label-md text-label-md font-semibold text-text-primary block">Regulatory Takeaway</span>
+<span class="font-body-sm text-body-sm text-text-secondary">
+              A 5% shift in Top-5 corridor yields contributes over 58% of the total monthly volatility measured by AirScope.
+            </span>
+</div>
+</div>
+</div>
+<!-- Right: Regional Inflation Disparity & Market Rigidity Gini (7 Cols) -->
+<div class="lg:col-span-7 bg-surface-card rounded-xl p-space-xl shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<div>
+<span class="font-headline-md text-headline-md font-semibold text-text-primary">Regional Disparity &amp; Fare Rigidity Index</span>
+<p class="font-body-md text-body-md text-text-muted mt-0.5">Metro trunk escalation vs. subsidized regional UDAN connectivity.</p>
+</div>
+<span class="material-symbols-outlined text-secondary text-[20px]">balance</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md mt-space-lg">
+<!-- Metro to Metro -->
+<div class="bg-surface-canvas rounded-xl p-space-md flex flex-col justify-between">
+<div>
+<span class="font-caption text-caption uppercase text-text-muted font-bold tracking-wider">Metro • Metro Pairs</span>
+<div class="font-data-metric-md text-data-metric-md font-bold text-metric-negative mt-1">+14.2% YoY</div>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary mt-3">High capacity constraints; slots capped at BOM/DEL.</p>
+</div>
+<!-- Metro to Non-Metro -->
+<div class="bg-surface-canvas rounded-xl p-space-md flex flex-col justify-between">
+<div>
+<span class="font-caption text-caption uppercase text-text-muted font-bold tracking-wider">Metro • Tier-2/3</span>
+<div class="font-data-metric-md text-data-metric-md font-bold text-text-primary">+6.8% YoY</div>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary mt-3">Expansion of regional A320neo &amp; ATR72 capacity.</p>
+</div>
+<!-- UDAN Subsidized -->
+<div class="bg-surface-canvas rounded-xl p-space-md flex flex-col justify-between">
+<div>
+<span class="font-caption text-caption uppercase text-text-muted font-bold tracking-wider">RCS-UDAN Routes</span>
+<div class="font-data-metric-md text-data-metric-md font-bold text-metric-positive mt-1">+2.1% YoY</div>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary mt-3">VGF fare cap mechanisms preventing yield runaway.</p>
+</div>
+</div>
+<!-- Gini Coefficient and Route Rigidity -->
+<div class="mt-space-lg p-space-md bg-surface-subtle rounded-xl flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-lg bg-surface-card flex items-center justify-center text-primary shadow-sm font-bold text-[18px]">
+                0.38
+              </div>
+<div>
+<span class="font-label-md text-label-md font-bold text-text-primary block">Airfare Gini Dispersion Coefficient</span>
+<span class="font-caption text-caption text-text-secondary">Moderate route fare inequality. 0.00 = perfect parity, 1.00 = extreme monopoly pricing.</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-badge-positive-bg text-metric-positive font-label-sm text-label-sm font-semibold">
+                • Competitive Corridor Equilibrium
+              </span>
+</div>
+</div>
+</div>
+<!-- Compliance & Methodological Note Footer -->
+<div class="mt-space-lg pt-space-sm flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-text-muted font-caption text-caption">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-metric-positive">verified_user</span>
+<span>Formula: Laspeyres chain-linked passenger-weighted index under COICOP 07.3.3.</span>
+</div>
+<span class="font-semibold text-text-secondary">Methodology audit certified by Central Statistics Office (CSO)</span>
+</div>
+</div>
+</div>
+<!-- Published Policy Working Papers, Technical Notes & Datasets -->
+<div class="bg-surface-card rounded-xl p-space-xl shadow-sm flex flex-col gap-space-lg">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md">
+<div>
+<h2 class="font-headline-lg text-headline-lg font-bold text-text-primary">Policy Releases &amp; Working Papers</h2>
+<p class="font-body-md text-body-md text-text-muted mt-0.5">Peer-reviewed analytical notes, deflator updates, and public research series.</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm text-text-muted">Showing 4 recent releases</span>
+</div>
+</div>
+<!-- Releases Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-canvas text-text-muted font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-3 px-space-md rounded-l-lg">Document ID &amp; Title</th>
+<th class="py-3 px-space-md">Primary Policy Focus</th>
+<th class="py-3 px-space-md">Release Cycle</th>
+<th class="py-3 px-space-md">Author / Division</th>
+<th class="py-3 px-space-md text-right rounded-r-lg">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y-0">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[22px]">article</span>
+<div>
+<span class="font-body-md text-body-md font-semibold text-text-primary block leading-tight">
+                      WP-2025-04: High-Frequency Airfare Nowcasting for CPI Deflators
+                    </span>
+<span class="font-caption text-caption text-text-muted">DOI: 10.1080/airscope.wp2025.04 • 34 Pages</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex px-2 py-0.5 rounded bg-surface-subtle font-label-sm text-label-sm text-text-primary font-medium">Macro Inflation Modeling</span>
+</td>
+<td class="py-3.5 px-space-md font-body-sm text-body-sm text-text-secondary">September 2025</td>
+<td class="py-3.5 px-space-md font-body-sm text-body-sm text-text-secondary">Price Statistics &amp; Nowcasting Unit</td>
+<td class="py-3.5 px-space-md text-right">
+<div class="inline-flex items-center gap-1.5">
+<button class="p-1.5 hover:bg-surface-subtle rounded text-secondary transition-colors" title="Download PDF" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+<button class="p-1.5 hover:bg-surface-subtle rounded text-text-muted hover:text-text-primary transition-colors" title="Export BibTeX" type="button">
+<span class="material-symbols-outlined text-[18px]">format_quote</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[22px]">article</span>
+<div>
+<span class="font-body-md text-body-md font-semibold text-text-primary block leading-tight">
+                      PB-2025-02: Slot Scarcity &amp; Surging Close-In Yields in Mumbai and Delhi
+                    </span>
+<span class="font-caption text-caption text-text-muted">DOI: 10.1080/airscope.pb2025.02 • 16 Pages</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex px-2 py-0.5 rounded bg-surface-subtle font-label-sm text-label-sm text-text-primary font-medium">Capacity Constraints</span>
+</td>
+<td class="py-3.5 px-space-md font-body-sm text-body-sm text-text-secondary">August 2025</td>
+<td class="py-3.5 px-space-md font-body-sm text-body-sm text-text-secondary">Civil Aviation Economics Group</td>
+<td class="py-3.5 px-space-md text-right">
+<div class="inline-flex items-center gap-1.5">
+<button class="p-1.5 hover:bg-surface-subtle rounded text-secondary transition-colors" title="Download PDF" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+<button class="p-1.5 hover:bg-surface-subtle rounded text-text-muted hover:text-text-primary transition-colors" title="Export BibTeX" type="button">
+<span class="material-symbols-outlined text-[18px]">format_quote</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[22px]">article</span>
+<div>
+<span class="font-body-md text-body-md font-semibold text-text-primary block leading-tight">
+                      TR-2025-01: Evaluating the Fare Elasticity of RCS-UDAN Tier-3 Air Connectivity
+                    </span>
+<span class="font-caption text-caption text-text-muted">DOI: 10.1080/airscope.tr2025.01 • 48 Pages</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex px-2 py-0.5 rounded bg-surface-subtle font-label-sm text-label-sm text-text-primary font-medium">Regional Inclusivity</span>
+</td>
+<td class="py-3.5 px-space-md font-body-sm text-body-sm text-text-secondary">July 2025</td>
+<td class="py-3.5 px-space-md font-body-sm text-body-sm text-text-secondary">Policy &amp; Research Taskforce</td>
+<td class="py-3.5 px-space-md text-right">
+<div class="inline-flex items-center gap-1.5">
+<button class="p-1.5 hover:bg-surface-subtle rounded text-secondary transition-colors" title="Download PDF" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+<button class="p-1.5 hover:bg-surface-subtle rounded text-text-muted hover:text-text-primary transition-colors" title="Export BibTeX" type="button">
+<span class="material-symbols-outlined text-[18px]">format_quote</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-canvas transition-colors">
+<td class="py-3.5 px-space-md">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[22px]">article</span>
+<div>
+<span class="font-body-md text-body-md font-semibold text-text-primary block leading-tight">
+                      TN-2025-07: ATF Price Shocks vs. Carrier Markups: An SVAR Decomposition
+                    </span>
+<span class="font-caption text-caption text-text-muted">DOI: 10.1080/airscope.tn2025.07 • 22 Pages</span>
+</div>
+</div>
+</td>
+<td class="py-3.5 px-space-md">
+<span class="inline-flex px-2 py-0.5 rounded bg-surface-subtle font-label-sm text-label-sm text-text-primary font-medium">Cost Pass-Through</span>
+</td>
+<td class="py-3.5 px-space-md font-body-sm text-body-sm text-text-secondary">June 2025</td>
+<td class="py-3.5 px-space-md font-body-sm text-body-sm text-text-secondary">Monetary Policy Liaison Group</td>
+<td class="py-3.5 px-space-md text-right">
+<div class="inline-flex items-center gap-1.5">
+<button class="p-1.5 hover:bg-surface-subtle rounded text-secondary transition-colors" title="Download PDF" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+<button class="p-1.5 hover:bg-surface-subtle rounded text-text-muted hover:text-text-primary transition-colors" title="Export BibTeX" type="button">
+<span class="material-symbols-outlined text-[18px]">format_quote</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Academic Citation Guidelines Card -->
+<div class="p-space-lg rounded-xl bg-surface-canvas flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[24px] shrink-0 mt-0.5">auto_stories</span>
+<div>
+<span class="font-label-md text-label-md font-bold text-text-primary block">Official Citation Specification for Academic &amp; Policy Use</span>
+<p class="font-caption text-caption text-text-secondary mt-1 font-mono">
+              AirScope Research Group (2025). “National Daily Domestic Airfare Index &amp; Corridor Weights (v2.4)”. Ministry of Statistics &amp; Programme Implementation (MoSPI) Public Analytics Repository. https://airscope.mospi.gov.in/index
+            </p>
+</div>
+</div>
+<button class="shrink-0 px-space-md py-2 rounded-lg bg-surface-card hover:bg-surface-subtle text-primary font-label-sm text-label-sm font-semibold shadow-sm transition-all flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span>Copy BibTeX</span>
+</button>
+</div>
+</div>
+</div>
+</div></main></div></body></html>

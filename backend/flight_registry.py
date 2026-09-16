@@ -23,6 +23,7 @@ from typing import Dict, Optional, List
 # Real representative IndiGo (6E) flights on monitored routes
 INDIGO_REGISTRY: Dict[str, Dict] = {
     # DEL-BOM corridor
+    "6E-339":  {"origin": "DEL", "destination": "BOM", "route": "DEL-BOM", "secondary_routes": ["DEL-CCU"]},
     "6E-2501": {"origin": "DEL", "destination": "BOM", "route": "DEL-BOM"},
     "6E-2505": {"origin": "DEL", "destination": "BOM", "route": "DEL-BOM"},
     "6E-5050": {"origin": "DEL", "destination": "BOM", "route": "DEL-BOM"},
@@ -307,6 +308,15 @@ def validate_flight_route_match(flight_number: str, actual_origin: str, actual_d
     origin_match = expected_origin.upper() == actual_origin.upper()
     dest_match = expected_destination.upper() == actual_destination.upper()
     route_match = origin_match and dest_match
+
+    # Check secondary seasonal routes if primary didn't match
+    if not route_match and "secondary_routes" in registry_entry:
+        actual_route = f"{actual_origin.upper()}-{actual_destination.upper()}"
+        if actual_route in registry_entry["secondary_routes"]:
+            sec_orig, sec_dest = actual_route.split("-")
+            expected_origin = sec_orig
+            expected_destination = sec_dest
+            route_match = True
 
     if route_match:
         return {

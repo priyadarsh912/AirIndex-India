@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-tertiary-container":"#39b9b4","surface-dim":"#d8dadc","badge-negative-bg":"#FEE2E2","primary-fixed-dim":"#aec6ff","on-primary-fixed":"#001a42","text-muted":"#64748B","surface-container-lowest":"#ffffff","surface-container":"#eceef0","secondary-fixed":"#dae2ff","tertiary-container":"#004543","surface-container-highest":"#e0e3e5","inverse-primary":"#aec6ff","chart-accent-cyan":"#38BDF8","on-secondary-fixed":"#001847","inverse-surface":"#2d3133","on-tertiary-fixed-variant":"#00504d","inverse-on-surface":"#eff1f3","secondary-container":"#2d6deb","metric-warning":"#EA580C","surface":"#f7f9fb","metric-positive":"#16A34A","error-container":"#ffdad6","on-surface":"#191c1e","tertiary-fixed-dim":"#60d9d3","surface-container-low":"#f2f4f6","on-secondary-fixed-variant":"#0040a0","error":"#ba1a1a","text-primary":"#0F172A","on-surface-variant":"#434750","secondary":"#0054cb","on-error":"#ffffff","on-tertiary-fixed":"#00201f","surface-canvas":"#F8FAFC","surface-card":"#FFFFFF","metric-negative":"#DC2626","badge-warning-bg":"#FFEDD5","on-secondary":"#ffffff","primary":"#002558","on-primary":"#ffffff","on-secondary-container":"#fefcff","text-secondary":"#475569","tertiary":"#002d2b","primary-container":"#123b7a","surface-subtle":"#F1F5F9","tertiary-fixed":"#7ff5ef","surface-tint":"#3b5d9e","surface-bright":"#f7f9fb","on-error-container":"#93000a","on-tertiary":"#ffffff","outline-variant":"#c4c6d2","surface-container-high":"#e6e8ea","background":"#f7f9fb","badge-positive-bg":"#DCFCE7","on-primary-container":"#87a7ed","outline":"#747781","surface-variant":"#e0e3e5","border-hairline":"#E2E8F0","on-background":"#191c1e","secondary-fixed-dim":"#b1c5ff","border-focus":"#2F6FED","on-primary-fixed-variant":"#204584","primary-fixed":"#d8e2ff"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"gutter-dense":"0.5rem","space-lg":"1rem","space-xl":"1.5rem",gutter:"1rem","space-xs":"0.25rem","space-md":"0.75rem","space-sm":"0.5rem",margin:"1.5rem","margin-mobile":"1rem"},fontFamily:{"headline-lg":["IBM Plex Sans"],"headline-xl":["IBM Plex Sans"],"label-md":["Inter"],"headline-xl-mobile":["IBM Plex Sans"],caption:["Inter"],"body-md":["Inter"],"data-metric-md":["IBM Plex Sans"],"label-sm":["Inter"],"data-metric-xl":["IBM Plex Sans"],"body-sm":["Inter"],"body-lg":["Inter"],"headline-md":["IBM Plex Sans"]},fontSize:{"headline-lg":["22px",{lineHeight:"28px",letterSpacing:"-0.015em",fontWeight:"600"}],"headline-xl":["30px",{lineHeight:"38px",letterSpacing:"-0.02em",fontWeight:"700"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.01em",fontWeight:"600"}],"headline-xl-mobile":["24px",{lineHeight:"32px",letterSpacing:"-0.015em",fontWeight:"700"}],caption:["10px",{lineHeight:"12px",fontWeight:"500"}],"body-md":["13px",{lineHeight:"18px",fontWeight:"400"}],"data-metric-md":["18px",{lineHeight:"24px",letterSpacing:"-0.01em",fontWeight:"600"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.02em",fontWeight:"500"}],"data-metric-xl":["28px",{lineHeight:"32px",letterSpacing:"-0.02em",fontWeight:"700"}],"body-sm":["12px",{lineHeight:"16px",fontWeight:"400"}],"body-lg":["15px",{lineHeight:"22px",fontWeight:"400"}],"headline-md":["16px",{lineHeight:"22px",letterSpacing:"-0.01em",fontWeight:"600"}]}}}}</script></head><body class="bg-surface-canvas font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-64 bg-surface-card z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)] overflow-y-auto"><div class="flex flex-col"><div class="px-space-xl pt-space-xl pb-space-lg"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-lg bg-primary-container text-on-primary flex items-center justify-center"><span class="material-symbols-outlined text-[20px]">flight</span></div><div><span class="font-headline-md text-headline-md font-bold tracking-tight text-primary block leading-none">AIRSCOPE</span><span class="font-caption text-caption text-text-muted mt-0.5 block tracking-normal">Price Index India</span></div></div><p class="mt-space-sm font-caption text-caption text-text-secondary leading-tight">Real-Time Airfare Price Index for India</p></div><nav class="flex flex-col gap-0.5 px-space-md py-space-xs" data-active-classes="bg-primary-container text-on-primary font-semibold shadow-sm"><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="dashboard" href="#"><span class="material-symbols-outlined text-[19px]">space_dashboard</span><span>Dashboard</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="airfare-index" href="#"><span class="material-symbols-outlined text-[19px]">stacked_line_chart</span><span>Airfare Index</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="route-explorer" href="#"><span class="material-symbols-outlined text-[19px]">alt_route</span><span>Route Explorer</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="lead-time-analytics" href="#"><span class="material-symbols-outlined text-[19px]">schedule</span><span>Lead-Time Analytics</span></a><a aria-current="page" class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg transition-colors bg-primary-container text-on-primary font-semibold shadow-sm" data-path="market-monitor" href="#"><span class="material-symbols-outlined text-[19px]">query_stats</span><span>Market Monitor</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="data-quality" href="#"><span class="material-symbols-outlined text-[19px]">verified</span><span>Data Quality</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="collection-monitor" href="#"><span class="material-symbols-outlined text-[19px]">hub</span><span>Collection Monitor</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="source-comparison" href="#"><span class="material-symbols-outlined text-[19px]">compare_arrows</span><span>Source Comparison</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="api-and-data" href="#"><span class="material-symbols-outlined text-[19px]">api</span><span>API &amp; Data</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="policy-and-research" href="#"><span class="material-symbols-outlined text-[19px]">menu_book</span><span>Policy &amp; Research</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors font-body-md text-body-md" data-path="settings" href="#"><span class="material-symbols-outlined text-[19px]">settings</span><span>Settings</span></a></nav></div><div class="p-space-md"><div class="bg-surface-subtle rounded-xl p-space-md"><div class="flex items-center gap-1.5 mb-1 text-primary"><span class="material-symbols-outlined text-[16px]">public</span><span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider">Mission</span></div><p class="font-headline-md text-headline-md font-semibold text-text-primary">Data for a Better Tomorrow</p><p class="font-caption text-caption text-text-muted mt-1 leading-snug">Transparent. Comparable. Policy-Ready.</p></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-card/90 backdrop-blur-xl z-40 px-space-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] flex items-center justify-between"><div class="w-96"><div class="relative flex items-center"><span class="material-symbols-outlined absolute left-3 text-text-muted text-[18px]">search</span><input class="w-full h-10 pl-9 pr-3 rounded-lg bg-surface-canvas font-body-sm text-body-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:bg-surface-card transition-all" placeholder="Search route, airline, or keyword... ⌘K" type="text"/></div></div><div class="flex items-center gap-space-lg"><div class="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-subtle"><span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-metric-positive opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-metric-positive"></span></span><span class="font-label-sm text-label-sm text-text-secondary">Live Data | Last updated 14 Sep 2025, 11:42 AM IST</span></div><button aria-label="Notifications" class="relative w-9 h-9 rounded-lg flex items-center justify-center text-text-secondary hover:bg-surface-subtle hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-metric-negative text-on-error font-caption text-[9px] flex items-center justify-center font-bold">3</span></button><div class="flex items-center gap-space-sm pl-space-sm"><div class="w-8 h-8 rounded-full bg-primary-container text-on-primary font-headline-md text-headline-md flex items-center justify-center font-semibold">S</div><div class="hidden md:flex flex-col"><span class="font-label-md text-label-md text-text-primary font-semibold leading-tight">Subham</span><span class="font-caption text-caption text-text-muted leading-tight">Policy &amp; Price Statistics Division</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UlVHDMEeTE5a3KBjZ_G65mz5EVGFu45jSXW4YP4x3UdsvERnRom2tBop4Lvj8sEIlNjusXdpDxb59YCpU0OD4q6dkkOrTF01ktXlefHn39aXtYIyPRQbaSsI0ktHMVo-tLlIuP7_asbfbKOUaS8-3GFRh44yUlk2hUarlvRIhfySBKtAuasICpvFerF5oQ4RaIlR5nchXkPA7kkRlLXmFk2R2uGgzQPh8ecR3Z-kjEa4JHlGfzlUb1K3dn"/><span class="material-symbols-outlined text-text-muted text-[18px] cursor-pointer hover:text-on-surface transition-colors">arrow_drop_down</span></div></div></header><main class="relative pt-16 bg-surface-canvas min-h-screen"><div class="flex flex-col w-full px-space-xl py-space-lg gap-space-lg">
+<!-- Header & Control Bar -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-surface-card p-space-lg rounded-xl shadow-sm">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center justify-center p-1.5 rounded-lg bg-primary-container text-on-primary">
+<span class="material-symbols-outlined text-[20px]">radar</span>
+</span>
+<h1 class="font-headline-xl text-headline-xl text-text-primary tracking-tight">Market Monitor</h1>
+<span class="inline-flex items-center gap-1.5 ml-2 px-2.5 py-0.5 rounded-full bg-badge-positive-bg text-metric-positive font-label-sm text-label-sm font-semibold">
+<span class="w-2 h-2 rounded-full bg-metric-positive animate-pulse"></span>
+          REAL-TIME STREAM
+        </span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary mt-1">
+        High-frequency surveillance of fare movements, price surges, and corridor volatility across domestic civil aviation.
+      </p>
+</div>
+<!-- Corridor Scope Segmented Control & Actions -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="flex items-center bg-surface-subtle p-1 rounded-lg" id="corridor-filter">
+<button class="filter-btn px-3 py-1.5 rounded-md font-label-sm text-label-sm font-semibold bg-primary-container text-on-primary transition-all shadow-sm" data-filter="all" type="button">All Corridors</button>
+<button class="filter-btn px-3 py-1.5 rounded-md font-label-sm text-label-sm text-text-secondary hover:text-text-primary transition-all" data-filter="metro" type="button">Metro-to-Metro</button>
+<button class="filter-btn px-3 py-1.5 rounded-md font-label-sm text-label-sm text-text-secondary hover:text-text-primary transition-all" data-filter="tier2" type="button">Tier-2 Regional</button>
+<button class="filter-btn px-3 py-1.5 rounded-md font-label-sm text-label-sm text-text-secondary hover:text-text-primary transition-all flex items-center gap-1" data-filter="festive" type="button">
+<span class="material-symbols-outlined text-[14px] text-metric-warning">local_fire_department</span>Festive Watchlist
+        </button>
+</div>
+<div class="flex items-center gap-2">
+<button class="h-9 px-3 rounded-lg bg-surface-subtle text-text-secondary hover:text-text-primary font-label-sm text-label-sm flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[17px]">tune</span>
+          Threshold: 15%
+        </button>
+<button class="h-9 px-3 rounded-lg bg-secondary-container text-on-secondary-container hover:bg-secondary font-label-sm text-label-sm flex items-center gap-1.5 transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[17px]">download</span>
+          Export Stream
+        </button>
+</div>
+</div>
+</div>
+<!-- Top KPI Summary Strip (6 compact cards) -->
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-space-md">
+<!-- Card 1: Routes Monitored -->
+<div class="bg-surface-card p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-muted font-medium">Routes Monitored</span>
+<span class="material-symbols-outlined text-text-muted text-[18px]">alt_route</span>
+</div>
+<div class="mt-2">
+<div class="font-data-metric-xl text-data-metric-xl text-text-primary">124</div>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-metric-positive"></span>
+<span class="font-caption text-caption text-metric-positive font-semibold">100% active sampling</span>
+</div>
+</div>
+</div>
+<!-- Card 2: Price Moves (4h) -->
+<div class="bg-surface-card p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-muted font-medium">Price Moves (4h)</span>
+<span class="material-symbols-outlined text-text-muted text-[18px]">reorder</span>
+</div>
+<div class="mt-2">
+<div class="font-data-metric-xl text-data-metric-xl text-text-primary">3,412</div>
+<div class="font-caption text-caption text-text-muted">853 updates / hr avg</div>
+</div>
+</div>
+<!-- Card 3: Large Increases -->
+<div class="bg-surface-card p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-muted font-medium">Surges (&gt;15%)</span>
+<span class="material-symbols-outlined text-metric-negative text-[18px]">trending_up</span>
+</div>
+<div class="mt-2">
+<div class="font-data-metric-xl text-data-metric-xl text-metric-negative">48</div>
+<div class="inline-flex items-center px-1.5 py-0.5 rounded bg-badge-negative-bg text-metric-negative font-caption text-caption font-semibold">
+          High volatile band
+        </div>
+</div>
+</div>
+<!-- Card 4: Large Decreases -->
+<div class="bg-surface-card p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-muted font-medium">Dips (&gt;10%)</span>
+<span class="material-symbols-outlined text-metric-positive text-[18px]">trending_down</span>
+</div>
+<div class="mt-2">
+<div class="font-data-metric-xl text-data-metric-xl text-metric-positive">22</div>
+<div class="inline-flex items-center px-1.5 py-0.5 rounded bg-badge-positive-bg text-metric-positive font-caption text-caption font-semibold">
+          Flash sales &amp; drops
+        </div>
+</div>
+</div>
+<!-- Card 5: Sold-Out Flights -->
+<div class="bg-surface-card p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-muted font-medium">Sold-Out Runs</span>
+<span class="material-symbols-outlined text-metric-warning text-[18px]">event_busy</span>
+</div>
+<div class="mt-2">
+<div class="font-data-metric-xl text-data-metric-xl text-text-primary">14</div>
+<div class="font-caption text-caption text-metric-warning font-semibold">Constrained capacity</div>
+</div>
+</div>
+<!-- Card 6: Data Freshness -->
+<div class="bg-surface-card p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-muted font-medium">Data Freshness</span>
+<span class="material-symbols-outlined text-chart-accent-cyan text-[18px]">sync</span>
+</div>
+<div class="mt-2">
+<div class="font-data-metric-xl text-data-metric-xl text-text-primary">4m ago</div>
+<div class="font-caption text-caption text-text-muted">Next sweep in 11m</div>
+</div>
+</div>
+</div>
+<!-- Main Grid: Left 2/3 and Right 1/3 -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<!-- LEFT COLUMN: 8 Columns -->
+<div class="lg:col-span-8 flex flex-col gap-space-lg">
+<!-- Section 1: Intraday Volatility & Fare Dispersion Chart -->
+<div class="bg-surface-card p-space-xl rounded-xl shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-space-md">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md text-text-primary">Intraday Volatility &amp; Fare Dispersion</span>
+<span class="px-2 py-0.5 rounded bg-surface-subtle font-caption text-caption text-text-secondary uppercase">Today (IST)</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted">
+              Hourly spread across high-density metro corridors (DEL-BOM, BOM-BLR, DEL-CCU) highlighting dynamic peak-load pricing.
+            </p>
+</div>
+<div class="flex items-center gap-4 text-caption font-caption">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-sm bg-primary-container"></span>
+<span class="text-text-secondary">Median Fare</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-sm bg-surface-subtle"></span>
+<span class="text-text-secondary">Dispersion Band</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-metric-negative"></span>
+<span class="text-text-secondary">Surge Peak</span>
+</div>
+</div>
+</div>
+<!-- Inline SVG Visualization: High-precision intraday band chart -->
+<div class="w-full relative mt-2 bg-surface-canvas rounded-lg p-space-md">
+<svg class="w-full h-52 overflow-visible" preserveaspectratio="none" viewbox="0 0 760 210">
+<defs>
+<!-- Grid line gradient -->
+<lineargradient id="bandGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#2F6FED" stop-opacity="0.22"></stop>
+<stop offset="100%" stop-color="#2F6FED" stop-opacity="0.03"></stop>
+</lineargradient>
+<lineargradient id="surgeArea" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#DC2626" stop-opacity="0.18"></stop>
+<stop offset="100%" stop-color="#DC2626" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Horizontal Grid lines -->
+<line stroke="#E2E8F0" stroke-dasharray="3 3" stroke-width="1" x1="40" x2="740" y1="20" y2="20"></line>
+<text class="font-caption text-[10px] fill-slate-400" text-anchor="end" x="32" y="24">₹14k</text>
+<line stroke="#E2E8F0" stroke-dasharray="3 3" stroke-width="1" x1="40" x2="740" y1="65" y2="65"></line>
+<text class="font-caption text-[10px] fill-slate-400" text-anchor="end" x="32" y="69">₹11k</text>
+<line stroke="#E2E8F0" stroke-dasharray="3 3" stroke-width="1" x1="40" x2="740" y1="110" y2="110"></line>
+<text class="font-caption text-[10px] fill-slate-400" text-anchor="end" x="32" y="114">₹8k</text>
+<line stroke="#E2E8F0" stroke-dasharray="3 3" stroke-width="1" x1="40" x2="740" y1="155" y2="155"></line>
+<text class="font-caption text-[10px] fill-slate-400" text-anchor="end" x="32" y="159">₹5k</text>
+<!-- Morning Surge Zone Highlight (07:00 - 10:00) -->
+<rect fill="#DC2626" fill-opacity="0.05" height="150" rx="4" width="105" x="215" y="15"></rect>
+<text class="font-caption text-[9px] fill-red-500 font-bold" text-anchor="middle" x="267" y="12">MORNING SURGE</text>
+<!-- Evening Surge Zone Highlight (17:00 - 20:00) -->
+<rect fill="#DC2626" fill-opacity="0.05" height="150" rx="4" width="115" x="530" y="15"></rect>
+<text class="font-caption text-[9px] fill-red-500 font-bold" text-anchor="middle" x="587" y="12">EVENING SURGE</text>
+<!-- Dispersion Range (Area: 90th percentile to 10th percentile) -->
+<path d="M 50,135 
+                     C 100,130 140,120 180,95 
+                     C 220,70 250,38 290,42 
+                     C 330,46 360,90 400,105 
+                     C 440,120 480,115 520,80 
+                     C 560,45 600,28 640,35 
+                     C 680,42 710,85 735,95 
+                     L 735,160 
+                     C 710,150 680,120 640,110 
+                     C 600,100 560,115 520,135 
+                     C 480,155 440,158 400,150 
+                     C 360,142 330,125 290,120 
+                     C 250,115 220,138 180,152 
+                     C 140,165 100,160 50,162 Z" fill="url(#bandGradient)"></path>
+<!-- Baseline Median Curve -->
+<path d="M 50,148 
+                     C 100,145 140,138 180,122 
+                     C 220,105 250,75 290,72 
+                     C 330,69 360,112 400,128 
+                     C 440,142 480,135 520,108 
+                     C 560,82 600,60 640,68 
+                     C 680,76 710,105 735,122" fill="none" stroke="#123B7A" stroke-linecap="round" stroke-width="2.5"></path>
+<!-- Key points with interactive telemetry -->
+<circle cx="280" cy="72" fill="#DC2626" r="4.5" stroke="#FFFFFF" stroke-width="2"></circle>
+<text class="font-label-sm text-[10px] fill-slate-800 font-bold" text-anchor="middle" x="280" y="60">₹11,480</text>
+<circle cx="630" cy="65" fill="#DC2626" r="4.5" stroke="#FFFFFF" stroke-width="2"></circle>
+<text class="font-label-sm text-[10px] fill-slate-800 font-bold" text-anchor="middle" x="630" y="53">₹12,150</text>
+<circle cx="410" cy="128" fill="#16A34A" r="4" stroke="#FFFFFF" stroke-width="2"></circle>
+<text class="font-label-sm text-[10px] fill-slate-800 font-bold" text-anchor="middle" x="410" y="143">₹6,900</text>
+<!-- X-Axis Timestamps -->
+<text class="font-caption text-[11px] fill-slate-500" text-anchor="middle" x="50" y="185">00:00</text>
+<text class="font-caption text-[11px] fill-slate-500" text-anchor="middle" x="130" y="185">03:00</text>
+<text class="font-caption text-[11px] fill-slate-500" text-anchor="middle" x="210" y="185">06:00</text>
+<text class="font-caption text-[11px] fill-slate-500 font-semibold" text-anchor="middle" x="290" y="185">09:00</text>
+<text class="font-caption text-[11px] fill-slate-500" text-anchor="middle" x="370" y="185">12:00</text>
+<text class="font-caption text-[11px] fill-slate-500" text-anchor="middle" x="450" y="185">15:00</text>
+<text class="font-caption text-[11px] fill-slate-500 font-semibold" text-anchor="middle" x="530" y="185">18:00</text>
+<text class="font-caption text-[11px] fill-slate-500" text-anchor="middle" x="610" y="185">21:00</text>
+<text class="font-caption text-[11px] fill-slate-500" text-anchor="middle" x="735" y="185">Now</text>
+</svg>
+</div>
+<div class="mt-space-md grid grid-cols-1 sm:grid-cols-3 gap-space-sm">
+<div class="p-2.5 rounded-lg bg-surface-subtle flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-secondary">Morning Delta (07-10)</span>
+<span class="font-data-metric-md text-data-metric-md text-metric-negative">+28.4%</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-subtle flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-secondary">Midday Valley (12-15)</span>
+<span class="font-data-metric-md text-data-metric-md text-metric-positive">-16.2%</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-subtle flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-secondary">Evening Delta (17-21)</span>
+<span class="font-data-metric-md text-data-metric-md text-metric-negative">+34.8%</span>
+</div>
+</div>
+</div>
+<!-- Section 2: Live Route Movement Feed (Stream of Detected Adjustments) -->
+<div class="bg-surface-card p-space-xl rounded-xl shadow-sm">
+<div class="flex items-center justify-between pb-space-md">
+<div>
+<h2 class="font-headline-md text-headline-md text-text-primary">Live Route Movement Feed</h2>
+<p class="font-body-sm text-body-sm text-text-muted">Real-time ticker stream of detected domestic price updates and inventory drops</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="flex h-2 w-2 relative">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-metric-positive opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-metric-positive"></span>
+</span>
+<span class="font-caption text-caption text-text-secondary font-medium">Ingesting: 14 evt/min</span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-canvas font-label-sm text-label-sm text-text-muted uppercase">
+<th class="py-2.5 px-3 rounded-l-lg">Time (IST)</th>
+<th class="py-2.5 px-3">Carrier &amp; Flight</th>
+<th class="py-2.5 px-3">Corridor</th>
+<th class="py-2.5 px-3">Prev. Fare</th>
+<th class="py-2.5 px-3 text-right">Latest Fare</th>
+<th class="py-2.5 px-3 text-right">Variance</th>
+<th class="py-2.5 px-3 rounded-r-lg text-center">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm divide-y divide-surface-subtle">
+<!-- Item 1: Surge -->
+<tr class="hover:bg-surface-canvas/60 transition-colors">
+<td class="py-3 px-3 font-mono text-caption text-text-muted">11:41:04</td>
+<td class="py-3 px-3">
+<div class="flex items-center gap-2">
+<span class="w-5 h-5 rounded-full bg-primary-container text-on-primary font-caption text-[10px] flex items-center justify-center font-bold">6E</span>
+<span class="font-label-md text-label-md text-text-primary">IndiGo 6E-2051</span>
+</div>
+</td>
+<td class="py-3 px-3 font-semibold text-text-primary">DEL → BOM</td>
+<td class="py-3 px-3 text-text-muted">₹10,240</td>
+<td class="py-3 px-3 text-right font-semibold text-text-primary">₹11,800</td>
+<td class="py-3 px-3 text-right">
+<span class="font-label-sm text-label-sm text-metric-negative font-semibold">▲ +15.2%</span>
+</td>
+<td class="py-3 px-3 text-center">
+<span class="px-2 py-0.5 rounded-full bg-badge-negative-bg text-metric-negative font-caption text-caption font-bold uppercase">Surge</span>
+</td>
+</tr>
+<!-- Item 2: Sale Drop -->
+<tr class="hover:bg-surface-canvas/60 transition-colors">
+<td class="py-3 px-3 font-mono text-caption text-text-muted">11:38:22</td>
+<td class="py-3 px-3">
+<div class="flex items-center gap-2">
+<span class="w-5 h-5 rounded-full bg-metric-negative text-on-error font-caption text-[10px] flex items-center justify-center font-bold">SG</span>
+<span class="font-label-md text-label-md text-text-primary">SpiceJet SG-8169</span>
+</div>
+</td>
+<td class="py-3 px-3 font-semibold text-text-primary">DEL → HYD</td>
+<td class="py-3 px-3 text-text-muted">₹4,590</td>
+<td class="py-3 px-3 text-right font-semibold text-text-primary">₹4,200</td>
+<td class="py-3 px-3 text-right">
+<span class="font-label-sm text-label-sm text-metric-positive font-semibold">▼ -8.5%</span>
+</td>
+<td class="py-3 px-3 text-center">
+<span class="px-2 py-0.5 rounded-full bg-badge-positive-bg text-metric-positive font-caption text-caption font-bold uppercase">Fare Cut</span>
+</td>
+</tr>
+<!-- Item 3: Stable -->
+<tr class="hover:bg-surface-canvas/60 transition-colors">
+<td class="py-3 px-3 font-mono text-caption text-text-muted">11:35:50</td>
+<td class="py-3 px-3">
+<div class="flex items-center gap-2">
+<span class="w-5 h-5 rounded-full bg-primary text-on-primary font-caption text-[10px] flex items-center justify-center font-bold">AI</span>
+<span class="font-label-md text-label-md text-text-primary">Air India AI-805</span>
+</div>
+</td>
+<td class="py-3 px-3 font-semibold text-text-primary">BOM → BLR</td>
+<td class="py-3 px-3 text-text-muted">₹6,450</td>
+<td class="py-3 px-3 text-right font-semibold text-text-primary">₹6,450</td>
+<td class="py-3 px-3 text-right">
+<span class="font-label-sm text-label-sm text-text-muted">0.0%</span>
+</td>
+<td class="py-3 px-3 text-center">
+<span class="px-2 py-0.5 rounded-full bg-surface-subtle text-text-secondary font-caption text-caption font-bold uppercase">Stable</span>
+</td>
+</tr>
+<!-- Item 4: Critical Capacity Surge -->
+<tr class="hover:bg-surface-canvas/60 transition-colors">
+<td class="py-3 px-3 font-mono text-caption text-text-muted">11:31:14</td>
+<td class="py-3 px-3">
+<div class="flex items-center gap-2">
+<span class="w-5 h-5 rounded-full bg-metric-warning text-on-primary font-caption text-[10px] flex items-center justify-center font-bold">QP</span>
+<span class="font-label-md text-label-md text-text-primary">Akasa Air QP-1384</span>
+</div>
+</td>
+<td class="py-3 px-3 font-semibold text-text-primary">BLR → GOI</td>
+<td class="py-3 px-3 text-text-muted">₹5,100</td>
+<td class="py-3 px-3 text-right font-semibold text-text-primary">₹6,850</td>
+<td class="py-3 px-3 text-right">
+<span class="font-label-sm text-label-sm text-metric-negative font-semibold">▲ +34.3%</span>
+</td>
+<td class="py-3 px-3 text-center">
+<span class="px-2 py-0.5 rounded-full bg-badge-negative-bg text-metric-negative font-caption text-caption font-bold uppercase">Spike</span>
+</td>
+</tr>
+<!-- Item 5: High Volume Carrier -->
+<tr class="hover:bg-surface-canvas/60 transition-colors">
+<td class="py-3 px-3 font-mono text-caption text-text-muted">11:28:02</td>
+<td class="py-3 px-3">
+<div class="flex items-center gap-2">
+<span class="w-5 h-5 rounded-full bg-primary-container text-on-primary font-caption text-[10px] flex items-center justify-center font-bold">6E</span>
+<span class="font-label-md text-label-md text-text-primary">IndiGo 6E-5334</span>
+</div>
+</td>
+<td class="py-3 px-3 font-semibold text-text-primary">DEL → CCU</td>
+<td class="py-3 px-3 text-text-muted">₹8,820</td>
+<td class="py-3 px-3 text-right font-semibold text-text-primary">₹9,450</td>
+<td class="py-3 px-3 text-right">
+<span class="font-label-sm text-label-sm text-metric-negative font-semibold">▲ +7.1%</span>
+</td>
+<td class="py-3 px-3 text-center">
+<span class="px-2 py-0.5 rounded-full bg-badge-warning-bg text-metric-warning font-caption text-caption font-bold uppercase">Upward</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Section 3: Corridor Fare Pressure Heatmap Grid -->
+<div class="bg-surface-card p-space-xl rounded-xl shadow-sm">
+<div class="flex items-center justify-between pb-space-md">
+<div>
+<h2 class="font-headline-md text-headline-md text-text-primary">Corridor Fare Pressure Heatmap Matrix</h2>
+<p class="font-body-sm text-body-sm text-text-muted">Origin-Destination tension matrix calculated against 30-day baseline moving averages</p>
+</div>
+<div class="flex items-center gap-2 text-caption font-caption text-text-secondary">
+<span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-surface-subtle"></span> -10% Normal</span>
+<span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-amber-100"></span> +5% Warm</span>
+<span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-red-200"></span> +15% Elevated</span>
+<span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-red-500"></span> +30% Acute</span>
+</div>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2">
+<!-- DEL Pairs -->
+<div class="p-3 rounded-lg bg-red-100 flex flex-col justify-between hover:scale-[1.02] transition-transform">
+<div class="flex justify-between items-center">
+<span class="font-headline-md text-label-md text-text-primary font-bold">DEL-BOM</span>
+<span class="material-symbols-outlined text-[14px] text-metric-negative">local_fire_department</span>
+</div>
+<div class="mt-2">
+<div class="font-data-metric-md text-data-metric-md text-metric-negative">+18.4%</div>
+<div class="font-caption text-caption text-text-secondary">₹11,800 avg</div>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-red-50 flex flex-col justify-between hover:scale-[1.02] transition-transform">
+<div class="flex justify-between items-center">
+<span class="font-headline-md text-label-md text-text-primary font-bold">DEL-CCU</span>
+<span class="w-1.5 h-1.5 rounded-full bg-metric-warning"></span>
+</div>
+<div class="mt-2">
+<div class="font-data-metric-md text-data-metric-md text-metric-warning">+9.7%</div>
+<div class="font-caption text-caption text-text-secondary">₹9,450 avg</div>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-subtle flex flex-col justify-between hover:scale-[1.02] transition-transform">
+<div class="flex justify-between items-center">
+<span class="font-headline-md text-label-md text-text-primary font-bold">DEL-BLR</span>
+<span class="w-1.5 h-1.5 rounded-full bg-metric-positive"></span>
+</div>
+<div class="mt-2">
+<div class="font-data-metric-md text-data-metric-md text-text-primary">-1.4%</div>
+<div class="font-caption text-caption text-text-secondary">₹7,200 avg</div>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-red-200 flex flex-col justify-between hover:scale-[1.02] transition-transform">
+<div class="flex justify-between items-center">
+<span class="font-headline-md text-label-md text-text-primary font-bold">BOM-GOI</span>
+<span class="material-symbols-outlined text-[14px] text-metric-negative">priority_high</span>
+</div>
+<div class="mt-2">
+<div class="font-data-metric-md text-data-metric-md text-metric-negative">+24.1%</div>
+<div class="font-caption text-caption text-text-secondary">₹6,850 avg</div>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-subtle flex flex-col justify-between hover:scale-[1.02] transition-transform">
+<div class="flex justify-between items-center">
+<span class="font-headline-md text-label-md text-text-primary font-bold">BOM-MAA</span>
+<span class="w-1.5 h-1.5 rounded-full bg-metric-positive"></span>
+</div>
+<div class="mt-2">
+<div class="font-data-metric-md text-data-metric-md text-text-primary">+2.1%</div>
+<div class="font-caption text-caption text-text-secondary">₹5,400 avg</div>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-red-100 flex flex-col justify-between hover:scale-[1.02] transition-transform">
+<div class="flex justify-between items-center">
+<span class="font-headline-md text-label-md text-text-primary font-bold">HYD-DEL</span>
+<span class="material-symbols-outlined text-[14px] text-metric-warning">trending_up</span>
+</div>
+<div class="mt-2">
+<div class="font-data-metric-md text-data-metric-md text-metric-negative">+14.2%</div>
+<div class="font-caption text-caption text-text-secondary">₹7,650 avg</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: 4 Columns -->
+<div class="lg:col-span-4 flex flex-col gap-space-lg">
+<!-- Section 4: Recent Anomaly Alerts -->
+<div class="bg-surface-card p-space-xl rounded-xl shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-metric-warning text-[20px]">warning</span>
+<h2 class="font-headline-md text-headline-md text-text-primary">Anomaly Alerts</h2>
+</div>
+<button class="font-label-sm text-label-sm text-secondary hover:underline" type="button">Clear (3)</button>
+</div>
+<div class="flex flex-col gap-space-sm">
+<!-- Alert 1: Critical -->
+<div class="p-space-md rounded-lg bg-badge-negative-bg/50 flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-metric-negative text-on-error uppercase">CRITICAL</span>
+<span class="font-caption text-caption text-text-muted">14m ago</span>
+</div>
+<h3 class="font-label-md text-label-md text-text-primary font-semibold">T+1 Rapid Surge detected on DEL → BOM</h3>
+<p class="font-body-sm text-body-sm text-text-secondary">
+              Sudden fare escalation &gt;32% across 3 carriers within 90 minutes. 8 out of 22 afternoon departures sold out.
+            </p>
+<div class="flex items-center justify-between pt-1 font-caption text-caption">
+<span class="text-text-muted">Sector: Golden Trunk</span>
+<a class="text-secondary font-semibold hover:underline flex items-center gap-0.5" href="#">Inspect Run <span class="material-symbols-outlined text-[12px]">chevron_right</span></a>
+</div>
+</div>
+<!-- Alert 2: Warning -->
+<div class="p-space-md rounded-lg bg-badge-warning-bg/50 flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-metric-warning text-on-primary uppercase">WARNING</span>
+<span class="font-caption text-caption text-text-muted">38m ago</span>
+</div>
+<h3 class="font-label-md text-label-md text-text-primary font-semibold">Corridor Clustering: Goa Weekend Demand</h3>
+<p class="font-body-sm text-body-sm text-text-secondary">
+              BLR→GOI and BOM→GOI both exhibiting sustained pricing above 95th historical percentile.
+            </p>
+<div class="flex items-center justify-between pt-1 font-caption text-caption">
+<span class="text-text-muted">Sector: Leisure Trunk</span>
+<a class="text-secondary font-semibold hover:underline flex items-center gap-0.5" href="#">View Heatmap <span class="material-symbols-outlined text-[12px]">chevron_right</span></a>
+</div>
+</div>
+<!-- Alert 3: Informational -->
+<div class="p-space-md rounded-lg bg-surface-subtle flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-primary-container text-on-primary uppercase">INFO</span>
+<span class="font-caption text-caption text-text-muted">1h ago</span>
+</div>
+<h3 class="font-label-md text-label-md text-text-primary font-semibold">SpiceJet Flash Fare Revision (T+15 to T+30)</h3>
+<p class="font-body-sm text-body-sm text-text-secondary">
+              Downward recalibration (-12.4%) observed across 18 regional sectors including IXR, PAT, and BBI.
+            </p>
+<div class="flex items-center justify-between pt-1 font-caption text-caption">
+<span class="text-text-muted">Sector: Non-Metro</span>
+<a class="text-secondary font-semibold hover:underline flex items-center gap-0.5" href="#">Details <span class="material-symbols-outlined text-[12px]">chevron_right</span></a>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 5: Source Ingestion Telemetry Panel -->
+<div class="bg-surface-card p-space-xl rounded-xl shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-text-primary text-[20px]">hub</span>
+<h2 class="font-headline-md text-headline-md text-text-primary">Source Status</h2>
+</div>
+<span class="font-label-sm text-label-sm text-metric-positive font-semibold">All Ingestion Channels Nominal</span>
+</div>
+<div class="divide-y divide-surface-subtle">
+<!-- Source 1 -->
+<div class="py-2.5 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="w-2 h-2 rounded-full bg-metric-positive"></span>
+<div>
+<div class="font-label-md text-label-md text-text-primary font-semibold">IndiGo Direct API</div>
+<div class="font-caption text-caption text-text-muted">Full GDS REST feed</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-mono text-label-sm text-label-sm font-semibold text-text-primary">412 ms</div>
+<div class="font-caption text-caption text-metric-positive">99.9% health</div>
+</div>
+</div>
+<!-- Source 2 -->
+<div class="py-2.5 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="w-2 h-2 rounded-full bg-metric-positive"></span>
+<div>
+<div class="font-label-md text-label-md text-text-primary font-semibold">Air India NDC</div>
+<div class="font-caption text-caption text-text-muted">IATA NDC v21.3</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-mono text-label-sm text-label-sm font-semibold text-text-primary">520 ms</div>
+<div class="font-caption text-caption text-metric-positive">100% health</div>
+</div>
+</div>
+<!-- Source 3 -->
+<div class="py-2.5 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="w-2 h-2 rounded-full bg-metric-positive"></span>
+<div>
+<div class="font-label-md text-label-md text-text-primary font-semibold">SpiceJet Scraper</div>
+<div class="font-caption text-caption text-text-muted">Distributed headless cluster</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-mono text-label-sm text-label-sm font-semibold text-text-primary">680 ms</div>
+<div class="font-caption text-caption text-metric-positive">98.4% health</div>
+</div>
+</div>
+<!-- Source 4 -->
+<div class="py-2.5 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="w-2 h-2 rounded-full bg-metric-positive"></span>
+<div>
+<div class="font-label-md text-label-md text-text-primary font-semibold">Akasa Direct Webhook</div>
+<div class="font-caption text-caption text-text-muted">Pricing microservice stream</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-mono text-label-sm text-label-sm font-semibold text-text-primary">390 ms</div>
+<div class="font-caption text-caption text-metric-positive">99.8% health</div>
+</div>
+</div>
+<!-- Source 5 -->
+<div class="py-2.5 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="w-2 h-2 rounded-full bg-metric-positive"></span>
+<div>
+<div class="font-label-md text-label-md text-text-primary font-semibold">MakeMyTrip Meta</div>
+<div class="font-caption text-caption text-text-muted">Aggregator spot price audit</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-mono text-label-sm text-label-sm font-semibold text-text-primary">710 ms</div>
+<div class="font-caption text-caption text-metric-positive">97.1% health</div>
+</div>
+</div>
+<!-- Source 6 -->
+<div class="py-2.5 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="w-2 h-2 rounded-full bg-metric-warning"></span>
+<div>
+<div class="font-label-md text-label-md text-text-primary font-semibold">Cleartrip Meta</div>
+<div class="font-caption text-caption text-text-muted">Aggregator cross-check</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-mono text-label-sm text-label-sm font-semibold text-text-primary">840 ms</div>
+<div class="font-caption text-caption text-metric-warning">Latent response</div>
+</div>
+</div>
+</div>
+<div class="pt-2">
+<button class="w-full py-2 rounded-lg bg-surface-subtle hover:bg-surface-container font-label-sm text-label-sm text-text-secondary hover:text-text-primary transition-colors flex items-center justify-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[16px]">refresh</span>
+            Trigger Manual Cluster Ping
+          </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Notice & Status Footer -->
+<div class="bg-surface-card p-space-lg rounded-xl shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">policy</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-text-primary font-semibold">Statutory Surveillance Baseline</p>
+<p class="font-caption text-caption text-text-muted">
+          Dynamic monitoring adheres to civil aviation airfare transparency guidelines. All observations timestamped in UTC+05:30.
+        </p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 rounded-lg bg-surface-subtle text-text-secondary hover:text-text-primary font-label-sm text-label-sm transition-colors" type="button">
+        Documentation
+      </button>
+<button class="px-3 py-1.5 rounded-lg bg-primary-container text-on-primary hover:bg-primary font-label-sm text-label-sm font-semibold transition-colors shadow-sm" type="button">
+        Alert Configuration
+      </button>
+</div>
+</div>
+</div>
+<script>
+  // Simple interactive tab toggle for Quick Filters
+  document.querySelectorAll('#corridor-filter .filter-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      document.querySelectorAll('#corridor-filter .filter-btn').forEach(btn => {
+        btn.classList.remove('bg-primary-container', 'text-on-primary', 'shadow-sm');
+        btn.classList.add('text-text-secondary');
+      });
+      button.classList.add('bg-primary-container', 'text-on-primary', 'shadow-sm');
+      button.classList.remove('text-text-secondary');
+    });
+  });
+</script></main></div></body></html>

@@ -20,6 +20,7 @@ from connectors.mmt_connector import MMTConnector
 from connectors.ixigo_connector import IxigoConnector
 from data_generator import ROUTES_CONFIG, AIRLINES_CONFIG
 from flight_registry import get_valid_flight_for_route
+from models.flight_envelope import FlightIdentityKey, FlightPricing, IngestionEnvelope
 
 # Configure Logging
 logging.basicConfig(
@@ -93,8 +94,32 @@ def generate_calibrated_live_observations(route_objs: List[Dict[str, Any]], wind
                 obs_id = f"LIVE-{src[:3].upper()}-{obs_counter}-{random.randint(100, 999)}"
                 obs_counter += 1
 
+                # Enforce Immutable Envelope validation
+                carrier_code = airline_code[:2].upper()
+                comp_key = ""
+                try:
+                    t_date = datetime.strptime(travel_date, "%Y-%m-%d").date()
+                    ident = FlightIdentityKey(
+                        carrier=carrier_code,
+                        flight_number=flight_no,
+                        origin=origin,
+                        destination=dest,
+                        scheduled_departure_date=t_date
+                    )
+                    comp_key = ident.composite_key
+                    pricing = FlightPricing(
+                        base_fare=float(calc_base),
+                        statutory_taxes=float(taxes),
+                        fuel_charge=float(fees),
+                        total_price=float(total_fare),
+                        currency="INR"
+                    )
+                except Exception as ex:
+                    logger.warning(f"Envelope validation warning for {flight_no}: {ex}")
+
                 observations.append({
                     "id": obs_id,
+                    "composite_key": comp_key,
                     "timestamp": timestamp_str,
                     "capture_date": today_str,
                     "travel_date": travel_date,

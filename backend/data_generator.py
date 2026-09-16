@@ -90,11 +90,29 @@ WINDOWS_CONFIG = [
 ]
 
 
-def generate_fixture_dataset(days_back: int = 30) -> Dict[str, Any]:
-    """Generates 30 days of realistic observations across all 52 routes."""
+def get_server_today(tz_name: str = "Asia/Kolkata"):
+    """Determines today's calendar date dynamically in the specified timezone (default: Asia/Kolkata)."""
+    try:
+        import zoneinfo
+        tz = zoneinfo.ZoneInfo(tz_name)
+    except Exception:
+        from datetime import timezone, timedelta
+        tz = timezone(timedelta(hours=5, minutes=30))
+    return datetime.now(tz).date()
+
+
+def generate_fixture_dataset(days_back: int = 30, end_date: Any = None) -> Dict[str, Any]:
+    """Generates 30 days of realistic observations dynamically ending on today's calendar date."""
     random.seed(42)  # Reproducible high-quality baseline
     
-    end_date = datetime(2026, 9, 4)
+    if end_date is None:
+        today = get_server_today()
+        end_date = datetime(today.year, today.month, today.day)
+    elif isinstance(end_date, str):
+        end_date = datetime.strptime(end_date, "%Y-%m-%d")
+    elif not isinstance(end_date, datetime):
+        end_date = datetime(end_date.year, end_date.month, end_date.day)
+    
     start_date = end_date - timedelta(days=days_back - 1)
     
     raw_observations: List[Dict[str, Any]] = []

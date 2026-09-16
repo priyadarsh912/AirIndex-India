@@ -1,176 +1,177 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { TrendingUp, TrendingDown, ArrowUpRight, Plane, Database, Layers, CheckCircle2, Award, Building2 } from 'lucide-react';
 
-export default function KPICards({ data, indexData, routes = [], healthData, rawObsCount, filters = { route: 'ALL', airline: 'ALL', window: 'ALL' } }) {
+export default function KPICards({ data, indexData, routes = [], healthData, rawObsCount, filters = { route: 'ALL', airline: 'ALL', window: 'ALL' }, onTriggerScrape }) {
   const activeData = indexData || data;
-  const currentIdx = activeData?.current_index ?? 128.6;
-  const change24h = activeData?.change_24h_pct ?? (activeData?.change_24h ?? 4.2);
-  const change7d = activeData?.change_7d_pct ?? (activeData?.change_7d ?? 1.7);
-  const avgFare = activeData?.overall_avg_fare_inr ?? (activeData?.overall_avg_fare ?? 5284);
-  const observations = activeData?.total_observations ?? (rawObsCount || 12486);
-  const usableObs = activeData?.usable_observations ?? (rawObsCount || 11840);
+  const isDataAvailable = activeData?.data_available !== false && activeData?.current_index !== null && activeData?.current_index !== undefined;
+  
+  const calendarDate = activeData?.calendar_date || new Date().toISOString().split('T')[0];
+  const timezone = activeData?.timezone || (typeof Intl !== 'undefined' ? Intl.DateTimeFormat().resolvedOptions().timeZone : 'Asia/Kolkata');
+  
+  const currentIdx = isDataAvailable ? activeData.current_index : null;
+  const change24h = isDataAvailable ? (activeData?.change_24h_pct ?? activeData?.change_24h ?? 0.0) : null;
+  const avgFare = isDataAvailable ? (activeData?.overall_avg_fare_inr ?? activeData?.overall_avg_fare ?? null) : null;
+  const usableObs = isDataAvailable ? (activeData?.usable_observations ?? activeData?.total_observations ?? rawObsCount ?? 0) : 0;
   const totalCorridorsCount = routes?.length || activeData?.tracked_routes_count || 52;
 
   const isFiltered = filters.route !== 'ALL' || filters.airline !== 'ALL' || filters.window !== 'ALL';
-  const filterLabel = [
-    filters.route !== 'ALL' ? filters.route : null,
-    filters.airline !== 'ALL' ? filters.airline : null,
-    filters.window !== 'ALL' ? filters.window : null,
-  ].filter(Boolean).join(' • ');
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-      {/* Card 1: Airfare Price Index */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, type: 'spring', stiffness: 200 }} whileHover={{ scale: 1.02 }}
-        className="gov-card p-5 rounded-2xl relative overflow-hidden group border border-blue-500/20"
-      >
-        <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-blue-500 to-cyan-400"></div>
-        <div className="absolute -right-6 -bottom-6 w-28 h-28 bg-blue-500/10 rounded-full blur-2xl group-hover:bg-blue-500/20 transition-all"></div>
-        
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
-            {isFiltered ? 'Scoped Airfare Index' : 'Airfare Price Index (APIx)'}
-          </span>
-          <span className="text-[11px] font-mono bg-blue-950 text-blue-300 px-2 py-0.5 rounded border border-blue-500/30 font-semibold">
-            {isFiltered ? filterLabel : 'Base-100'}
-          </span>
+    <div className="mb-6 space-y-3">
+      {/* Calendar Day Live Anchoring Banner */}
+      <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-2 bg-surface-card rounded-lg border border-border-hairline text-xs">
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-metric-positive animate-pulse"></span>
+          <span className="text-text-muted">Target Calendar Day:</span>
+          <strong className="text-text-primary font-mono bg-surface-subtle px-2 py-0.5 rounded border border-border-hairline">
+            {calendarDate}
+          </strong>
+          <span className="text-text-muted">({timezone})</span>
         </div>
+        <div className="flex items-center gap-2">
+          {isDataAvailable ? (
+            <span className="inline-flex items-center gap-1 text-metric-positive font-semibold">
+              <span className="material-symbols-outlined text-[14px]">verified</span>
+              Live Day Verified ({usableObs} observations)
+            </span>
+          ) : (
+            <div className="flex items-center gap-2">
+              <span className="inline-flex items-center gap-1 text-metric-warning font-semibold">
+                <span className="material-symbols-outlined text-[14px]">hourglass_empty</span>
+                No observations recorded for today yet
+              </span>
+              {onTriggerScrape && (
+                <button
+                  onClick={onTriggerScrape}
+                  className="px-2 py-1 bg-primary text-white text-[11px] font-semibold rounded hover:bg-primary-hover transition-colors"
+                >
+                  Trigger Scrape
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
 
-        <div className="flex items-baseline space-x-3 mb-2">
-          <span className="text-3xl sm:text-4xl font-black text-white tracking-tight font-mono">{Number(currentIdx).toFixed(1)}</span>
-          <div className={`flex items-center text-xs font-bold px-2.5 py-0.5 rounded-full ${
-            change24h >= 0 
-              ? 'bg-rose-500/15 text-rose-300 border border-rose-500/30' 
-              : 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30'
-          }`}>
-            {change24h >= 0 ? <TrendingUp className="w-3.5 h-3.5 mr-1" /> : <TrendingDown className="w-3.5 h-3.5 mr-1" />}
-            {change24h >= 0 ? `+${change24h}%` : `${change24h}%`} (24h)
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-gutter">
+        {/* KPI 1: Airfare Price Index */}
+        <div className="bg-surface-card rounded-xl p-4 sm:p-5 shadow-sm border border-border-hairline flex flex-col justify-between transition-all duration-200 hover:shadow-md">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-text-muted">
+              {isFiltered ? 'Scoped Airfare Index' : 'Airfare Price Index (APIx)'}
+            </span>
+            <div className="w-8 h-8 rounded-lg bg-surface-subtle text-secondary-container flex items-center justify-center">
+              <span className="material-symbols-outlined text-[18px]">trending_up</span>
+            </div>
           </div>
-        </div>
-
-        <div className="text-xs text-slate-400 flex justify-between items-center pt-2.5 border-t border-slate-800/80">
-          <span>7-Day Trend: <strong className="text-slate-200">+{change7d}%</strong></span>
-          <span className="text-slate-400">Target Range: 100-115</span>
-        </div>
-      </motion.div>
-
-      {/* Card 2: Current Avg Fare */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, type: 'spring', stiffness: 200 }} whileHover={{ scale: 1.02 }}
-        className="gov-card p-5 rounded-2xl relative overflow-hidden group border border-emerald-500/20"
-      >
-        <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-emerald-500 to-teal-400"></div>
-        <div className="absolute -right-6 -bottom-6 w-28 h-28 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all"></div>
-
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-            {isFiltered ? 'Scoped Average Fare' : 'Average National Fare'}
-          </span>
-          <span className="text-[11px] font-mono bg-emerald-950 text-emerald-300 px-2 py-0.5 rounded border border-emerald-500/30 font-semibold">
-            {filters.route !== 'ALL' ? filters.route : 'All Corridors'}
-          </span>
-        </div>
-
-        <div className="flex items-baseline space-x-3 mb-2">
-          <span className="text-3xl sm:text-4xl font-black text-white tracking-tight font-mono">
-            ₹{Math.round(Number(avgFare)).toLocaleString('en-IN')}
-          </span>
-          {(() => {
-            const baseRef = filters.route !== 'ALL'
-              ? (routes?.find(r => r.route === filters.route)?.base_fare || 4600)
-              : 4600;
-            const diffPct = parseFloat((((Number(avgFare) - baseRef) / baseRef) * 100).toFixed(1));
-            const isDiffPositive = diffPct >= 0;
-            return (
-              <div className={`flex items-center text-xs font-bold px-2.5 py-0.5 rounded-full ${
-                isDiffPositive 
-                  ? 'bg-rose-500/15 text-rose-300 border border-rose-500/30' 
-                  : 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30'
-              }`}>
-                {isDiffPositive ? <ArrowUpRight className="w-3.5 h-3.5 mr-1" /> : <TrendingDown className="w-3.5 h-3.5 mr-1" />}
-                {isDiffPositive ? `+${diffPct}%` : `${diffPct}%`} vs base
+          <div className="flex items-baseline gap-2.5 mt-3">
+            {isDataAvailable ? (
+              <>
+                <span className="font-headline text-2xl sm:text-3xl font-bold text-text-primary tracking-tight tabular-nums">
+                  {Number(currentIdx).toFixed(1)}
+                </span>
+                <span className={`inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-xs font-semibold ${
+                  change24h >= 0 
+                    ? 'bg-badge-positive-bg text-metric-positive' 
+                    : 'bg-badge-negative-bg text-metric-negative'
+                }`}>
+                  {change24h >= 0 ? `▲ ${change24h}%` : `▼ ${Math.abs(change24h)}%`}
+                </span>
+              </>
+            ) : (
+              <div className="flex items-center gap-2">
+                <span className="font-headline text-2xl font-bold text-text-muted tracking-tight">—</span>
+                <span className="px-2 py-0.5 rounded-full bg-amber-50 text-metric-warning text-xs font-medium">
+                  Awaiting Today's Scrape
+                </span>
               </div>
-            );
-          })()}
-        </div>
-
-        <div className="text-xs text-slate-400 flex justify-between items-center pt-2.5 border-t border-slate-800/80">
-          <span className="truncate">{isFiltered ? `Filter: ${filterLabel}` : `Weighted ${totalCorridorsCount} Corridors`}</span>
-          <span className="text-emerald-400 font-mono text-[11px] font-semibold">Economy</span>
-        </div>
-      </motion.div>
-
-      {/* Card 3: 52 Corridors / Data Density */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, type: 'spring', stiffness: 200 }} whileHover={{ scale: 1.02 }}
-        className="gov-card p-5 rounded-2xl relative overflow-hidden group border border-indigo-500/20"
-      >
-        <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-purple-500 to-indigo-400"></div>
-        <div className="absolute -right-6 -bottom-6 w-28 h-28 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-all"></div>
-
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
-            Fare Observations
-          </span>
-          <span className="text-[11px] font-mono bg-purple-950 text-purple-300 px-2 py-0.5 rounded border border-purple-500/30 font-semibold">
-            Automated Audit
-          </span>
-        </div>
-
-        <div className="flex items-baseline space-x-3 mb-2">
-          <span className="text-3xl sm:text-4xl font-black text-white tracking-tight font-mono">
-            {Number(usableObs || observations).toLocaleString('en-IN')}
-          </span>
-          <div className="flex items-center text-xs font-bold px-2.5 py-0.5 rounded-full bg-purple-500/15 text-purple-300 border border-purple-500/30">
-            <CheckCircle2 className="w-3.5 h-3.5 mr-1 text-purple-400" />
-            Clean Records
+            )}
+          </div>
+          <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-surface-subtle text-xs">
+            <span className="text-text-muted">Strict Date Query</span>
+            <span className="text-text-secondary font-medium font-mono">{calendarDate}</span>
           </div>
         </div>
 
-        <div className="text-xs text-slate-400 flex justify-between items-center pt-2.5 border-t border-slate-800/80">
-          <span>{isFiltered ? 'Active sample pool' : 'Harvested live daily'}</span>
-          <span className="text-purple-300 font-mono text-[11px] font-semibold">Confidence 98.4%</span>
-        </div>
-      </motion.div>
-
-      {/* Card 4: Tracked Basket Coverage */}
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, type: 'spring', stiffness: 200 }} whileHover={{ scale: 1.02 }}
-        className="gov-card p-5 rounded-2xl relative overflow-hidden group border border-amber-500/20"
-      >
-        <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-amber-500 to-orange-400"></div>
-        <div className="absolute -right-6 -bottom-6 w-28 h-28 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all"></div>
-
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-            Statistical Basket
-          </span>
-          <span className="text-[11px] font-mono bg-amber-950 text-amber-300 px-2 py-0.5 rounded border border-amber-500/30 font-semibold">
-            DGCA Coverage
-          </span>
-        </div>
-
-        <div className="flex items-baseline space-x-3 mb-2">
-          <span className="text-3xl sm:text-4xl font-black text-white tracking-tight font-mono">
-            {filters.route !== 'ALL' ? '1 Route' : `${totalCorridorsCount} Routes`}
-          </span>
-          <div className="flex items-center text-xs font-bold px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30">
-            <Plane className="w-3.5 h-3.5 mr-1 text-amber-400" />
-            {filters.airline !== 'ALL' ? '1 Carrier' : '4 Airlines'}
+        {/* KPI 2: Domestic Average Fare */}
+        <div className="bg-surface-card rounded-xl p-4 sm:p-5 shadow-sm border border-border-hairline flex flex-col justify-between transition-all duration-200 hover:shadow-md">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-text-muted">
+              {isFiltered ? 'Scoped Avg Fare' : 'Average Fare (Domestic)'}
+            </span>
+            <div className="w-8 h-8 rounded-lg bg-amber-50 text-metric-warning flex items-center justify-center">
+              <span className="material-symbols-outlined text-[18px]">sell</span>
+            </div>
+          </div>
+          <div className="flex items-baseline gap-2.5 mt-3">
+            {isDataAvailable && avgFare !== null ? (
+              <>
+                <span className="font-headline text-2xl sm:text-3xl font-bold text-text-primary tracking-tight tabular-nums">
+                  ₹{Math.round(Number(avgFare)).toLocaleString('en-IN')}
+                </span>
+                <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-badge-positive-bg text-metric-positive text-xs font-semibold">
+                  Today's Clean Mean
+                </span>
+              </>
+            ) : (
+              <div className="flex items-center gap-2">
+                <span className="font-headline text-2xl font-bold text-text-muted tracking-tight">—</span>
+                <span className="px-2 py-0.5 rounded-full bg-amber-50 text-metric-warning text-xs font-medium">
+                  Pending Data
+                </span>
+              </div>
+            )}
+          </div>
+          <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-surface-subtle text-xs">
+            <span className="text-text-muted">Fare Computation</span>
+            <span className="text-text-secondary font-medium">Current Calendar Day</span>
           </div>
         </div>
 
-        <div className="text-xs text-slate-400 flex justify-between items-center pt-2.5 border-t border-slate-800/80">
-          <span className="truncate">{filters.airline !== 'ALL' ? filters.airline : 'IndiGo, AI, Express, Akasa'}</span>
-          <span className="text-amber-400 font-mono text-[11px] font-semibold">{filters.window !== 'ALL' ? filters.window : 'T+1 to T+45'}</span>
+        {/* KPI 3: Routes Monitored */}
+        <div className="bg-surface-card rounded-xl p-4 sm:p-5 shadow-sm border border-border-hairline flex flex-col justify-between transition-all duration-200 hover:shadow-md">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-text-muted">Routes Monitored</span>
+            <div className="w-8 h-8 rounded-lg bg-cyan-50 text-chart-accent-cyan flex items-center justify-center">
+              <span className="material-symbols-outlined text-[18px]">hub</span>
+            </div>
+          </div>
+          <div className="flex items-baseline gap-2.5 mt-3">
+            <span className="font-headline text-2xl sm:text-3xl font-bold text-text-primary tracking-tight tabular-nums">
+              {totalCorridorsCount}
+            </span>
+            <span className="inline-flex items-center gap-1 text-xs font-semibold text-metric-positive">
+              ▲ 8 <span className="text-text-muted font-normal">active trunk</span>
+            </span>
+          </div>
+          <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-surface-subtle text-xs">
+            <span className="text-text-muted">5 Clusters</span>
+            <span className="text-metric-positive font-semibold">100% operational</span>
+          </div>
         </div>
-      </motion.div>
+
+        {/* KPI 4: Data Coverage */}
+        <div className="bg-surface-card rounded-xl p-4 sm:p-5 shadow-sm border border-border-hairline flex flex-col justify-between transition-all duration-200 hover:shadow-md">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-text-muted">Today's Clean Observations</span>
+            <div className="w-8 h-8 rounded-lg bg-emerald-50 text-metric-positive flex items-center justify-center">
+              <span className="material-symbols-outlined text-[18px]">database</span>
+            </div>
+          </div>
+          <div className="flex items-baseline gap-2.5 mt-3">
+            <span className="font-headline text-2xl sm:text-3xl font-bold text-text-primary tracking-tight tabular-nums">
+              {usableObs.toLocaleString('en-IN')}
+            </span>
+            <span className="flex items-center gap-1 text-xs text-metric-positive font-medium">
+              <span className="w-2 h-2 rounded-full bg-metric-positive animate-pulse"></span>
+              {isDataAvailable ? 'Synced Today' : 'Awaiting Ingestion'}
+            </span>
+          </div>
+          <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-surface-subtle text-xs">
+            <span className="text-text-muted">{calendarDate}</span>
+            <span className="text-text-secondary font-medium">Zero Older Dates</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

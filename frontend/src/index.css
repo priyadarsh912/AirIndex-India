@@ -3,80 +3,72 @@
 @tailwind utilities;
 
 @layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #F3F4F1;
+    color: #0F172A;
+    font-family: 'Inter', sans-serif;
+  }
+
   body {
-    @apply bg-[#040814] text-slate-100 font-sans antialiased;
-    background-image: 
-      radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.15) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, rgba(245, 158, 11, 0.08) 0px, transparent 40%),
-      radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.06) 0px, transparent 50%);
-    background-attachment: fixed;
+    overscroll-behavior: none;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Force tabular numerals for all quantitative figures & metrics */
+  .tabular-nums, .font-mono, [data-tabular] {
+    font-variant-numeric: tabular-nums;
   }
 }
 
-/* Custom Government Scrollbars */
+/* Custom Scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #040814;
+  background: #E7E9E3;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #C4C8BE;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #A3A89C;
 }
 
-/* Authentic Government Glassmorphism */
-.gov-glass {
-  background: rgba(10, 18, 38, 0.72);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+/* AirScope Card & Glass Elevation System */
+.airscope-card {
+  background: #FAF9F5;
+  border: 1px solid #D9DCD4;
+  border-radius: 0.75rem;
+  box-shadow: 0px 1px 3px rgba(15, 23, 42, 0.03), 0px 4px 12px rgba(15, 23, 42, 0.02);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.gov-card {
-  background: linear-gradient(135deg, rgba(13, 24, 51, 0.75) 0%, rgba(8, 15, 33, 0.85) 100%);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(59, 130, 246, 0.18);
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+.airscope-card-hover:hover {
+  border-color: #B8BDB0;
+  box-shadow: 0px 4px 8px rgba(18, 59, 122, 0.05), 0px 8px 24px rgba(18, 59, 122, 0.03);
 }
 
-.gov-card:hover {
-  border-color: rgba(96, 165, 250, 0.4);
-  box-shadow: 0 10px 30px -4px rgba(37, 99, 235, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
-  transform: translateY(-2px);
+/* Compatibility classes for legacy .gov-card and .glass-card */
+.gov-card, .glass-card {
+  background: #FAF9F5;
+  border: 1px solid #D9DCD4;
+  border-radius: 0.75rem;
+  box-shadow: 0px 1px 3px rgba(15, 23, 42, 0.03), 0px 4px 12px rgba(15, 23, 42, 0.02);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Backward compatibility for legacy .glass-card */
-.glass-card {
-  background: linear-gradient(135deg, rgba(13, 24, 51, 0.75) 0%, rgba(8, 15, 33, 0.85) 100%);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(59, 130, 246, 0.18);
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.glass-card-hover:hover {
-  border-color: rgba(96, 165, 250, 0.45);
-  box-shadow: 0 10px 30px -4px rgba(37, 99, 235, 0.22);
-  transform: translateY(-2px);
-}
-
-/* Tiranga Indian Tricolor Ribbon */
+/* Indian Tricolor Accent Strip */
 .tiranga-ribbon {
   background: linear-gradient(
     90deg,
-    #ff9933 0%,
-    #ff9933 33.33%,
-    #ffffff 33.33%,
-    #ffffff 66.66%,
+    #FF9933 0%,
+    #FF9933 33.33%,
+    #FFFFFF 33.33%,
+    #FFFFFF 66.66%,
     #138808 66.66%,
     #138808 100%
   );
@@ -84,21 +76,25 @@
   width: 100%;
 }
 
-/* Subtle Animated Shimmer & Pulse Glow */
-@keyframes pulseSlow {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(1.05); }
-}
-
-.pulse-slow {
-  animation: pulseSlow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
+  from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+@keyframes flightFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(-0.6deg);
+  }
 }
+
+.animate-fade-in {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-flight-float {
+  animation: flightFloat 4.5s ease-in-out infinite;
+}
+

@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import { Search, Download, Database, CheckCircle, AlertTriangle, ShieldCheck, Filter } from 'lucide-react';
 
 export default function DataExplorerView({ observations, routes = [] }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRoute, setSelectedRoute] = useState('ALL');
   const [selectedAirline, setSelectedAirline] = useState('ALL');
   const [selectedWindow, setSelectedWindow] = useState('ALL');
-  const [minQuality, setMinQuality] = useState(0);
 
-  // Extract unique route list from routes prop or observations
   const uniqueRoutesList = (routes && routes.length > 0)
     ? routes.map(r => r.route)
     : Array.from(new Set((observations || []).map(o => o.route))).sort();
@@ -22,21 +19,17 @@ export default function DataExplorerView({ observations, routes = [] }) {
     booking_window: ['T+1', 'T+7', 'T+15', 'T+30', 'T+45'][i % 5],
     base_fare: 4200 + i * 150,
     taxes: 850 + i * 30,
-    fees: 100,
     total_fare: 5150 + i * 180,
     quality_score: 95 - (i % 3) * 5,
-    quality_flag: 'EXCELLENT',
     source: 'Direct Airline API',
-    status: 'AVAILABLE'
   }));
 
   const filtered = sampleObs.filter((o) => {
-    const matchesSearch = !searchTerm || o.flight_number.toLowerCase().includes(searchTerm.toLowerCase()) || o.route.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = !searchTerm || (o.flight_number || '').toLowerCase().includes(searchTerm.toLowerCase()) || (o.route || '').toLowerCase().includes(searchTerm.toLowerCase());
     const matchesRoute = selectedRoute === 'ALL' || o.route === selectedRoute;
     const matchesAirline = selectedAirline === 'ALL' || o.airline === selectedAirline;
     const matchesWindow = selectedWindow === 'ALL' || o.booking_window === selectedWindow;
-    const matchesQuality = (o.quality_score || 100) >= minQuality;
-    return matchesSearch && matchesRoute && matchesAirline && matchesWindow && matchesQuality;
+    return matchesSearch && matchesRoute && matchesAirline && matchesWindow;
   });
 
   const exportCSV = () => {
@@ -54,25 +47,26 @@ export default function DataExplorerView({ observations, routes = [] }) {
 
   return (
     <div className="space-y-6">
-      {/* Search & Export Toolbar */}
-      <div className="gov-card p-5 rounded-2xl flex flex-wrap items-center justify-between gap-4 border border-blue-500/20 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-blue-500 to-indigo-500"></div>
+      {/* Search & Filter Bar */}
+      <div className="bg-surface-card p-5 rounded-xl border border-border-hairline shadow-sm flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-3 flex-1">
           <div className="relative flex-1 min-w-[200px]">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-[18px]">
+              search
+            </span>
             <input
               type="text"
-              placeholder="Search flight, corridor, airline..."
+              placeholder="Search flight number, corridor, or carrier..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-navy-950 border border-navy-700 text-slate-200 text-xs rounded-xl pl-9 pr-4 py-2 focus:outline-none focus:border-blue-500 font-medium"
+              className="w-full bg-surface-canvas border border-border-hairline text-text-primary text-xs rounded-lg pl-9 pr-3 py-2 focus:outline-none focus:border-border-focus font-medium"
             />
           </div>
 
           <select
             value={selectedRoute}
             onChange={(e) => setSelectedRoute(e.target.value)}
-            className="bg-navy-950 border border-navy-700 text-slate-200 text-xs rounded-xl px-3 py-2 font-medium max-w-[220px] truncate"
+            className="bg-surface-canvas border border-border-hairline text-text-primary text-xs rounded-lg px-3 py-2 font-medium max-w-[200px] truncate"
           >
             <option value="ALL">All Corridors ({uniqueRoutesList.length})</option>
             {uniqueRoutesList.map((r) => (
@@ -80,67 +74,88 @@ export default function DataExplorerView({ observations, routes = [] }) {
             ))}
           </select>
 
-          <select value={selectedAirline} onChange={(e) => setSelectedAirline(e.target.value)} className="bg-navy-950 border border-navy-700 text-slate-200 text-xs rounded-xl px-3 py-2 font-medium">
+          <select value={selectedAirline} onChange={(e) => setSelectedAirline(e.target.value)} className="bg-surface-canvas border border-border-hairline text-text-primary text-xs rounded-lg px-3 py-2 font-medium">
             <option value="ALL">All Airlines</option>
             <option value="IndiGo">IndiGo</option>
             <option value="Air India">Air India</option>
             <option value="Air India Express">Air India Express</option>
             <option value="Akasa Air">Akasa Air</option>
           </select>
+
+          <select value={selectedWindow} onChange={(e) => setSelectedWindow(e.target.value)} className="bg-surface-canvas border border-border-hairline text-text-primary text-xs rounded-lg px-3 py-2 font-medium">
+            <option value="ALL">All Windows</option>
+            <option value="T+1">T+1</option>
+            <option value="T+7">T+7</option>
+            <option value="T+15">T+15</option>
+            <option value="T+30">T+30</option>
+            <option value="T+45">T+45</option>
+          </select>
         </div>
 
         <button
           onClick={exportCSV}
-          className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs rounded-xl shadow-lg transition-all flex items-center space-x-2"
+          className="px-4 py-2 bg-primary-container hover:bg-primary text-on-primary font-semibold text-xs rounded-lg transition-all flex items-center gap-2 shadow-sm"
         >
-          <Download className="w-4 h-4" />
+          <span className="material-symbols-outlined text-[16px]">download</span>
           <span>Export CSV</span>
         </button>
       </div>
 
-      {/* Raw Data Table */}
-      <div className="glass-card p-6 rounded-2xl overflow-hidden">
-        <div className="flex justify-between items-center mb-4 pb-3 border-b border-navy-800">
-          <h3 className="text-base font-bold text-white flex items-center space-x-2">
-            <Database className="w-4 h-4 text-purple-400" />
-            <span>Standardized Observation Registry ({filtered.length} records)</span>
+      {/* Observations Table Card */}
+      <div className="bg-surface-card rounded-xl border border-border-hairline p-5 shadow-sm space-y-4">
+        <div className="flex justify-between items-center pb-3 border-b border-border-hairline">
+          <h3 className="font-headline text-base font-bold text-text-primary flex items-center gap-2">
+            <span className="material-symbols-outlined text-primary text-[20px]">database</span>
+            <span>Raw Observations Ledger ({filtered.length} records)</span>
           </h3>
-          <span className="text-xs font-mono text-slate-400">Total: {sampleObs.length}</span>
+          <span className="text-xs text-text-muted font-medium">
+            Real-time feed from live scrapers & API integrations
+          </span>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse text-xs font-mono">
+          <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="bg-navy-950 border-b border-navy-800 text-slate-400">
-                <th className="p-3">ID</th>
-                <th className="p-3">Corridor</th>
-                <th className="p-3">Airline</th>
-                <th className="p-3">Flight</th>
-                <th className="p-3">Window</th>
-                <th className="p-3">Base Fare</th>
-                <th className="p-3">Taxes</th>
-                <th className="p-3 font-bold text-white">Total Fare</th>
-                <th className="p-3">QA Score</th>
-                <th className="p-3">Source</th>
+              <tr className="bg-surface-subtle text-text-muted uppercase text-[10px] font-semibold border-b border-border-hairline">
+                <th className="py-2.5 px-3">Record ID</th>
+                <th className="py-2.5 px-3">Corridor</th>
+                <th className="py-2.5 px-3">Carrier</th>
+                <th className="py-2.5 px-3">Flight No</th>
+                <th className="py-2.5 px-3">Window</th>
+                <th className="py-2.5 px-3 text-right">Base Fare</th>
+                <th className="py-2.5 px-3 text-right">Taxes</th>
+                <th className="py-2.5 px-3 text-right">Total Fare</th>
+                <th className="py-2.5 px-3 text-center">Quality Score</th>
+                <th className="py-2.5 px-3">Ingestion Source</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-navy-800/60">
-              {filtered.map((row) => (
-                <tr key={row.id} className="hover:bg-navy-850/50">
-                  <td className="p-3 text-slate-400">{row.id}</td>
-                  <td className="p-3 font-bold text-white">{row.route}</td>
-                  <td className="p-3 text-slate-300 font-sans">{row.airline}</td>
-                  <td className="p-3 text-blue-400">{row.flight_number}</td>
-                  <td className="p-3 text-amber-400">{row.booking_window}</td>
-                  <td className="p-3 text-slate-400">₹{row.base_fare ? row.base_fare.toLocaleString('en-IN') : 'N/A'}</td>
-                  <td className="p-3 text-slate-400">₹{row.taxes ? row.taxes.toLocaleString('en-IN') : 'N/A'}</td>
-                  <td className="p-3 font-bold text-white">₹{row.total_fare.toLocaleString('en-IN')}</td>
-                  <td className="p-3">
-                    <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold">
-                      {row.quality_score}/100
+            <tbody className="divide-y divide-border-hairline">
+              {filtered.map((o) => (
+                <tr key={o.id || o.flight_number} className="hover:bg-surface-subtle transition-colors">
+                  <td className="py-3 px-3 font-mono text-[11px] text-text-muted">{o.id || 'OBS-1001'}</td>
+                  <td className="py-3 px-3 font-headline font-bold text-primary">{o.route}</td>
+                  <td className="py-3 px-3 font-medium text-text-primary">{o.airline}</td>
+                  <td className="py-3 px-3 font-mono text-text-secondary">{o.flight_number}</td>
+                  <td className="py-3 px-3">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-surface-subtle text-primary border border-border-hairline">
+                      {o.booking_window}
                     </span>
                   </td>
-                  <td className="p-3 text-slate-500">{row.source}</td>
+                  <td className="py-3 px-3 text-right text-text-muted tabular-nums">
+                    ₹{Math.round(o.base_fare || 4000).toLocaleString('en-IN')}
+                  </td>
+                  <td className="py-3 px-3 text-right text-text-muted tabular-nums">
+                    ₹{Math.round(o.taxes || 800).toLocaleString('en-IN')}
+                  </td>
+                  <td className="py-3 px-3 text-right font-bold text-text-primary tabular-nums">
+                    ₹{Math.round(o.total_fare || 4800).toLocaleString('en-IN')}
+                  </td>
+                  <td className="py-3 px-3 text-center">
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-badge-positive-bg text-metric-positive">
+                      {o.quality_score || 95}/100
+                    </span>
+                  </td>
+                  <td className="py-3 px-3 text-text-secondary text-[11px]">{o.source || 'Direct API'}</td>
                 </tr>
               ))}
             </tbody>

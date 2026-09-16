@@ -33,9 +33,9 @@ signal.signal(signal.SIGTERM, cleanup)
 
 def main():
     print("=" * 65)
-    print("🏛️  AirIndex India — Launching Integrated Local Development Stack")
-    print("    • Backend Service:  http://localhost:8000")
-    print("    • Frontend Portal:  http://localhost:3000")
+    print("AirIndex India -- Launching Integrated Local Development Stack")
+    print("    * Backend Service:  http://localhost:8000")
+    print("    * Frontend Portal:  http://localhost:3000")
     print("=" * 65)
 
     # 1. Start FastAPI Backend
@@ -61,7 +61,7 @@ def main():
     processes.append(frontend_proc)
 
     print("\n" + "=" * 65)
-    print("✅ Stack is active! Open http://localhost:3000 in your browser.")
+    print("Stack is active! Open http://localhost:3000 in your browser.")
     print("Press Ctrl+C at any time to stop all services.")
     print("=" * 65 + "\n")
 

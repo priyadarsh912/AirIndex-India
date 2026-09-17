@@ -16,6 +16,7 @@ backend/*/__pycache__/
 backend/venv/
 backend/env/
 backend/.env
+.env
 
 # Large scraped data files / temporary files (optional, but good to exclude node_modules and venv)
 .DS_Store

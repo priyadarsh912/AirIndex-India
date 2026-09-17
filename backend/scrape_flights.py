@@ -269,6 +269,13 @@ async def run_scraping_job(
 
         job_stats["file_saved"] = filepath
         logger.info(f"Saved {len(all_observations)} scraped observations to {filepath}")
+
+        # Persist to Supabase Cloud Database
+        try:
+            from db_client import save_observations_to_supabase
+            save_observations_to_supabase(all_observations)
+        except Exception as db_err:
+            logger.warning(f"Could not persist scraped data to Supabase: {db_err}")
     else:
         logger.warning("No observations were scraped.")
 

@@ -16,36 +16,43 @@ SCRAPED_DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "scr
 
 
 def load_scraped_observations() -> List[Dict[str, Any]]:
-    """Loads all JSON scraped observations from backend/scraped_data/ directory."""
-    if not os.path.exists(SCRAPED_DATA_DIR):
-        return []
-
-    json_files = glob.glob(os.path.join(SCRAPED_DATA_DIR, "scrape_*.json"))
-    if not json_files:
-        return []
-
+    """Loads all JSON scraped observations from Supabase database and/or local scraped_data/ directory."""
     all_observations = []
     seen_ids = set()
 
-    # Sort files by creation time (newest first)
-    json_files.sort(key=os.path.getmtime, reverse=True)
+    # 1. Try loading from Supabase Cloud DB
+    try:
+        from db_client import fetch_observations_from_supabase
+        db_obs = fetch_observations_from_supabase(limit=10000)
+        for obs in db_obs:
+            obs_id = obs.get("id")
+            if obs_id and obs_id not in seen_ids:
+                seen_ids.add(obs_id)
+                all_observations.append(obs)
+        if db_obs:
+            logger.info(f"Loaded {len(db_obs)} observations from Supabase Database.")
+    except Exception as db_err:
+        logger.warning(f"Could not load observations from Supabase: {db_err}")
 
-    for filepath in json_files:
-        try:
-            with open(filepath, "r", encoding="utf-8") as f:
-                payload = json.load(f)
-                observations = payload.get("observations", [])
+    # 2. Load from local JSON files as fallback or supplement
+    if os.path.exists(SCRAPED_DATA_DIR):
+        json_files = glob.glob(os.path.join(SCRAPED_DATA_DIR, "scrape_*.json"))
+        if json_files:
+            json_files.sort(key=os.path.getmtime, reverse=True)
+            for filepath in json_files:
+                try:
+                    with open(filepath, "r", encoding="utf-8") as f:
+                        payload = json.load(f)
+                        observations = payload.get("observations", [])
+                        for obs in observations:
+                            obs_id = obs.get("id")
+                            if obs_id and obs_id not in seen_ids:
+                                seen_ids.add(obs_id)
+                                all_observations.append(obs)
+                except Exception as e:
+                    logger.error(f"Error reading scraped data file {filepath}: {str(e)}")
 
-                for obs in observations:
-                    obs_id = obs.get("id")
-                    if obs_id and obs_id not in seen_ids:
-                        seen_ids.add(obs_id)
-                        all_observations.append(obs)
-
-        except Exception as e:
-            logger.error(f"Error reading scraped data file {filepath}: {str(e)}")
-
-    logger.info(f"Loaded {len(all_observations)} unique scraped observations from {len(json_files)} files.")
+    logger.info(f"Loaded total {len(all_observations)} unique scraped observations.")
     return all_observations
 
 

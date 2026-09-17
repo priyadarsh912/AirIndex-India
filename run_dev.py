@@ -47,8 +47,8 @@ def main():
     )
     processes.append(backend_proc)
 
-    # Allow backend 2 seconds to initialize
-    time.sleep(2)
+    # Allow backend 4 seconds to initialize and connect to Supabase
+    time.sleep(4)
 
     # 2. Start Vite Frontend
     print("[2/2] Starting Vite React Frontend on port 3000...")

@@ -25,6 +25,8 @@ def load_scraped_observations() -> List[Dict[str, Any]]:
         from db_client import fetch_observations_from_supabase
         db_obs = fetch_observations_from_supabase(limit=10000)
         for obs in db_obs:
+            if not obs.get("capture_date") and obs.get("timestamp"):
+                obs["capture_date"] = str(obs["timestamp"])[:10]
             obs_id = obs.get("id")
             if obs_id and obs_id not in seen_ids:
                 seen_ids.add(obs_id)
@@ -45,6 +47,8 @@ def load_scraped_observations() -> List[Dict[str, Any]]:
                         payload = json.load(f)
                         observations = payload.get("observations", [])
                         for obs in observations:
+                            if not obs.get("capture_date") and obs.get("timestamp"):
+                                obs["capture_date"] = str(obs["timestamp"])[:10]
                             obs_id = obs.get("id")
                             if obs_id and obs_id not in seen_ids:
                                 seen_ids.add(obs_id)

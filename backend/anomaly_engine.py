@@ -19,8 +19,18 @@ def detect_airfare_anomalies(cleaned_observations: List[Dict[str, Any]]) -> List
     if usable_df.empty:
         return []
 
+    # Ensure capture_date is populated and clean string format
+    if "capture_date" not in usable_df.columns:
+        usable_df["capture_date"] = usable_df["timestamp"].astype(str).str[:10] if "timestamp" in usable_df.columns else "2026-09-17"
+    else:
+        usable_df["capture_date"] = usable_df["capture_date"].fillna(usable_df["timestamp"].astype(str).str[:10] if "timestamp" in usable_df.columns else "2026-09-17")
+    usable_df["capture_date"] = usable_df["capture_date"].astype(str)
+
     # Get latest capture date
-    dates = sorted(usable_df["capture_date"].unique())
+    dates = sorted([str(d) for d in usable_df["capture_date"].dropna().unique() if str(d) and str(d) != "None" and str(d) != "nan"])
+    if not dates:
+        return []
+
     latest_date = dates[-1]
 
     # Subset latest observations

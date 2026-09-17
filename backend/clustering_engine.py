@@ -98,7 +98,7 @@ def compute_route_clusters(observations: List[Dict[str, Any]]) -> Dict[str, Any]
     # Cluster-wise Daily Index Trends
     trend_by_cluster = []
     if "capture_date" in df.columns:
-        dates = sorted(df["capture_date"].unique())
+        dates = sorted([str(d) for d in df["capture_date"].dropna().unique() if str(d) and str(d) != "None" and str(d) != "nan"])
         for d in dates:
             day_df = df[df["capture_date"] == d]
             row = {"date": d}

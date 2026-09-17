@@ -74,15 +74,21 @@ def save_observations_to_supabase(observations: List[Dict[str, Any]], table_name
     if not client or not observations:
         return False
 
-    sanitized = [sanitize_record(o) for o in observations if o.get("total_fare") or o.get("price")]
-    if not sanitized:
+    sanitized_raw = [sanitize_record(o) for o in observations if o.get("total_fare") or o.get("price")]
+    if not sanitized_raw:
         return False
+
+    # Deduplicate within the payload by 'id' to prevent PostgreSQL ON CONFLICT 21000 errors
+    dedup_dict = {}
+    for item in sanitized_raw:
+        dedup_dict[item["id"]] = item
+    sanitized = list(dedup_dict.values())
 
     chunk_size = 200
     success_count = 0
     total = len(sanitized)
 
-    print(f"[Supabase] Starting upsert of {total} records into '{table_name}'...")
+    print(f"[Supabase] Starting upsert of {total} unique records into '{table_name}'...")
     for i in range(0, total, chunk_size):
         chunk = sanitized[i:i + chunk_size]
         try:

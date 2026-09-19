@@ -1,6 +1,6 @@
 // frontend/src/hooks/useAirScopeData.js
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { DEFAULT_30_DAY_TREND } from '../defaultData';
+import { DEFAULT_30_DAY_TREND, DEFAULT_52_ROUTES } from '../defaultData';
 
 function debounce(fn, delay) {
   let timer;
@@ -12,19 +12,37 @@ function debounce(fn, delay) {
   return debounced;
 }
 
-const ROUTE_PROFILE_MAP = {
-  'DEL-BOM': { baseIndex: 126.8, change24h: 2.4, change7d: 1.2, avgFare: 4850, obsCount: 2480, name: 'Delhi ✈ Mumbai' },
-  'DEL-BLR': { baseIndex: 131.2, change24h: 3.8, change7d: 2.5, avgFare: 5120, obsCount: 2150, name: 'Delhi ✈ Bengaluru' },
-  'BOM-BLR': { baseIndex: 118.5, change24h: -1.2, change7d: 0.4, avgFare: 3950, obsCount: 1890, name: 'Mumbai ✈ Bengaluru' },
-  'DEL-CCU': { baseIndex: 122.4, change24h: 1.9, change7d: 1.1, avgFare: 4650, obsCount: 1640, name: 'Delhi ✈ Kolkata' },
-  'BLR-HYD': { baseIndex: 112.0, change24h: -0.5, change7d: -0.2, avgFare: 3200, obsCount: 1240, name: 'Bengaluru ✈ Hyderabad' },
-  'MAA-DEL': { baseIndex: 127.5, change24h: 2.1, change7d: 1.8, avgFare: 4900, obsCount: 1520, name: 'Chennai ✈ Delhi' },
-  'HYD-VTZ': { baseIndex: 108.4, change24h: 0.8, change7d: 0.3, avgFare: 3100, obsCount: 890, name: 'Hyderabad ✈ Visakhapatnam' },
-  'PNQ-DEL': { baseIndex: 121.2, change24h: 1.4, change7d: 0.9, avgFare: 4400, obsCount: 1120, name: 'Pune ✈ Delhi' },
-};
+// Build dynamic profile map for all 52 domestic flight corridors
+const ROUTE_PROFILE_MAP = {};
+DEFAULT_52_ROUTES.forEach(r => {
+  ROUTE_PROFILE_MAP[r.route] = {
+    baseIndex: r.price_relative || 115.0,
+    change24h: r.change_24h || 1.5,
+    change7d: parseFloat(((r.change_24h || 1.5) * 0.6).toFixed(1)),
+    avgFare: r.current_fare || 4500,
+    baseFare: r.base_fare || 4000,
+    obsCount: Math.round(1000 + (r.weight || 0.02) * 20000),
+    name: r.name || r.route,
+    cluster: r.cluster || 'Metro Trunk'
+  };
+});
+
+function getProfileForRoute(routeKey, airlineKey) {
+  if (routeKey && ROUTE_PROFILE_MAP[routeKey]) {
+    return ROUTE_PROFILE_MAP[routeKey];
+  }
+  return {
+    baseIndex: 124.5,
+    change24h: 1.8,
+    change7d: 1.1,
+    avgFare: 4500,
+    obsCount: 1450,
+    name: routeKey !== 'ALL' ? routeKey : (airlineKey !== 'ALL' ? `${airlineKey} Fleet` : 'Selected Corridor')
+  };
+}
 
 function generateRouteTrend(routeKey, airlineKey) {
-  const profile = ROUTE_PROFILE_MAP[routeKey] || { baseIndex: 122.0, change24h: 1.5, avgFare: 4200, name: routeKey };
+  const profile = getProfileForRoute(routeKey, airlineKey);
   const baseIndexVal = profile.baseIndex;
   
   return Array.from({ length: 30 }, (_, i) => {
@@ -32,15 +50,16 @@ function generateRouteTrend(routeKey, airlineKey) {
     d.setDate(d.getDate() + i);
     const dateStr = d.toISOString().split('T')[0];
     
-    const sineFactor = Math.sin(i / 3.2) * 4.5;
+    const sineFactor = Math.sin(i / 3.2) * 4.2;
     const noise = (i % 3 === 0 ? 1.2 : -0.8);
     const weighted = parseFloat((baseIndexVal + sineFactor + noise).toFixed(2));
     const jevons = parseFloat((weighted - 1.1).toFixed(2));
     const fisher = parseFloat((weighted + 0.6).toFixed(2));
-    const dailyAvgFare = Math.round(profile.avgFare * (weighted / 100.0));
+    const dailyAvgFare = Math.round(profile.avgFare * (weighted / (baseIndexVal || 100.0)));
 
     return {
       date: dateStr,
+      full_date: dateStr,
       weighted_index: weighted,
       jevons_index: jevons,
       fisher_index: fisher,
@@ -53,14 +72,7 @@ function generateRouteTrend(routeKey, airlineKey) {
 function generateRouteSummary(routeKey, airlineKey) {
   if (routeKey === 'ALL' && airlineKey === 'ALL') return null;
 
-  const profile = ROUTE_PROFILE_MAP[routeKey] || {
-    baseIndex: 124.5,
-    change24h: 1.8,
-    change7d: 1.0,
-    avgFare: 4500,
-    obsCount: 1450,
-    name: routeKey !== 'ALL' ? routeKey : (airlineKey !== 'ALL' ? `${airlineKey} Fleet` : 'Selected Route')
-  };
+  const profile = getProfileForRoute(routeKey, airlineKey);
 
   return {
     index_name: `APIx Airfare Index (${profile.name || routeKey})`,
@@ -138,7 +150,6 @@ export function useAirScopeData(apiBaseUrl = '') {
           setIndexSummary(generateRouteSummary(activeFilters.route, activeFilters.airline));
         }
       } else {
-        // Fallback calculation for filtered route/airline
         setIsLiveConnected(false);
         if (activeFilters.route !== 'ALL' || activeFilters.airline !== 'ALL') {
           setTrendData(generateRouteTrend(activeFilters.route, activeFilters.airline));

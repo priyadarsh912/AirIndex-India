@@ -1,18 +1,26 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { DEFAULT_52_ROUTES } from '../defaultData';
 
-const SEARCHABLE_ITEMS = [
-  { type: 'route', route: 'DEL-BOM', origin: 'Delhi (DEL)', destination: 'Mumbai (BOM)', weight: '25.0%', avgFare: 4850, category: 'Trunk Corridor' },
-  { type: 'route', route: 'DEL-BLR', origin: 'Delhi (DEL)', destination: 'Bengaluru (BLR)', weight: '20.0%', avgFare: 5120, category: 'Trunk Corridor' },
-  { type: 'route', route: 'BOM-BLR', origin: 'Mumbai (BOM)', destination: 'Bengaluru (BLR)', weight: '15.0%', avgFare: 3950, category: 'Trunk Corridor' },
-  { type: 'route', route: 'DEL-CCU', origin: 'Delhi (DEL)', destination: 'Kolkata (CCU)', weight: '15.0%', avgFare: 4650, category: 'Metropolitan' },
-  { type: 'route', route: 'BLR-HYD', origin: 'Bengaluru (BLR)', destination: 'Hyderabad (HYD)', weight: '10.0%', avgFare: 3200, category: 'Regional Tech Hub' },
-  { type: 'route', route: 'MAA-DEL', origin: 'Chennai (MAA)', destination: 'Delhi (DEL)', weight: '15.0%', avgFare: 4900, category: 'Metropolitan' },
-  { type: 'route', route: 'HYD-VTZ', origin: 'Hyderabad (HYD)', destination: 'Visakhapatnam (VTZ)', weight: '5.0%', avgFare: 3100, category: 'Regional Short-Haul' },
-  { type: 'route', route: 'PNQ-DEL', origin: 'Pune (PNQ)', destination: 'Delhi (DEL)', weight: '8.0%', avgFare: 4400, category: 'Metropolitan' },
+const AIRLINE_ITEMS = [
   { type: 'airline', name: 'IndiGo', code: '6E', share: '62.4%', flights: '1800+ Daily', category: 'Major Carrier' },
   { type: 'airline', name: 'Air India', code: 'AI', share: '26.8%', flights: '650+ Daily', category: 'Legacy Full Service' },
   { type: 'airline', name: 'Akasa Air', code: 'QP', share: '5.6%', flights: '120+ Daily', category: 'Low Cost Carrier' },
   { type: 'airline', name: 'Air India Express', code: 'IX', share: '5.2%', flights: '240+ Daily', category: 'Budget Carrier' },
+];
+
+const SEARCHABLE_ITEMS = [
+  ...DEFAULT_52_ROUTES.map(r => ({
+    type: 'route',
+    route: r.route,
+    name: r.name,
+    origin: r.name ? r.name.split(' to ')[0] : r.route.split('-')[0],
+    destination: r.name ? r.name.split(' to ')[1] : r.route.split('-')[1],
+    weight: `${(r.weight * 100).toFixed(1)}%`,
+    avgFare: r.current_fare,
+    category: r.cluster,
+    priceRelative: r.price_relative
+  })),
+  ...AIRLINE_ITEMS
 ];
 
 export default function Header({ 

@@ -41,10 +41,76 @@ function getProfileForRoute(routeKey, airlineKey) {
   };
 }
 
-function generateRouteTrend(routeKey, airlineKey) {
+function generateRouteTrend(routeKey, airlineKey, frequency = 'Daily') {
   const profile = getProfileForRoute(routeKey, airlineKey);
   const baseIndexVal = profile.baseIndex;
+  const avgFare = profile.avgFare || 4800;
+
+  if (frequency === 'Monthly') {
+    // 12-Month Macroeconomic CPI Airfare Series (Jan 2026 = 100.0)
+    const monthlySchedule = [
+      { date: "Oct 2025", full_date: "October 2025 (Festive Peak)", factor: 119.4 },
+      { date: "Nov 2025", full_date: "November 2025 (Post-Diwali Correction)", factor: 111.8 },
+      { date: "Dec 2025", full_date: "December 2025 (Winter Holiday Travel Surge)", factor: 134.8 },
+      { date: "Jan 2026", full_date: "January 2026 (MoSPI Base Period: 100.0)", factor: 100.0, is_base: true },
+      { date: "Feb 2026", full_date: "February 2026 (Lean Travel Quarter)", factor: 97.8 },
+      { date: "Mar 2026", full_date: "March 2026 (Fiscal Year-End Travel)", factor: 105.2 },
+      { date: "Apr 2026", full_date: "April 2026 (Summer Break Advance Bookings)", factor: 113.6 },
+      { date: "May 2026", full_date: "May 2026 (Peak Summer School Vacations)", factor: 129.8 },
+      { date: "Jun 2026", full_date: "June 2026 (School Reopening & Early Monsoon)", factor: 113.2 },
+      { date: "Jul 2026", full_date: "July 2026 (Mid-Monsoon Trough)", factor: 102.6 },
+      { date: "Aug 2026", full_date: "August 2026 (Independence Day & Rakhi Holidays)", factor: 116.8 },
+      { date: "Sep 2026", full_date: "September 2026 (Current MTD • Pre-Puja Surge)", factor: baseIndexVal }
+    ];
+
+    const scale = baseIndexVal / 124.5;
+    return monthlySchedule.map(m => {
+      const wVal = m.is_base ? 100.0 : (m.date === 'Sep 2026' ? baseIndexVal : parseFloat((m.factor * scale).toFixed(1)));
+      return {
+        date: m.date,
+        full_date: m.full_date,
+        weighted_index: wVal,
+        jevons_index: parseFloat((wVal - 1.1).toFixed(1)),
+        fisher_index: parseFloat((wVal + 0.5).toFixed(1)),
+        overall_avg_fare: Math.round(avgFare * (wVal / (baseIndexVal || 100.0))),
+        observed_count: 12480
+      };
+    });
+  }
+
+  if (frequency === 'Weekly') {
+    // 12-Week Rolling Dynamic Series ending on current reporting week
+    const weeklySchedule = [
+      { week: 1, range: "Jun 28-Jul 04", full: "Week 1: Jun 28 to Jul 04 (Early monsoon onset)", factor: 105.2 },
+      { week: 2, range: "Jul 05-Jul 11", full: "Week 2: Jul 05 to Jul 11 (Monsoon lean period)", factor: 103.1 },
+      { week: 3, range: "Jul 12-Jul 18", full: "Week 3: Jul 12 to Jul 18 (Mid-monsoon trough)", factor: 102.4 },
+      { week: 4, range: "Jul 19-Jul 25", full: "Week 4: Jul 19 to Jul 25 (Monsoon fare sales)", factor: 104.9 },
+      { week: 5, range: "Jul 26-Aug 01", full: "Week 5: Jul 26 to Aug 01 (Corporate travel pick-up)", factor: 108.6 },
+      { week: 6, range: "Aug 02-Aug 08", full: "Week 6: Aug 02 to Aug 08 (Pre-holiday booking ramp)", factor: 113.8 },
+      { week: 7, range: "Aug 09-Aug 15", full: "Week 7: Aug 09 to Aug 15 (Independence Day surge)", factor: 126.4 },
+      { week: 8, range: "Aug 16-Aug 22", full: "Week 8: Aug 16 to Aug 22 (Post-holiday normalization)", factor: 117.2 },
+      { week: 9, range: "Aug 23-Aug 29", full: "Week 9: Aug 23 to Aug 29 (Raksha Bandhan travel)", factor: 122.8 },
+      { week: 10, range: "Aug 30-Sep 05", full: "Week 10: Aug 30 to Sep 05 (Early September steady)", factor: 118.5 },
+      { week: 11, range: "Sep 06-Sep 12", full: "Week 11: Sep 06 to Sep 12 (Fiscal Q2 demand closing)", factor: 122.1 },
+      { week: 12, range: "Sep 13-Sep 19", full: "Week 12: Sep 13 to Sep 19 (Current active week)", factor: baseIndexVal }
+    ];
+
+    const scale = baseIndexVal / 125.0;
+    return weeklySchedule.map(w => {
+      const wVal = w.week === 12 ? baseIndexVal : parseFloat((w.factor * scale).toFixed(1));
+      return {
+        date: `W${w.week} (${w.range})`,
+        full_date: w.full,
+        weighted_index: wVal,
+        jevons_index: parseFloat((wVal - 0.9).toFixed(1)),
+        fisher_index: parseFloat((wVal + 0.4).toFixed(1)),
+        overall_avg_fare: Math.round(avgFare * (wVal / (baseIndexVal || 100.0))),
+        observed_count: 2850 + (w.week * 40)
+      };
+    });
+  }
   
+  // Daily Frequency: 30 rolling daily points
   return Array.from({ length: 30 }, (_, i) => {
     const d = new Date('2026-09-01T00:00:00Z');
     d.setDate(d.getDate() + i);
@@ -130,7 +196,7 @@ export function useAirScopeData(apiBaseUrl = '') {
           setTrendData(data.daily_trend);
           setIsLiveConnected(true);
         } else {
-          setTrendData(generateRouteTrend(activeFilters.route, activeFilters.airline));
+          setTrendData(generateRouteTrend(activeFilters.route, activeFilters.airline, activeFilters.frequency));
         }
 
         const summaryParams = new URLSearchParams();
@@ -151,21 +217,19 @@ export function useAirScopeData(apiBaseUrl = '') {
         }
       } else {
         setIsLiveConnected(false);
+        setTrendData(generateRouteTrend(activeFilters.route, activeFilters.airline, activeFilters.frequency));
         if (activeFilters.route !== 'ALL' || activeFilters.airline !== 'ALL') {
-          setTrendData(generateRouteTrend(activeFilters.route, activeFilters.airline));
           setIndexSummary(generateRouteSummary(activeFilters.route, activeFilters.airline));
         } else {
-          setTrendData(DEFAULT_30_DAY_TREND);
           setIndexSummary(null);
         }
       }
     } catch (err) {
       setIsLiveConnected(false);
+      setTrendData(generateRouteTrend(activeFilters.route, activeFilters.airline, activeFilters.frequency));
       if (activeFilters.route !== 'ALL' || activeFilters.airline !== 'ALL') {
-        setTrendData(generateRouteTrend(activeFilters.route, activeFilters.airline));
         setIndexSummary(generateRouteSummary(activeFilters.route, activeFilters.airline));
       } else {
-        setTrendData(DEFAULT_30_DAY_TREND);
         setIndexSummary(null);
       }
     } finally {

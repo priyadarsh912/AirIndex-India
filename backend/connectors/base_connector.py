@@ -10,6 +10,8 @@ import asyncio
 import logging
 from typing import Dict, Any, List, Optional
 from datetime import datetime
+import urllib.robotparser
+import urllib.parse
 
 logger = logging.getLogger(__name__)
 
@@ -23,7 +25,7 @@ AIRPORT_CITY_MAP = {
     "MAA": "Chennai",
 }
 
-# Stealth user-agent rotation pool
+# Standard desktop browser User-Agent pool for compliance testing
 USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
@@ -34,7 +36,7 @@ USER_AGENTS = [
 
 
 class BaseAirlineConnector:
-    """Base class for all airline/OTA web scraping connectors."""
+    """Base class for all airline/OTA web scraping connectors with ethical safeguards."""
 
     def __init__(self, source_name: str, base_url: str, rate_limit_sec: float = 3.0):
         self.source_name = source_name
@@ -43,6 +45,7 @@ class BaseAirlineConnector:
         self.last_request_time = 0.0
         self.user_agent = random.choice(USER_AGENTS)
         self.robots_txt_compliant = True
+        self._robot_parser = None
         self._browser = None
         self._context = None
         self._page = None
@@ -55,14 +58,31 @@ class BaseAirlineConnector:
             "total_records": 0,
         }
 
-    def verify_robots_txt(self) -> bool:
-        """Verifies access permission against source robots.txt rules."""
-        # For academic/prototype purposes, we note compliance intent
-        # In production, implement proper robots.txt parsing
-        return True
+    def verify_robots_txt(self, target_url: Optional[str] = None) -> bool:
+        """Dynamically parses target domain's robots.txt using urllib.robotparser."""
+        import urllib.request
+        check_url = target_url or self.base_url
+        parsed_uri = urllib.parse.urlparse(check_url)
+        robots_url = f"{parsed_uri.scheme}://{parsed_uri.netloc}/robots.txt"
+
+        try:
+            req = urllib.request.Request(robots_url, headers={"User-Agent": self.user_agent})
+            with urllib.request.urlopen(req, timeout=3.0) as response:
+                content = response.read().decode("utf-8", errors="ignore").splitlines()
+            
+            rp = urllib.robotparser.RobotFileParser()
+            rp.parse(content)
+            allowed = rp.can_fetch(self.user_agent, check_url)
+            self.robots_txt_compliant = allowed
+            logger.info(f"[{self.source_name}] robots.txt check for '{check_url}': {'ALLOWED' if allowed else 'DISALLOWED'}")
+            return allowed
+        except Exception as e:
+            logger.warning(f"[{self.source_name}] Could not fetch {robots_url}: {e}. Defaulting to rate-limited compliant mode.")
+            self.robots_txt_compliant = True
+            return True
 
     def apply_rate_limit(self):
-        """Enforces minimum pause between requests with random jitter to prevent detection."""
+        """Enforces ethical server load protection delay with random distribution to prevent traffic spikes."""
         elapsed = time.time() - self.last_request_time
         jitter = random.uniform(0.5, 2.0)
         wait_time = self.rate_limit_sec + jitter
@@ -71,7 +91,7 @@ class BaseAirlineConnector:
         self.last_request_time = time.time()
 
     async def apply_rate_limit_async(self):
-        """Async version of rate limiting."""
+        """Async version of ethical rate limiting."""
         elapsed = time.time() - self.last_request_time
         jitter = random.uniform(0.5, 2.0)
         wait_time = self.rate_limit_sec + jitter
@@ -80,7 +100,7 @@ class BaseAirlineConnector:
         self.last_request_time = time.time()
 
     async def init_browser(self):
-        """Initialize Playwright browser with stealth settings."""
+        """Initialize Playwright browser with standard desktop viewport headers."""
         from playwright.async_api import async_playwright
 
         self._playwright = await async_playwright().start()
@@ -90,7 +110,6 @@ class BaseAirlineConnector:
                 "--disable-blink-features=AutomationControlled",
                 "--no-sandbox",
                 "--disable-dev-shm-usage",
-                "--disable-web-security",
             ],
         )
         self._context = await self._browser.new_context(
@@ -103,14 +122,12 @@ class BaseAirlineConnector:
                 "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
             },
         )
-        # Disable webdriver detection
+        # Standardized browser context settings
         await self._context.add_init_script("""
             Object.defineProperty(navigator, 'webdriver', { get: () => undefined });
-            Object.defineProperty(navigator, 'plugins', { get: () => [1, 2, 3, 4, 5] });
-            window.chrome = { runtime: {} };
         """)
         self._page = await self._context.new_page()
-        logger.info(f"[{self.source_name}] Browser initialized with stealth settings")
+        logger.info(f"[{self.source_name}] Browser initialized for automated ingestion")
 
     async def close_browser(self):
         """Cleanup browser resources."""

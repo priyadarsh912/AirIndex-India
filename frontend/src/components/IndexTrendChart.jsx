@@ -30,6 +30,23 @@ export default function IndexTrendChart({
     );
   }
 
+  // Calculate summary metrics across current trend dataset
+  const { peakPoint, troughPoint, periodChange } = React.useMemo(() => {
+    if (!trendData || trendData.length === 0) return { peakPoint: null, troughPoint: null, periodChange: 0 };
+    let peak = trendData[0];
+    let trough = trendData[0];
+    for (const p of trendData) {
+      if ((p.weighted_index ?? 0) > (peak.weighted_index ?? 0)) peak = p;
+      if ((p.weighted_index ?? 0) < (trough.weighted_index ?? 0)) trough = p;
+    }
+    const firstVal = trendData[0].weighted_index || 100;
+    const lastVal = trendData[trendData.length - 1].weighted_index || firstVal;
+    const change = ((lastVal - firstVal) / firstVal) * 100;
+    return { peakPoint: peak, troughPoint: trough, periodChange: change };
+  }, [trendData]);
+
+  const activeFreq = filters.frequency || 'Daily';
+
   return (
     <div className="bg-surface-card rounded-xl p-6 shadow-sm border border-border-hairline relative">
       {/* Loading Overlay */}
@@ -43,12 +60,12 @@ export default function IndexTrendChart({
       )}
 
       {/* Filter Control Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4 mb-6 pb-4 border-b border-border-hairline">
+      <div className="flex flex-wrap items-center justify-between gap-4 mb-4 pb-4 border-b border-border-hairline">
         <div>
           <div className="flex items-center gap-2">
             <span className="material-symbols-outlined text-primary text-[22px]">stacked_line_chart</span>
             <h2 className="font-headline text-lg font-bold text-text-primary">
-              Airfare Price Index (APIx) — {filters.frequency || 'Daily'} Trend
+              Airfare Price Index (APIx) — {activeFreq} Trend
             </h2>
           </div>
           <p className="text-xs text-text-muted mt-0.5">
@@ -83,7 +100,7 @@ export default function IndexTrendChart({
                 key={f}
                 onClick={() => onFilterChange({ frequency: f })}
                 className={`px-3 py-1 rounded-md text-xs font-semibold transition-all ${
-                  (filters.frequency || 'Daily') === f
+                  activeFreq === f
                     ? 'bg-primary-container text-white shadow-sm'
                     : 'text-text-muted hover:text-text-primary'
                 }`}
@@ -94,6 +111,46 @@ export default function IndexTrendChart({
           </div>
         </div>
       </div>
+
+      {/* Economic Data Interpretation & Statistical Insights Banner */}
+      {trendData && trendData.length > 0 && (
+        <div className="flex flex-wrap items-center justify-between gap-2 p-3 bg-surface-canvas rounded-lg border border-border-hairline text-xs mb-5">
+          <div className="flex items-center gap-2">
+            <span className={`w-2 h-2 rounded-full ${
+              activeFreq === 'Monthly' ? 'bg-emerald-500' : activeFreq === 'Weekly' ? 'bg-blue-500' : 'bg-indigo-500'
+            } animate-pulse`}></span>
+            <span className="font-semibold text-text-primary">
+              {activeFreq === 'Monthly' && '12-Month Macroeconomic CPI Airfare Basket (Jan 2026 = 100.0)'}
+              {activeFreq === 'Weekly' && '12-Week Rolling Dynamic Series (Holiday Surges & Seasonal Movement)'}
+              {activeFreq === 'Daily' && 'High-Frequency 30-Day Observational Velocity (T+1 to T+45 Feeds)'}
+            </span>
+            <span className="text-[10px] bg-primary/10 text-primary border border-primary/20 px-2 py-0.5 rounded font-mono font-medium">
+              {activeFreq === 'Monthly' ? 'MoM Analysis' : activeFreq === 'Weekly' ? 'WoW Dynamics' : 'Daily Volatility'}
+            </span>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-4 text-[11px] text-text-muted">
+            {peakPoint && (
+              <span>
+                {activeFreq === 'Monthly' ? '12M High' : activeFreq === 'Weekly' ? 'Holiday Peak' : 'Period High'}:{' '}
+                <strong className="text-text-primary">{peakPoint.date} ({peakPoint.weighted_index})</strong>
+              </span>
+            )}
+            {troughPoint && (
+              <span>
+                {activeFreq === 'Monthly' ? '12M Low' : activeFreq === 'Weekly' ? 'Monsoon Low' : 'Period Low'}:{' '}
+                <strong className="text-text-primary">{troughPoint.date} ({troughPoint.weighted_index})</strong>
+              </span>
+            )}
+            <span>
+              Net Shift:{' '}
+              <strong className={periodChange >= 0 ? 'text-metric-warning font-bold' : 'text-metric-positive font-bold'}>
+                {periodChange >= 0 ? `+${periodChange.toFixed(1)}%` : `${periodChange.toFixed(1)}%`}
+              </strong>
+            </span>
+          </div>
+        </div>
+      )}
 
       {/* Empty State */}
       {!isLoading && (!trendData || trendData.length === 0) ? (
@@ -127,24 +184,42 @@ export default function IndexTrendChart({
                 content={({ active, payload, label }) => {
                   if (active && payload && payload.length) {
                     const item = payload[0].payload;
+                    const currentIndex = trendData.findIndex(p => p.date === item.date);
+                    const prevItem = currentIndex > 0 ? trendData[currentIndex - 1] : null;
+                    const delta = prevItem && prevItem.weighted_index > 0 
+                      ? ((item.weighted_index - prevItem.weighted_index) / prevItem.weighted_index) * 100 
+                      : null;
+                    const deltaLabel = activeFreq === 'Monthly' ? 'MoM Change' : activeFreq === 'Weekly' ? 'WoW Change' : 'DoD Change';
+
                     return (
-                      <div className="bg-surface-card border border-border-hairline p-3 rounded-lg shadow-lg text-xs space-y-1">
+                      <div className="bg-surface-card border border-border-hairline p-3 rounded-lg shadow-lg text-xs space-y-1 min-w-[210px]">
                         <div className="font-bold text-text-primary border-b border-border-hairline pb-1 mb-1">
                           {item.full_date || label}
                         </div>
-                        <div className="text-secondary font-bold">
-                          Weighted Index (APIx): {item.weighted_index !== undefined ? item.weighted_index.toFixed(1) : '--'}
+                        <div className="flex items-center justify-between">
+                          <span className="text-secondary font-bold">APIx Weighted Index:</span>
+                          <span className="font-mono font-bold text-text-primary">{item.weighted_index !== undefined ? item.weighted_index.toFixed(1) : '--'}</span>
                         </div>
-                        {item.jevons_index && (
-                          <div className="text-text-muted text-[11px]">
-                            Jevons Index: {item.jevons_index.toFixed(1)}
+                        {delta !== null && (
+                          <div className="flex items-center justify-between text-[11px]">
+                            <span className="text-text-muted">{deltaLabel}:</span>
+                            <span className={`font-semibold ${delta >= 0 ? 'text-amber-600' : 'text-emerald-600'}`}>
+                              {delta >= 0 ? `+${delta.toFixed(1)}%` : `${delta.toFixed(1)}%`}
+                            </span>
                           </div>
                         )}
-                        <div className="text-text-primary font-medium">
-                          Average Fare: ₹{Math.round(item.avg_fare || 0).toLocaleString('en-IN')}
+                        {item.jevons_index && (
+                          <div className="flex items-center justify-between text-text-muted text-[11px]">
+                            <span>Jevons Geometric Index:</span>
+                            <span className="font-mono">{item.jevons_index.toFixed(1)}</span>
+                          </div>
+                        )}
+                        <div className="flex items-center justify-between text-text-primary font-medium pt-1 border-t border-border-hairline">
+                          <span>Average Fare:</span>
+                          <span className="font-bold">₹{Math.round(item.avg_fare || 0).toLocaleString('en-IN')}</span>
                         </div>
-                        <div className="text-[10px] text-text-muted pt-1 border-t border-border-hairline">
-                          Live Clean Sample: {item.observation_count || 1} flights
+                        <div className="text-[10px] text-text-muted pt-1">
+                          Sample Size: {item.observation_count?.toLocaleString() || 1} observations
                         </div>
                       </div>
                     );
@@ -152,7 +227,7 @@ export default function IndexTrendChart({
                   return null;
                 }}
               />
-              <ReferenceLine y={100} stroke="#EA580C" strokeDasharray="3 3" label={{ value: 'Base 100', fill: '#EA580C', fontSize: 10, position: 'insideTopLeft' }} />
+              <ReferenceLine y={100} stroke="#EA580C" strokeDasharray="3 3" label={{ value: 'Base 100 (Jan 2026)', fill: '#EA580C', fontSize: 10, position: 'insideTopLeft' }} />
               <Area
                 type="monotone"
                 dataKey="weighted_index"

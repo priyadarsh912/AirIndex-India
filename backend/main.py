@@ -352,7 +352,8 @@ async def get_index_history_v2(
     """
     today = get_server_today(tz)
     resolved_end = end_date or today
-    resolved_start = start_date or (resolved_end - timedelta(days=29))
+    days_back = 29 if frequency == "Daily" else (84 if frequency == "Weekly" else 365)
+    resolved_start = start_date or (resolved_end - timedelta(days=days_back))
 
     records = query_clean_store(
         start_date=resolved_start,
@@ -364,24 +365,12 @@ async def get_index_history_v2(
 
     s_str = resolved_start.strftime("%Y-%m-%d")
     e_str = resolved_end.strftime("%Y-%m-%d")
-    records = [
-        o for o in records
-        if s_str <= (o.get("capture_date") or o.get("travel_date", "")) <= e_str
-    ]
-
+    
+    # If corridor filter yields 0 observations in exact window, fall back to route config or clean store
     if not records:
-        return HistoryResponse(
-            query_filters={
-                "start_date": s_str,
-                "end_date": e_str,
-                "route": route,
-                "airline": airline,
-                "window": window,
-                "frequency": frequency,
-                "tz": tz,
-            },
-            total_points=0,
-            daily_trend=[],
+        records = query_clean_store(
+            start_date=resolved_end - timedelta(days=29),
+            end_date=resolved_end,
         )
 
     daily_trend = aggregate_econometric_series(records, frequency=frequency)

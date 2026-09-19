@@ -65,6 +65,7 @@ export default function App() {
   const [backtestData, setBacktestData] = useState(null);
   const [explainabilityData, setExplainabilityData] = useState(null);
   const [healthData, setHealthData] = useState(null);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   const fetchBaseData = useCallback(async () => {
     try {
@@ -175,7 +176,7 @@ export default function App() {
 
       {/* Top Banner / Scrape Notification */}
       {scrapeNotification && (
-        <div className={`fixed top-16 left-0 lg:left-64 right-0 z-30 py-2 px-4 text-center text-xs font-semibold flex items-center justify-center gap-2 ${
+        <div className={`fixed top-16 left-0 ${sidebarCollapsed ? 'lg:left-16' : 'lg:left-64'} right-0 z-30 py-2 px-4 text-center text-xs font-semibold flex items-center justify-center gap-2 transition-all duration-300 ${
           scrapeNotification.type === 'success' ? 'bg-metric-positive text-white' :
           scrapeNotification.type === 'error' ? 'bg-metric-negative text-white' : 'bg-secondary text-white'
         }`}>
@@ -193,10 +194,12 @@ export default function App() {
         onTriggerScrape={handleTriggerScrape}
         isScraping={isScraping}
         healthData={healthData}
+        sidebarCollapsed={sidebarCollapsed}
+        setSidebarCollapsed={setSidebarCollapsed}
       />
 
       {/* Main Content Area (offset by left sidebar width on desktop) */}
-      <main className="pl-0 lg:pl-64 pt-16 bg-surface-canvas min-h-screen">
+      <main className={`pt-16 bg-surface-canvas min-h-screen transition-all duration-300 ease-in-out ${sidebarCollapsed ? 'pl-0 lg:pl-16' : 'pl-0 lg:pl-64'}`}>
         <div className="flex flex-col w-full p-4 sm:p-6 lg:p-8 gap-6 max-w-[1600px] mx-auto">
           
           {/* Top AirScope Welcome Hero Banner */}
@@ -319,19 +322,8 @@ export default function App() {
             <DataExplorerView observations={rawObservations} routes={routesData} />
           )}
 
-          {(activeTab === 'explainability' || activeTab === 'methodology' || activeTab === 'policy-and-research') && (
-            <>
-              <ExplainabilityView explainabilityData={explainabilityData} />
-              <MethodologyView />
-            </>
-          )}
-
           {(activeTab === 'backtest' || activeTab === 'data-quality') && (
             <BacktestValidationView backtestData={backtestData} />
-          )}
-
-          {(activeTab === 'health' || activeTab === 'collection-monitor') && (
-            <PipelineHealthView healthData={healthData} />
           )}
 
           {(activeTab === 'integrity') && (

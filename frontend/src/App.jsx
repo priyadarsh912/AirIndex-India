@@ -196,6 +196,8 @@ export default function App() {
         healthData={healthData}
         sidebarCollapsed={sidebarCollapsed}
         setSidebarCollapsed={setSidebarCollapsed}
+        updateFilter={updateFilter}
+        filters={filters}
       />
 
       {/* Main Content Area (offset by left sidebar width on desktop) */}

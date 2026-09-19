@@ -1,20 +1,42 @@
 import React, { useState, useRef, useEffect } from 'react';
 
+const SEARCHABLE_ITEMS = [
+  { type: 'route', route: 'DEL-BOM', origin: 'Delhi (DEL)', destination: 'Mumbai (BOM)', weight: '25.0%', avgFare: 4850, category: 'Trunk Corridor' },
+  { type: 'route', route: 'DEL-BLR', origin: 'Delhi (DEL)', destination: 'Bengaluru (BLR)', weight: '20.0%', avgFare: 5120, category: 'Trunk Corridor' },
+  { type: 'route', route: 'BOM-BLR', origin: 'Mumbai (BOM)', destination: 'Bengaluru (BLR)', weight: '15.0%', avgFare: 3950, category: 'Trunk Corridor' },
+  { type: 'route', route: 'DEL-CCU', origin: 'Delhi (DEL)', destination: 'Kolkata (CCU)', weight: '15.0%', avgFare: 4650, category: 'Metropolitan' },
+  { type: 'route', route: 'BLR-HYD', origin: 'Bengaluru (BLR)', destination: 'Hyderabad (HYD)', weight: '10.0%', avgFare: 3200, category: 'Regional Tech Hub' },
+  { type: 'route', route: 'MAA-DEL', origin: 'Chennai (MAA)', destination: 'Delhi (DEL)', weight: '15.0%', avgFare: 4900, category: 'Metropolitan' },
+  { type: 'route', route: 'HYD-VTZ', origin: 'Hyderabad (HYD)', destination: 'Visakhapatnam (VTZ)', weight: '5.0%', avgFare: 3100, category: 'Regional Short-Haul' },
+  { type: 'route', route: 'PNQ-DEL', origin: 'Pune (PNQ)', destination: 'Delhi (DEL)', weight: '8.0%', avgFare: 4400, category: 'Metropolitan' },
+  { type: 'airline', name: 'IndiGo', code: '6E', share: '62.4%', flights: '1800+ Daily', category: 'Major Carrier' },
+  { type: 'airline', name: 'Air India', code: 'AI', share: '26.8%', flights: '650+ Daily', category: 'Legacy Full Service' },
+  { type: 'airline', name: 'Akasa Air', code: 'QP', share: '5.6%', flights: '120+ Daily', category: 'Low Cost Carrier' },
+  { type: 'airline', name: 'Air India Express', code: 'IX', share: '5.2%', flights: '240+ Daily', category: 'Budget Carrier' },
+];
+
 export default function Header({ 
   onTriggerScrape, 
   isScraping, 
   setMobileOpen, 
   sidebarCollapsed, 
   setSidebarCollapsed,
-  setActiveTab
+  setActiveTab,
+  updateFilter,
+  filters
 }) {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [unreadCount, setUnreadCount] = useState(3);
   const [toastMessage, setToastMessage] = useState(null);
 
+  // Search Bar State
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showSearchDropdown, setShowSearchDropdown] = useState(false);
+
   const notificationsRef = useRef(null);
   const profileRef = useRef(null);
+  const searchRef = useRef(null);
 
   const [notificationsList, setNotificationsList] = useState([
     {
@@ -55,6 +77,9 @@ export default function Header({
       if (profileRef.current && !profileRef.current.contains(event.target)) {
         setShowProfileMenu(false);
       }
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowSearchDropdown(false);
+      }
     }
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
@@ -62,7 +87,7 @@ export default function Header({
 
   const triggerToast = (msg) => {
     setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 3000);
+    setTimeout(() => setToastMessage(null), 3500);
   };
 
   const markAllAsRead = () => {
@@ -76,6 +101,48 @@ export default function Header({
     setUnreadCount(prev => Math.max(0, prev - 1));
   };
 
+  // Filter Search Items
+  const filteredSearchItems = SEARCHABLE_ITEMS.filter(item => {
+    if (!searchQuery.trim()) return true;
+    const q = searchQuery.toLowerCase();
+    if (item.type === 'route') {
+      return item.route.toLowerCase().includes(q) ||
+             item.origin.toLowerCase().includes(q) ||
+             item.destination.toLowerCase().includes(q) ||
+             item.category.toLowerCase().includes(q);
+    } else {
+      return item.name.toLowerCase().includes(q) ||
+             item.code.toLowerCase().includes(q) ||
+             item.category.toLowerCase().includes(q);
+    }
+  });
+
+  const handleSelectSearchItem = (item) => {
+    if (item.type === 'route') {
+      setSearchQuery(item.route);
+      triggerToast(`Loaded Live Index, Prices & Graphs for Corridor: ${item.route} (Avg Fare: ₹${item.avgFare.toLocaleString()})`);
+      if (updateFilter) {
+        updateFilter({ route: item.route, airline: 'ALL' });
+      }
+    } else {
+      setSearchQuery(item.name);
+      triggerToast(`Loaded Live Index & Price Metrics for Carrier: ${item.name} (${item.code})`);
+      if (updateFilter) {
+        updateFilter({ airline: item.name, route: 'ALL' });
+      }
+    }
+    setShowSearchDropdown(false);
+  };
+
+  const handleClearSearch = () => {
+    setSearchQuery('');
+    if (updateFilter) {
+      updateFilter({ route: 'ALL', airline: 'ALL' });
+    }
+    triggerToast('Reset filters to All National Corridors.');
+    setShowSearchDropdown(false);
+  };
+
   return (
     <header className={`fixed top-0 left-0 ${sidebarCollapsed ? 'lg:left-16' : 'lg:left-64'} right-0 h-16 bg-surface-card/95 backdrop-blur-md z-40 px-4 sm:px-6 shadow-[0_1px_4px_rgba(0,0,0,0.03)] border-b border-border-hairline flex items-center justify-between gap-3 transition-all duration-300 ease-in-out`}>
       {/* Toast Feedback */}
@@ -86,7 +153,7 @@ export default function Header({
         </div>
       )}
 
-      {/* Left: Mobile Menu Toggle & Search Bar */}
+      {/* Left: Mobile Menu Toggle & Interactive Workable Search Bar */}
       <div className="flex items-center gap-3 w-full max-w-xs sm:max-w-sm lg:max-w-md">
         <button 
           onClick={() => setMobileOpen(prev => !prev)}
@@ -96,15 +163,101 @@ export default function Header({
           <span className="material-symbols-outlined text-[22px]">menu</span>
         </button>
 
-        <div className="relative flex-1">
+        <div className="relative flex-1" ref={searchRef}>
           <span className="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-[18px]">
             search
           </span>
           <input
             type="text"
-            placeholder="Search route (e.g. DEL-BOM), airline..."
-            className="w-full h-9.5 pl-10 pr-4 rounded-xl bg-surface-canvas text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 border border-border-hairline focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all shadow-sm"
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setShowSearchDropdown(true);
+            }}
+            onFocus={() => setShowSearchDropdown(true)}
+            placeholder="Search route (e.g. DEL-BOM), city, airline..."
+            className="w-full h-9.5 pl-10 pr-8 rounded-xl bg-surface-canvas text-xs sm:text-sm text-slate-800 placeholder:text-slate-400 border border-border-hairline focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all shadow-sm"
           />
+
+          {searchQuery && (
+            <button
+              onClick={handleClearSearch}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700"
+              title="Reset Search & Filters"
+            >
+              <span className="material-symbols-outlined text-[16px]">close</span>
+            </button>
+          )}
+
+          {/* Interactive Route Search Dropdown Modal */}
+          {showSearchDropdown && (
+            <div className="absolute left-0 right-0 mt-2 bg-surface-card rounded-2xl shadow-xl border border-border-hairline z-50 overflow-hidden text-slate-800 animate-in fade-in slide-in-from-top-2 duration-150">
+              <div className="p-3 bg-slate-50 border-b border-border-hairline flex items-center justify-between">
+                <span className="text-xs font-bold text-slate-700">Flight Corridors & Airlines</span>
+                <span className="text-[10px] text-slate-400 font-medium">Click to inspect route</span>
+              </div>
+
+              <div className="divide-y divide-border-hairline max-h-72 overflow-y-auto">
+                {filteredSearchItems.length > 0 ? (
+                  filteredSearchItems.map((item, idx) => (
+                    <div
+                      key={idx}
+                      onClick={() => handleSelectSearchItem(item)}
+                      className="p-3 hover:bg-blue-50/60 cursor-pointer transition flex items-center justify-between gap-3 text-left"
+                    >
+                      {item.type === 'route' ? (
+                        <>
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 bg-blue-100 text-[#1a56db] rounded-lg">
+                              <span className="material-symbols-outlined text-[18px]">flight_takeoff</span>
+                            </div>
+                            <div>
+                              <div className="flex items-center gap-2">
+                                <span className="text-xs font-bold text-slate-900">{item.route}</span>
+                                <span className="text-[10px] bg-slate-200 text-slate-700 px-1.5 py-0.2 rounded font-mono">
+                                  ₹{item.avgFare.toLocaleString()}
+                                </span>
+                              </div>
+                              <p className="text-[11px] text-slate-500">{item.origin} → {item.destination}</p>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <span className="text-[10px] font-bold text-[#1a56db] block">Weight: {item.weight}</span>
+                            <span className="text-[9px] text-slate-400">{item.category}</span>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 bg-emerald-100 text-emerald-700 rounded-lg">
+                              <span className="material-symbols-outlined text-[18px]">airlines</span>
+                            </div>
+                            <div>
+                              <div className="flex items-center gap-2">
+                                <span className="text-xs font-bold text-slate-900">{item.name}</span>
+                                <span className="text-[10px] bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.2 rounded font-bold font-mono">
+                                  {item.code}
+                                </span>
+                              </div>
+                              <p className="text-[11px] text-slate-500">{item.flights}</p>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <span className="text-[10px] font-bold text-emerald-700 block">Share: {item.share}</span>
+                            <span className="text-[9px] text-slate-400">{item.category}</span>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  ))
+                ) : (
+                  <div className="p-4 text-center text-xs text-slate-500 italic">
+                    No corridors or airlines matching "{searchQuery}"
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

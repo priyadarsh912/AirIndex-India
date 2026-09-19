@@ -9,7 +9,9 @@ export default function Navbar({
   onTriggerScrape, 
   healthData,
   sidebarCollapsed,
-  setSidebarCollapsed
+  setSidebarCollapsed,
+  updateFilter,
+  filters
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -31,6 +33,8 @@ export default function Navbar({
         sidebarCollapsed={sidebarCollapsed}
         setSidebarCollapsed={setSidebarCollapsed}
         setActiveTab={setActiveTab}
+        updateFilter={updateFilter}
+        filters={filters}
       />
     </>
   );

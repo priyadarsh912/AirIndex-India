@@ -4,7 +4,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 const INITIAL_CONFIG = {
   general: {
     appName: 'AIRSCOPE',
-    appSub: 'Real-Time Airfare Price Index for India',
+    appSub: 'High frequency Airfare Price Index for India',
     environment: 'Production', // Prototype | Production
     timezone: 'Asia/Kolkata (IST) UTC+05:30',
     currency: 'Indian Rupee (INR ₹)',
@@ -1651,7 +1651,7 @@ export default function SettingsView({ onTriggerScrape, isScraping }) {
                   <span className="text-xs font-semibold text-slate-500">Problem Statement</span>
                   <span className="font-mono text-[11px] bg-surface-subtle px-2 py-0.5 rounded text-[#002b66] font-bold">SIH26056</span>
                 </div>
-                <span className="text-sm font-bold text-slate-900">Real-Time Airfare Price Index for India</span>
+                <span className="text-sm font-bold text-slate-900">High frequency Airfare Price Index for India</span>
                 <p className="text-xs text-slate-500 leading-relaxed">
                   An automated, transparent, and statistically rigorous platform computing real-time high-frequency price indices across domestic air routes.
                 </p>

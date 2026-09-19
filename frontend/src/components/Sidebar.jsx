@@ -47,7 +47,7 @@ export default function Sidebar({ activeTab, setActiveTab, mobileOpen, setMobile
                   AIRSCOPE
                 </span>
                 <span className="text-[10px] text-slate-400 mt-1 block tracking-normal font-medium">
-                  Real-Time Airfare Price Index for India
+                  High frequency Airfare Price Index for India
                 </span>
               </div>
             </div>

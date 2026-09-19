@@ -212,7 +212,7 @@ export default function App() {
                 </span>
               </div>
               <h1 className="font-headline text-lg lg:text-xl font-bold text-[#0047ba] mt-1">
-                Real-Time Airfare Price Index for India
+                High frequency Airfare Price Index for India
               </h1>
               <p className="text-xs lg:text-sm text-slate-500 mt-1 font-normal leading-relaxed">
                 Zero-Contamination Flight Data & Reactive Analytics Engine • MoSPI SIH-26056

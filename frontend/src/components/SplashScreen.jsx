@@ -72,7 +72,7 @@ export default function SplashScreen({ onComplete }) {
         </div>
 
         <p className="text-xs sm:text-sm font-semibold text-[#1a56db] mb-6 tracking-wide">
-          Real-Time Airfare Price Index & Analytics Engine
+          High frequency Airfare Price Index & Analytics Engine
         </p>
 
         {/* Telemetry Feature Chips */}

@@ -70,7 +70,7 @@ export default function BacktestValidationView({ backtestData, API_BASE_URL = ''
     days_backtested: 30,
     benchmark_source: 'DGCA Domestic Passenger Traffic & Average Fare Monthly Statistics',
     series: Array.from({ length: 30 }, (_, i) => {
-      const d = new Date('2026-09-04T00:00:00Z');
+      const d = new Date();
       d.setDate(d.getDate() - (29 - i));
       const year = d.getFullYear();
       const month = String(d.getMonth() + 1).padStart(2, '0');

@@ -180,7 +180,7 @@ def run_30day_selenium_backtest_scrape(origin: str = "DEL", destination: str = "
 
     try:
         for day in range(1, 31):
-            target_date = (start_date + timedelta(days=day)).strftime("%Y-%m-%d")
+            target_date = (start_date - timedelta(days=30 - day)).strftime("%Y-%m-%d")
             day_obs = []
 
             # Attempt live scraping first if driver is active

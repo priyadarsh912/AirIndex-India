@@ -18,7 +18,8 @@ export default function Sidebar({
   mobileOpen, 
   setMobileOpen,
   sidebarCollapsed,
-  setSidebarCollapsed
+  setSidebarCollapsed,
+  appSettings
 }) {
   return (
     <>
@@ -55,10 +56,10 @@ export default function Sidebar({
               {!sidebarCollapsed && (
                 <div className="truncate">
                   <span className="font-headline font-black text-lg tracking-tight text-[#002558] block leading-none">
-                    AIRSCOPE
+                    {appSettings?.general?.appName || 'AIRSCOPE'}
                   </span>
                   <span className="text-[9px] text-slate-400 mt-1 block tracking-normal font-medium truncate">
-                    High frequency Airfare Price Index
+                    {appSettings?.general?.appSub || 'High frequency Airfare Price Index'}
                   </span>
                 </div>
               )}

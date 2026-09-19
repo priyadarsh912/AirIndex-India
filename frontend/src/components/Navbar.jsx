@@ -11,7 +11,8 @@ export default function Navbar({
   sidebarCollapsed,
   setSidebarCollapsed,
   updateFilter,
-  filters
+  filters,
+  appSettings
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -24,6 +25,7 @@ export default function Navbar({
         setMobileOpen={setMobileOpen}
         sidebarCollapsed={sidebarCollapsed}
         setSidebarCollapsed={setSidebarCollapsed}
+        appSettings={appSettings}
       />
       <Header 
         onTriggerScrape={onTriggerScrape} 

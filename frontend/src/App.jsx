@@ -27,10 +27,69 @@ export const API_BASE_URL = import.meta.env.VITE_API_URL
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
-  const [activeTab, setActiveTab] = useState('overview');
+  // App settings state synced with SettingsView / localStorage
+  const [appSettings, setAppSettings] = useState(() => {
+    try {
+      const saved = localStorage.getItem('airscope_settings');
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  const getInitialTab = () => {
+    try {
+      const saved = localStorage.getItem('airscope_settings');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        const view = parsed?.appearance?.defaultView;
+        if (view === 'Airfare Index') return 'trend';
+        if (view === 'Route Explorer') return 'routes';
+        if (view === 'Data Quality') return 'backtest';
+      }
+    } catch {}
+    return 'overview';
+  };
+
+  const [activeTab, setActiveTab] = useState(getInitialTab);
   const [liveMode, setLiveMode] = useState(false);
   const [isScraping, setIsScraping] = useState(false);
   const [scrapeNotification, setScrapeNotification] = useState(null);
+
+  // Apply theme (Light/Dark/System) and density globally to root document
+  useEffect(() => {
+    const applyThemeAndDensity = () => {
+      try {
+        const saved = localStorage.getItem('airscope_settings');
+        if (!saved) return;
+        const parsed = JSON.parse(saved);
+        setAppSettings(parsed);
+
+        // Theme handling
+        const theme = parsed?.appearance?.theme || 'Light';
+        const isDark = theme === 'Dark' || (theme === 'System' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+
+        // Density handling
+        const density = parsed?.appearance?.density || 'Comfortable';
+        if (density === 'Compact') {
+          document.documentElement.classList.add('density-compact');
+        } else {
+          document.documentElement.classList.remove('density-compact');
+        }
+      } catch (e) {
+        console.error('Failed to sync app settings:', e);
+      }
+    };
+
+    applyThemeAndDensity();
+    window.addEventListener('storage', applyThemeAndDensity);
+    return () => window.removeEventListener('storage', applyThemeAndDensity);
+  }, []);
 
   // Centralized Reactive Data Hook (Zero Dummy Data Fallback)
   const {
@@ -198,6 +257,7 @@ export default function App() {
         setSidebarCollapsed={setSidebarCollapsed}
         updateFilter={updateFilter}
         filters={filters}
+        appSettings={appSettings}
       />
 
       {/* Main Content Area (offset by left sidebar width on desktop) */}
@@ -213,11 +273,11 @@ export default function App() {
                   Welcome to
                 </span>
                 <span className="font-headline text-2xl lg:text-3xl font-black tracking-tight text-[#002b66]">
-                  AIRSCOPE
+                  {appSettings?.general?.appName || 'AIRSCOPE'}
                 </span>
               </div>
               <h1 className="font-headline text-lg lg:text-xl font-bold text-[#0047ba] mt-1">
-                High frequency Airfare Price Index for India
+                {appSettings?.general?.appSub || 'High frequency Airfare Price Index for India'}
               </h1>
               <p className="text-xs lg:text-sm text-slate-500 mt-1 font-normal leading-relaxed">
                 High-Frequency Flight Data & Reactive Analytics Engine • MoSPI SIH-26056
@@ -349,6 +409,7 @@ export default function App() {
               selectedRoute={filters.route}
               onSelectRoute={(r) => handleFilterChange({ route: r })}
               setActiveTab={setActiveTab}
+              onConfigChange={(newCfg) => setAppSettings(newCfg)}
             />
           )}
 

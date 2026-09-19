@@ -15,7 +15,7 @@ import PipelineHealthView from './components/PipelineHealthView';
 import APIDocsView from './components/APIDocsView';
 import CorridorClusteringView from './components/CorridorClusteringView';
 import DataIntegrityView from './components/DataIntegrityView';
-import SurveillanceTelemetryView from './components/SurveillanceTelemetryView';
+import SourceComparisonView from './components/SourceComparisonView';
 import SettingsView from './components/SettingsView';
 import { useAirScopeData } from './hooks/useAirScopeData';
 import { DEFAULT_52_ROUTES, DEFAULT_CLUSTERS, DEFAULT_30_DAY_TREND } from './defaultData';
@@ -220,7 +220,7 @@ export default function App() {
                 High frequency Airfare Price Index for India
               </h1>
               <p className="text-xs lg:text-sm text-slate-500 mt-1 font-normal leading-relaxed">
-                Zero-Contamination Flight Data & Reactive Analytics Engine • MoSPI SIH-26056
+                High-Frequency Flight Data & Reactive Analytics Engine • MoSPI SIH-26056
               </p>
             </div>
 
@@ -316,11 +316,7 @@ export default function App() {
             </div>
           )}
 
-          {(activeTab === 'telemetry') && (
-            <SurveillanceTelemetryView />
-          )}
-
-          {(activeTab === 'explorer' || activeTab === 'source-comparison') && (
+          {(activeTab === 'explorer') && (
             <DataExplorerView observations={rawObservations} routes={routesData} />
           )}
 
@@ -328,9 +324,14 @@ export default function App() {
             <BacktestValidationView backtestData={backtestData} />
           )}
 
-          {(activeTab === 'integrity') && (
+          {(activeTab === 'integrity' || activeTab === 'source-comparison') && (
             <div className="space-y-6">
-              <SurveillanceTelemetryView />
+              <SourceComparisonView 
+                observations={rawObservations} 
+                routes={routesData} 
+                selectedRoute={filters.route}
+                onSelectRoute={(r) => handleFilterChange({ route: r })}
+              />
               <DataIntegrityView observations={rawObservations} />
             </div>
           )}
@@ -343,6 +344,11 @@ export default function App() {
             <SettingsView 
               onTriggerScrape={handleTriggerScrape} 
               isScraping={isScraping} 
+              routes={routesData}
+              observations={rawObservations}
+              selectedRoute={filters.route}
+              onSelectRoute={(r) => handleFilterChange({ route: r })}
+              setActiveTab={setActiveTab}
             />
           )}
 
@@ -371,7 +377,7 @@ export default function App() {
             </div>
             <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-[11px] text-text-muted">
               <span>© 2026 Government of India • Ministry of Statistics & Programme Implementation. All Rights Reserved.</span>
-              <span>MoSPI CPI Airfare Basket v2.0 • DGCA Validated • Zero Contamination Gateway</span>
+              <span>MoSPI CPI Airfare Basket v2.0 • DGCA Validated • Quality Assurance Gateway</span>
             </div>
           </div>
         </footer>

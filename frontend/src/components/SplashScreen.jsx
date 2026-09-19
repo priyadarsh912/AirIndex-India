@@ -81,7 +81,7 @@ export default function SplashScreen({ onComplete }) {
             ✈️ 52 DGCA Corridors
           </span>
           <span className="px-2.5 py-1 rounded-lg bg-surface-card border border-border-hairline text-[11px] font-medium text-slate-600 shadow-xs">
-            🛡️ Zero-Contamination
+            ⚖️ Multi-Source Validation
           </span>
           <span className="px-2.5 py-1 rounded-lg bg-surface-card border border-border-hairline text-[11px] font-medium text-slate-600 shadow-xs">
             📊 Calendar Day Sync

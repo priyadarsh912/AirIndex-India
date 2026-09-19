@@ -6,7 +6,6 @@ export const NAV_ITEMS = [
   { id: 'routes', label: 'Route Explorer', icon: 'alt_route' },
   { id: 'elasticity', label: 'Lead-Time Analytics', icon: 'schedule' },
   { id: 'market', label: 'Market Monitor', icon: 'query_stats' },
-  { id: 'telemetry', label: 'Anti-Contamination', icon: 'shield_with_heart' },
   { id: 'backtest', label: 'Data Quality', icon: 'verified' },
   { id: 'integrity', label: 'Source Comparison', icon: 'compare_arrows' },
   { id: 'api', label: 'API & Data', icon: 'api' },

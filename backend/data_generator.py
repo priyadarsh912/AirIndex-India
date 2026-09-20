@@ -102,7 +102,16 @@ def get_server_today(tz_name: str = "Asia/Kolkata"):
 
 
 def generate_fixture_dataset(days_back: int = 30, end_date: Any = None) -> Dict[str, Any]:
-    """Generates 30 days of realistic observations dynamically ending on today's calendar date."""
+    """
+    Generates realistic observations dynamically ending on today's calendar date.
+    
+    Parameters:
+        days_back (int): Number of days of historical data to generate (default: 30;
+                         can be set to 90, 365, etc. to support genuine multi-week or
+                         12-month econometric views using consistent statistical modeling).
+        end_date (Any): Optional explicit end date (datetime, date, or "YYYY-MM-DD" string).
+                        Defaults to current server date in Asia/Kolkata timezone.
+    """
     random.seed(42)  # Reproducible high-quality baseline
     
     if end_date is None:

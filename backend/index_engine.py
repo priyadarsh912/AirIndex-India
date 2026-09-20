@@ -22,110 +22,128 @@ ROUTE_NAMES = {r["code"]: r.get("name", r["code"]) for r in ROUTES_CONFIG}
 
 def aggregate_trend_by_frequency(daily_indexes: List[Dict[str, Any]], frequency: str = "Daily") -> List[Dict[str, Any]]:
     """
-    Aggregates index trend series by Daily, Weekly (12-week rolling dynamic), or Monthly (12-month CPI macroeconomic series).
-    Provides genuine econometric data interpretation matching DGCA aviation benchmarks and MoSPI Base-100 standards.
+    Aggregates real computed daily index values into weekly or monthly buckets via
+    mean aggregation; returns as many periods as available daily data supports.
+
+    Weekly: groups daily_indexes by ISO calendar week (year, week_number) using
+    datetime.isocalendar() to prevent cross-year collisions, computes arithmetic
+    mean of weighted_index, jevons_index, fisher_index, paasche_index (if present),
+    avg_fare, and sum of observation_count.
+    Label format: "W<n> (<Mon DD>-<Mon DD>)".
+
+    Monthly: groups daily_indexes by calendar month (year, month), computes
+    arithmetic mean of each index field, paasche_index (if present), avg_fare,
+    and sum of observation_count.
+    Label format: "Mon YYYY".
+
+    Returns daily_indexes unchanged when frequency == "Daily" or input is empty.
+    Only buckets with actual data are returned (no padding for missing periods).
     """
     if not daily_indexes or frequency == "Daily":
         return daily_indexes
 
-    latest_item = daily_indexes[-1] if daily_indexes else {}
-    latest_val = float(latest_item.get("weighted_index", 124.5))
-    latest_avg_fare = float(latest_item.get("avg_fare", 4950.0))
-    latest_date_str = latest_item.get("date", "2026-09-19")
+    INDEX_FIELDS = ["weighted_index", "jevons_index", "fisher_index", "avg_fare"]
 
-    try:
-        anchor_dt = datetime.strptime(latest_date_str, "%Y-%m-%d")
-    except Exception:
-        anchor_dt = datetime(2026, 9, 19)
+    def _safe_float(item, key, default=0.0):
+        try:
+            val = item.get(key)
+            return float(val) if val is not None else default
+        except (TypeError, ValueError):
+            return default
 
     if frequency == "Weekly":
-        # 12-Week Rolling Dynamic Series ending on current reporting week
-        # Represents realistic weekly travel dynamics (monsoon lull, Independence Day & Rakhi holiday surges, pre-festival wave)
-        weekly_factors = [
-            {"week": 1, "offset_weeks": 11, "name": "Jun 29 - Jul 05", "factor": 105.2, "note": "Early monsoon onset"},
-            {"week": 2, "offset_weeks": 10, "name": "Jul 06 - Jul 12", "factor": 103.1, "note": "Monsoon lean period"},
-            {"week": 3, "offset_weeks": 9,  "name": "Jul 13 - Jul 19", "factor": 102.4, "note": "Mid-monsoon trough"},
-            {"week": 4, "offset_weeks": 8,  "name": "Jul 20 - Jul 26", "factor": 104.9, "note": "Monsoon promotional fare sales"},
-            {"week": 5, "offset_weeks": 7,  "name": "Jul 27 - Aug 02", "factor": 108.6, "note": "Early August corporate pick-up"},
-            {"week": 6, "offset_weeks": 6,  "name": "Aug 03 - Aug 09", "factor": 113.8, "note": "Pre-holiday advance booking ramp"},
-            {"week": 7, "offset_weeks": 5,  "name": "Aug 10 - Aug 16", "factor": 126.4, "note": "Independence Day long weekend surge"},
-            {"week": 8, "offset_weeks": 4,  "name": "Aug 17 - Aug 23", "factor": 117.2, "note": "Post-holiday normalization"},
-            {"week": 9, "offset_weeks": 3,  "name": "Aug 24 - Aug 30", "factor": 122.8, "note": "Raksha Bandhan & Janmashtami travel"},
-            {"week": 10, "offset_weeks": 2, "name": "Aug 31 - Sep 06", "factor": 118.5, "note": "Early September business steady"},
-            {"week": 11, "offset_weeks": 1, "name": "Sep 07 - Sep 13", "factor": 122.1, "note": "Fiscal Q2 closing travel demand"},
-            {"week": 12, "offset_weeks": 0, "name": "Sep 14 - Sep 20", "factor": latest_val, "note": "Current active week"}
-        ]
+        # Group by ISO (year, week_number)
+        buckets = {}  # key: (iso_year, iso_week) -> list of daily items
+        for item in daily_indexes:
+            date_str = item.get("date") or item.get("full_date") or ""
+            try:
+                dt = datetime.strptime(str(date_str)[:10], "%Y-%m-%d")
+            except (ValueError, TypeError):
+                continue
+            iso_year, iso_week, _ = dt.isocalendar()
+            key = (iso_year, iso_week)
+            buckets.setdefault(key, []).append((dt, item))
 
-        # Scale baseline factor relative to current corridor index level
-        scale = latest_val / 125.0 if latest_val > 0 else 1.0
+        # Sort buckets chronologically
+        sorted_keys = sorted(buckets.keys())
         weekly_result = []
 
-        for item in weekly_factors:
-            w_idx = item["week"]
-            w_start = anchor_dt - pd.Timedelta(days=item["offset_weeks"] * 7 + 6)
-            w_end = anchor_dt - pd.Timedelta(days=item["offset_weeks"] * 7)
-            start_str = w_start.strftime("%b %d")
-            end_str = w_end.strftime("%b %d")
-            label = f"W{w_idx} ({start_str}-{end_str})"
+        for seq_num, key in enumerate(sorted_keys, start=1):
+            entries = buckets[key]
+            dates_in_bucket = [e[0] for e in entries]
+            items_in_bucket = [e[1] for e in entries]
 
-            if item["offset_weeks"] == 0:
-                calc_val = latest_val
-            else:
-                calc_val = round(item["factor"] * scale, 1)
+            bucket_start = min(dates_in_bucket)
+            bucket_end = max(dates_in_bucket)
+            start_str = bucket_start.strftime("%b %d")
+            end_str = bucket_end.strftime("%b %d")
+            label = f"W{seq_num} ({start_str}-{end_str})"
+            full_label = f"Week {seq_num} ({start_str} to {end_str}, {bucket_end.year})"
 
-            w_fare = round(latest_avg_fare * (calc_val / (latest_val or 100.0)), 2)
-            weekly_result.append({
+            n = len(items_in_bucket)
+            aggregated = {
                 "date": label,
-                "full_date": f"Week {w_idx} ({start_str} to {end_str}, {w_end.year}) — {item['note']}",
-                "weighted_index": calc_val,
-                "jevons_index": round(calc_val - 0.9, 1),
-                "fisher_index": round(calc_val + 0.4, 1),
-                "avg_fare": w_fare,
-                "observation_count": int(2850 + (w_idx * 45))
-            })
+                "full_date": full_label,
+            }
+            for field in INDEX_FIELDS:
+                vals = [_safe_float(it, field) for it in items_in_bucket]
+                aggregated[field] = round(sum(vals) / n, 2)
+
+            # Paasche index: mean of that week's paasche_index values if present
+            paasche_present = [it for it in items_in_bucket if it.get("paasche_index") is not None]
+            if paasche_present:
+                p_vals = [_safe_float(it, "paasche_index") for it in paasche_present]
+                aggregated["paasche_index"] = round(sum(p_vals) / len(p_vals), 2)
+
+            total_obs = sum(int(it.get("observation_count", 0)) for it in items_in_bucket)
+            aggregated["observation_count"] = total_obs
+
+            weekly_result.append(aggregated)
 
         return weekly_result
 
     elif frequency == "Monthly":
-        # 12-Month Macroeconomic CPI Airfare Series (MoSPI Base: Jan 2026 = 100.0)
-        # Represents genuine civil aviation macro-seasonality (Diwali, Winter holidays, Summer vacation, Monsoon trough, Festival surge)
-        monthly_schedule = [
-            {"date": "Oct 2025", "full_date": "October 2025 (Diwali Festive Peak)", "factor": 119.4, "is_base": False},
-            {"date": "Nov 2025", "full_date": "November 2025 (Post-Diwali Correction)", "factor": 111.8, "is_base": False},
-            {"date": "Dec 2025", "full_date": "December 2025 (Winter Holiday Travel Surge)", "factor": 134.8, "is_base": False},
-            {"date": "Jan 2026", "full_date": "January 2026 (MoSPI CPI Base Period: 100.0)", "factor": 100.0, "is_base": True},
-            {"date": "Feb 2026", "full_date": "February 2026 (Lean Travel Quarter)", "factor": 97.8, "is_base": False},
-            {"date": "Mar 2026", "full_date": "March 2026 (Corporate Fiscal Year-End Travel)", "factor": 105.2, "is_base": False},
-            {"date": "Apr 2026", "full_date": "April 2026 (Summer Break Advance Bookings)", "factor": 113.6, "is_base": False},
-            {"date": "May 2026", "full_date": "May 2026 (Peak Nationwide Summer Vacation)", "factor": 129.8, "is_base": False},
-            {"date": "Jun 2026", "full_date": "June 2026 (School Reopening & Early Monsoon)", "factor": 113.2, "is_base": False},
-            {"date": "Jul 2026", "full_date": "July 2026 (Mid-Monsoon Low Season Trough)", "factor": 102.6, "is_base": False},
-            {"date": "Aug 2026", "full_date": "August 2026 (Independence Day & Rakhi Holidays)", "factor": 116.8, "is_base": False},
-            {"date": "Sep 2026", "full_date": "September 2026 (Current MTD • Pre-Puja Surge)", "factor": latest_val, "is_base": False},
-        ]
+        # Group by calendar month (YYYY-MM)
+        buckets = {}  # key: "YYYY-MM" -> list of daily items
+        for item in daily_indexes:
+            date_str = item.get("date") or item.get("full_date") or ""
+            try:
+                dt = datetime.strptime(str(date_str)[:10], "%Y-%m-%d")
+            except (ValueError, TypeError):
+                continue
+            key = dt.strftime("%Y-%m")
+            buckets.setdefault(key, []).append((dt, item))
 
-        # Scale seasonal multipliers relative to corridor level while preserving Jan 2026 = 100.0
-        scale = latest_val / 124.5 if latest_val > 0 else 1.0
+        sorted_keys = sorted(buckets.keys())
         monthly_result = []
 
-        for m in monthly_schedule:
-            if m["is_base"]:
-                m_val = 100.0
-            elif m["date"] == "Sep 2026":
-                m_val = latest_val
-            else:
-                m_val = round(m["factor"] * scale, 1)
+        for key in sorted_keys:
+            entries = buckets[key]
+            items_in_bucket = [e[1] for e in entries]
+            first_date = min(e[0] for e in entries)
 
-            m_fare = round(latest_avg_fare * (m_val / (latest_val or 100.0)), 2)
-            monthly_result.append({
-                "date": m["date"],
-                "full_date": m["full_date"],
-                "weighted_index": m_val,
-                "jevons_index": round(m_val - 1.1, 1),
-                "fisher_index": round(m_val + 0.5, 1),
-                "avg_fare": m_fare,
-                "observation_count": 12480 if not m["date"].startswith("Sep") else len(daily_indexes) * 120
-            })
+            label = first_date.strftime("%b %Y")
+            full_label = first_date.strftime("%B %Y")
+
+            n = len(items_in_bucket)
+            aggregated = {
+                "date": label,
+                "full_date": full_label,
+            }
+            for field in INDEX_FIELDS:
+                vals = [_safe_float(it, field) for it in items_in_bucket]
+                aggregated[field] = round(sum(vals) / n, 2)
+
+            # Paasche index: mean of that month's paasche_index values if present
+            paasche_present = [it for it in items_in_bucket if it.get("paasche_index") is not None]
+            if paasche_present:
+                p_vals = [_safe_float(it, "paasche_index") for it in paasche_present]
+                aggregated["paasche_index"] = round(sum(p_vals) / len(p_vals), 2)
+
+            total_obs = sum(int(it.get("observation_count", 0)) for it in items_in_bucket)
+            aggregated["observation_count"] = total_obs
+
+            monthly_result.append(aggregated)
 
         return monthly_result
 
@@ -269,7 +287,8 @@ def compute_airfare_indexes(
             "jevons_index": round(float(jevons_idx), 2),
             "fisher_index": round(float(fisher_idx), 2),
             "paasche_index": round(float(paasche_idx), 2),
-            "avg_fare": round(float(day_sub["total_fare"].mean()), 2)
+            "avg_fare": round(float(day_sub["total_fare"].mean()), 2),
+            "observation_count": int(day_sub["obs_count"].sum())
         })
 
     latest_date = dates[-1] if dates else "2026-09-04"

@@ -32,7 +32,12 @@ from anomaly_engine import detect_airfare_anomalies
 from backtest_engine import run_dgca_backtest
 from clustering_engine import compute_route_clusters
 from data_generator import AIRLINES_CONFIG, ROUTES_CONFIG, WINDOWS_CONFIG, generate_fixture_dataset, get_server_today
-from data_loader import get_latest_scrape_metadata, load_scraped_observations, merge_scraped_with_fixture
+from data_loader import (
+    get_latest_scrape_metadata,
+    load_scraped_observations,
+    merge_scraped_with_fixture,
+    load_extended_history,
+)
 from index_engine import compute_airfare_indexes
 from integrity_engine import (
     GLOBAL_ANTI_CONTAMINATION_ENGINE,
@@ -101,7 +106,8 @@ class HistoryResponse(BaseModel):
 #  GLOBAL DATASET CACHE & PARTITIONED STORES
 # ─────────────────────────────────────────────────────────────────────────────
 
-FIXTURE_DATA = generate_fixture_dataset(30)
+_cached_history = load_extended_history()
+FIXTURE_DATA = _cached_history if (_cached_history and "raw_observations" in _cached_history) else generate_fixture_dataset(90)
 SCRAPED_DATA = load_scraped_observations()
 COMBINED_RAW = merge_scraped_with_fixture(FIXTURE_DATA["raw_observations"], SCRAPED_DATA)
 
@@ -1474,6 +1480,56 @@ def recalibrate_settings(payload: Dict[str, Any]):
         "active_tranches": tranches,
         "iqr_multiplier": iqr_multiplier,
         "timestamp": datetime.now().isoformat()
+    }
+
+
+@app.post("/api/admin/generate-extended-history")
+@app.post("/api/v2/admin/generate-extended-history")
+def generate_extended_history_admin(
+    days_back: int = Query(365, ge=30, le=730, description="Number of historical days to generate"),
+    cache_to_disk: bool = Query(True, description="Persist generated dataset to backend/data/extended_history.json")
+):
+    """
+    Admin-only utility endpoint to generate a longer real synthetic dataset
+    using the exact statistical methodology in data_generator.py and optionally
+    cache it to disk for instant 12-month / 52-week views without hardcoded narrative numbers.
+    """
+    global FIXTURE_DATA, COMBINED_RAW, CLEAN_FLIGHT_OBSERVATIONS, QUARANTINED_FLIGHT_OBSERVATIONS, TELEMETRY_AUDIT
+    global CLEANED_DATA, QUALITY_STATS, INDEX_RESULTS, ANOMALIES_RESULTS, CLUSTER_RESULTS, BACKTEST_RESULTS
+
+    new_fixture = generate_fixture_dataset(days_back=days_back)
+    obs_count = len(new_fixture.get("raw_observations", []))
+    saved = False
+
+    if cache_to_disk:
+        cache_path = os.path.join(_BACKEND_DIR, "data", "extended_history.json")
+        try:
+            os.makedirs(os.path.dirname(cache_path), exist_ok=True)
+            with open(cache_path, "w", encoding="utf-8") as f:
+                json.dump(new_fixture, f)
+            saved = True
+        except Exception as e:
+            pass
+
+    # Update in-memory stores
+    FIXTURE_DATA = new_fixture
+    COMBINED_RAW = merge_scraped_with_fixture(FIXTURE_DATA["raw_observations"], SCRAPED_DATA)
+    CLEAN_FLIGHT_OBSERVATIONS, QUARANTINED_FLIGHT_OBSERVATIONS, TELEMETRY_AUDIT = partition_observations(COMBINED_RAW)
+    CLEANED_DATA, QUALITY_STATS = process_data_quality(CLEAN_FLIGHT_OBSERVATIONS)
+    INDEX_RESULTS = compute_airfare_indexes(CLEANED_DATA)
+    ANOMALIES_RESULTS = detect_airfare_anomalies(CLEANED_DATA)
+    CLUSTER_RESULTS = compute_route_clusters(CLEANED_DATA)
+    BACKTEST_RESULTS = run_dgca_backtest(INDEX_RESULTS.get("daily_trend", []), FIXTURE_DATA["dgca_benchmark"])
+
+    return {
+        "status": "SUCCESS",
+        "days_back": days_back,
+        "observations_generated": obs_count,
+        "cached_to_disk": saved,
+        "date_range": {
+            "start": new_fixture["dgca_benchmark"][0]["date"] if new_fixture.get("dgca_benchmark") else None,
+            "end": new_fixture["dgca_benchmark"][-1]["date"] if new_fixture.get("dgca_benchmark") else None,
+        }
     }
 
 

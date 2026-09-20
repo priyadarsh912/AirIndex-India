@@ -100,7 +100,28 @@ def merge_scraped_with_fixture(
     return combined
 
 
+def load_extended_history(filepath: str = None) -> Any:
+    """
+    Loads pre-generated extended historical dataset from JSON cache if present.
+    Returns fixture dictionary with raw_observations, dgca_benchmark, etc., or None.
+    """
+    if filepath is None:
+        filepath = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "extended_history.json")
+
+    if os.path.exists(filepath):
+        try:
+            with open(filepath, "r", encoding="utf-8") as f:
+                payload = json.load(f)
+                if isinstance(payload, dict) and "raw_observations" in payload:
+                    logger.info(f"Loaded cached extended history from {filepath} ({len(payload['raw_observations'])} records).")
+                    return payload
+        except Exception as err:
+            logger.warning(f"Could not load cached extended history from {filepath}: {err}")
+    return None
+
+
 if __name__ == "__main__":
     scraped = load_scraped_observations()
     print(f"Loaded {len(scraped)} scraped records.")
     print("Latest metadata:", get_latest_scrape_metadata())
+

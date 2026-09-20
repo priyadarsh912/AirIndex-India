@@ -48,7 +48,7 @@ export default function IndexTrendChart({
   const activeFreq = filters.frequency || 'Daily';
 
   return (
-    <div className="bg-surface-card rounded-xl p-6 shadow-sm border border-border-hairline relative">
+    <div id="daily-trend-section" className="bg-surface-card rounded-xl p-6 shadow-sm border border-border-hairline relative scroll-mt-44">
       {/* Loading Overlay / Indicator */}
       {isLoading && (!trendData || trendData.length === 0 ? (
         <div className="absolute inset-0 bg-surface-canvas/75 backdrop-blur-[2px] z-20 flex items-center justify-center rounded-xl">

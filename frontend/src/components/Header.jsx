@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { DEFAULT_52_ROUTES } from '../defaultData';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // OFFICIAL EMBLEMS & LOGO VECTOR ASSETS (Pixel-Perfect SVG Reproductions)
@@ -157,6 +158,90 @@ function StaySafeOnlineSvg({ className = "h-11 w-auto" }) {
   );
 }
 
+// Common city name to airport code aliases for intelligent flight search
+const AIRPORT_SYNONYMS = {
+  bangalore: 'blr',
+  bengaluru: 'blr',
+  bombay: 'bom',
+  mumbai: 'bom',
+  calcutta: 'ccu',
+  kolkata: 'ccu',
+  madras: 'maa',
+  chennai: 'maa',
+  cochin: 'cok',
+  kochi: 'cok',
+  trivandrum: 'trv',
+  thiruvananthapuram: 'trv',
+  varanasi: 'vns',
+  benares: 'vns',
+  goa: 'goi',
+  delhi: 'del',
+  newdelhi: 'del',
+  hyderabad: 'hyd',
+  ahmedabad: 'amd',
+  pune: 'pnq',
+  jaipur: 'jai',
+  lucknow: 'lko',
+  patna: 'pat',
+  srinagar: 'sxr',
+  guwahati: 'gau',
+  bagdogra: 'ixb',
+  bhubaneswar: 'bbi',
+  amritsar: 'atq',
+  ranchi: 'ixr',
+  indore: 'idr',
+  chandigarh: 'ixc',
+  dehradun: 'ded'
+};
+
+function resolveCorridors(rawQuery) {
+  if (!rawQuery || !rawQuery.trim()) {
+    return DEFAULT_52_ROUTES.slice(0, 10);
+  }
+  const q = rawQuery.trim().toLowerCase();
+  if (q === 'all' || q === 'national') return [];
+
+  const cleanQ = q.replace(/[\s\-_→>]+/g, ' ').trim();
+  const words = cleanQ.split(/\s+/).filter(Boolean);
+  const resolvedWords = words.map(w => AIRPORT_SYNONYMS[w] || w);
+
+  // 1. Exact route match (e.g. DEL-BOM or DELBOM)
+  const exact = DEFAULT_52_ROUTES.find(r => 
+    r.route.toLowerCase() === q || 
+    r.route.replace('-', '').toLowerCase() === q.replace(/[^a-z0-9]/g, '')
+  );
+  if (exact) return [exact];
+
+  // 2. If two city/airport words detected (e.g. "delhi to mumbai" -> "del", "bom")
+  if (resolvedWords.length >= 2) {
+    const pair = `${resolvedWords[0]}-${resolvedWords[1]}`.toUpperCase();
+    const pairMatch = DEFAULT_52_ROUTES.find(r => r.route === pair);
+    if (pairMatch) return [pairMatch];
+
+    const revPair = `${resolvedWords[1]}-${resolvedWords[0]}`.toUpperCase();
+    const revMatch = DEFAULT_52_ROUTES.find(r => r.route === revPair);
+    if (revMatch) return [revMatch];
+  }
+
+  // 3. Multi-field fuzzy search across route code, city pair name, cluster, or airport codes
+  return DEFAULT_52_ROUTES.filter(r => {
+    const route = r.route.toLowerCase();
+    const name = r.name.toLowerCase();
+    const cluster = (r.cluster || '').toLowerCase();
+    const [orig, dest] = route.split('-');
+
+    if (route.includes(q) || route.replace('-', '').includes(q.replace(/[^a-z0-9]/g, ''))) return true;
+    if (name.includes(q) || cluster.includes(q)) return true;
+
+    for (const rw of resolvedWords) {
+      if (orig === rw || dest === rw || orig.startsWith(rw) || dest.startsWith(rw) || name.includes(rw)) {
+        return true;
+      }
+    }
+    return false;
+  });
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // MAIN INSTITUTIONAL HEADER COMPONENT
 // ─────────────────────────────────────────────────────────────────────────────
@@ -172,9 +257,65 @@ export default function Header({
   updateFilter,
   filters = { route: 'ALL', airline: 'ALL' }
 }) {
-  const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const searchInputRef = useRef(null);
+  const searchContainerRef = useRef(null);
+
+  // Close suggestions on outside click
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(e.target)) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
+  }, []);
+
+  // Compute matching corridors dynamically
+  const matchingCorridors = useMemo(() => {
+    return resolveCorridors(searchQuery);
+  }, [searchQuery]);
+
+  const handleSelectCorridor = (routeCode) => {
+    if (updateFilter) {
+      updateFilter({ route: routeCode, airline: 'ALL', frequency: 'Daily' });
+    }
+    if (setActiveTab) {
+      setActiveTab('overview');
+    }
+    setSearchQuery(routeCode === 'ALL' ? '' : routeCode);
+    setShowSuggestions(false);
+    
+    // Smoothly scroll to the Airfare Price Index Daily Trend section
+    setTimeout(() => {
+      const el = document.getElementById('daily-trend-section') || document.getElementById('index-trend-chart');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 150);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    const q = searchQuery.trim();
+    if (!q) {
+      handleSelectCorridor('ALL');
+      return;
+    }
+    const matches = resolveCorridors(q);
+    if (matches && matches.length > 0) {
+      handleSelectCorridor(matches[0].route);
+    } else {
+      handleSelectCorridor(q.toUpperCase());
+    }
+  };
+
+  const handleClearSearch = () => {
+    setSearchQuery('');
+    handleSelectCorridor('ALL');
+  };
 
   // Mapping Navigation Tabs according to Government Portal specification
   const NAV_LINKS = [
@@ -202,15 +343,6 @@ export default function Header({
     if (link.id === 'psd_basket' && (activeTab === 'psd_basket' || activeTab === 'backtest')) return true;
     if (link.id === 'settings' && activeTab === 'settings') return true;
     return false;
-  };
-
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    if (searchQuery.trim() && updateFilter) {
-      updateFilter({ route: searchQuery.trim().toUpperCase(), airline: 'ALL' });
-      if (setActiveTab) setActiveTab('overview');
-      setSearchOpen(false);
-    }
   };
 
   const headerRef = useRef(null);
@@ -322,34 +454,115 @@ export default function Header({
 
         {/* Right Side Status & User Pills */}
         <div className="flex items-center gap-2.5 shrink-0 pl-3 py-1">
-          {/* Quick Corridor Search Trigger */}
-          <div className="relative">
-            {searchOpen ? (
-              <form onSubmit={handleSearchSubmit} className="flex items-center bg-[#07192d] border border-blue-400/40 rounded-lg px-2 py-1">
-                <input
-                  ref={searchInputRef}
-                  type="text"
-                  placeholder="Filter corridor (e.g. DEL-BOM)..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="bg-transparent text-xs text-white placeholder-slate-400 focus:outline-none w-36 sm:w-48 font-mono"
-                  autoFocus
-                />
-                <button type="submit" className="text-slate-300 hover:text-white p-0.5">
-                  <span className="material-symbols-outlined text-[16px]">search</span>
+          {/* Quick Corridor Search Bar with Autocomplete */}
+          <div className="relative" ref={searchContainerRef}>
+            <form onSubmit={handleSearchSubmit} className="flex items-center bg-[#07192d] border border-blue-400/40 focus-within:border-blue-400 rounded-lg px-2.5 py-1 transition-all shadow-inner">
+              <span className="material-symbols-outlined text-slate-400 text-[16px] mr-1.5 shrink-0">search</span>
+              <input
+                ref={searchInputRef}
+                type="text"
+                placeholder={filters?.route && filters.route !== 'ALL' ? `Corridor: ${filters.route}` : "Filter corridor (e.g. DEL-BOM)..."}
+                value={searchQuery}
+                onFocus={() => setShowSuggestions(true)}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setShowSuggestions(true);
+                }}
+                className="bg-transparent text-xs text-white placeholder-slate-400 focus:outline-none w-36 sm:w-56 font-mono"
+              />
+              {filters?.route && filters.route !== 'ALL' && (
+                <span className="bg-blue-600/80 text-white font-mono text-[10px] font-bold px-1.5 py-0.2 rounded mr-1 shrink-0">
+                  {filters.route}
+                </span>
+              )}
+              {(searchQuery || (filters?.route && filters.route !== 'ALL')) ? (
+                <button 
+                  type="button" 
+                  onClick={handleClearSearch} 
+                  className="text-slate-400 hover:text-white p-0.5 transition shrink-0"
+                  title="Clear filter / reset to National"
+                >
+                  <span className="material-symbols-outlined text-[15px]">close</span>
                 </button>
-                <button type="button" onClick={() => setSearchOpen(false)} className="text-slate-400 hover:text-white p-0.5 ml-1">
-                  <span className="material-symbols-outlined text-[14px]">close</span>
+              ) : (
+                <button type="submit" className="text-slate-400 hover:text-white p-0.5 transition shrink-0" title="Search flights">
+                  <span className="material-symbols-outlined text-[15px]">arrow_forward</span>
                 </button>
-              </form>
-            ) : (
-              <button
-                onClick={() => setSearchOpen(true)}
-                className="p-1.5 text-slate-300 hover:text-white hover:bg-[#153459] rounded-md transition"
-                title="Search corridor"
-              >
-                <span className="material-symbols-outlined text-[18px]">search</span>
-              </button>
+              )}
+            </form>
+
+            {/* Interactive Live Suggestions Dropdown */}
+            {showSuggestions && (
+              <div className="absolute right-0 mt-1.5 w-72 sm:w-80 bg-[#07192d] border border-blue-500/40 rounded-xl shadow-2xl z-50 overflow-hidden backdrop-blur-md">
+                <div className="p-2 border-b border-slate-700/60 flex items-center justify-between text-[11px] text-slate-400">
+                  <span className="font-semibold uppercase tracking-wider text-[10px] text-slate-400">
+                    {searchQuery ? `Corridor Matches (${matchingCorridors.length})` : 'Popular Corridors (52 Total)'}
+                  </span>
+                  <span className="text-[9px] text-slate-500 font-mono">Press Enter to select</span>
+                </div>
+
+                {/* Option to view all / reset to National */}
+                <button
+                  type="button"
+                  onClick={() => handleSelectCorridor('ALL')}
+                  className={`w-full px-3 py-2 text-left flex items-center justify-between hover:bg-[#123157] transition-colors border-b border-slate-700/40 ${
+                    filters?.route === 'ALL' ? 'bg-[#153459]' : ''
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[18px] text-blue-400">public</span>
+                    <div>
+                      <div className="text-xs font-bold text-white">All Corridors (National Composite)</div>
+                      <div className="text-[10px] text-slate-400">Whole India APIx Daily Index</div>
+                    </div>
+                  </div>
+                  {filters?.route === 'ALL' && (
+                    <span className="material-symbols-outlined text-[16px] text-emerald-400">check</span>
+                  )}
+                </button>
+
+                {/* List of matching corridors */}
+                <div className="max-h-60 overflow-y-auto divide-y divide-slate-800/80 custom-scrollbar">
+                  {matchingCorridors.length > 0 ? (
+                    matchingCorridors.map(r => {
+                      const isSelected = filters?.route === r.route;
+                      return (
+                        <button
+                          key={r.route}
+                          type="button"
+                          onClick={() => handleSelectCorridor(r.route)}
+                          className={`w-full px-3 py-2 text-left flex items-center justify-between hover:bg-[#123157] transition-colors ${
+                            isSelected ? 'bg-[#153459]' : ''
+                          }`}
+                        >
+                          <div>
+                            <div className="flex items-center gap-1.5">
+                              <span className="font-mono text-xs font-bold text-cyan-400">{r.route}</span>
+                              <span className="text-slate-200 text-xs font-medium">{r.name}</span>
+                            </div>
+                            <div className="flex items-center gap-2 mt-0.5 text-[10px] text-slate-400">
+                              <span className="px-1.5 py-0.2 rounded bg-slate-800 text-slate-300 font-medium">
+                                {r.cluster}
+                              </span>
+                              <span>Weight: {(r.weight * 100).toFixed(1)}%</span>
+                            </div>
+                          </div>
+                          <div className="text-right shrink-0">
+                            <span className="text-xs font-bold text-white font-mono">₹{r.current_fare?.toLocaleString()}</span>
+                            {isSelected && (
+                              <span className="block text-[9px] text-emerald-400 font-bold">Active</span>
+                            )}
+                          </div>
+                        </button>
+                      );
+                    })
+                  ) : (
+                    <div className="p-4 text-center text-xs text-slate-400">
+                      No corridor matching "{searchQuery}". Try "DEL-BOM", "Goa", or "Mumbai".
+                    </div>
+                  )}
+                </div>
+              </div>
             )}
           </div>
 
@@ -359,15 +572,6 @@ export default function Header({
             <span>LIVE: 52 CORRIDORS</span>
           </div>
 
-          {/* 2. User Profile Badge: Subham • RAG RANGERS */}
-          <div className="flex items-center gap-2 px-3 py-1 rounded-md bg-[#1d4ed8] text-white text-xs font-semibold shadow-sm border border-blue-400/30">
-            <div className="w-5 h-5 rounded-full bg-white text-[#1d4ed8] flex items-center justify-center font-black text-[11px] leading-none shadow-sm">
-              S
-            </div>
-            <span className="whitespace-nowrap tracking-tight text-[11.5px]">
-              Subham • RAG RANGERS
-            </span>
-          </div>
         </div>
       </nav>
 

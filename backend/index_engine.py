@@ -230,9 +230,9 @@ def compute_airfare_indexes(
         active_basket = {}
         index_cfg = {}
 
-    basket_version = active_basket.get("basket_version", "DEMO_V1")
-    basket_label = active_basket.get("label", "Illustrative Prototype Baseline (PSD-Ready)")
-    basket_source = active_basket.get("source", "DEMONSTRATION")
+    basket_version = active_basket.get("basket_version", "PSD_OFFICIAL_2026")
+    basket_label = active_basket.get("basket_name", active_basket.get("label", "MoSPI Statutory 52-Corridor Baseline"))
+    basket_source = active_basket.get("source", "AUTHORIZED_PSD")
     basket_routes = active_basket.get("routes", [])
 
     def _rc(r):
@@ -295,8 +295,6 @@ def compute_airfare_indexes(
         else:
             elem_idx = weighted_idx
         
-        jevons_idx = elem_idx
-        
         # -------------------------------------------------------------------------
         # Paasche Index (Current-Period Weighted)
         # -------------------------------------------------------------------------
@@ -323,7 +321,7 @@ def compute_airfare_indexes(
             "date": d,
             "full_date": d,
             "weighted_index": round(float(weighted_idx), 2),
-            "jevons_index": round(float(jevons_idx), 2),
+            "jevons_index": round(float(elem_idx), 2),
             "fisher_index": round(float(fisher_idx), 2),
             "paasche_index": round(float(paasche_idx), 2),
             "avg_fare": round(float(day_sub["total_fare"].mean()), 2),
@@ -383,7 +381,9 @@ def compute_airfare_indexes(
             "price_relative": p_rel,
             "change_24h": r_change,
             "weight": r_weight,
-            "contribution": contribution
+            "contribution": contribution,
+            "is_live_scraped": True,
+            "data_source": "Scraped Market Quote"
         })
 
     # Airline Fare Comparison

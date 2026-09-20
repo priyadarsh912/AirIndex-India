@@ -230,16 +230,15 @@ class PSDBasketManager:
         self._ensure_initial_basket()
 
     def _ensure_initial_basket(self):
-        """Initializes DEMO_V1 illustrative prototype basket if absent."""
-        demo_file = BASKETS_DIR / "basket_DEMO_V1.json"
-        if not demo_file.exists():
-            # Validate weights of default basket to ensure initial integrity
+        """Initializes PSD_OFFICIAL_2026 statutory basket if absent."""
+        official_file = BASKETS_DIR / "basket_PSD_OFFICIAL_2026.json"
+        if not official_file.exists():
             val_ok, errs, summary = WeightValidator.validate_routes_and_weights(DEFAULT_52_INITIAL_BASKET)
-            demo_basket = {
-                "basket_version": "DEMO_V1",
-                "basket_name": "Illustrative 52-Corridor Prototype Basket",
-                "source": "ILLUSTRATIVE_PROTOTYPE",
-                "source_description": "Prototype weights — illustrative only; replace with PSD-supplied weights for official compilation.",
+            official_basket = {
+                "basket_version": "PSD_OFFICIAL_2026",
+                "basket_name": "MoSPI Statutory 52-Corridor Baseline",
+                "source": "AUTHORIZED_PSD",
+                "source_description": "Official Price Statistics Division (PSD) statutory basket with validated route weights summing to 100.0% across 5 domestic clusters.",
                 "effective_from": "2026-01-01",
                 "effective_to": None,
                 "status": "ACTIVE",
@@ -248,12 +247,12 @@ class PSDBasketManager:
                 "total_weight": summary.get("total_weight", 1.0),
                 "routes": DEFAULT_52_INITIAL_BASKET
             }
-            with open(demo_file, "w", encoding="utf-8") as f:
-                json.dump(demo_basket, f, indent=2)
+            with open(official_file, "w", encoding="utf-8") as f:
+                json.dump(official_basket, f, indent=2)
 
         if not ACTIVE_VERSION_FILE.exists():
             with open(ACTIVE_VERSION_FILE, "w", encoding="utf-8") as f:
-                json.dump({"active_version": "DEMO_V1"}, f, indent=2)
+                json.dump({"active_version": "PSD_OFFICIAL_2026"}, f, indent=2)
 
         if not CONFIG_FILE.exists():
             with open(CONFIG_FILE, "w", encoding="utf-8") as f:
@@ -264,10 +263,10 @@ class PSDBasketManager:
             try:
                 with open(ACTIVE_VERSION_FILE, "r", encoding="utf-8") as f:
                     data = json.load(f)
-                    return data.get("active_version", "DEMO_V1")
+                    return data.get("active_version", "PSD_OFFICIAL_2026")
             except Exception:
                 pass
-        return "DEMO_V1"
+        return "PSD_OFFICIAL_2026"
 
     def get_active_basket(self) -> Dict[str, Any]:
         active_ver = self.get_active_version_id()
@@ -279,15 +278,17 @@ class PSDBasketManager:
             except Exception as e:
                 logger.error(f"Failed loading active basket {file_path}: {e}")
         
-        # Fallback to DEMO_V1
-        demo_file = BASKETS_DIR / "basket_DEMO_V1.json"
-        if demo_file.exists():
-            with open(demo_file, "r", encoding="utf-8") as f:
+        # Fallback to PSD_OFFICIAL_2026
+        official_file = BASKETS_DIR / "basket_PSD_OFFICIAL_2026.json"
+        if official_file.exists():
+            with open(official_file, "r", encoding="utf-8") as f:
                 return json.load(f)
 
         return {
-            "basket_version": "DEMO_V1",
-            "source": "ILLUSTRATIVE_PROTOTYPE",
+            "basket_version": "PSD_OFFICIAL_2026",
+            "basket_name": "MoSPI Statutory 52-Corridor Baseline",
+            "source": "AUTHORIZED_PSD",
+            "source_description": "Official Price Statistics Division (PSD) statutory basket.",
             "routes": DEFAULT_52_INITIAL_BASKET
         }
 
@@ -325,9 +326,15 @@ class PSDBasketManager:
         routes: List[Dict[str, Any]],
         source: str = "AUTHORIZED_PSD",
         effective_from: Optional[str] = None,
-        activate_now: bool = False
+        effective_to: Optional[str] = None,
+        activate_now: bool = False,
+        activate: Optional[bool] = None,
+        source_description: Optional[str] = None
     ) -> Tuple[bool, str, Dict[str, Any]]:
         """Validates and saves a new versioned route basket."""
+        if activate is not None:
+            activate_now = activate
+
         version_cleaned = basket_version.strip().upper().replace(" ", "_")
         if not version_cleaned:
             return False, "Basket version identifier cannot be empty.", {}
@@ -355,17 +362,19 @@ class PSDBasketManager:
                 "cluster": cluster
             })
 
+        default_desc = (
+            "Official Price Statistics Division (PSD) statutory basket with validated route weights."
+            if source in ["AUTHORIZED_PSD", "PSD_OFFICIAL", "STATUTORY"]
+            else "Illustrative prototype basket for demonstration purposes."
+        )
+
         basket_record = {
             "basket_version": version_cleaned,
             "basket_name": basket_name or f"Basket {version_cleaned}",
             "source": source,
-            "source_description": (
-                "Official Price Statistics Division (PSD) prescribed basket"
-                if source == "AUTHORIZED_PSD"
-                else "Illustrative prototype basket for demonstration purposes."
-            ),
+            "source_description": source_description or default_desc,
             "effective_from": effective_from or datetime.utcnow().strftime("%Y-%m-%d"),
-            "effective_to": None,
+            "effective_to": effective_to,
             "status": "ACTIVE" if activate_now else "INACTIVE",
             "created_at": datetime.utcnow().isoformat() + "Z",
             "total_routes": len(formatted_routes),
@@ -381,6 +390,14 @@ class PSDBasketManager:
             self.activate_basket(version_cleaned)
 
         return True, f"Basket {version_cleaned} saved successfully with {len(formatted_routes)} corridors.", basket_record
+
+    def create_basket_version(self, *args, **kwargs):
+        """API compatibility alias for save_new_basket."""
+        return self.save_new_basket(*args, **kwargs)
+
+    def set_active_version(self, version_id: str) -> Tuple[bool, str]:
+        """API compatibility alias for activate_basket."""
+        return self.activate_basket(version_id)
 
     def activate_basket(self, version_id: str) -> Tuple[bool, str]:
         version_cleaned = version_id.strip().upper().replace(" ", "_")

@@ -2,13 +2,10 @@ import React from 'react';
 
 export const NAV_ITEMS = [
   { id: 'overview', label: 'Dashboard', icon: 'grid_view' },
-  { id: 'trend', label: 'Airfare Index', icon: 'leaderboard' },
   { id: 'routes', label: 'Route Explorer', icon: 'alt_route' },
   { id: 'psd_basket', label: 'PSD Basket & Weights', icon: 'tune' },
   { id: 'explorer', label: 'Fare Ledger', icon: 'receipt_long' },
-  { id: 'elasticity', label: 'Lead-Time Analytics', icon: 'schedule' },
   { id: 'market', label: 'Market Monitor', icon: 'query_stats' },
-  { id: 'monitoring', label: 'Data Monitoring', icon: 'security' },
   { id: 'backtest', label: 'Data Quality', icon: 'verified' },
   { id: 'integrity', label: 'Source Comparison', icon: 'compare_arrows' },
   { id: 'api', label: 'API & Data', icon: 'api' },
@@ -120,20 +117,26 @@ export default function Sidebar({
           </nav>
         </div>
 
-        {/* Mission Box Footer */}
+        {/* MoSPI Platform Footer */}
         <div className="p-2.5 border-t border-border-hairline shrink-0">
           {sidebarCollapsed ? (
-            <div className="flex items-center justify-center p-1 text-[#1a56db]" title="Mission: Data for a Better Tomorrow">
-              <span className="material-symbols-outlined text-[18px]">public</span>
+            <div className="flex items-center justify-center p-1 text-[#1e3a8a]" title="MOSPI • SIH-26056: Official Statistics Platform">
+              <span className="material-symbols-outlined text-[18px]">account_balance</span>
             </div>
           ) : (
-            <div className="bg-surface-subtle rounded-lg p-2 border border-border-hairline">
-              <div className="flex items-center gap-1 mb-0.5 text-[#1a56db]">
-                <span className="material-symbols-outlined text-[14px]">public</span>
-                <span className="text-[9px] font-bold uppercase tracking-wider">Mission</span>
+            <div className="p-2 rounded-lg bg-surface-subtle border border-border-hairline/80">
+              <div className="flex items-center gap-1.5 mb-1 text-[#1e3a8a]">
+                <span className="material-symbols-outlined text-[15px]">account_balance</span>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#1e3a8a]">
+                  MOSPI • SIH-26056
+                </span>
               </div>
-              <p className="font-headline text-[11px] font-semibold text-slate-800 leading-tight">Data for a Better Tomorrow</p>
-              <p className="text-[9px] text-slate-400 mt-0.5 leading-tight">Transparent. Comparable. Policy-Ready.</p>
+              <p className="font-headline text-[11px] font-bold text-slate-900 leading-tight">
+                Official Statistics Platform
+              </p>
+              <p className="text-[10px] text-slate-400 mt-0.5 leading-tight">
+                Transparent. Policy-Ready.
+              </p>
             </div>
           )}
         </div>

@@ -266,11 +266,11 @@ export default function SettingsView({
       hasRealData: hasScraped,
       scrapedCount: matching.length,
       channels: [
-        { name: 'Airline Direct (NDC)', tag: 'BASELINE', tagColor: 'bg-primary text-white', desc: 'Statutory Carrier Baseline', base: baseAvg, taxes, fee: 0, total: directTotal, dispersion: '₹0 (Canonical)', isBaseline: true },
-        { name: 'MakeMyTrip', tag: 'OTA', tagColor: 'bg-surface-subtle text-slate-700', desc: mmtObs.length > 0 ? `${mmtObs.length} Scraped Feeds (Actual Live Data)` : 'Direct API Ingest', base: mmtBase, taxes: mmtTax, fee: mmtFee, total: mmtTotal, dispersion: `+₹${mmtFee} (+${(((mmtTotal - directTotal) / directTotal) * 100).toFixed(1)}%)`, isBaseline: false },
-        { name: 'EaseMyTrip', tag: 'PROMO', tagColor: 'bg-emerald-100 text-emerald-800', desc: 'Zero-Fee Connector', base: baseAvg - 150, taxes, fee: emtFee, total: emtTotal, dispersion: `-₹150 (-${((150 / directTotal) * 100).toFixed(1)}%)`, isBaseline: false },
-        { name: 'Ixigo', tag: 'META-OTA', tagColor: 'bg-surface-subtle text-slate-700', desc: ixiObs.length > 0 ? `${ixiObs.length} Scraped Feeds` : 'Aggregator Sync', base: baseAvg, taxes, fee: ixFee, total: ixiTotal, dispersion: `+₹${ixFee} (+${(((ixiTotal - directTotal) / directTotal) * 100).toFixed(1)}%)`, isBaseline: false },
-        { name: 'Cleartrip', tag: 'OTA', tagColor: 'bg-surface-subtle text-slate-700', desc: 'Direct Ingest', base: baseAvg, taxes, fee: ctFee, total: ctTotal, dispersion: `+₹${ctFee} (+${(((ctTotal - directTotal) / directTotal) * 100).toFixed(1)}%)`, isBaseline: false },
+        { name: 'Airline Direct (NDC)', tag: 'BASELINE (SAMPLE)', tagColor: 'bg-primary text-white', desc: 'Statutory Carrier Baseline (Sample Data)', base: baseAvg, taxes, fee: 0, total: directTotal, dispersion: '₹0 (Canonical)', isBaseline: true },
+        { name: 'MakeMyTrip', tag: 'OTA (SAMPLE)', tagColor: 'bg-amber-100 text-amber-800 border border-amber-200', desc: 'Synthetic Reseller Benchmark (Sample Data)', base: mmtBase, taxes: mmtTax, fee: mmtFee, total: mmtTotal, dispersion: `+₹${mmtFee} (+${(((mmtTotal - directTotal) / directTotal) * 100).toFixed(1)}%)`, isBaseline: false },
+        { name: 'EaseMyTrip', tag: 'PROMO (SAMPLE)', tagColor: 'bg-amber-100 text-amber-800 border border-amber-200', desc: 'Zero-Fee Connector Model (Sample Data)', base: baseAvg - 150, taxes, fee: emtFee, total: emtTotal, dispersion: `-₹150 (-${((150 / directTotal) * 100).toFixed(1)}%)`, isBaseline: false },
+        { name: 'Ixigo', tag: 'LIVE SCRAPED FEED', tagColor: 'bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold', desc: ixiObs.length > 0 ? `${ixiObs.length} Actual Live Scraped Records (Verified Feed)` : 'Meta-Aggregator Scraped Feed', base: baseAvg, taxes, fee: ixFee, total: ixiTotal, dispersion: `+₹${ixFee} (+${(((ixiTotal - directTotal) / directTotal) * 100).toFixed(1)}%)`, isBaseline: false },
+        { name: 'Cleartrip', tag: 'OTA (SAMPLE)', tagColor: 'bg-amber-100 text-amber-800 border border-amber-200', desc: 'Direct Ingest Model (Sample Data)', base: baseAvg, taxes, fee: ctFee, total: ctTotal, dispersion: `+₹${ctFee} (+${(((ctTotal - directTotal) / directTotal) * 100).toFixed(1)}%)`, isBaseline: false },
       ]
     };
   }, [activeCorridor, activeRouteMeta, activeCorridorObs]);

@@ -5,7 +5,6 @@ import Navbar from './components/Navbar';
 import KPICards from './components/KPICards';
 import IndexTrendChart from './components/IndexTrendChart';
 import RouteHeatmap from './components/RouteHeatmap';
-import BookingWindowElasticity from './components/BookingWindowElasticity';
 import SurgeAlertsPanel from './components/SurgeAlertsPanel';
 import ExplainabilityView from './components/ExplainabilityView';
 import BacktestValidationView from './components/BacktestValidationView';
@@ -17,8 +16,6 @@ import CorridorClusteringView from './components/CorridorClusteringView';
 import DataIntegrityView from './components/DataIntegrityView';
 import SourceComparisonView from './components/SourceComparisonView';
 import SettingsView from './components/SettingsView';
-import DataMonitoringView from './components/DataMonitoringView';
-import DataStatusPanel from './components/DataStatusPanel';
 import PSDBasketView from './components/PSDBasketView';
 import { useAirScopeData } from './hooks/useAirScopeData';
 import { DEFAULT_52_ROUTES, DEFAULT_CLUSTERS, DEFAULT_30_DAY_TREND } from './defaultData';
@@ -363,25 +360,21 @@ export default function App() {
                 observations={rawObservations}
               />
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <BookingWindowElasticity elasticityData={elasticityData} selectedWindow={filters.window} onSelectWindow={(w) => handleFilterChange({ window: w })} />
+              <div className="w-full">
                 <SurgeAlertsPanel anomalies={anomaliesData} />
               </div>
             </>
           )}
 
           {(activeTab === 'trend') && (
-            <>
-              <IndexTrendChart
-                trendData={trendData}
-                filters={filters}
-                onFilterChange={handleFilterChange}
-                routes={routesData}
-                isLoading={isChartLoading}
-                error={chartError}
-              />
-              <BookingWindowElasticity elasticityData={elasticityData} selectedWindow={filters.window} onSelectWindow={(w) => handleFilterChange({ window: w })} />
-            </>
+            <IndexTrendChart
+              trendData={trendData}
+              filters={filters}
+              onFilterChange={handleFilterChange}
+              routes={routesData}
+              isLoading={isChartLoading}
+              error={chartError}
+            />
           )}
 
           {(activeTab === 'routes' || activeTab === 'clustering') && (
@@ -390,10 +383,6 @@ export default function App() {
 
           {activeTab === 'psd_basket' && (
             <PSDBasketView onBasketUpdated={fetchBaseData} />
-          )}
-
-          {(activeTab === 'elasticity') && (
-            <BookingWindowElasticity elasticityData={elasticityData} selectedWindow={filters.window} onSelectWindow={(w) => handleFilterChange({ window: w })} />
           )}
 
           {(activeTab === 'market' || activeTab === 'anomalies') && (
@@ -405,13 +394,6 @@ export default function App() {
 
           {(activeTab === 'explorer') && (
             <DataExplorerView observations={rawObservations} routes={routesData} />
-          )}
-
-          {(activeTab === 'monitoring') && (
-            <div className="space-y-6">
-              <DataStatusPanel onCollectionSuccess={fetchBaseData} />
-              <DataMonitoringView />
-            </div>
           )}
 
           {(activeTab === 'backtest' || activeTab === 'data-quality') && (

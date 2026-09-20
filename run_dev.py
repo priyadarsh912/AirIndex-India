@@ -41,7 +41,7 @@ def main():
     # 1. Start FastAPI Backend
     print("\n[1/2] Starting FastAPI Backend on port 8000...")
     backend_proc = subprocess.Popen(
-        [sys.executable, "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"],
+        [sys.executable, "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"],
         cwd=BACKEND_DIR,
         shell=False
     )

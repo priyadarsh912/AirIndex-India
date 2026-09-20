@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 190" width="140" height="190">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4af37"/>
+      <stop offset="50%" stop-color="#aa7c11"/>
+      <stop offset="100%" stop-color="#7a5200"/>
+    </linearGradient>
+    <linearGradient id="baseGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f5f5f5"/>
+      <stop offset="100%" stop-color="#e0e0e0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Lion Capital Crest -->
+  <g transform="translate(10, 5)">
+    <!-- Center Lion Face -->
+    <path d="M60 12 C48 12 42 22 42 34 C42 46 48 54 60 60 C72 54 78 46 78 34 C78 22 72 12 60 12 Z" fill="url(#goldGrad)" stroke="#5c3e00" stroke-width="1.5"/>
+    <circle cx="53" cy="28" r="3" fill="#3d2900"/>
+    <circle cx="67" cy="28" r="3" fill="#3d2900"/>
+    <path d="M54 42 Q60 48 66 42" stroke="#3d2900" stroke-width="2" fill="none"/>
+    <!-- Mane Tufts -->
+    <path d="M38 34 C30 38 28 48 34 56 C40 64 52 70 60 72 C68 70 80 64 86 56 C92 48 90 38 82 34" fill="url(#goldGrad)" stroke="#5c3e00" stroke-width="1.5"/>
+    <path d="M32 54 C24 60 22 72 28 82 C36 92 48 98 60 100 C72 98 84 92 92 82 C98 72 96 60 88 54" fill="url(#goldGrad)" stroke="#5c3e00" stroke-width="1.5"/>
+    
+    <!-- Left & Right Profile Lions -->
+    <path d="M32 30 C22 28 14 36 14 46 C14 56 22 64 32 68" fill="url(#goldGrad)" stroke="#5c3e00" stroke-width="1.2"/>
+    <path d="M88 30 C98 28 106 36 106 46 C106 56 98 64 88 68" fill="url(#goldGrad)" stroke="#5c3e00" stroke-width="1.2"/>
+
+    <!-- Abacus Platform -->
+    <rect x="16" y="102" width="88" height="22" rx="3" fill="#8b5a2b" stroke="#3d2900" stroke-width="2"/>
+    
+    <!-- Ashoka Chakra (Center Wheel on Abacus) -->
+    <circle cx="60" cy="113" r="9" fill="#000080"/>
+    <circle cx="60" cy="113" r="7.5" fill="#ffffff"/>
+    <circle cx="60" cy="113" r="2" fill="#000080"/>
+    <g stroke="#000080" stroke-width="0.8">
+      <line x1="60" y1="104" x2="60" y2="122"/>
+      <line x1="51" y1="113" x2="69" y2="113"/>
+      <line x1="54" y1="107" x2="66" y2="119"/>
+      <line x1="54" y1="119" x2="66" y2="107"/>
+    </g>
+    
+    <!-- Left & Right Animals on Abacus -->
+    <ellipse cx="30" cy="113" rx="5" ry="4" fill="#d4af37"/>
+    <ellipse cx="90" cy="113" rx="5" ry="4" fill="#d4af37"/>
+
+    <!-- Lotus Base -->
+    <path d="M24 124 Q60 134 96 124 Q86 148 60 150 Q34 148 24 124 Z" fill="url(#goldGrad)" stroke="#5c3e00" stroke-width="1.5"/>
+    <path d="M34 124 Q60 140 86 124 M44 124 Q60 145 76 124" stroke="#5c3e00" stroke-width="1" fill="none"/>
+
+    <!-- Satyameva Jayate Banner -->
+    <rect x="8" y="154" width="104" height="26" rx="4" fill="url(#baseGrad)" stroke="#aa7c11" stroke-width="1.5"/>
+    <text x="60" y="172" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1a1a1a" font-family="'Noto Sans Devanagari', 'Noto Sans', sans-serif">सत्यमेव जयते</text>
+  </g>
+</svg>

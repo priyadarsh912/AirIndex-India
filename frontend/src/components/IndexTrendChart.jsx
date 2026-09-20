@@ -218,7 +218,17 @@ export default function IndexTrendChart({
                           <span>Average Fare:</span>
                           <span className="font-bold">₹{Math.round(item.avg_fare || 0).toLocaleString('en-IN')}</span>
                         </div>
-                        <div className="text-[10px] text-text-muted pt-1">
+                        <div className="flex items-center justify-between text-[11px] pt-1 border-t border-border-hairline/60">
+                          <span className="text-text-muted">Provenance:</span>
+                          <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
+                            item.is_live || item.source === 'LIVE_API'
+                              ? 'bg-emerald-500/15 text-emerald-600 border border-emerald-500/30'
+                              : 'bg-amber-500/15 text-amber-600 border border-amber-500/30'
+                          }`}>
+                            {item.is_live || item.source === 'LIVE_API' ? '● LIVE API' : '○ FIXTURE'}
+                          </span>
+                        </div>
+                        <div className="text-[10px] text-text-muted pt-0.5">
                           Sample Size: {item.observation_count?.toLocaleString() || 1} observations
                         </div>
                       </div>

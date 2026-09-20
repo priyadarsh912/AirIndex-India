@@ -60,8 +60,18 @@ class MMTConnector(BaseAirlineConnector):
         try:
             await self.apply_rate_limit_async()
 
-            # Navigate to search page
-            response = await self._page.goto(url, wait_until="domcontentloaded", timeout=10000)
+            # Navigate to search page with fallback for HTTP2 framing errors
+            try:
+                response = await self._page.goto(url, wait_until="domcontentloaded", timeout=12000)
+            except Exception as goto_err:
+                logger.warning(f"[MMT] Direct search navigation failed ({goto_err}). Retrying via homepage entry...")
+                try:
+                    await self._page.goto(self.base_url, wait_until="domcontentloaded", timeout=10000)
+                    await asyncio.sleep(1.5)
+                    response = await self._page.goto(url, wait_until="domcontentloaded", timeout=12000)
+                except Exception as retry_err:
+                    logger.error(f"[MMT] Search page navigation failed: {retry_err}")
+                    response = None
 
             if not response or response.status >= 400:
                 logger.warning(f"[MMT] HTTP {response.status if response else 'None'} for {url}")

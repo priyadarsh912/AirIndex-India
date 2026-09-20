@@ -17,6 +17,8 @@ import CorridorClusteringView from './components/CorridorClusteringView';
 import DataIntegrityView from './components/DataIntegrityView';
 import SourceComparisonView from './components/SourceComparisonView';
 import SettingsView from './components/SettingsView';
+import DataMonitoringView from './components/DataMonitoringView';
+import DataStatusPanel from './components/DataStatusPanel';
 import { useAirScopeData } from './hooks/useAirScopeData';
 import { DEFAULT_52_ROUTES, DEFAULT_CLUSTERS, DEFAULT_30_DAY_TREND } from './defaultData';
 import SCRAPED_OBSERVATIONS from './data/scrapedObservations.json';
@@ -138,7 +140,7 @@ export default function App() {
         fetch(`${API_BASE_URL}/api/airlines`).then(r => r.ok ? r.json() : null),
         fetch(`${API_BASE_URL}/api/elasticity`).then(r => r.ok ? r.json() : null),
         fetch(`${API_BASE_URL}/api/anomalies`).then(r => r.ok ? r.json() : null),
-        fetch(`${API_BASE_URL}/api/v2/observations?page_size=150&${tzParam}`).then(r => r.ok ? r.json() : fetch(`${API_BASE_URL}/api/observations?limit=150&${tzParam}`).then(r2 => r2.ok ? r2.json() : null)),
+        fetch(`${API_BASE_URL}/api/v2/observations?page_size=500&current_day_only=false&${tzParam}`).then(r => r.ok ? r.json() : fetch(`${API_BASE_URL}/api/fares?limit=500`).then(r2 => r2.ok ? r2.json() : null)),
         fetch(`${API_BASE_URL}/api/backtest`).then(r => r.ok ? r.json() : null),
         fetch(`${API_BASE_URL}/api/explainability`).then(r => r.ok ? r.json() : null),
         fetch(`${API_BASE_URL}/api/health`).then(r => r.ok ? r.json() : null),
@@ -150,8 +152,9 @@ export default function App() {
       if (resAirlines?.airlines) setAirlineData(resAirlines.airlines);
       if (resElas?.elasticity) setElasticityData(resElas.elasticity);
       if (resAnom?.anomalies) setAnomaliesData(resAnom.anomalies);
-      if (resObs?.data) setRawObservations(resObs.data);
-      else if (resObs?.observations) setRawObservations(resObs.observations);
+      if (resObs?.data && resObs.data.length > 0) setRawObservations(resObs.data);
+      else if (resObs?.observations && resObs.observations.length > 0) setRawObservations(resObs.observations);
+      else if (SCRAPED_OBSERVATIONS && SCRAPED_OBSERVATIONS.length > 0) setRawObservations(SCRAPED_OBSERVATIONS);
       if (resBack) setBacktestData(resBack);
       if (resExp) setExplainabilityData(resExp);
       if (resHealth) {
@@ -378,6 +381,13 @@ export default function App() {
 
           {(activeTab === 'explorer') && (
             <DataExplorerView observations={rawObservations} routes={routesData} />
+          )}
+
+          {(activeTab === 'monitoring') && (
+            <div className="space-y-6">
+              <DataStatusPanel onCollectionSuccess={fetchBaseData} />
+              <DataMonitoringView />
+            </div>
           )}
 
           {(activeTab === 'backtest' || activeTab === 'data-quality') && (

@@ -18,6 +18,11 @@ backend/env/
 backend/.env
 .env
 
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
 # Large scraped data files / temporary files (optional, but good to exclude node_modules and venv)
 .DS_Store
 Thumbs.db

@@ -59,27 +59,25 @@ class BaseAirlineConnector:
         }
 
     def verify_robots_txt(self, target_url: Optional[str] = None) -> bool:
-        """Dynamically parses target domain's robots.txt using urllib.robotparser."""
-        import urllib.request
+        """
+        Dynamically passes target request through AirScope Compliance Gateway.
+        Enforces RFC 9309 rules, ToS review gating, rate limits, and circuit breaker health.
+        Never defaults to bypassing on failure (Conservative Government Fail-Safe).
+        """
+        from compliance_gateway import gateway
         check_url = target_url or self.base_url
-        parsed_uri = urllib.parse.urlparse(check_url)
-        robots_url = f"{parsed_uri.scheme}://{parsed_uri.netloc}/robots.txt"
+        source_id = "MMT" if "makemytrip" in self.source_name.lower() else ("IXI" if "ixigo" in self.source_name.lower() else self.source_name)
 
-        try:
-            req = urllib.request.Request(robots_url, headers={"User-Agent": self.user_agent})
-            with urllib.request.urlopen(req, timeout=3.0) as response:
-                content = response.read().decode("utf-8", errors="ignore").splitlines()
-            
-            rp = urllib.robotparser.RobotFileParser()
-            rp.parse(content)
-            allowed = rp.can_fetch(self.user_agent, check_url)
-            self.robots_txt_compliant = allowed
-            logger.info(f"[{self.source_name}] robots.txt check for '{check_url}': {'ALLOWED' if allowed else 'DISALLOWED'}")
-            return allowed
-        except Exception as e:
-            logger.warning(f"[{self.source_name}] Could not fetch {robots_url}: {e}. Defaulting to rate-limited compliant mode.")
-            self.robots_txt_compliant = True
-            return True
+        decision = gateway.evaluate_request(source_id=source_id, url_or_path=check_url, user_agent=self.user_agent)
+        self.robots_txt_compliant = decision.allowed
+
+        if not decision.allowed:
+            logger.warning(f"[{self.source_name}] COMPLIANCE BLOCKED: {decision.reason}")
+            self.scrape_stats["blocked"] += 1
+            return False
+
+        logger.info(f"[{self.source_name}] COMPLIANCE APPROVED: {check_url} passed gateway.")
+        return True
 
     def apply_rate_limit(self):
         """Enforces ethical server load protection delay with random distribution to prevent traffic spikes."""
@@ -110,6 +108,7 @@ class BaseAirlineConnector:
                 "--disable-blink-features=AutomationControlled",
                 "--no-sandbox",
                 "--disable-dev-shm-usage",
+                "--disable-http2",
             ],
         )
         self._context = await self._browser.new_context(
@@ -149,19 +148,110 @@ class BaseAirlineConnector:
         travel_date: str,
         airline_name: str,
         flight_number: str,
-        total_fare: int,
-        booking_window: str,
+        total_fare: Optional[float] = None,
+        booking_window: Optional[str] = None,
         seat_availability: int = -1,
-        cabin_class: str = "Economy",
+        cabin_class: Optional[str] = None,
+        base_fare: Optional[float] = None,
+        taxes: Optional[float] = None,
+        airline_surcharge: Optional[float] = None,
+        convenience_fee: Optional[float] = None,
+        payment_fee: Optional[float] = None,
+        other_fee: Optional[float] = None,
+        displayed_fare: Optional[float] = None,
+        final_fare: Optional[float] = None,
+        raw_fare_class: Optional[str] = None,
+        fare_family: Optional[str] = None,
+        fare_brand: Optional[str] = None,
+        fare_basis: Optional[str] = None,
+        availability_status: Optional[str] = None,
+        raw_source_reference: Optional[str] = None,
+        source_type: Optional[str] = None,
     ) -> Dict[str, Any]:
-        """Create a standardized FareObservation dict matching the pipeline schema."""
+        """Create a standardized, fully normalized FareObservation dict with verified components."""
+        import sys
+        import os
+        sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        from fare_normalizer import FareNormalizer
+        from fare_validator import FareValidator
+
         obs_id = f"LIVE-{self.source_name[:3].upper()}-{int(time.time() * 1000)}-{random.randint(100, 999)}"
         route = f"{origin}-{destination}"
+        now_iso = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 
-        # Estimate fare breakdown
-        base_fare = round(total_fare * 0.76)
-        taxes = round(total_fare * 0.18)
-        fees = total_fare - base_fare - taxes
+        # Determine advance purchase days and booking window
+        try:
+            cap_dt = datetime.strptime(capture_date, "%Y-%m-%d")
+            trav_dt = datetime.strptime(travel_date, "%Y-%m-%d")
+            adv_days = max(0, (trav_dt - cap_dt).days)
+        except Exception:
+            adv_days = 7
+
+        if not booking_window:
+            booking_window = self._determine_booking_window(capture_date, travel_date)
+
+        # Normalize Fare Class & Family
+        norm_fare = FareNormalizer.normalize(
+            raw_text=raw_fare_class,
+            source_cabin=cabin_class,
+            source_fare_family=fare_family
+        )
+        resolved_cabin = norm_fare["cabin_class"]
+        resolved_family = norm_fare["fare_family"]
+        resolved_brand = fare_brand or norm_fare["fare_brand"]
+        resolved_raw_class = norm_fare["raw_fare_class"]
+
+        # Availability status logic
+        if availability_status is None:
+            if seat_availability == 0:
+                availability_status = "SOLD_OUT"
+            else:
+                availability_status = "AVAILABLE"
+
+        # If sold out, total_fare must be None
+        if availability_status == "SOLD_OUT":
+            total_fare = None
+
+        # Source type detection
+        if not source_type:
+            source_type = "OTA" if self.source_name.lower() in ["makemytrip", "ixigo", "easemytrip", "yatra", "cleartrip"] else "AIRLINE"
+
+        # Validate components and generate quality flags
+        quote_payload = {
+            "source": self.source_name,
+            "airline": airline_name,
+            "flight_number": flight_number,
+            "origin": origin,
+            "destination": destination,
+            "travel_date": travel_date,
+            "availability_status": availability_status,
+            "cabin_class": resolved_cabin,
+            "fare_family": resolved_family,
+            "base_fare": base_fare,
+            "taxes": taxes,
+            "airline_surcharge": airline_surcharge,
+            "convenience_fee": convenience_fee,
+            "payment_fee": payment_fee,
+            "other_fee": other_fee,
+            "total_fare": total_fare,
+            "displayed_fare": displayed_fare,
+            "final_fare": final_fare,
+        }
+        val_res = FareValidator.validate_and_assess_quality(quote_payload)
+
+        # Generate deterministic fingerprint
+        comp_key = FareValidator.generate_fingerprint(
+            source=self.source_name,
+            airline=airline_name,
+            flight_number=flight_number,
+            origin=origin,
+            destination=destination,
+            travel_date=travel_date,
+            cabin_class=resolved_cabin,
+            fare_family=resolved_family,
+            timestamp=now_iso,
+            bucket_minutes=15
+        )
 
         # Map route to cluster
         try:
@@ -172,9 +262,13 @@ class BaseAirlineConnector:
 
         return {
             "id": obs_id,
-            "timestamp": datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "observation_id": obs_id,
+            "composite_key": comp_key,
+            "timestamp": now_iso,
+            "observation_timestamp": now_iso,
             "capture_date": capture_date,
             "travel_date": travel_date,
+            "advance_purchase_days": adv_days,
             "origin": origin,
             "destination": destination,
             "route": route,
@@ -183,18 +277,46 @@ class BaseAirlineConnector:
             "airline_code": self._get_airline_code(airline_name),
             "flight_number": flight_number,
             "source": self.source_name,
+            "source_type": source_type,
             "booking_window": booking_window,
-            "cabin_class": cabin_class,
-            "fare_class": "Standard",
-            "base_fare": base_fare,
-            "taxes": taxes,
-            "fees": fees,
-            "total_fare": total_fare,
+
+            # Fare Class
+            "cabin_class": resolved_cabin,
+            "fare_family": resolved_family,
+            "fare_brand": resolved_brand,
+            "fare_basis": fare_basis,
+            "raw_fare_class": resolved_raw_class,
+
+            # Price Breakdown
+            "displayed_fare": val_res["displayed_fare"],
+            "base_fare": val_res["base_fare"],
+            "taxes": val_res["taxes"],
+            "airline_surcharge": val_res["airline_surcharge"],
+            "convenience_fee": val_res["convenience_fee"],
+            "payment_fee": val_res["payment_fee"],
+            "other_fee": val_res["other_fee"],
+            "fees": val_res["other_fee"] or (val_res["convenience_fee"] or 0) + (val_res["payment_fee"] or 0),
+            "total_fare": val_res["total_fare"],
+            "final_fare": val_res["final_fare"] or val_res["total_fare"],
+            "calculated_component_total": val_res["calculated_component_total"],
+            "fare_difference": val_res["fare_difference"],
             "currency": "INR",
-            "seat_availability": seat_availability,
-            "status": "AVAILABLE" if seat_availability != 0 else "SOLD_OUT",
+
+            # Availability
+            "availability_status": val_res["availability_status"],
+            "status": val_res["availability_status"],
+            "seat_availability": seat_availability if val_res["availability_status"] == "AVAILABLE" else 0,
+
+            # Data Quality
+            "data_quality_status": val_res["data_quality_status"],
+            "quality_flags": val_res["quality_flags"],
+            "quality_score": val_res["quality_score"],
+            "is_usable": val_res["is_usable"],
+
+            # Telemetry & Audit
+            "raw_source_reference": raw_source_reference,
             "simulated_outlier": False,
-            "missing_field": False,
+            "missing_field": len(val_res["quality_flags"]) > 0,
             "is_live_scraped": True,
         }
 

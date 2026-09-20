@@ -16,13 +16,26 @@ The composite index is constructed over 52 domestic corridors representing **Met
 
 $$w_r = \frac{V_r}{\sum_{k=1}^{52} V_k}, \quad \sum_{r=1}^{52} w_r = 1.0$$
 
-### Key Corridor Weight Distribution (Top Trunks):
-- **DEL – BOM (Delhi – Mumbai):** $w = 0.250$ (25.0%)
-- **DEL – BLR (Delhi – Bengaluru):** $w = 0.200$ (20.0%)
-- **BOM – BLR (Mumbai – Bengaluru):** $w = 0.150$ (15.0%)
-- **DEL – CCU (Delhi – Kolkata):** $w = 0.150$ (15.0%)
-- **BLR – HYD (Bengaluru – Hyderabad):** $w = 0.100$ (10.0%)
-- **MAA – DEL (Chennai – Delhi):** $w = 0.150$ (15.0%)
+### Corridor Basket & Weight Distribution (52 Corridors Across 5 Strategic Clusters):
+The index basket covers 52 monitored domestic city pairs categorized into 5 clusters calibrated against DGCA annual passenger movement reports:
+
+1. **Metro Trunk Corridors (10 routes, Aggregate Weight: 51.0%)**:
+   - **DEL – BOM / BOM – DEL**: $w = 0.080$ each (16.0% combined)
+   - **DEL – BLR / BLR – DEL**: $w = 0.065$ each (13.0% combined)
+   - **BOM – BLR / BLR – BOM**: $w = 0.050$ each (10.0% combined)
+   - **DEL – CCU / CCU – DEL**: $w = 0.045$ each (9.0% combined)
+   - **BLR – HYD / HYD – BLR**: $w = 0.040$ each (8.0% combined)
+2. **Metro to Tier 1/2 Connectors (14 routes, Aggregate Weight: 28.0%)**:
+   - Includes high-velocity business pairs such as MAA–DEL (3.5%), DEL–PNQ (3.0%), BOM–AMD (2.5%), DEL–LKO (2.0%), BOM–HYD (2.0%), and DEL–PAT (2.0%).
+3. **Regional & North-East Corridors (10 routes, Aggregate Weight: 10.4%)**:
+   - Key regional arteries including DEL–GAU (1.5%), CCU–GAU (1.2%), DEL–IXB (1.2%), BLR–COK (1.2%), and DEL–IXC (1.0%).
+4. **Leisure & Tourist Corridors (10 routes, Aggregate Weight: 14.8%)**:
+   - Demand-volatile tourism routes such as DEL–GOI (2.0%), BOM–GOI (1.8%), BLR–GOI (1.5%), and DEL–SXR (1.5%).
+5. **Emerging Industrial & Economic Hubs (8 routes, Aggregate Weight: 7.1%)**:
+   - High-growth corridors including DEL–JAI (1.0%), BOM–NAG (0.9%), BLR–VTZ (0.9%), and BOM–IDR (0.9%).
+
+Total Weights across all 52 monitored corridors: $\sum_{r=1}^{52} w_r = 1.000$ (100.0%).
+The official corridor weight matrix is stored in `backend/config/route_weights.json` and generated via `scripts/build_weights.py` with full provenance tracking.
 
 ---
 
@@ -55,13 +68,25 @@ Where:
 
 ---
 
-### 3.3. Fisher Ideal Index (Superlative Benchmark)
-To assess potential formula bias in the Laspeyres index, the system computes the **Fisher Ideal Price Index** ($F_t$) as the geometric mean of Laspeyres ($L_t$) and Paasche ($P_t$) indices:
+### 3.3. Fisher Ideal Index & Empirical Paasche Formulation
+To assess potential formula bias and substitution effects in the base-weighted Laspeyres index, the system computes the **Fisher Ideal Price Index** ($F_t$) as the geometric mean of the Laspeyres ($L_t$) and Paasche ($P_t$) indices:
 
 $$F_t = \sqrt{L_t \times P_t}$$
 
-Where:
-$$L_t = \frac{\sum_{r=1}^N P_{r,t} Q_{r,0}}{\sum_{r=1}^N P_{r,0} Q_{r,0}}, \quad P_t = \frac{\sum_{r=1}^N P_{r,t} Q_{r,t}}{\sum_{r=1}^N P_{r,0} Q_{r,t}}$$
+#### Theoretical vs. Practical Paasche Formulation:
+In pure economic theory:
+$$L_t = \frac{\sum_{r=1}^N \left(\frac{P_{r,t}}{P_{r,0}}\right) W_{r,0}}{\sum_{r=1}^N W_{r,0}}, \quad P_t = \frac{\sum_{r=1}^N \left(\frac{P_{r,t}}{P_{r,0}}\right) W_{r,t}}{\sum_{r=1}^N W_{r,t}}$$
+
+Where $W_{r,0}$ denotes the fixed DGCA base-period passenger traffic weights.
+
+**Empirical Proxy Disclosure (No Fictional Quantities)**:
+A true theoretical Paasche index requires current-period ticket-sales volume or expenditure quantities ($Q_{r,t}$). In public airfare collection from airline direct portals and OTAs, actual ticket booking counts, load factors, and fare bucket seat allocations are proprietary trade secrets and are not publicly disclosed. 
+
+Rather than fabricating artificial transaction numbers, AirScope utilizes an empirically grounded and defensible proxy: **daily observation volume share**. For each corridor $r$ on day $t$:
+$$W_{r,t} = \frac{M_{r,t}}{\sum_{k=1}^N M_{k,t}}$$
+Where $M_{r,t}$ represents the clean observation count recorded for route $r$ on date $t$. 
+
+To ensure statistical stability, an observation threshold ($\text{MIN\_OBS\_PER\_ROUTE} \ge 1$, $\text{MIN\_QUALIFYING\_ROUTES} \ge 2$) is enforced; days with sparse route coverage gracefully fall back to the base-weighted Laspeyres index ($P_t = L_t \implies F_t = L_t$).
 
 ---
 

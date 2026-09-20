@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 110" width="160" height="110">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Left Lens Frame (Saffron accent) -->
+    <circle cx="48" cy="42" r="26" stroke="#ff9933" stroke-width="5.5" fill="#ffffff"/>
+    <!-- Right Lens Frame (Green accent) -->
+    <circle cx="112" cy="42" r="26" stroke="#138808" stroke-width="5.5" fill="#ffffff"/>
+    
+    <!-- Bridge Bar connecting glasses -->
+    <path d="M74 42 Q80 34 86 42" stroke="#000080" stroke-width="4.5" fill="none"/>
+    <!-- Side Temples (glasses handles) -->
+    <path d="M22 40 Q12 36 6 24" stroke="#000080" stroke-width="4" fill="none"/>
+    <path d="M138 40 Q148 36 154 24" stroke="#000080" stroke-width="4" fill="none"/>
+    
+    <!-- Devanagari Text Inside Lenses -->
+    <text x="48" y="48" text-anchor="middle" font-size="15" font-weight="700" fill="#ff9933" font-family="'Noto Sans Devanagari', 'Noto Sans', sans-serif">स्वच्छ</text>
+    <text x="112" y="48" text-anchor="middle" font-size="15" font-weight="700" fill="#138808" font-family="'Noto Sans Devanagari', 'Noto Sans', sans-serif">भारत</text>
+    
+    <!-- Tagline below: Ek Kadam Swachhata Ki Ore -->
+    <text x="80" y="88" text-anchor="middle" font-size="10.5" font-weight="700" fill="#000080" font-family="'Noto Sans Devanagari', 'Noto Sans', sans-serif">एक कदम स्वच्छता की ओर</text>
+  </g>
+</svg>

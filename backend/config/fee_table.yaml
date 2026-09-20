@@ -1,0 +1,33 @@
+version: "1.0"
+jurisdiction: "IN"
+currency: "INR"
+
+gst_rates:
+  ECONOMY: 0.05
+  PREMIUM_ECONOMY: 0.12
+  BUSINESS: 0.12
+  FIRST: 0.12
+  UNKNOWN: 0.05
+
+aviation_security_fee: 236.0 # ASF of Rs 200 + 18% GST
+
+user_development_fees:
+  DEL: 550.0
+  BOM: 480.0
+  BLR: 450.0
+  HYD: 420.0
+  MAA: 380.0
+  CCU: 400.0
+  GOI: 350.0
+  PNQ: 350.0
+  AMD: 320.0
+  COK: 350.0
+  GAU: 300.0
+  default: 300.0
+
+fuel_surcharges:
+  default: 400.0
+
+caps:
+  max_tax_ratio: 0.45
+  min_base_fare: 800.0

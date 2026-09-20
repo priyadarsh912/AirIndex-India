@@ -41,98 +41,124 @@ function getProfileForRoute(routeKey, airlineKey) {
   };
 }
 
-function generateRouteTrend(routeKey, airlineKey, frequency = 'Daily') {
+import SCRAPED_OBSERVATIONS from '../data/scrapedObservations.json';
+
+// Genuine offline aggregation derived directly from provided scraped flight records
+function computeOfflineTrendFromObservations(routeKey = 'ALL', airlineKey = 'ALL', frequency = 'Daily') {
   const profile = getProfileForRoute(routeKey, airlineKey);
-  const baseIndexVal = profile.baseIndex;
-  const avgFare = profile.avgFare || 4800;
+  const basePrice = profile.baseFare || 4500;
 
-  if (frequency === 'Monthly') {
-    // 12-Month Macroeconomic CPI Airfare Series (Jan 2026 = 100.0)
-    const monthlySchedule = [
-      { date: "Oct 2025", full_date: "October 2025 (Festive Peak)", factor: 119.4 },
-      { date: "Nov 2025", full_date: "November 2025 (Post-Diwali Correction)", factor: 111.8 },
-      { date: "Dec 2025", full_date: "December 2025 (Winter Holiday Travel Surge)", factor: 134.8 },
-      { date: "Jan 2026", full_date: "January 2026 (MoSPI Base Period: 100.0)", factor: 100.0, is_base: true },
-      { date: "Feb 2026", full_date: "February 2026 (Lean Travel Quarter)", factor: 97.8 },
-      { date: "Mar 2026", full_date: "March 2026 (Fiscal Year-End Travel)", factor: 105.2 },
-      { date: "Apr 2026", full_date: "April 2026 (Summer Break Advance Bookings)", factor: 113.6 },
-      { date: "May 2026", full_date: "May 2026 (Peak Summer School Vacations)", factor: 129.8 },
-      { date: "Jun 2026", full_date: "June 2026 (School Reopening & Early Monsoon)", factor: 113.2 },
-      { date: "Jul 2026", full_date: "July 2026 (Mid-Monsoon Trough)", factor: 102.6 },
-      { date: "Aug 2026", full_date: "August 2026 (Independence Day & Rakhi Holidays)", factor: 116.8 },
-      { date: "Sep 2026", full_date: "September 2026 (Current MTD • Pre-Puja Surge)", factor: baseIndexVal }
-    ];
-
-    const scale = baseIndexVal / 124.5;
-    return monthlySchedule.map(m => {
-      const wVal = m.is_base ? 100.0 : (m.date === 'Sep 2026' ? baseIndexVal : parseFloat((m.factor * scale).toFixed(1)));
-      return {
-        date: m.date,
-        full_date: m.full_date,
-        weighted_index: wVal,
-        jevons_index: parseFloat((wVal - 1.1).toFixed(1)),
-        fisher_index: parseFloat((wVal + 0.5).toFixed(1)),
-        overall_avg_fare: Math.round(avgFare * (wVal / (baseIndexVal || 100.0))),
-        observed_count: 12480
-      };
-    });
-  }
-
-  if (frequency === 'Weekly') {
-    // 12-Week Rolling Dynamic Series ending on current reporting week
-    const weeklySchedule = [
-      { week: 1, range: "Jun 28-Jul 04", full: "Week 1: Jun 28 to Jul 04 (Early monsoon onset)", factor: 105.2 },
-      { week: 2, range: "Jul 05-Jul 11", full: "Week 2: Jul 05 to Jul 11 (Monsoon lean period)", factor: 103.1 },
-      { week: 3, range: "Jul 12-Jul 18", full: "Week 3: Jul 12 to Jul 18 (Mid-monsoon trough)", factor: 102.4 },
-      { week: 4, range: "Jul 19-Jul 25", full: "Week 4: Jul 19 to Jul 25 (Monsoon fare sales)", factor: 104.9 },
-      { week: 5, range: "Jul 26-Aug 01", full: "Week 5: Jul 26 to Aug 01 (Corporate travel pick-up)", factor: 108.6 },
-      { week: 6, range: "Aug 02-Aug 08", full: "Week 6: Aug 02 to Aug 08 (Pre-holiday booking ramp)", factor: 113.8 },
-      { week: 7, range: "Aug 09-Aug 15", full: "Week 7: Aug 09 to Aug 15 (Independence Day surge)", factor: 126.4 },
-      { week: 8, range: "Aug 16-Aug 22", full: "Week 8: Aug 16 to Aug 22 (Post-holiday normalization)", factor: 117.2 },
-      { week: 9, range: "Aug 23-Aug 29", full: "Week 9: Aug 23 to Aug 29 (Raksha Bandhan travel)", factor: 122.8 },
-      { week: 10, range: "Aug 30-Sep 05", full: "Week 10: Aug 30 to Sep 05 (Early September steady)", factor: 118.5 },
-      { week: 11, range: "Sep 06-Sep 12", full: "Week 11: Sep 06 to Sep 12 (Fiscal Q2 demand closing)", factor: 122.1 },
-      { week: 12, range: "Sep 13-Sep 19", full: "Week 12: Sep 13 to Sep 19 (Current active week)", factor: baseIndexVal }
-    ];
-
-    const scale = baseIndexVal / 125.0;
-    return weeklySchedule.map(w => {
-      const wVal = w.week === 12 ? baseIndexVal : parseFloat((w.factor * scale).toFixed(1));
-      return {
-        date: `W${w.week} (${w.range})`,
-        full_date: w.full,
-        weighted_index: wVal,
-        jevons_index: parseFloat((wVal - 0.9).toFixed(1)),
-        fisher_index: parseFloat((wVal + 0.4).toFixed(1)),
-        overall_avg_fare: Math.round(avgFare * (wVal / (baseIndexVal || 100.0))),
-        observed_count: 2850 + (w.week * 40)
-      };
-    });
-  }
-  
-  // Daily Frequency: 30 rolling daily points
-  return Array.from({ length: 30 }, (_, i) => {
-    const d = new Date('2026-09-01T00:00:00Z');
-    d.setDate(d.getDate() + i);
-    const dateStr = d.toISOString().split('T')[0];
-    
-    const sineFactor = Math.sin(i / 3.2) * 4.2;
-    const noise = (i % 3 === 0 ? 1.2 : -0.8);
-    const weighted = parseFloat((baseIndexVal + sineFactor + noise).toFixed(2));
-    const jevons = parseFloat((weighted - 1.1).toFixed(2));
-    const fisher = parseFloat((weighted + 0.6).toFixed(2));
-    const dailyAvgFare = Math.round(profile.avgFare * (weighted / (baseIndexVal || 100.0)));
-
-    return {
-      date: dateStr,
-      full_date: dateStr,
-      weighted_index: weighted,
-      jevons_index: jevons,
-      fisher_index: fisher,
-      overall_avg_fare: dailyAvgFare,
-      observed_count: Math.round(120 + Math.cos(i) * 35)
-    };
+  // Filter observations matching the selected corridor and airline
+  const filtered = (SCRAPED_OBSERVATIONS || []).filter(o => {
+    if (o.is_usable === false) return false;
+    if (routeKey && routeKey !== 'ALL' && o.route !== routeKey) return false;
+    if (airlineKey && airlineKey !== 'ALL' && o.airline !== airlineKey) return false;
+    const fare = Number(o.total_fare || o.base_fare || 0);
+    return fare > 0;
   });
+
+  // Group by observation capture/travel date
+  const byDate = {};
+  for (const o of filtered) {
+    const d = o.capture_date || (o.travel_date ? o.travel_date.slice(0, 10) : null);
+    if (!d) continue;
+    if (!byDate[d]) byDate[d] = { fares: [], count: 0 };
+    byDate[d].fares.push(Number(o.total_fare || o.base_fare));
+    byDate[d].count += 1;
+  }
+
+  const sortedDates = Object.keys(byDate).sort();
+
+  if (sortedDates.length > 0) {
+    const dailyPoints = sortedDates.map(d => {
+      const fares = byDate[d].fares;
+      const meanFare = fares.reduce((a, b) => a + b, 0) / fares.length;
+      const weighted = parseFloat(((meanFare / basePrice) * 100).toFixed(1));
+      return {
+        date: d,
+        full_date: d,
+        weighted_index: weighted,
+        jevons_index: weighted,
+        fisher_index: weighted,
+        avg_fare: Math.round(meanFare),
+        observation_count: byDate[d].count,
+        source: 'OBSERVATIONS_LOCAL',
+        is_live: false
+      };
+    });
+
+    if (frequency === 'Weekly') {
+      const weeklyBuckets = {};
+      dailyPoints.forEach(p => {
+        const dt = new Date(p.date);
+        const weekNum = Math.ceil(dt.getDate() / 7);
+        const wkKey = `${dt.getFullYear()}-M${dt.getMonth() + 1}-W${weekNum}`;
+        if (!weeklyBuckets[wkKey]) weeklyBuckets[wkKey] = [];
+        weeklyBuckets[wkKey].push(p);
+      });
+      return Object.entries(weeklyBuckets).map(([_, pts], idx) => {
+        const avgIdx = pts.reduce((s, x) => s + x.weighted_index, 0) / pts.length;
+        const avgF = pts.reduce((s, x) => s + x.avg_fare, 0) / pts.length;
+        const totObs = pts.reduce((s, x) => s + x.observation_count, 0);
+        return {
+          date: `W${idx + 1} (${pts[0].date.slice(5)})`,
+          full_date: `Week ${idx + 1}: ${pts[0].date} to ${pts[pts.length - 1].date}`,
+          weighted_index: parseFloat(avgIdx.toFixed(1)),
+          jevons_index: parseFloat(avgIdx.toFixed(1)),
+          fisher_index: parseFloat(avgIdx.toFixed(1)),
+          avg_fare: Math.round(avgF),
+          observation_count: totObs,
+          source: 'OBSERVATIONS_LOCAL',
+          is_live: false
+        };
+      });
+    }
+
+    if (frequency === 'Monthly') {
+      const monthlyBuckets = {};
+      dailyPoints.forEach(p => {
+        const mKey = p.date.slice(0, 7);
+        if (!monthlyBuckets[mKey]) monthlyBuckets[mKey] = [];
+        monthlyBuckets[mKey].push(p);
+      });
+      return Object.entries(monthlyBuckets).map(([mKey, pts]) => {
+        const avgIdx = pts.reduce((s, x) => s + x.weighted_index, 0) / pts.length;
+        const avgF = pts.reduce((s, x) => s + x.avg_fare, 0) / pts.length;
+        const totObs = pts.reduce((s, x) => s + x.observation_count, 0);
+        const dt = new Date(`${mKey}-01`);
+        const mLabel = dt.toLocaleString('en-US', { month: 'short', year: 'numeric' });
+        return {
+          date: mLabel,
+          full_date: dt.toLocaleString('en-US', { month: 'long', year: 'numeric' }),
+          weighted_index: parseFloat(avgIdx.toFixed(1)),
+          jevons_index: parseFloat(avgIdx.toFixed(1)),
+          fisher_index: parseFloat(avgIdx.toFixed(1)),
+          avg_fare: Math.round(avgF),
+          observation_count: totObs,
+          source: 'OBSERVATIONS_LOCAL',
+          is_live: false
+        };
+      });
+    }
+
+    return dailyPoints;
+  }
+
+  // If no raw observations exist for a brand new corridor filter, anchor to the published corridor profile
+  const baseVal = profile.baseIndex || 110.0;
+  return [
+    {
+      date: '2026-09-20',
+      full_date: '2026-09-20 (Current Reporting Period)',
+      weighted_index: baseVal,
+      jevons_index: baseVal,
+      fisher_index: baseVal,
+      avg_fare: profile.avgFare || 4500,
+      observation_count: profile.obsCount || 50,
+      source: 'BASELINE_PROFILE',
+      is_live: false
+    }
+  ];
 }
 
 function generateRouteSummary(routeKey, airlineKey) {
@@ -173,6 +199,30 @@ export function useAirScopeData(apiBaseUrl = '') {
   // Keep track of active in-flight request to cancel superseded queries
   const activeControllerRef = useRef(null);
 
+  // Multi-endpoint fetch helper that resolves relative proxy, 127.0.0.1:8000, and localhost:8000
+  const fetchApiWithFallback = useCallback(async (path, searchParams, signal) => {
+    const q = searchParams ? searchParams.toString() : '';
+    const fullPath = q ? `${path}?${q}` : path;
+    const candidates = [
+      apiBaseUrl ? `${apiBaseUrl}${fullPath}` : fullPath,
+      `http://127.0.0.1:8000${fullPath}`,
+      `http://localhost:8000${fullPath}`
+    ];
+    const uniqueCandidates = [...new Set(candidates.filter(Boolean))];
+
+    for (const url of uniqueCandidates) {
+      try {
+        const res = await fetch(url, { signal });
+        if (res && res.ok) {
+          return await res.json();
+        }
+      } catch (err) {
+        if (err.name === 'AbortError') throw err;
+      }
+    }
+    return null;
+  }, [apiBaseUrl]);
+
   const fetchChartData = useCallback(async (activeFilters) => {
     // Cancel any previous pending request immediately to avoid stale overlap
     if (activeControllerRef.current) {
@@ -201,67 +251,58 @@ export function useAirScopeData(apiBaseUrl = '') {
     if (activeFilters.airline && activeFilters.airline !== 'ALL') summaryParams.append('airline', activeFilters.airline);
     summaryParams.append('tz', userTz);
 
-    // Safety timeout: Never stay stuck on "Calculating Live Index..." if network stalls
+    // Safety timeout: Never stay stuck on "Updating Index..." if network stalls
     const timeoutId = setTimeout(() => {
       if (activeControllerRef.current === controller) {
         controller.abort();
         setIsLoading(false);
       }
-    }, 4500);
+    }, 4000);
 
     try {
-      // Fetch trend series and KPI summary concurrently in parallel
-      const trendPromise = (async () => {
-        try {
-          let res = await fetch(`${apiBaseUrl}/api/v2/index/history?${params.toString()}`, { signal });
-          if (!res.ok) {
-            res = await fetch(`${apiBaseUrl}/api/index/history?${params.toString()}`, { signal }).catch(() => null);
-          }
-          if (res && res.ok) {
-            const data = await res.json();
-            if (data.daily_trend && Array.isArray(data.daily_trend) && data.daily_trend.length > 0) {
-              setTrendData(data.daily_trend);
-              setIsLiveConnected(true);
-            } else {
-              setTrendData(generateRouteTrend(activeFilters.route, activeFilters.airline, activeFilters.frequency));
-            }
-          } else {
-            setIsLiveConnected(false);
-            setTrendData(generateRouteTrend(activeFilters.route, activeFilters.airline, activeFilters.frequency));
-          }
-        } catch (err) {
-          if (err.name !== 'AbortError') {
-            setIsLiveConnected(false);
-            setTrendData(generateRouteTrend(activeFilters.route, activeFilters.airline, activeFilters.frequency));
-          }
-        } finally {
-          // Immediately unblock the trend chart overlay as soon as trend data is ready!
-          if (activeControllerRef.current === controller) {
-            setIsLoading(false);
-          }
+      // 1. Fetch History Series
+      let historyData = null;
+      try {
+        historyData = await fetchApiWithFallback('/api/v2/index/history', params, signal);
+        if (!historyData) {
+          historyData = await fetchApiWithFallback('/api/index/history', params, signal);
         }
-      })();
+      } catch (err) {
+        if (err.name === 'AbortError') return; // New request superseded this one
+      }
 
-      const summaryPromise = (async () => {
-        try {
-          const sumRes = await fetch(`${apiBaseUrl}/api/v2/index/current?${summaryParams.toString()}`, { signal });
-          if (sumRes.ok) {
-            const sumData = await sumRes.json();
-            setIndexSummary(sumData);
-          } else {
-            setIndexSummary(generateRouteSummary(activeFilters.route, activeFilters.airline));
-          }
-        } catch (err) {
-          if (err.name !== 'AbortError') {
-            setIndexSummary(generateRouteSummary(activeFilters.route, activeFilters.airline));
-          }
+      if (activeControllerRef.current === controller) {
+        if (historyData?.daily_trend && Array.isArray(historyData.daily_trend) && historyData.daily_trend.length > 0) {
+          setTrendData(historyData.daily_trend);
+          setIsLiveConnected(true);
+        } else {
+          // Fall back to real scraped observations
+          const offlineTrend = computeOfflineTrendFromObservations(activeFilters.route, activeFilters.airline, activeFilters.frequency);
+          setTrendData(offlineTrend);
+          setIsLiveConnected(false);
         }
-      })();
+      }
 
-      await Promise.allSettled([trendPromise, summaryPromise]);
+      // 2. Fetch Summary KPI
+      let sumData = null;
+      try {
+        sumData = await fetchApiWithFallback('/api/v2/index/current', summaryParams, signal);
+      } catch (err) {
+        if (err.name === 'AbortError') return;
+      }
+
+      if (activeControllerRef.current === controller) {
+        if (sumData && sumData.current_index !== undefined) {
+          setIndexSummary(sumData);
+        } else {
+          setIndexSummary(generateRouteSummary(activeFilters.route, activeFilters.airline));
+        }
+      }
     } catch (err) {
       if (err.name !== 'AbortError') {
         setError(err.message || 'Failed to calculate live index');
+        const offlineTrend = computeOfflineTrendFromObservations(activeFilters.route, activeFilters.airline, activeFilters.frequency);
+        setTrendData(offlineTrend);
       }
     } finally {
       clearTimeout(timeoutId);
@@ -269,7 +310,7 @@ export function useAirScopeData(apiBaseUrl = '') {
         setIsLoading(false);
       }
     }
-  }, [apiBaseUrl]);
+  }, [fetchApiWithFallback]);
 
   const debouncedFetch = useMemo(
     () => debounce((f) => fetchChartData(f), 150),

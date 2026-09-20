@@ -31,6 +31,16 @@ def cleanup(signum=None, frame=None):
 signal.signal(signal.SIGINT, cleanup)
 signal.signal(signal.SIGTERM, cleanup)
 
+import socket
+
+def is_port_in_use(port: int) -> bool:
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.settimeout(1.0)
+            return s.connect_ex(('127.0.0.1', port)) == 0
+    except Exception:
+        return False
+
 def main():
     print("=" * 65)
     print("AirIndex India -- Launching Integrated Local Development Stack")
@@ -38,27 +48,32 @@ def main():
     print("    * Frontend Portal:  http://localhost:3000")
     print("=" * 65)
 
-    # 1. Start FastAPI Backend
-    print("\n[1/2] Starting FastAPI Backend on port 8000...")
-    backend_proc = subprocess.Popen(
-        [sys.executable, "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"],
-        cwd=BACKEND_DIR,
-        shell=False
-    )
-    processes.append(backend_proc)
+    # 1. Start FastAPI Backend (if not already running)
+    if is_port_in_use(8000):
+        print("\n[1/2] Backend already active on port 8000 -- reusing running instance.")
+    else:
+        print("\n[1/2] Starting FastAPI Backend on port 8000...")
+        backend_proc = subprocess.Popen(
+            [sys.executable, "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"],
+            cwd=BACKEND_DIR,
+            shell=False
+        )
+        processes.append(backend_proc)
+        # Allow backend 4 seconds to initialize and connect to Supabase
+        time.sleep(4)
 
-    # Allow backend 4 seconds to initialize and connect to Supabase
-    time.sleep(4)
-
-    # 2. Start Vite Frontend
-    print("[2/2] Starting Vite React Frontend on port 3000...")
-    npm_cmd = "npm.cmd" if sys.platform == "win32" else "npm"
-    frontend_proc = subprocess.Popen(
-        [npm_cmd, "run", "dev"],
-        cwd=FRONTEND_DIR,
-        shell=False
-    )
-    processes.append(frontend_proc)
+    # 2. Start Vite Frontend (if not already running)
+    if is_port_in_use(3000):
+        print("[2/2] Frontend already active on port 3000 -- reusing running instance.")
+    else:
+        print("[2/2] Starting Vite React Frontend on port 3000...")
+        npm_cmd = "npm.cmd" if sys.platform == "win32" else "npm"
+        frontend_proc = subprocess.Popen(
+            [npm_cmd, "run", "dev"],
+            cwd=FRONTEND_DIR,
+            shell=False
+        )
+        processes.append(frontend_proc)
 
     print("\n" + "=" * 65)
     print("Stack is active! Open http://localhost:3000 in your browser.")

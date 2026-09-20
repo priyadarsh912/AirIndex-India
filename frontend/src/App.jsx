@@ -27,6 +27,25 @@ export const API_BASE_URL = import.meta.env.VITE_API_URL
   ? import.meta.env.VITE_API_URL.replace(/\/$/, '') 
   : '';
 
+// Multi-endpoint fetch helper ensuring connection whether via proxy, 127.0.0.1:8000, or localhost:8000
+async function safeFetchJson(path) {
+  const candidates = [
+    API_BASE_URL ? `${API_BASE_URL}${path}` : path,
+    `http://127.0.0.1:8000${path}`,
+    `http://localhost:8000${path}`
+  ];
+  const uniqueCandidates = [...new Set(candidates.filter(Boolean))];
+  for (const url of uniqueCandidates) {
+    try {
+      const res = await fetch(url);
+      if (res && res.ok) {
+        return await res.json();
+      }
+    } catch (e) {}
+  }
+  return null;
+}
+
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
   // App settings state synced with SettingsView / localStorage
@@ -134,16 +153,16 @@ export default function App() {
       const tzParam = `tz=${encodeURIComponent(userTz)}`;
 
       const [resIdx, resRoutes, resClusters, resAirlines, resElas, resAnom, resObs, resBack, resExp, resHealth] = await Promise.all([
-        fetch(`${API_BASE_URL}/api/v2/index/current?${tzParam}`).then(r => r.ok ? r.json() : fetch(`${API_BASE_URL}/api/index/current?${tzParam}`).then(r2 => r2.ok ? r2.json() : null)),
-        fetch(`${API_BASE_URL}/api/routes`).then(r => r.ok ? r.json() : null),
-        fetch(`${API_BASE_URL}/api/clusters`).then(r => r.ok ? r.json() : null),
-        fetch(`${API_BASE_URL}/api/airlines`).then(r => r.ok ? r.json() : null),
-        fetch(`${API_BASE_URL}/api/elasticity`).then(r => r.ok ? r.json() : null),
-        fetch(`${API_BASE_URL}/api/anomalies`).then(r => r.ok ? r.json() : null),
-        fetch(`${API_BASE_URL}/api/v2/observations?page_size=500&current_day_only=false&${tzParam}`).then(r => r.ok ? r.json() : fetch(`${API_BASE_URL}/api/fares?limit=500`).then(r2 => r2.ok ? r2.json() : null)),
-        fetch(`${API_BASE_URL}/api/backtest`).then(r => r.ok ? r.json() : null),
-        fetch(`${API_BASE_URL}/api/explainability`).then(r => r.ok ? r.json() : null),
-        fetch(`${API_BASE_URL}/api/health`).then(r => r.ok ? r.json() : null),
+        safeFetchJson(`/api/v2/index/current?${tzParam}`).then(d => d || safeFetchJson(`/api/index/current?${tzParam}`)),
+        safeFetchJson('/api/routes'),
+        safeFetchJson('/api/clusters'),
+        safeFetchJson('/api/airlines'),
+        safeFetchJson('/api/elasticity'),
+        safeFetchJson('/api/anomalies'),
+        safeFetchJson(`/api/v2/observations?page_size=500&current_day_only=false&${tzParam}`).then(d => d || safeFetchJson('/api/fares?limit=500')),
+        safeFetchJson('/api/backtest'),
+        safeFetchJson('/api/explainability'),
+        safeFetchJson('/api/health'),
       ]);
 
       if (resIdx) setIndexData(resIdx);

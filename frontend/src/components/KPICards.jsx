@@ -61,6 +61,13 @@ export default function KPICards({ data, indexData, routes = [], healthData, raw
             <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-primary/10 text-primary border border-primary/20">
               Quality: {activeData?.avg_quality_score ?? 98}/100
             </span>
+            <span 
+              className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#1a56db]/10 text-[#1a56db] border border-[#1a56db]/30 flex items-center gap-1"
+              title="Price Statistics Division (PSD) Route Basket & Statistical Weights Module"
+            >
+              <span className="material-symbols-outlined text-[12px]">tune</span>
+              Basket: Illustrative V1 | PSD-ready
+            </span>
           </div>
         </div>
 

@@ -1,0 +1,12 @@
+{
+  "index_name": "Airfare Price Index (APIx)",
+  "base_period": "2026-01",
+  "base_value": 100.0,
+  "elementary_method": "JEVONS",
+  "aggregation_method": "WEIGHTED_ROUTE_AGGREGATION",
+  "missing_route_policy": "EXCLUDE_RENORMALIZE",
+  "min_coverage_threshold_pct": 75.0,
+  "target_cabin": "ECONOMY",
+  "target_window": "ALL",
+  "last_updated": "2026-09-20T04:01:12.283526Z"
+}

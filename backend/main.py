@@ -51,6 +51,10 @@ from selenium_scraper import run_30day_selenium_backtest_scrape
 from backtest_analytics import compute_30day_airfare_index, load_30day_dataset
 from fare_normalizer import FareNormalizer
 from fare_validator import FareValidator
+try:
+    from psd_basket_manager import basket_manager, WeightValidator
+except ImportError:
+    from backend.psd_basket_manager import basket_manager, WeightValidator
 
 
 app = FastAPI(
@@ -1906,6 +1910,298 @@ def trigger_collection_run(
 
     summary = runner.run_collection(max_searches=max_searches, cabin=cabin)
     return summary
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  PSD (PRICE STATISTICS DIVISION) BASKET & WEIGHTS MANAGEMENT MODULE
+#  SIH26056: Index-construction module based on PSD given routes and weights
+# ─────────────────────────────────────────────────────────────────────────────
+
+class PSDBasketValidatePayload(BaseModel):
+    routes: Optional[List[Dict[str, Any]]] = None
+    csv_text: Optional[str] = None
+    tolerance: float = 0.002
+
+
+class PSDBasketUploadPayload(BaseModel):
+    basket_version: str
+    basket_name: str
+    source: str = "PSD_OFFICIAL"
+    source_description: Optional[str] = ""
+    effective_from: Optional[str] = None
+    effective_to: Optional[str] = None
+    routes: Optional[List[Dict[str, Any]]] = None
+    csv_text: Optional[str] = None
+    activate_now: bool = False
+
+
+class PSDBasketActivatePayload(BaseModel):
+    basket_version: str
+
+
+class PSDConfigUpdatePayload(BaseModel):
+    elementary_method: Optional[str] = None
+    aggregation_method: Optional[str] = None
+    base_period: Optional[str] = None
+    base_value: Optional[float] = None
+    missing_route_policy: Optional[str] = None
+    coverage_threshold_pct: Optional[float] = None
+
+
+@app.get("/api/basket/current")
+def get_current_psd_basket():
+    """
+    Returns active PSD Route Basket, statistical weights, versioning metadata,
+    and associated index configuration.
+    """
+    active_basket = basket_manager.get_active_basket()
+    active_version = basket_manager.get_active_version_id()
+    cfg = basket_manager.get_index_configuration()
+
+    routes = active_basket.get("routes", [])
+    total_routes = len(routes)
+    total_weight = round(sum(float(r.get("weight", 0.0)) for r in routes), 4)
+
+    is_official = active_basket.get("source") == "PSD_OFFICIAL"
+
+    return {
+        "basket_version": active_version,
+        "basket_name": active_basket.get("basket_name", f"Basket {active_version}"),
+        "source": active_basket.get("source", "ILLUSTRATIVE_PROTOTYPE"),
+        "source_label": "Authorized PSD Basket" if is_official else "Illustrative Prototype Baseline (PSD-Ready)",
+        "source_description": active_basket.get(
+            "source_description",
+            "Prototype weights — illustrative only; replace with PSD-supplied weights for official compilation."
+        ),
+        "status": active_basket.get("status", "ACTIVE"),
+        "effective_from": active_basket.get("effective_from", "2026-01-01"),
+        "effective_to": active_basket.get("effective_to"),
+        "created_at": active_basket.get("created_at"),
+        "total_routes": total_routes,
+        "total_weight": total_weight,
+        "total_weight_pct": round(total_weight * 100.0, 2),
+        "is_psd_official": is_official,
+        "index_configuration": cfg,
+        "routes": routes
+    }
+
+
+@app.get("/api/basket/versions")
+def list_psd_basket_versions():
+    """
+    Returns audit history of all registered route baskets (active, draft, archived).
+    """
+    versions = basket_manager.list_basket_versions()
+    return {
+        "active_version": basket_manager.get_active_version_id(),
+        "total_versions": len(versions),
+        "versions": versions
+    }
+
+
+@app.get("/api/basket/config")
+def get_psd_index_configuration():
+    """
+    Returns index calculation methodology configuration (Elementary method, Base period, etc.).
+    """
+    return basket_manager.get_index_configuration()
+
+
+@app.post("/api/basket/config")
+def update_psd_index_configuration(payload: PSDConfigUpdatePayload):
+    """
+    Updates index configuration (Jevons/Arithmetic/Median, Base period, Missing Route Policy).
+    Automatically triggers index engine recalculation and flushes query caches.
+    """
+    updates = {}
+    if payload.elementary_method:
+        valid_elem = ["JEVONS", "ARITHMETIC_MEAN", "MEDIAN"]
+        if payload.elementary_method.upper() not in valid_elem:
+            raise HTTPException(status_code=400, detail=f"Invalid elementary_method. Must be one of {valid_elem}")
+        updates["elementary_method"] = payload.elementary_method.upper()
+
+    if payload.aggregation_method:
+        updates["aggregation_method"] = payload.aggregation_method.upper()
+
+    if payload.base_period:
+        updates["base_period"] = payload.base_period.strip()
+
+    if payload.base_value is not None:
+        if payload.base_value <= 0:
+            raise HTTPException(status_code=400, detail="Base value must be positive.")
+        updates["base_value"] = float(payload.base_value)
+
+    if payload.missing_route_policy:
+        valid_policies = ["EXCLUDE_RENORMALIZE", "CARRY_FORWARD", "INDEX_UNAVAILABLE"]
+        if payload.missing_route_policy.upper() not in valid_policies:
+            raise HTTPException(status_code=400, detail=f"Invalid missing_route_policy. Must be one of {valid_policies}")
+        updates["missing_route_policy"] = payload.missing_route_policy.upper()
+
+    if payload.coverage_threshold_pct is not None:
+        updates["coverage_threshold_pct"] = float(payload.coverage_threshold_pct)
+
+    updated_cfg = basket_manager.update_index_configuration(updates)
+    refresh_pipeline_data()
+    return {
+        "success": True,
+        "message": "Index configuration updated and index recalculated.",
+        "config": updated_cfg
+    }
+
+
+@app.post("/api/basket/validate")
+def validate_psd_basket_payload(payload: PSDBasketValidatePayload):
+    """
+    Mathematically validates a proposed PSD basket payload (via JSON array or CSV text)
+    without persisting or modifying the active index.
+    Checks: sum(weights) == 1.0 (100%), weight bounds (0 < w <= 1.0), no duplicate corridors,
+    and valid origin-destination pairs.
+    """
+    parsed_routes = payload.routes or []
+    parse_errors = []
+
+    if payload.csv_text:
+        csv_routes, csv_errs = WeightValidator.parse_csv_text(payload.csv_text)
+        parsed_routes.extend(csv_routes)
+        parse_errors.extend(csv_errs)
+
+    if not parsed_routes and not parse_errors:
+        raise HTTPException(status_code=400, detail="No routes or CSV text provided for validation.")
+
+    is_valid, errs, summary = WeightValidator.validate_routes_and_weights(
+        parsed_routes, tolerance=payload.tolerance
+    )
+
+    all_errors = parse_errors + errs
+
+    return {
+        "is_valid": is_valid and len(all_errors) == 0,
+        "errors": all_errors,
+        "summary": summary,
+        "routes_count": len(parsed_routes),
+        "total_weight_pct": summary.get("total_weight_pct", 0.0)
+    }
+
+
+@app.post("/api/basket/upload")
+def upload_psd_basket(payload: PSDBasketUploadPayload):
+    """
+    Registers a new versioned basket (e.g. PSD_V2 or DEMO_V2).
+    Enforces strict mathematical weight validation before writing to disk.
+    If activate_now=True, immediately switches the active engine basket and recomputes indices.
+    """
+    parsed_routes = payload.routes or []
+    parse_errors = []
+
+    if payload.csv_text:
+        csv_routes, csv_errs = WeightValidator.parse_csv_text(payload.csv_text)
+        parsed_routes.extend(csv_routes)
+        parse_errors.extend(csv_errs)
+
+    if parse_errors:
+        raise HTTPException(status_code=400, detail={"errors": parse_errors, "message": "CSV Parsing Failed"})
+
+    if not parsed_routes:
+        raise HTTPException(status_code=400, detail="No valid routes found in basket payload.")
+
+    ok, msg, basket_doc = basket_manager.create_basket_version(
+        basket_version=payload.basket_version,
+        basket_name=payload.basket_name,
+        source=payload.source,
+        source_description=payload.source_description or "",
+        routes=parsed_routes,
+        effective_from=payload.effective_from,
+        effective_to=payload.effective_to,
+        activate=payload.activate_now
+    )
+
+    if not ok:
+        raise HTTPException(status_code=400, detail=msg)
+
+    if payload.activate_now:
+        refresh_pipeline_data()
+
+    return {
+        "success": True,
+        "message": msg,
+        "basket": basket_doc,
+        "is_active": payload.activate_now
+    }
+
+
+@app.post("/api/basket/activate")
+def activate_psd_basket(payload: PSDBasketActivatePayload):
+    """
+    Activates an existing registered basket version (e.g. DEMO_V1 -> PSD_V2).
+    Seamlessly triggers recalculation of live APIx indices across all clean observations.
+    """
+    ok, msg = basket_manager.set_active_version(payload.basket_version)
+    if not ok:
+        raise HTTPException(status_code=404, detail=msg)
+
+    refresh_pipeline_data()
+    active_basket = basket_manager.get_active_basket()
+
+    return {
+        "success": True,
+        "message": msg,
+        "active_version": payload.basket_version,
+        "basket_name": active_basket.get("basket_name"),
+        "source": active_basket.get("source"),
+        "total_routes": len(active_basket.get("routes", []))
+    }
+
+
+@app.get("/api/basket/template")
+def get_psd_basket_csv_template():
+    """
+    Generates a standardized MoSPI PSD Route & Weight CSV template for institutional import.
+    """
+    csv_content = (
+        "# AirScope MoSPI PSD Route Basket Import Template\n"
+        "# Rules: Corridor must be ORIGIN-DESTINATION, Weights must sum to 1.0 (100.0%)\n"
+        "route_code,origin,destination,weight,cluster,base_price\n"
+        "DEL-BOM,DEL,BOM,0.150,Metro Trunk,4600\n"
+        "BOM-DEL,BOM,DEL,0.150,Metro Trunk,4650\n"
+        "DEL-BLR,DEL,BLR,0.120,Metro Trunk,5400\n"
+        "BLR-DEL,BLR,DEL,0.120,Metro Trunk,5450\n"
+        "BOM-BLR,BOM,BLR,0.100,Metro Trunk,3800\n"
+        "BLR-BOM,BLR,BOM,0.100,Metro Trunk,3850\n"
+        "DEL-CCU,DEL,CCU,0.080,Metro Trunk,4500\n"
+        "CCU-DEL,CCU,DEL,0.080,Metro Trunk,4550\n"
+        "BLR-HYD,BLR,HYD,0.050,Metro Trunk,2900\n"
+        "HYD-BLR,HYD,BLR,0.050,Metro Trunk,2950\n"
+    )
+    return StreamingResponse(
+        io.StringIO(csv_content),
+        media_type="text/csv",
+        headers={"Content-Disposition": "attachment; filename=psd_route_basket_template.csv"}
+    )
+
+
+@app.get("/api/index/contributions")
+def get_index_route_contributions():
+    """
+    Returns route-level decomposition of price movements and individual route contributions
+    to the overall APIx index according to the active PSD route weights.
+    """
+    routes = INDEX_RESULTS.get("routes", [])
+    active_basket = basket_manager.get_active_basket()
+    cfg = basket_manager.get_index_configuration()
+
+    # Sort routes by absolute contribution descending
+    sorted_routes = sorted(routes, key=lambda r: abs(r.get("contribution", 0.0)), reverse=True)
+
+    return {
+        "basket_version": active_basket.get("basket_version", "DEMO_V1"),
+        "basket_label": active_basket.get("label", "Illustrative Prototype Baseline (PSD-Ready)"),
+        "base_period": cfg.get("base_period", "2026-01"),
+        "base_value": cfg.get("base_value", 100.0),
+        "total_corridors": len(sorted_routes),
+        "headline_index": INDEX_RESULTS.get("current_index", 100.0),
+        "coverage_pct": INDEX_RESULTS.get("coverage_pct", 100.0),
+        "contributions": sorted_routes
+    }
 
 
 if __name__ == "__main__":

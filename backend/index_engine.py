@@ -14,7 +14,12 @@ try:
 except ImportError:
     from backend.data_generator import ROUTES_CONFIG
 
-# Route Base Prices for Base Period (Jan 2026 Baseline = 100)
+try:
+    from psd_basket_manager import basket_manager
+except ImportError:
+    from backend.psd_basket_manager import basket_manager
+
+# Fallback Route Base Prices for Base Period (Jan 2026 Baseline = 100)
 BASE_PRICES = {r["code"]: r["base_price"] for r in ROUTES_CONFIG}
 ROUTE_WEIGHTS = {r["code"]: r["weight"] for r in ROUTES_CONFIG}
 ROUTE_CLUSTERS = {r["code"]: r.get("cluster", "Metro Trunk") for r in ROUTES_CONFIG}
@@ -217,6 +222,40 @@ def compute_airfare_indexes(
             "elasticity": []
         }
 
+    # Load dynamic PSD basket & index configuration
+    try:
+        active_basket = basket_manager.get_active_basket()
+        index_cfg = basket_manager.get_index_configuration()
+    except Exception:
+        active_basket = {}
+        index_cfg = {}
+
+    basket_version = active_basket.get("basket_version", "DEMO_V1")
+    basket_label = active_basket.get("label", "Illustrative Prototype Baseline (PSD-Ready)")
+    basket_source = active_basket.get("source", "DEMONSTRATION")
+    basket_routes = active_basket.get("routes", [])
+
+    def _rc(r):
+        return r.get("corridor") or r.get("route_code") or r.get("code") or f"{r.get('origin','')}-{r.get('destination','')}".strip("-")
+
+    if basket_routes:
+        active_base_prices = {_rc(r): float(r.get("base_price", BASE_PRICES.get(_rc(r), 4500))) for r in basket_routes}
+        active_route_weights = {_rc(r): float(r.get("weight", 0.0)) for r in basket_routes}
+        active_clusters = {_rc(r): r.get("cluster", "Metro Trunk") for r in basket_routes}
+        active_names = {_rc(r): r.get("name", _rc(r)) for r in basket_routes}
+        active_routes_list = basket_routes
+    else:
+        active_base_prices = BASE_PRICES
+        active_route_weights = ROUTE_WEIGHTS
+        active_clusters = ROUTE_CLUSTERS
+        active_names = ROUTE_NAMES
+        active_routes_list = ROUTES_CONFIG
+
+    elementary_method = index_cfg.get("elementary_method", "JEVONS")
+    missing_policy = index_cfg.get("missing_route_policy", "EXCLUDE_RENORMALIZE")
+    base_period_name = index_cfg.get("base_period", "2026-01")
+    base_val = float(index_cfg.get("base_value", 100.0))
+
     # Group by capture_date and route to find daily mean fares and observation counts per route
     route_daily = usable_df.groupby(["capture_date", "route"]).agg(
         total_fare=("total_fare", "mean"),
@@ -224,49 +263,48 @@ def compute_airfare_indexes(
     ).reset_index()
 
     # Calculate Route Price Relative against Base Period
-    route_daily["base_price"] = route_daily["route"].map(BASE_PRICES).fillna(4500)
-    route_daily["price_relative"] = (route_daily["total_fare"] / route_daily["base_price"]) * 100.0
-    route_daily["weight"] = route_daily["route"].map(ROUTE_WEIGHTS).fillna(0.015)
+    route_daily["base_price"] = route_daily["route"].map(active_base_prices).fillna(4500)
+    route_daily["price_relative"] = (route_daily["total_fare"] / route_daily["base_price"]) * base_val
+    route_daily["weight"] = route_daily["route"].map(active_route_weights).fillna(0.0)
 
     # Daily National Base-100 Weighted Index
     daily_indexes = []
     dates = sorted(route_daily["capture_date"].unique())
 
+    total_basket_routes_count = len([r for r, w in active_route_weights.items() if w > 0]) or len(active_route_weights)
+
     for d in dates:
         day_sub = route_daily[route_daily["capture_date"] == d]
+        valid_day_sub = day_sub[day_sub["weight"] > 0]
         
-        weight_sum = day_sub["weight"].sum()
+        # Renormalize weights among observed routes (Missing Route Policy: EXCLUDE_RENORMALIZE)
+        weight_sum = valid_day_sub["weight"].sum()
         if weight_sum > 0:
-            weighted_idx = (day_sub["price_relative"] * day_sub["weight"]).sum() / weight_sum
+            weighted_idx = (valid_day_sub["price_relative"] * valid_day_sub["weight"]).sum() / weight_sum
         else:
-            weighted_idx = day_sub["price_relative"].mean() if not day_sub.empty else 100.0
+            weighted_idx = day_sub["price_relative"].mean() if not day_sub.empty else base_val
         
-        # Jevons Geometric Mean Index
-        relatives = day_sub["price_relative"].values
-        if len(relatives) > 0 and (day_sub["total_fare"] > 0).all() and (day_sub["base_price"] > 0).all():
-            jevons_idx = 100.0 * np.exp(np.mean(np.log(day_sub["total_fare"] / day_sub["base_price"])))
+        # Elementary Index calculation (Jevons, Arithmetic Mean, or Median)
+        if not valid_day_sub.empty and (valid_day_sub["total_fare"] > 0).all() and (valid_day_sub["base_price"] > 0).all():
+            if elementary_method == "ARITHMETIC_MEAN":
+                elem_idx = float(valid_day_sub["price_relative"].mean())
+            elif elementary_method == "MEDIAN":
+                elem_idx = float(valid_day_sub["price_relative"].median())
+            else:  # default JEVONS
+                elem_idx = float(base_val * np.exp(np.mean(np.log(valid_day_sub["total_fare"] / valid_day_sub["base_price"]))))
         else:
-            jevons_idx = weighted_idx
+            elem_idx = weighted_idx
+        
+        jevons_idx = elem_idx
         
         # -------------------------------------------------------------------------
-        # Paasche Index (Current-Period Weighted):
-        # A true theoretical Paasche index requires actual passenger ticket-sales
-        # volume or expenditure quantities (Q_{r,t}) for the current period.
-        # In public web scraping of airlines and OTAs, actual ticket sales figures
-        # and seat allocations are trade secrets and not publicly disclosed.
-        # As an empirically grounded and defensible proxy for current-period market
-        # activity, we compute each corridor's share of total daily observation volume:
-        #   current_weight_r = obs_count_{r,t} / total_obs_t
-        #   Paasche_t = sum(price_relative_r * current_weight_r) / sum(current_weight_r)
-        # This replaces static base weights with dynamic current-period market activity
-        # without fabricating fictional transaction quantities.
+        # Paasche Index (Current-Period Weighted)
         # -------------------------------------------------------------------------
         laspeyres = weighted_idx
 
         MIN_OBS_PER_ROUTE = 1
         MIN_QUALIFYING_ROUTES = 2
 
-        # Filter qualifying routes with sufficient observation sample size
         paasche_qualifying = day_sub[day_sub["obs_count"] >= MIN_OBS_PER_ROUTE]
 
         if len(paasche_qualifying) >= MIN_QUALIFYING_ROUTES and paasche_qualifying["obs_count"].sum() > 0:
@@ -274,11 +312,12 @@ def compute_airfare_indexes(
             paasche_weights = paasche_qualifying["obs_count"] / total_obs_day
             paasche_idx = float((paasche_qualifying["price_relative"] * paasche_weights).sum() / paasche_weights.sum())
         else:
-            # Fallback to Laspeyres if observation volume is sparse/unstable
             paasche_idx = laspeyres
 
-        # Fisher Ideal Index: Geometric mean of Laspeyres and real Paasche
         fisher_idx = float(np.sqrt(laspeyres * paasche_idx))
+
+        observed_corridors = len(valid_day_sub["route"].unique())
+        day_coverage = round((observed_corridors / max(1, total_basket_routes_count)) * 100.0, 1)
 
         daily_indexes.append({
             "date": d,
@@ -288,7 +327,9 @@ def compute_airfare_indexes(
             "fisher_index": round(float(fisher_idx), 2),
             "paasche_index": round(float(paasche_idx), 2),
             "avg_fare": round(float(day_sub["total_fare"].mean()), 2),
-            "observation_count": int(day_sub["obs_count"].sum())
+            "observation_count": int(day_sub["obs_count"].sum()),
+            "coverage_pct": day_coverage,
+            "basket_version": basket_version
         })
 
     latest_date = dates[-1] if dates else "2026-09-04"
@@ -302,11 +343,10 @@ def compute_airfare_indexes(
     change_24h = round(((latest_idx_val - prev_idx_val) / prev_idx_val) * 100.0, 2) if prev_idx_val > 0 else 0.0
     change_7d = round(((latest_idx_val - prev_7d_idx_val) / prev_7d_idx_val) * 100.0, 2) if prev_7d_idx_val > 0 else 0.0
 
-    # Route Summary across all tracked routes in usable_df (fallback to latest available day per route)
+    # Route Summary across all tracked routes in active basket
     route_latest_p = usable_df.sort_values("capture_date").groupby("route")["total_fare"].last()
     route_prev_p = usable_df[usable_df["capture_date"] <= prev_date].groupby("route")["total_fare"].last()
 
-    # Base fare and taxes components if available
     has_base = "base_fare" in usable_df.columns and usable_df["base_fare"].notna().any()
     has_tax = "taxes" in usable_df.columns and usable_df["taxes"].notna().any()
 
@@ -314,13 +354,18 @@ def compute_airfare_indexes(
     route_latest_tax = usable_df[usable_df["taxes"].notna()].sort_values("capture_date").groupby("route")["taxes"].last() if has_tax else {}
 
     route_summary = []
-    for r in ROUTES_CONFIG:
-        r_code = r["code"]
-        curr_p = float(route_latest_p.get(r_code, r["base_price"]))
+    for r in active_routes_list:
+        r_code = _rc(r)
+        base_p = float(active_base_prices.get(r_code, 4500))
+        curr_p = float(route_latest_p.get(r_code, base_p))
         prev_p = float(route_prev_p.get(r_code, curr_p))
         r_change = round(((curr_p - prev_p) / prev_p) * 100.0, 2) if prev_p > 0 else 0.0
-        base_p = BASE_PRICES.get(r_code, 4500)
-        p_rel = round((curr_p / base_p) * 100.0, 2)
+        p_rel = round((curr_p / base_p) * base_val, 2)
+        prev_rel = round((prev_p / base_p) * base_val, 2)
+
+        r_weight = float(active_route_weights.get(r_code, 0.015))
+        # Route point contribution to overall index change
+        contribution = round((p_rel - prev_rel) * r_weight, 3)
 
         curr_base = float(route_latest_base.get(r_code, round(curr_p * 0.78)))
         curr_tax = float(route_latest_tax.get(r_code, round(curr_p * 0.17)))
@@ -328,8 +373,8 @@ def compute_airfare_indexes(
 
         route_summary.append({
             "route": r_code,
-            "name": r.get("name", r_code),
-            "cluster": r.get("cluster", "Metro Trunk"),
+            "name": r.get("name", active_names.get(r_code, r_code)),
+            "cluster": r.get("cluster", active_clusters.get(r_code, "Metro Trunk")),
             "current_fare": round(curr_p, 2),
             "base_fare": base_p,
             "component_base_fare": round(curr_base, 2),
@@ -337,7 +382,8 @@ def compute_airfare_indexes(
             "component_fees": curr_fees,
             "price_relative": p_rel,
             "change_24h": r_change,
-            "weight": ROUTE_WEIGHTS.get(r_code, 0.015)
+            "weight": r_weight,
+            "contribution": contribution
         })
 
     # Airline Fare Comparison
@@ -376,7 +422,6 @@ def compute_airfare_indexes(
 
     delta_total = round(avg_curr_total - avg_prev_total, 2)
     
-    # Components decomposition if disclosed
     curr_base_s = pd.to_numeric(latest_day_df["base_fare"], errors="coerce").dropna() if "base_fare" in latest_day_df.columns else pd.Series(dtype=float)
     prev_base_s = pd.to_numeric(prev_day_df["base_fare"], errors="coerce").dropna() if "base_fare" in prev_day_df.columns else pd.Series(dtype=float)
     curr_tax_s = pd.to_numeric(latest_day_df["taxes"], errors="coerce").dropna() if "taxes" in latest_day_df.columns else pd.Series(dtype=float)
@@ -397,10 +442,11 @@ def compute_airfare_indexes(
     }
 
     trend_series = aggregate_trend_by_frequency(daily_indexes, frequency)
+    overall_coverage = round((len(set(usable_df["route"].unique()) & set(active_route_weights.keys())) / max(1, len(active_route_weights))) * 100.0, 1)
 
     return {
         "current_index": latest_idx_val,
-        "base_period": "2026-01 (100.0)",
+        "base_period": f"{base_period_name} ({base_val})",
         "last_updated": f"{latest_date} 21:42 IST",
         "change_24h": change_24h,
         "change_7d": change_7d,
@@ -410,12 +456,30 @@ def compute_airfare_indexes(
         "availability_rate_pct": avail_rate,
         "sold_out_rate_pct": sold_out_rate,
         "cancellation_rate_pct": cancel_rate,
+        "basket_version": basket_version,
+        "basket_label": basket_label,
+        "basket_source": basket_source,
+        "is_psd_authorized": basket_source == "PSD_OFFICIAL",
+        "coverage_pct": overall_coverage,
         "price_decomposition": price_decomposition,
         "frequency": frequency,
         "daily_trend": trend_series,
         "routes": route_summary,
         "airlines": airline_summary,
-        "elasticity": bw_summary
+        "elasticity": bw_summary,
+        "basket_metadata": {
+            "version": basket_version,
+            "label": basket_label,
+            "source": basket_source,
+            "status": active_basket.get("status", "ACTIVE"),
+            "routes_count": len(active_routes_list),
+            "elementary_method": elementary_method,
+            "aggregation_method": index_cfg.get("aggregation_method", "WEIGHTED_ROUTE_AGGREGATION"),
+            "missing_route_policy": missing_policy,
+            "base_period": base_period_name,
+            "base_value": base_val,
+            "published_status": "PROTOTYPE_DEMO" if basket_source != "PSD_OFFICIAL" else "PSD_AUTHORIZED"
+        }
     }
 
 

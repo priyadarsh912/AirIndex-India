@@ -19,6 +19,7 @@ import SourceComparisonView from './components/SourceComparisonView';
 import SettingsView from './components/SettingsView';
 import DataMonitoringView from './components/DataMonitoringView';
 import DataStatusPanel from './components/DataStatusPanel';
+import PSDBasketView from './components/PSDBasketView';
 import { useAirScopeData } from './hooks/useAirScopeData';
 import { DEFAULT_52_ROUTES, DEFAULT_CLUSTERS, DEFAULT_30_DAY_TREND } from './defaultData';
 import SCRAPED_OBSERVATIONS from './data/scrapedObservations.json';
@@ -385,6 +386,10 @@ export default function App() {
 
           {(activeTab === 'routes' || activeTab === 'clustering') && (
             <CorridorClusteringView clusterData={clusterData} routes={routesData} onSelectRoute={(r) => handleFilterChange({ route: r })} />
+          )}
+
+          {activeTab === 'psd_basket' && (
+            <PSDBasketView onBasketUpdated={fetchBaseData} />
           )}
 
           {(activeTab === 'elasticity') && (

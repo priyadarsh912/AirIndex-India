@@ -4,6 +4,7 @@ export const NAV_ITEMS = [
   { id: 'overview', label: 'Dashboard', icon: 'grid_view' },
   { id: 'trend', label: 'Airfare Index', icon: 'leaderboard' },
   { id: 'routes', label: 'Route Explorer', icon: 'alt_route' },
+  { id: 'psd_basket', label: 'PSD Basket & Weights', icon: 'tune' },
   { id: 'explorer', label: 'Fare Ledger', icon: 'receipt_long' },
   { id: 'elasticity', label: 'Lead-Time Analytics', icon: 'schedule' },
   { id: 'market', label: 'Market Monitor', icon: 'query_stats' },

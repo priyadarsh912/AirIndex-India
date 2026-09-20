@@ -1,0 +1,481 @@
+{
+  "basket_version": "DEMO_V1",
+  "basket_name": "Illustrative 52-Corridor Prototype Basket",
+  "source": "ILLUSTRATIVE_PROTOTYPE",
+  "source_description": "Prototype weights \u2014 illustrative only; replace with PSD-supplied weights for official compilation.",
+  "effective_from": "2026-01-01",
+  "effective_to": null,
+  "status": "ACTIVE",
+  "total_routes": 52,
+  "total_weight": 1.0,
+  "routes": [
+    {
+      "origin": "DEL",
+      "destination": "BOM",
+      "corridor": "DEL-BOM",
+      "weight": 0.0651,
+      "cluster": "Metro Trunk",
+      "status": "assumed",
+      "base_price": 4600
+    },
+    {
+      "origin": "BOM",
+      "destination": "DEL",
+      "corridor": "BOM-DEL",
+      "weight": 0.0649,
+      "cluster": "Metro Trunk",
+      "status": "assumed",
+      "base_price": 4650
+    },
+    {
+      "origin": "DEL",
+      "destination": "BLR",
+      "corridor": "DEL-BLR",
+      "weight": 0.0528,
+      "cluster": "Metro Trunk",
+      "status": "assumed",
+      "base_price": 5400
+    },
+    {
+      "origin": "BLR",
+      "destination": "DEL",
+      "corridor": "BLR-DEL",
+      "weight": 0.0528,
+      "cluster": "Metro Trunk",
+      "status": "assumed",
+      "base_price": 5450
+    },
+    {
+      "origin": "BOM",
+      "destination": "BLR",
+      "corridor": "BOM-BLR",
+      "weight": 0.0406,
+      "cluster": "Metro Trunk",
+      "status": "assumed",
+      "base_price": 3800
+    },
+    {
+      "origin": "BLR",
+      "destination": "BOM",
+      "corridor": "BLR-BOM",
+      "weight": 0.0406,
+      "cluster": "Metro Trunk",
+      "status": "assumed",
+      "base_price": 3850
+    },
+    {
+      "origin": "DEL",
+      "destination": "CCU",
+      "corridor": "DEL-CCU",
+      "weight": 0.0365,
+      "cluster": "Metro Trunk",
+      "status": "assumed",
+      "base_price": 4500
+    },
+    {
+      "origin": "CCU",
+      "destination": "DEL",
+      "corridor": "CCU-DEL",
+      "weight": 0.0365,
+      "cluster": "Metro Trunk",
+      "status": "assumed",
+      "base_price": 4550
+    },
+    {
+      "origin": "BLR",
+      "destination": "HYD",
+      "corridor": "BLR-HYD",
+      "weight": 0.0325,
+      "cluster": "Metro Trunk",
+      "status": "assumed",
+      "base_price": 2900
+    },
+    {
+      "origin": "HYD",
+      "destination": "BLR",
+      "corridor": "HYD-BLR",
+      "weight": 0.0325,
+      "cluster": "Metro Trunk",
+      "status": "assumed",
+      "base_price": 2950
+    },
+    {
+      "origin": "MAA",
+      "destination": "DEL",
+      "corridor": "MAA-DEL",
+      "weight": 0.0284,
+      "cluster": "Metro-Tier2 Link",
+      "status": "assumed",
+      "base_price": 5300
+    },
+    {
+      "origin": "DEL",
+      "destination": "MAA",
+      "corridor": "DEL-MAA",
+      "weight": 0.0284,
+      "cluster": "Metro-Tier2 Link",
+      "status": "assumed",
+      "base_price": 5350
+    },
+    {
+      "origin": "DEL",
+      "destination": "PNQ",
+      "corridor": "DEL-PNQ",
+      "weight": 0.0244,
+      "cluster": "Metro-Tier2 Link",
+      "status": "assumed",
+      "base_price": 4400
+    },
+    {
+      "origin": "PNQ",
+      "destination": "DEL",
+      "corridor": "PNQ-DEL",
+      "weight": 0.0244,
+      "cluster": "Metro-Tier2 Link",
+      "status": "assumed",
+      "base_price": 4450
+    },
+    {
+      "origin": "BOM",
+      "destination": "AMD",
+      "corridor": "BOM-AMD",
+      "weight": 0.0203,
+      "cluster": "Metro-Tier2 Link",
+      "status": "assumed",
+      "base_price": 2800
+    },
+    {
+      "origin": "AMD",
+      "destination": "BOM",
+      "corridor": "AMD-BOM",
+      "weight": 0.0203,
+      "cluster": "Metro-Tier2 Link",
+      "status": "assumed",
+      "base_price": 2850
+    },
+    {
+      "origin": "DEL",
+      "destination": "AMD",
+      "corridor": "DEL-AMD",
+      "weight": 0.0203,
+      "cluster": "Metro-Tier2 Link",
+      "status": "assumed",
+      "base_price": 3600
+    },
+    {
+      "origin": "DEL",
+      "destination": "LKO",
+      "corridor": "DEL-LKO",
+      "weight": 0.0162,
+      "cluster": "Metro-Tier2 Link",
+      "status": "assumed",
+      "base_price": 2700
+    },
+    {
+      "origin": "LKO",
+      "destination": "DEL",
+      "corridor": "LKO-DEL",
+      "weight": 0.0162,
+      "cluster": "Metro-Tier2 Link",
+      "status": "assumed",
+      "base_price": 2750
+    },
+    {
+      "origin": "BOM",
+      "destination": "HYD",
+      "corridor": "BOM-HYD",
+      "weight": 0.0162,
+      "cluster": "Metro-Tier2 Link",
+      "status": "assumed",
+      "base_price": 3200
+    },
+    {
+      "origin": "HYD",
+      "destination": "BOM",
+      "corridor": "HYD-BOM",
+      "weight": 0.0162,
+      "cluster": "Metro-Tier2 Link",
+      "status": "assumed",
+      "base_price": 3250
+    },
+    {
+      "origin": "DEL",
+      "destination": "PAT",
+      "corridor": "DEL-PAT",
+      "weight": 0.0162,
+      "cluster": "Metro-Tier2 Link",
+      "status": "assumed",
+      "base_price": 3900
+    },
+    {
+      "origin": "BOM",
+      "destination": "PAT",
+      "corridor": "BOM-PAT",
+      "weight": 0.0122,
+      "cluster": "Metro-Tier2 Link",
+      "status": "assumed",
+      "base_price": 4900
+    },
+    {
+      "origin": "BLR",
+      "destination": "PNQ",
+      "corridor": "BLR-PNQ",
+      "weight": 0.0122,
+      "cluster": "Metro-Tier2 Link",
+      "status": "assumed",
+      "base_price": 3500
+    },
+    {
+      "origin": "DEL",
+      "destination": "GAU",
+      "corridor": "DEL-GAU",
+      "weight": 0.0122,
+      "cluster": "Regional & NE",
+      "status": "assumed",
+      "base_price": 4800
+    },
+    {
+      "origin": "GAU",
+      "destination": "DEL",
+      "corridor": "GAU-DEL",
+      "weight": 0.0122,
+      "cluster": "Regional & NE",
+      "status": "assumed",
+      "base_price": 4850
+    },
+    {
+      "origin": "CCU",
+      "destination": "GAU",
+      "corridor": "CCU-GAU",
+      "weight": 0.0097,
+      "cluster": "Regional & NE",
+      "status": "assumed",
+      "base_price": 3100
+    },
+    {
+      "origin": "DEL",
+      "destination": "IXB",
+      "corridor": "DEL-IXB",
+      "weight": 0.0097,
+      "cluster": "Regional & NE",
+      "status": "assumed",
+      "base_price": 4300
+    },
+    {
+      "origin": "CCU",
+      "destination": "IXB",
+      "corridor": "CCU-IXB",
+      "weight": 0.0081,
+      "cluster": "Regional & NE",
+      "status": "assumed",
+      "base_price": 2800
+    },
+    {
+      "origin": "DEL",
+      "destination": "IXC",
+      "corridor": "DEL-IXC",
+      "weight": 0.0081,
+      "cluster": "Regional & NE",
+      "status": "assumed",
+      "base_price": 2400
+    },
+    {
+      "origin": "MAA",
+      "destination": "TRZ",
+      "corridor": "MAA-TRZ",
+      "weight": 0.0065,
+      "cluster": "Regional & NE",
+      "status": "assumed",
+      "base_price": 2300
+    },
+    {
+      "origin": "BLR",
+      "destination": "COK",
+      "corridor": "BLR-COK",
+      "weight": 0.0097,
+      "cluster": "Regional & NE",
+      "status": "assumed",
+      "base_price": 2500
+    },
+    {
+      "origin": "COK",
+      "destination": "BLR",
+      "corridor": "COK-BLR",
+      "weight": 0.0097,
+      "cluster": "Regional & NE",
+      "status": "assumed",
+      "base_price": 2550
+    },
+    {
+      "origin": "HYD",
+      "destination": "VGA",
+      "corridor": "HYD-VGA",
+      "weight": 0.0065,
+      "cluster": "Regional & NE",
+      "status": "assumed",
+      "base_price": 2200
+    },
+    {
+      "origin": "DEL",
+      "destination": "GOI",
+      "corridor": "DEL-GOI",
+      "weight": 0.0162,
+      "cluster": "Leisure & Tourist",
+      "status": "assumed",
+      "base_price": 5100
+    },
+    {
+      "origin": "GOI",
+      "destination": "DEL",
+      "corridor": "GOI-DEL",
+      "weight": 0.0162,
+      "cluster": "Leisure & Tourist",
+      "status": "assumed",
+      "base_price": 5150
+    },
+    {
+      "origin": "BOM",
+      "destination": "GOI",
+      "corridor": "BOM-GOI",
+      "weight": 0.0146,
+      "cluster": "Leisure & Tourist",
+      "status": "assumed",
+      "base_price": 2900
+    },
+    {
+      "origin": "GOI",
+      "destination": "BOM",
+      "corridor": "GOI-BOM",
+      "weight": 0.0146,
+      "cluster": "Leisure & Tourist",
+      "status": "assumed",
+      "base_price": 2950
+    },
+    {
+      "origin": "BLR",
+      "destination": "GOI",
+      "corridor": "BLR-GOI",
+      "weight": 0.0122,
+      "cluster": "Leisure & Tourist",
+      "status": "assumed",
+      "base_price": 3100
+    },
+    {
+      "origin": "DEL",
+      "destination": "SXR",
+      "corridor": "DEL-SXR",
+      "weight": 0.0122,
+      "cluster": "Leisure & Tourist",
+      "status": "assumed",
+      "base_price": 4200
+    },
+    {
+      "origin": "SXR",
+      "destination": "DEL",
+      "corridor": "SXR-DEL",
+      "weight": 0.0122,
+      "cluster": "Leisure & Tourist",
+      "status": "assumed",
+      "base_price": 4250
+    },
+    {
+      "origin": "DEL",
+      "destination": "IXL",
+      "corridor": "DEL-IXL",
+      "weight": 0.0081,
+      "cluster": "Leisure & Tourist",
+      "status": "assumed",
+      "base_price": 5800
+    },
+    {
+      "origin": "DEL",
+      "destination": "VNS",
+      "corridor": "DEL-VNS",
+      "weight": 0.0097,
+      "cluster": "Leisure & Tourist",
+      "status": "assumed",
+      "base_price": 3400
+    },
+    {
+      "origin": "BOM",
+      "destination": "VNS",
+      "corridor": "BOM-VNS",
+      "weight": 0.0081,
+      "cluster": "Leisure & Tourist",
+      "status": "assumed",
+      "base_price": 4500
+    },
+    {
+      "origin": "BLR",
+      "destination": "IXE",
+      "corridor": "BLR-IXE",
+      "weight": 0.0065,
+      "cluster": "Emerging Hubs",
+      "status": "assumed",
+      "base_price": 2400
+    },
+    {
+      "origin": "HYD",
+      "destination": "RPR",
+      "corridor": "HYD-RPR",
+      "weight": 0.0065,
+      "cluster": "Emerging Hubs",
+      "status": "assumed",
+      "base_price": 3100
+    },
+    {
+      "origin": "DEL",
+      "destination": "JAI",
+      "corridor": "DEL-JAI",
+      "weight": 0.0081,
+      "cluster": "Emerging Hubs",
+      "status": "assumed",
+      "base_price": 2300
+    },
+    {
+      "origin": "BOM",
+      "destination": "NAG",
+      "corridor": "BOM-NAG",
+      "weight": 0.0073,
+      "cluster": "Emerging Hubs",
+      "status": "assumed",
+      "base_price": 3300
+    },
+    {
+      "origin": "BLR",
+      "destination": "VTZ",
+      "corridor": "BLR-VTZ",
+      "weight": 0.0073,
+      "cluster": "Emerging Hubs",
+      "status": "assumed",
+      "base_price": 3600
+    },
+    {
+      "origin": "HYD",
+      "destination": "VTZ",
+      "corridor": "HYD-VTZ",
+      "weight": 0.0073,
+      "cluster": "Emerging Hubs",
+      "status": "assumed",
+      "base_price": 3000
+    },
+    {
+      "origin": "BOM",
+      "destination": "IDR",
+      "corridor": "BOM-IDR",
+      "weight": 0.0073,
+      "cluster": "Emerging Hubs",
+      "status": "assumed",
+      "base_price": 3100
+    },
+    {
+      "origin": "DEL",
+      "destination": "UDR",
+      "corridor": "DEL-UDR",
+      "weight": 0.0065,
+      "cluster": "Emerging Hubs",
+      "status": "assumed",
+      "base_price": 3500
+    }
+  ]
+}

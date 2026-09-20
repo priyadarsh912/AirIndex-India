@@ -272,7 +272,6 @@ export default function DataExplorerView({ observations, routes = [] }) {
                   <th className="py-2.5 px-3 text-right">Total Fare</th>
                   <th className="py-2.5 px-3 text-center">Fee Basis</th>
                   <th className="py-2.5 px-3 text-center">Quality</th>
-                  <th className="py-2.5 px-3">Provenance</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border-hairline">
@@ -374,22 +373,6 @@ export default function DataExplorerView({ observations, routes = [] }) {
                         }`}>
                           {dqs}
                         </span>
-                      </td>
-
-                      <td className="py-3 px-3 text-[11px] font-medium">
-                        {o.source === 'LIVE_API' ? (
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/15 text-emerald-600 border border-emerald-500/30">
-                            LIVE API
-                          </span>
-                        ) : o.source === 'LIVE_SCRAPE' ? (
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/15 text-blue-600 border border-blue-500/30">
-                            SCRAPE
-                          </span>
-                        ) : (
-                          <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-500/15 text-amber-600 border border-amber-500/30">
-                            FIXTURE
-                          </span>
-                        )}
                       </td>
                     </tr>
                   );

@@ -284,7 +284,7 @@ export default function App() {
       />
 
       {/* Main Content Area (offset by left sidebar width on desktop) */}
-      <main className={`pt-16 bg-surface-canvas min-h-screen transition-all duration-300 ease-in-out ${sidebarCollapsed ? 'pl-0 lg:pl-16' : 'pl-0 lg:pl-64'}`}>
+      <main className={`pt-4 bg-surface-canvas min-h-screen transition-all duration-300 ease-in-out ${sidebarCollapsed ? 'pl-0 lg:pl-16' : 'pl-0 lg:pl-64'}`}>
         <div className="flex flex-col w-full p-4 sm:p-6 lg:p-8 gap-6 max-w-[1600px] mx-auto">
           
           {/* Top AirScope Welcome Hero Banner */}

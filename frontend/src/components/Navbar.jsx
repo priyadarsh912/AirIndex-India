@@ -33,7 +33,7 @@ export default function Navbar({
         healthData={healthData} 
         setMobileOpen={setMobileOpen}
         sidebarCollapsed={sidebarCollapsed}
-        setSidebarCollapsed={setSidebarCollapsed}
+        activeTab={activeTab}
         setActiveTab={setActiveTab}
         updateFilter={updateFilter}
         filters={filters}

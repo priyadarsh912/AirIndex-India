@@ -36,7 +36,7 @@ export default function Sidebar({
 
       {/* Sidebar Shell */}
       <aside className={`
-        fixed left-0 top-0 h-screen bg-surface-card z-50 flex flex-col justify-between 
+        fixed left-0 top-[138px] h-[calc(100vh-138px)] bg-surface-card z-40 flex flex-col justify-between 
         shadow-[0_1px_6px_rgba(0,0,0,0.03)] border-r border-border-hairline overflow-y-auto overflow-x-hidden
         transition-all duration-300 ease-in-out
         ${sidebarCollapsed ? 'lg:w-16 w-64' : 'w-64'}

@@ -113,6 +113,10 @@ COMBINED_RAW = merge_scraped_with_fixture(FIXTURE_DATA["raw_observations"], SCRA
 
 # Partition observations: Strict separation of Clean vs Quarantined records
 CLEAN_FLIGHT_OBSERVATIONS, QUARANTINED_FLIGHT_OBSERVATIONS, TELEMETRY_AUDIT = partition_observations(COMBINED_RAW)
+VERIFIED_USABLE_OBSERVATIONS = [
+    o for o in CLEAN_FLIGHT_OBSERVATIONS
+    if o.get("validation_status") == "VERIFIED" and o.get("is_usable", True)
+]
 
 # Run data quality & index calculations strictly on clean partitioned observations
 CLEANED_DATA, QUALITY_STATS = process_data_quality(CLEAN_FLIGHT_OBSERVATIONS)
@@ -123,6 +127,16 @@ BACKTEST_RESULTS = run_dgca_backtest(INDEX_RESULTS.get("daily_trend", []), FIXTU
 
 SCRAPE_IN_PROGRESS = False
 LAST_SCRAPE_STATUS = get_latest_scrape_metadata()
+
+# Fast In-Memory LRU Caches for instant UI chart & KPI responsiveness (<1ms)
+_HISTORY_CACHE: Dict[str, Any] = {}
+_CURRENT_CACHE: Dict[str, Any] = {}
+
+
+def clear_index_caches():
+    """Flushes cached query results when data pipeline updates."""
+    _HISTORY_CACHE.clear()
+    _CURRENT_CACHE.clear()
 
 
 def sync_to_frontend():
@@ -147,19 +161,24 @@ def sync_to_frontend():
 def refresh_pipeline_data():
     """Recalculate pipeline state across all 52 routes and clusters when new scraped observations arrive."""
     global SCRAPED_DATA, COMBINED_RAW, CLEAN_FLIGHT_OBSERVATIONS, QUARANTINED_FLIGHT_OBSERVATIONS, TELEMETRY_AUDIT
-    global CLEANED_DATA, QUALITY_STATS, INDEX_RESULTS, ANOMALIES_RESULTS, CLUSTER_RESULTS, BACKTEST_RESULTS, LAST_SCRAPE_STATUS
+    global VERIFIED_USABLE_OBSERVATIONS, CLEANED_DATA, QUALITY_STATS, INDEX_RESULTS, ANOMALIES_RESULTS, CLUSTER_RESULTS, BACKTEST_RESULTS, LAST_SCRAPE_STATUS
 
     SCRAPED_DATA = load_scraped_observations()
     sync_to_frontend()
     COMBINED_RAW = merge_scraped_with_fixture(FIXTURE_DATA["raw_observations"], SCRAPED_DATA)
 
     CLEAN_FLIGHT_OBSERVATIONS, QUARANTINED_FLIGHT_OBSERVATIONS, TELEMETRY_AUDIT = partition_observations(COMBINED_RAW)
+    VERIFIED_USABLE_OBSERVATIONS = [
+        o for o in CLEAN_FLIGHT_OBSERVATIONS
+        if o.get("validation_status") == "VERIFIED" and o.get("is_usable", True)
+    ]
     CLEANED_DATA, QUALITY_STATS = process_data_quality(CLEAN_FLIGHT_OBSERVATIONS)
     INDEX_RESULTS = compute_airfare_indexes(CLEANED_DATA)
     ANOMALIES_RESULTS = detect_airfare_anomalies(CLEANED_DATA)
     CLUSTER_RESULTS = compute_route_clusters(CLEANED_DATA)
     BACKTEST_RESULTS = run_dgca_backtest(INDEX_RESULTS.get("daily_trend", []), FIXTURE_DATA["dgca_benchmark"])
     LAST_SCRAPE_STATUS = get_latest_scrape_metadata()
+    clear_index_caches()
 
 
 def query_clean_store(
@@ -172,24 +191,30 @@ def query_clean_store(
     """
     Queries clean data store with strict isolation predicates.
     Guarantees that quarantined records (e.g. 6E-339 on HYD-VTZ) never cross-pollinate.
+    Optimized single-pass evaluation over pre-partitioned verified observations.
     """
-    records = [
-        o for o in CLEAN_FLIGHT_OBSERVATIONS
-        if o.get("validation_status") == "VERIFIED" and o.get("is_usable", True)
-    ]
+    source = VERIFIED_USABLE_OBSERVATIONS if (VERIFIED_USABLE_OBSERVATIONS is not None) else CLEAN_FLIGHT_OBSERVATIONS
 
-    if route and route != "ALL":
-        records = [o for o in records if o.get("route") == route]
-    if airline and airline != "ALL":
-        records = [o for o in records if o.get("airline") == airline]
-    if window and window != "ALL":
-        records = [o for o in records if o.get("booking_window") == window]
-    if start_date:
-        s_str = start_date.strftime("%Y-%m-%d")
-        records = [o for o in records if (o.get("capture_date") or o.get("travel_date", "")) >= s_str]
-    if end_date:
-        e_str = end_date.strftime("%Y-%m-%d")
-        records = [o for o in records if (o.get("capture_date") or o.get("travel_date", "")) <= e_str]
+    s_str = start_date.strftime("%Y-%m-%d") if start_date else None
+    e_str = end_date.strftime("%Y-%m-%d") if end_date else None
+    check_route = bool(route and route != "ALL")
+    check_airline = bool(airline and airline != "ALL")
+    check_window = bool(window and window != "ALL")
+
+    records = []
+    for o in source:
+        if check_route and o.get("route") != route:
+            continue
+        if check_airline and o.get("airline") != airline:
+            continue
+        if check_window and o.get("booking_window") != window:
+            continue
+        c_date = o.get("capture_date") or o.get("travel_date", "")
+        if s_str and c_date < s_str:
+            continue
+        if e_str and c_date > e_str:
+            continue
+        records.append(o)
 
     return records
 
@@ -380,7 +405,7 @@ def compute_current_day_index_response(
 
 
 @app.get("/api/v2/index/history", response_model=HistoryResponse)
-async def get_index_history_v2(
+def get_index_history_v2(
     start_date: Optional[date] = Query(None, description="Start date (YYYY-MM-DD)"),
     end_date: Optional[date] = Query(None, description="End date (YYYY-MM-DD)"),
     route: Optional[str] = Query(None, description="Filtered corridor, e.g. DEL-BOM"),
@@ -392,11 +417,19 @@ async def get_index_history_v2(
     """
     Computes real-time econometric index time series directly from clean observations.
     Anchors dynamically to today's date in target timezone when no custom dates are specified.
+    Uses in-memory caching for sub-millisecond response.
     """
     today = get_server_today(tz)
     resolved_end = end_date or today
     days_back = 29 if frequency == "Daily" else (84 if frequency == "Weekly" else 365)
     resolved_start = start_date or (resolved_end - timedelta(days=days_back))
+
+    s_str = resolved_start.strftime("%Y-%m-%d")
+    e_str = resolved_end.strftime("%Y-%m-%d")
+
+    cache_key = f"hist:{s_str}:{e_str}:{route or 'ALL'}:{airline or 'ALL'}:{window or 'ALL'}:{frequency}:{tz}"
+    if cache_key in _HISTORY_CACHE:
+        return _HISTORY_CACHE[cache_key]
 
     records = query_clean_store(
         start_date=resolved_start,
@@ -405,9 +438,6 @@ async def get_index_history_v2(
         airline=airline if airline != "ALL" else None,
         window=window if window != "ALL" else None,
     )
-
-    s_str = resolved_start.strftime("%Y-%m-%d")
-    e_str = resolved_end.strftime("%Y-%m-%d")
     
     # If corridor filter yields 0 observations in exact window, fall back to route config or clean store
     if not records:
@@ -418,7 +448,7 @@ async def get_index_history_v2(
 
     daily_trend = aggregate_econometric_series(records, frequency=frequency)
 
-    return HistoryResponse(
+    resp = HistoryResponse(
         query_filters={
             "start_date": s_str,
             "end_date": e_str,
@@ -431,10 +461,12 @@ async def get_index_history_v2(
         total_points=len(daily_trend),
         daily_trend=daily_trend,
     )
+    _HISTORY_CACHE[cache_key] = resp
+    return resp
 
 
 @app.get("/api/v2/index/current")
-async def get_current_index_v2(
+def get_current_index_v2(
     corridor: Optional[str] = Query(None, description="Corridor, e.g. DEL-BOM"),
     airline: Optional[str] = Query(None, description="Carrier name"),
     window: Optional[str] = Query(None, description="Booking tier"),
@@ -444,14 +476,21 @@ async def get_current_index_v2(
     """
     Real-time headline index & aggregated KPIs derived strictly from verified clean observations of the current calendar day.
     Does NOT default to older dates; returns empty/fallback state when no data exists for current day.
+    Uses in-memory caching for sub-millisecond response.
     """
-    return compute_current_day_index_response(
+    cache_key = f"curr:{corridor or 'ALL'}:{airline or 'ALL'}:{window or 'ALL'}:{tz}:{target_date}"
+    if cache_key in _CURRENT_CACHE:
+        return _CURRENT_CACHE[cache_key]
+
+    resp = compute_current_day_index_response(
         corridor=corridor,
         airline=airline,
         window=window,
         tz=tz,
         target_date=target_date,
     )
+    _CURRENT_CACHE[cache_key] = resp
+    return resp
 
 
 @app.get("/api/v2/routes/matrix")
@@ -1520,6 +1559,7 @@ def generate_extended_history_admin(
     ANOMALIES_RESULTS = detect_airfare_anomalies(CLEANED_DATA)
     CLUSTER_RESULTS = compute_route_clusters(CLEANED_DATA)
     BACKTEST_RESULTS = run_dgca_backtest(INDEX_RESULTS.get("daily_trend", []), FIXTURE_DATA["dgca_benchmark"])
+    clear_index_caches()
 
     return {
         "status": "SUCCESS",

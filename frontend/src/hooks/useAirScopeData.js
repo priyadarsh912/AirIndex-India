@@ -1,5 +1,5 @@
 // frontend/src/hooks/useAirScopeData.js
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { DEFAULT_30_DAY_TREND, DEFAULT_52_ROUTES } from '../defaultData';
 
 function debounce(fn, delay) {
@@ -170,70 +170,104 @@ export function useAirScopeData(apiBaseUrl = '') {
   const [error, setError] = useState(null);
   const [isLiveConnected, setIsLiveConnected] = useState(false);
 
+  // Keep track of active in-flight request to cancel superseded queries
+  const activeControllerRef = useRef(null);
+
   const fetchChartData = useCallback(async (activeFilters) => {
+    // Cancel any previous pending request immediately to avoid stale overlap
+    if (activeControllerRef.current) {
+      activeControllerRef.current.abort();
+    }
+    const controller = new AbortController();
+    activeControllerRef.current = controller;
+    const { signal } = controller;
+
     setIsLoading(true);
     setError(null);
-    try {
-      const userTz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Kolkata';
 
-      const params = new URLSearchParams();
-      if (activeFilters.route && activeFilters.route !== 'ALL') params.append('route', activeFilters.route);
-      if (activeFilters.airline && activeFilters.airline !== 'ALL') params.append('airline', activeFilters.airline);
-      if (activeFilters.window && activeFilters.window !== 'ALL') params.append('window', activeFilters.window);
-      if (activeFilters.frequency) params.append('frequency', activeFilters.frequency);
-      params.append('tz', userTz);
+    const userTz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Kolkata';
 
-      let res = await fetch(`${apiBaseUrl}/api/v2/index/history?${params.toString()}`);
-      if (!res.ok) {
-        try {
-          res = await fetch(`${apiBaseUrl}/api/index/history?${params.toString()}`);
-        } catch (e) {}
+    // 1. History Trend Params
+    const params = new URLSearchParams();
+    if (activeFilters.route && activeFilters.route !== 'ALL') params.append('route', activeFilters.route);
+    if (activeFilters.airline && activeFilters.airline !== 'ALL') params.append('airline', activeFilters.airline);
+    if (activeFilters.window && activeFilters.window !== 'ALL') params.append('window', activeFilters.window);
+    if (activeFilters.frequency) params.append('frequency', activeFilters.frequency);
+    params.append('tz', userTz);
+
+    // 2. Summary KPI Params
+    const summaryParams = new URLSearchParams();
+    if (activeFilters.route && activeFilters.route !== 'ALL') summaryParams.append('corridor', activeFilters.route);
+    if (activeFilters.airline && activeFilters.airline !== 'ALL') summaryParams.append('airline', activeFilters.airline);
+    summaryParams.append('tz', userTz);
+
+    // Safety timeout: Never stay stuck on "Calculating Live Index..." if network stalls
+    const timeoutId = setTimeout(() => {
+      if (activeControllerRef.current === controller) {
+        controller.abort();
+        setIsLoading(false);
       }
+    }, 4500);
 
-      if (res && res.ok) {
-        const data = await res.json();
-        if (data.daily_trend && Array.isArray(data.daily_trend) && data.daily_trend.length > 0) {
-          setTrendData(data.daily_trend);
-          setIsLiveConnected(true);
-        } else {
-          setTrendData(generateRouteTrend(activeFilters.route, activeFilters.airline, activeFilters.frequency));
-        }
-
-        const summaryParams = new URLSearchParams();
-        if (activeFilters.route && activeFilters.route !== 'ALL') summaryParams.append('corridor', activeFilters.route);
-        if (activeFilters.airline && activeFilters.airline !== 'ALL') summaryParams.append('airline', activeFilters.airline);
-        summaryParams.append('tz', userTz);
-
+    try {
+      // Fetch trend series and KPI summary concurrently in parallel
+      const trendPromise = (async () => {
         try {
-          const sumRes = await fetch(`${apiBaseUrl}/api/v2/index/current?${summaryParams.toString()}`);
+          let res = await fetch(`${apiBaseUrl}/api/v2/index/history?${params.toString()}`, { signal });
+          if (!res.ok) {
+            res = await fetch(`${apiBaseUrl}/api/index/history?${params.toString()}`, { signal }).catch(() => null);
+          }
+          if (res && res.ok) {
+            const data = await res.json();
+            if (data.daily_trend && Array.isArray(data.daily_trend) && data.daily_trend.length > 0) {
+              setTrendData(data.daily_trend);
+              setIsLiveConnected(true);
+            } else {
+              setTrendData(generateRouteTrend(activeFilters.route, activeFilters.airline, activeFilters.frequency));
+            }
+          } else {
+            setIsLiveConnected(false);
+            setTrendData(generateRouteTrend(activeFilters.route, activeFilters.airline, activeFilters.frequency));
+          }
+        } catch (err) {
+          if (err.name !== 'AbortError') {
+            setIsLiveConnected(false);
+            setTrendData(generateRouteTrend(activeFilters.route, activeFilters.airline, activeFilters.frequency));
+          }
+        } finally {
+          // Immediately unblock the trend chart overlay as soon as trend data is ready!
+          if (activeControllerRef.current === controller) {
+            setIsLoading(false);
+          }
+        }
+      })();
+
+      const summaryPromise = (async () => {
+        try {
+          const sumRes = await fetch(`${apiBaseUrl}/api/v2/index/current?${summaryParams.toString()}`, { signal });
           if (sumRes.ok) {
             const sumData = await sumRes.json();
             setIndexSummary(sumData);
           } else {
             setIndexSummary(generateRouteSummary(activeFilters.route, activeFilters.airline));
           }
-        } catch (sumErr) {
-          setIndexSummary(generateRouteSummary(activeFilters.route, activeFilters.airline));
+        } catch (err) {
+          if (err.name !== 'AbortError') {
+            setIndexSummary(generateRouteSummary(activeFilters.route, activeFilters.airline));
+          }
         }
-      } else {
-        setIsLiveConnected(false);
-        setTrendData(generateRouteTrend(activeFilters.route, activeFilters.airline, activeFilters.frequency));
-        if (activeFilters.route !== 'ALL' || activeFilters.airline !== 'ALL') {
-          setIndexSummary(generateRouteSummary(activeFilters.route, activeFilters.airline));
-        } else {
-          setIndexSummary(null);
-        }
-      }
+      })();
+
+      await Promise.allSettled([trendPromise, summaryPromise]);
     } catch (err) {
-      setIsLiveConnected(false);
-      setTrendData(generateRouteTrend(activeFilters.route, activeFilters.airline, activeFilters.frequency));
-      if (activeFilters.route !== 'ALL' || activeFilters.airline !== 'ALL') {
-        setIndexSummary(generateRouteSummary(activeFilters.route, activeFilters.airline));
-      } else {
-        setIndexSummary(null);
+      if (err.name !== 'AbortError') {
+        setError(err.message || 'Failed to calculate live index');
       }
     } finally {
-      setIsLoading(false);
+      clearTimeout(timeoutId);
+      if (activeControllerRef.current === controller) {
+        setIsLoading(false);
+      }
     }
   }, [apiBaseUrl]);
 

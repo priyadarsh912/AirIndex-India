@@ -213,13 +213,35 @@ export default function Header({
     }
   };
 
+  const headerRef = useRef(null);
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (headerRef.current) {
+        const h = headerRef.current.offsetHeight;
+        document.documentElement.style.setProperty('--header-height', `${h}px`);
+      }
+    };
+    updateHeight();
+    const observer = new ResizeObserver(updateHeight);
+    if (headerRef.current) observer.observe(headerRef.current);
+    window.addEventListener('resize', updateHeight);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', updateHeight);
+    };
+  }, []);
+
   return (
-    <header className="sticky top-0 left-0 right-0 w-full bg-white shadow-md select-none border-b border-slate-200 z-50">
+    <header 
+      ref={headerRef}
+      className="sticky top-0 left-0 right-0 w-full bg-white shadow-md select-none border-b border-slate-200 z-50"
+    >
       
       {/* ─────────────────────────────────────────────────────────────────────
           TIER 1: NATIONAL INSTITUTIONAL LOGO & TITLE ROW (White Background)
           ───────────────────────────────────────────────────────────────────── */}
-      <div className="w-full bg-white px-4 sm:px-6 lg:px-8 py-2.5 flex flex-wrap items-center justify-between gap-4 border-b border-slate-200/80">
+      <div className="w-full bg-white px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center justify-between gap-4 border-b border-slate-200/80">
         
         {/* Left Side: National Emblem + Government of India & MoSPI Titles */}
         <div className="flex items-center gap-3.5 sm:gap-4.5">

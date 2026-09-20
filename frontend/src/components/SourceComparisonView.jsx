@@ -644,15 +644,20 @@ export default function SourceComparisonView({
               Live authentic scraped data for Ixigo alongside statutory sample models for Airline Direct baseline and other downstream OTA platforms for {activeRoute}.
             </p>
 
-            <div className="mt-5 space-y-3">
+            <div className="mt-5 space-y-3.5">
               {corridorData.channels.map((ch, i) => {
-                const total = ch.total;
-                const basePct = ((ch.base / total) * 100).toFixed(1);
-                const taxPct = ((ch.taxes / total) * 100).toFixed(1);
-                const feePct = ch.fee > 0 ? ((ch.fee / total) * 100).toFixed(1) : 0;
+                const baseVal = ch.base;
+                const taxVal = ch.taxes;
+                const feeVal = Math.max(0, ch.fee);
+                const sumTotal = baseVal + taxVal + feeVal;
+
+                // Normalized exact percentages to prevent bar overflow
+                const basePctNum = (baseVal / sumTotal) * 100;
+                const taxPctNum = (taxVal / sumTotal) * 100;
+                const feePctNum = feeVal > 0 ? Math.max(0, 100 - basePctNum - taxPctNum) : 0;
 
                 return (
-                  <div key={i} className="flex flex-col gap-1">
+                  <div key={i} className="flex flex-col gap-1.5">
                     <div className="flex justify-between items-center text-xs">
                       <span className="font-medium text-text-primary flex items-center gap-1.5 flex-wrap">
                         <span className={`w-2 h-2 rounded-full ${ch.isBaseline ? 'bg-primary' : ch.isLiveScraped ? 'bg-emerald-500' : 'bg-slate-400'}`}></span>
@@ -669,26 +674,38 @@ export default function SourceComparisonView({
                           </span>
                         )}
                       </span>
-                      <span className="font-bold text-text-primary">
-                        ₹{ch.total.toLocaleString()} 
+                      <span className="font-bold text-text-primary flex items-center gap-1">
+                        <span>₹{ch.total.toLocaleString()}</span>
                         {!ch.isBaseline && (
-                          <span className={`text-[10px] ml-1 font-normal ${ch.fee < 0 ? 'text-metric-positive' : 'text-metric-warning'}`}>
+                          <span className={`text-[10px] font-semibold ${ch.fee < 0 ? 'text-metric-positive' : 'text-metric-warning'}`}>
                             ({ch.fee > 0 ? `+₹${ch.fee}` : `-₹${Math.abs(ch.fee)}`})
                           </span>
                         )}
                       </span>
                     </div>
 
-                    <div className="w-full h-6 rounded-md bg-surface-subtle flex overflow-hidden text-[10px]">
-                      <div className="bg-[#002558] h-full flex items-center px-2 text-white font-medium truncate" style={{ width: `${basePct}%` }}>
+                    <div className="w-full h-6 rounded-md bg-slate-100 flex overflow-hidden border border-border-hairline text-[10px] relative">
+                      <div 
+                        className="bg-[#002558] h-full flex items-center px-2 text-white font-medium truncate shrink-0" 
+                        style={{ width: `${basePctNum.toFixed(2)}%` }}
+                        title={`Base Fare: ₹${ch.base.toLocaleString()} (${basePctNum.toFixed(1)}%)`}
+                      >
                         ₹{ch.base.toLocaleString()} (Base)
                       </div>
-                      <div className="bg-[#2d6deb] h-full flex items-center px-2 text-white font-medium truncate" style={{ width: `${taxPct}%` }}>
+                      <div 
+                        className="bg-[#2d6deb] h-full flex items-center justify-center px-1 text-white font-medium truncate shrink-0" 
+                        style={{ width: `${taxPctNum.toFixed(2)}%` }}
+                        title={`Taxes & Fees: ₹${ch.taxes.toLocaleString()} (${taxPctNum.toFixed(1)}%)`}
+                      >
                         ₹{ch.taxes.toLocaleString()}
                       </div>
                       {ch.fee > 0 && (
-                        <div className="bg-metric-warning h-full flex items-center px-1 text-white font-bold truncate" style={{ width: `${feePct}%` }}>
-                          +{ch.fee}
+                        <div 
+                          className="bg-metric-warning h-full flex items-center justify-center text-white font-bold text-[9px] shrink-0 overflow-hidden" 
+                          style={{ width: `${feePctNum.toFixed(2)}%` }}
+                          title={`Add-on / Convenience Fee: +₹${ch.fee.toLocaleString()} (${feePctNum.toFixed(1)}%)`}
+                        >
+                          {feePctNum >= 8 ? `+${ch.fee}` : ''}
                         </div>
                       )}
                     </div>

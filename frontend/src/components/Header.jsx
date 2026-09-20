@@ -3,94 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 // ─────────────────────────────────────────────────────────────────────────────
 // OFFICIAL EMBLEMS & LOGO VECTOR ASSETS (Pixel-Perfect SVG Reproductions)
 // ─────────────────────────────────────────────────────────────────────────────
-
-// 1. Lion Capital of Ashoka (National Emblem of India)
-function AshokaEmblemSvg({ className = "h-14 w-auto" }) {
-  return (
-    <svg viewBox="0 0 160 220" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
-      {/* Top Lions Composite Silhouette & Detailing */}
-      <path
-        d="M80 10 C75 10 70 14 68 18 C64 15 58 15 54 19 C50 16 43 18 40 24 C36 22 30 25 28 32 C26 38 27 45 30 50 C26 53 23 59 24 66 C25 73 28 78 33 82 C30 87 31 94 35 99 C39 104 46 106 52 105 C55 110 61 113 67 113 C72 113 76 110 79 106 C82 110 86 113 91 113 C97 113 103 110 106 105 C112 106 119 104 123 99 C127 94 128 87 125 82 C130 78 133 73 134 66 C135 59 132 53 128 50 C131 45 132 38 130 32 C128 25 122 22 118 24 C115 18 108 16 104 19 C100 15 94 15 90 18 C88 14 83 10 80 10 Z"
-        fill="#262626"
-      />
-      {/* Central Lion Head Contours */}
-      <path
-        d="M68 35 C68 28 73 22 80 22 C87 22 92 28 92 35 C92 42 87 48 80 48 C73 48 68 42 68 35 Z"
-        fill="#fdfbf7"
-      />
-      <path
-        d="M74 32 C74 30 76 28 80 28 C84 28 86 30 86 32 C86 35 83 37 80 37 C77 37 74 35 74 32 Z"
-        fill="#262626"
-      />
-      {/* Whiskers and Muzzle */}
-      <circle cx="76" cy="42" r="1.5" fill="#262626" />
-      <circle cx="84" cy="42" r="1.5" fill="#262626" />
-      <path d="M78 44 Q80 46 82 44" stroke="#262626" strokeWidth="1.2" fill="none" />
-      {/* Left Lion Profile */}
-      <path
-        d="M48 42 C44 42 40 46 40 51 C40 56 44 60 49 60 C53 60 56 56 56 51 C56 46 53 42 48 42 Z"
-        fill="#fdfbf7"
-      />
-      <circle cx="46" cy="48" r="1.5" fill="#262626" />
-      {/* Right Lion Profile */}
-      <path
-        d="M112 42 C116 42 120 46 120 51 C120 56 116 60 111 60 C107 60 104 56 104 51 C104 46 107 42 112 42 Z"
-        fill="#fdfbf7"
-      />
-      <circle cx="114" cy="48" r="1.5" fill="#262626" />
-      {/* Decorative Chest & Manes */}
-      <path
-        d="M58 75 Q80 90 102 75 Q96 100 80 108 Q64 100 58 75 Z"
-        fill="#fdfbf7"
-      />
-      <path d="M70 70 Q80 82 90 70 M66 82 Q80 94 94 82 M72 94 Q80 102 88 94" stroke="#262626" strokeWidth="1.2" fill="none" />
-      {/* Abacus Plate (Base) */}
-      <rect x="24" y="118" width="112" height="18" rx="2" fill="#262626" />
-      <rect x="26" y="120" width="108" height="14" rx="1" fill="#fdfbf7" />
-      {/* Central Ashoka Chakra on Abacus */}
-      <circle cx="80" cy="127" r="6" fill="none" stroke="#000080" strokeWidth="1.2" />
-      <circle cx="80" cy="127" r="1.5" fill="#000080" />
-      {/* Spokes */}
-      <line x1="80" y1="121" x2="80" y2="133" stroke="#000080" strokeWidth="0.8" />
-      <line x1="74" y1="127" x2="86" y2="127" stroke="#000080" strokeWidth="0.8" />
-      <line x1="75.8" y1="122.8" x2="84.2" y2="131.2" stroke="#000080" strokeWidth="0.8" />
-      <line x1="75.8" y1="131.2" x2="84.2" y2="122.8" stroke="#000080" strokeWidth="0.8" />
-      {/* Galloping Horse (Left of Chakra) */}
-      <path d="M42 129 C40 126 43 123 46 123 C48 123 49 125 52 125 C54 125 56 123 57 124 C58 126 56 129 53 129 C50 129 48 131 46 131 Z" fill="#262626" />
-      {/* Charging Bull (Right of Chakra) */}
-      <path d="M106 129 C104 126 107 123 110 123 C112 123 114 125 117 124 C119 124 120 125 120 127 C120 129 117 130 114 130 C111 130 109 131 106 129 Z" fill="#262626" />
-      {/* Bell Lotus Inverted Base */}
-      <path
-        d="M32 136 C42 148 60 154 80 154 C100 154 118 148 128 136 Z"
-        fill="#262626"
-      />
-      <path
-        d="M38 137 C46 146 62 150 80 150 C98 150 114 146 122 137 Z"
-        fill="#fdfbf7"
-      />
-      {/* Lotus Petals Ribs */}
-      <line x1="56" y1="137" x2="62" y2="149" stroke="#262626" strokeWidth="1" />
-      <line x1="72" y1="137" x2="74" y2="150" stroke="#262626" strokeWidth="1" />
-      <line x1="88" y1="137" x2="86" y2="150" stroke="#262626" strokeWidth="1" />
-      <line x1="104" y1="137" x2="98" y2="149" stroke="#262626" strokeWidth="1" />
-      {/* Lower Plinth Bar */}
-      <rect x="36" y="157" width="88" height="4" rx="1" fill="#262626" />
-      {/* Satyameva Jayate Inscription */}
-      <text
-        x="80"
-        y="180"
-        textAnchor="middle"
-        fontFamily="'Tiro Devanagari Hindi', 'Noto Sans Devanagari', sans-serif"
-        fontSize="17"
-        fontWeight="bold"
-        fill="#262626"
-        letterSpacing="1.2"
-      >
-        सत्यमेव जयते
-      </text>
-    </svg>
-  );
-}
+// OFFICIAL LOGO VECTOR ASSETS (Pixel-Perfect Reproductions)
+// ─────────────────────────────────────────────────────────────────────────────
 
 // 2. MoSPI Official Logo (Ashoka Chakra, Orange Sun Rays, Green Base, Hindi Slogan)
 function MoSPILogoSvg({ className = "h-12 w-auto" }) {
@@ -311,7 +225,11 @@ export default function Header({
         <div className="flex items-center gap-3.5 sm:gap-4.5">
           {/* Ashoka Lion Capital Emblem */}
           <div className="shrink-0 flex items-center justify-center">
-            <AshokaEmblemSvg className="h-14 sm:h-16 w-auto text-slate-900 drop-shadow-sm" />
+            <img 
+              src="/emblem-india.png" 
+              alt="State Emblem of India - सत्यमेव जयते" 
+              className="h-14 sm:h-16 w-auto object-contain select-none"
+            />
           </div>
 
           {/* Institutional Typography in Devanagari & English */}

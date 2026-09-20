@@ -157,7 +157,9 @@ export default function App() {
         safeFetchJson('/api/airlines'),
         safeFetchJson('/api/elasticity'),
         safeFetchJson('/api/anomalies'),
-        safeFetchJson(`/api/v2/observations?page_size=500&current_day_only=false&${tzParam}`).then(d => d || safeFetchJson('/api/fares?limit=500')),
+        safeFetchJson(`/api/v2/observations?page_size=5000&current_day_only=false&${tzParam}`)
+          .then(d => d || safeFetchJson('/api/v2/observations/scraped'))
+          .then(d => d || safeFetchJson('/api/fares?limit=5000')),
         safeFetchJson('/api/backtest'),
         safeFetchJson('/api/explainability'),
         safeFetchJson('/api/health'),
@@ -169,9 +171,25 @@ export default function App() {
       if (resAirlines?.airlines) setAirlineData(resAirlines.airlines);
       if (resElas?.elasticity) setElasticityData(resElas.elasticity);
       if (resAnom?.anomalies) setAnomaliesData(resAnom.anomalies);
-      if (resObs?.data && resObs.data.length > 0) setRawObservations(resObs.data);
-      else if (resObs?.observations && resObs.observations.length > 0) setRawObservations(resObs.observations);
-      else if (SCRAPED_OBSERVATIONS && SCRAPED_OBSERVATIONS.length > 0) setRawObservations(SCRAPED_OBSERVATIONS);
+
+      // Merge backend observations with authentic scraped baseline across all 52 corridors
+      const obsMap = new Map();
+      (SCRAPED_OBSERVATIONS || []).forEach((o) => {
+        const key = o.id || `${o.route}_${o.airline}_${o.flight_number}_${o.booking_window}_${o.travel_date || o.capture_date}`;
+        obsMap.set(key, o);
+      });
+
+      const incoming = (resObs?.data || resObs?.observations || []);
+      incoming.forEach((o) => {
+        const key = o.id || `${o.route}_${o.airline}_${o.flight_number}_${o.booking_window}_${o.travel_date || o.capture_date}`;
+        obsMap.set(key, { ...(obsMap.get(key) || {}), ...o });
+      });
+
+      if (obsMap.size > 0) {
+        setRawObservations(Array.from(obsMap.values()));
+      } else if (SCRAPED_OBSERVATIONS && SCRAPED_OBSERVATIONS.length > 0) {
+        setRawObservations(SCRAPED_OBSERVATIONS);
+      }
       if (resBack) setBacktestData(resBack);
       if (resExp) setExplainabilityData(resExp);
       if (resHealth) {

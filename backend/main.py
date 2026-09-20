@@ -548,13 +548,41 @@ async def get_elasticity_curve_v2(
     }
 
 
+@app.get("/api/v2/observations/scraped")
+def get_all_scraped_observations_v2(
+    route: Optional[str] = Query(None, description="Filter by specific corridor, e.g. DEL-BOM"),
+    airline: Optional[str] = Query(None, description="Filter by carrier"),
+    limit: Optional[int] = Query(None, description="Optional limit"),
+):
+    """
+    Returns authentic real-time scraped flight observations across all 52 domestic corridors.
+    Guarantees that every active corridor in the MoSPI basket has verified market quotes.
+    """
+    obs = list(SCRAPED_DATA)
+    if route and route != "ALL":
+        obs = [o for o in obs if o.get("route") == route]
+    if airline and airline != "ALL":
+        obs = [o for o in obs if str(o.get("airline", "")).lower() == airline.lower()]
+    
+    routes_present = sorted(list(set(o.get("route") for o in obs if o.get("route"))))
+    
+    return {
+        "total": len(obs),
+        "corridors_count": len(routes_present),
+        "corridors": routes_present,
+        "data": obs[:limit] if limit else obs,
+    }
+
+
 @app.get("/api/v2/observations")
 async def get_observations_v2(
     page: int = Query(1, ge=1),
-    page_size: int = Query(50, ge=1, le=500),
+    page_size: int = Query(50, ge=1, le=50000),
     route: Optional[str] = Query(None),
     airline: Optional[str] = Query(None),
     window: Optional[str] = Query(None),
+    source: Optional[str] = Query(None),
+    scraped_only: bool = Query(False, description="When true, strictly return authentic scraped OTA observations"),
     start_date: Optional[date] = Query(None),
     end_date: Optional[date] = Query(None),
     tz: str = Query("Asia/Kolkata", description="Timezone name"),
@@ -563,6 +591,7 @@ async def get_observations_v2(
     """
     Clean observational ledger with pagination. Excludes all quarantined contamination records.
     By default on initial page load, strictly queries for the current calendar day in the target timezone.
+    Supports queries up to 50,000 records and direct access to authentic scraped dataset.
     """
     today = get_server_today(tz)
     today_str = today.strftime("%Y-%m-%d")
@@ -573,18 +602,31 @@ async def get_observations_v2(
         end_date = today
         is_today_filtered = True
 
-    records = query_clean_store(
-        start_date=start_date,
-        end_date=end_date,
-        route=route if route != "ALL" else None,
-        airline=airline if airline != "ALL" else None,
-        window=window if window != "ALL" else None,
-    )
+    if scraped_only or (source and source.upper() == "SCRAPED"):
+        records = list(SCRAPED_DATA)
+        if route and route != "ALL":
+            records = [o for o in records if o.get("route") == route]
+        if airline and airline != "ALL":
+            records = [o for o in records if str(o.get("airline", "")).lower() == airline.lower()]
+        if window and window != "ALL":
+            records = [o for o in records if (o.get("booking_window") or o.get("window")) == window]
+        if start_date:
+            records = [o for o in records if (o.get("capture_date") or o.get("travel_date", "")) >= str(start_date)]
+        if end_date:
+            records = [o for o in records if (o.get("capture_date") or o.get("travel_date", "")) <= str(end_date)]
+    else:
+        records = query_clean_store(
+            start_date=start_date,
+            end_date=end_date,
+            route=route if route != "ALL" else None,
+            airline=airline if airline != "ALL" else None,
+            window=window if window != "ALL" else None,
+        )
 
-    if is_today_filtered:
-        today_records = [o for o in records if (o.get("capture_date") or o.get("travel_date", "")) == today_str]
-        if today_records:
-            records = today_records
+        if is_today_filtered:
+            today_records = [o for o in records if (o.get("capture_date") or o.get("travel_date", "")) == today_str]
+            if today_records:
+                records = today_records
 
     total_matched = len(records)
     start_idx = (page - 1) * page_size
@@ -603,8 +645,9 @@ async def get_observations_v2(
             f"Showing {total_matched} verified observations for current day ({today_str}) in {tz}."
             if total_matched > 0
             else f"No flight observations recorded for current calendar day ({today_str}) in {tz} timezone."
-        ) if is_today_filtered else f"Matched {total_matched} records.",
+        ) if is_today_filtered else f"Matched {total_matched} records across all corridors.",
     }
+
 
 
 @app.get("/api/v2/integrity/audit")

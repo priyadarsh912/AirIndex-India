@@ -566,11 +566,18 @@ export default function Header({
             )}
           </div>
 
-          {/* 1. Live Corridors Status Pill */}
-          <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#071626] border border-slate-700 text-[11px] font-bold text-emerald-400 font-mono tracking-wide">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>LIVE: 52 CORRIDORS</span>
+          {/* 1. Live Corridors & Autonomous Scraper Status Pill */}
+          <div className="hidden sm:flex items-center gap-2">
+            <div className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#071626] border border-slate-700 text-[11px] font-bold text-emerald-400 font-mono tracking-wide">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span>LIVE: 52 CORRIDORS</span>
+            </div>
+            <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#071626] border border-slate-700 text-[10px] font-semibold text-cyan-400 font-mono shadow-sm" title="Autonomous Scraper: 6 daily collection intervals synced to Supabase Cloud PostgreSQL">
+              <span className="material-symbols-outlined text-[13px] text-cyan-400">cloud_sync</span>
+              <span>AUTO-SCRAPE: 6x/DAY • SUPABASE</span>
+            </div>
           </div>
+
 
         </div>
       </nav>

@@ -35,81 +35,81 @@ def get_supabase_client():
         return None
 
 
+SUPABASE_FLIGHT_COLUMNS = {
+    'id', 'composite_key', 'timestamp', 'route', 'airline', 'flight_number',
+    'departure_time', 'arrival_time', 'source', 'booking_window', 'cabin_class',
+    'fare_class', 'base_fare', 'taxes', 'fees', 'total_fare', 'currency',
+    'seat_availability', 'status', 'simulated_outlier', 'missing_field',
+    'is_live_scraped', 'registry_validation', 'registry_confidence',
+    'is_price_anomaly', 'quality_score', 'is_usable', 'created_at'
+}
+
 def sanitize_record(obs: Dict[str, Any]) -> Dict[str, Any]:
-    """Sanitizes an observation dictionary to match the database table schema and target data model."""
+    """Sanitizes an observation dictionary to match the database table schema exactly."""
     def to_float_or_none(v):
         if v is None:
             return None
         try:
-            return float(v)
+            return round(float(v), 2)
         except (ValueError, TypeError):
             return None
 
     raw_avail = str(obs.get("availability_status") or obs.get("status") or "AVAILABLE").upper()
     total_fare = to_float_or_none(obs.get("total_fare") if obs.get("total_fare") is not None else obs.get("price"))
-    if raw_avail in ["SOLD_OUT", "CANCELLED"]:
-        total_fare = None
+    if total_fare is None or raw_avail in ["SOLD_OUT", "CANCELLED"]:
+        total_fare = 0.0
 
-    return {
-        "id": str(obs.get("id") or obs.get("observation_id") or f"obs_{obs.get('composite_key', '')[:12]}_{obs.get('timestamp', '')}"),
-        "observation_id": str(obs.get("observation_id") or obs.get("id") or ""),
-        "composite_key": str(obs.get("composite_key") or ""),
-        "timestamp": obs.get("timestamp") or obs.get("observation_timestamp") or obs.get("capture_date"),
-        "observation_timestamp": obs.get("observation_timestamp") or obs.get("timestamp") or "",
-        "capture_date": str(obs.get("capture_date") or "")[:10],
-        "travel_date": str(obs.get("travel_date") or "")[:10],
-        "advance_purchase_days": int(obs.get("advance_purchase_days") or 7),
-        "route": str(obs.get("route") or "UNKNOWN"),
-        "origin": str(obs.get("origin") or (obs.get("route", "").split("-")[0] if "-" in obs.get("route", "") else "DEL")),
-        "destination": str(obs.get("destination") or (obs.get("route", "").split("-")[1] if "-" in obs.get("route", "") else "BOM")),
-        "airline": str(obs.get("airline") or "UNKNOWN"),
-        "airline_code": str(obs.get("airline_code") or ""),
-        "flight_number": str(obs.get("flight_number") or ""),
-        "source": str(obs.get("source") or "Scraper"),
-        "source_type": str(obs.get("source_type") or "OTA"),
-        "booking_window": str(obs.get("booking_window") or "T+1"),
+    base_fare = to_float_or_none(obs.get("base_fare")) or 0.0
+    taxes = to_float_or_none(obs.get("taxes")) or 0.0
+    fees = to_float_or_none(obs.get("fees") or obs.get("convenience_fee") or obs.get("other_fee")) or 0.0
 
-        # Fare Class Taxonomy
-        "cabin_class": str(obs.get("cabin_class") or "ECONOMY").upper(),
-        "fare_family": str(obs.get("fare_family") or "UNKNOWN").upper(),
-        "fare_brand": str(obs.get("fare_brand") or obs.get("raw_fare_class") or "Economy"),
-        "fare_basis": obs.get("fare_basis"),
-        "raw_fare_class": obs.get("raw_fare_class") or obs.get("fare_class"),
 
-        # Price Breakdown
-        "displayed_fare": to_float_or_none(obs.get("displayed_fare")),
-        "base_fare": to_float_or_none(obs.get("base_fare")),
-        "taxes": to_float_or_none(obs.get("taxes")),
-        "airline_surcharge": to_float_or_none(obs.get("airline_surcharge")),
-        "convenience_fee": to_float_or_none(obs.get("convenience_fee")),
-        "payment_fee": to_float_or_none(obs.get("payment_fee")),
-        "other_fee": to_float_or_none(obs.get("other_fee") or obs.get("fees")),
-        "fees": to_float_or_none(obs.get("fees")),
+    # Ensure timestamp is ISO formatted
+    ts = obs.get("timestamp") or obs.get("created_at")
+    if not ts:
+        c_date = obs.get("capture_date") or obs.get("travel_date") or datetime.utcnow().strftime("%Y-%m-%d")
+        ts = f"{c_date}T12:00:00+00:00"
+
+    route = str(obs.get("route") or (f"{obs.get('origin')}-{obs.get('destination')}" if obs.get("origin") and obs.get("destination") else "DEL-BOM"))
+    airline = str(obs.get("airline") or "Air India")
+    flight_num = str(obs.get("flight_number") or "AI-101")
+    window = str(obs.get("booking_window") or obs.get("window") or "T+7")
+
+    record_id = str(obs.get("id") or obs.get("observation_id") or f"obs_{route}_{window}_{flight_num}_{ts[:10]}")
+    comp_key = str(obs.get("composite_key") or f"{route}_{ts[:10]}_{airline}_{flight_num}_{window}")
+
+    payload = {
+        "id": record_id,
+        "composite_key": comp_key,
+        "timestamp": str(ts),
+        "route": route,
+        "airline": airline,
+        "flight_number": flight_num,
+        "departure_time": str(obs.get("departure_time") or "08:00"),
+        "arrival_time": str(obs.get("arrival_time") or "10:15"),
+        "source": str(obs.get("source") or "Live Scraper"),
+        "booking_window": window,
+        "cabin_class": str(obs.get("cabin_class") or "Economy"),
+        "fare_class": str(obs.get("fare_class") or obs.get("fare_family") or "Standard"),
+        "base_fare": base_fare,
+        "taxes": taxes,
+        "fees": fees,
         "total_fare": total_fare,
-        "price": total_fare,
-        "final_fare": to_float_or_none(obs.get("final_fare")) or total_fare,
-        "calculated_component_total": to_float_or_none(obs.get("calculated_component_total")),
-        "fare_difference": to_float_or_none(obs.get("fare_difference")),
         "currency": str(obs.get("currency") or "INR"),
-
-        # Availability
-        "availability_status": raw_avail,
+        "seat_availability": int(obs.get("seat_availability") or 9) if raw_avail == "AVAILABLE" else 0,
         "status": raw_avail,
-        "seat_availability": int(obs.get("seat_availability") or 0) if raw_avail == "AVAILABLE" else 0,
-
-        # Quality & Audit
-        "data_quality_status": str(obs.get("data_quality_status") or "VALID"),
-        "quality_flags": obs.get("quality_flags") or [],
-        "quality_score": int(obs.get("quality_score") or 100),
-        "is_usable": bool(obs.get("is_usable", True)),
-        "raw_source_reference": obs.get("raw_source_reference"),
         "simulated_outlier": bool(obs.get("simulated_outlier", False)),
         "missing_field": bool(obs.get("missing_field", False)),
         "is_live_scraped": bool(obs.get("is_live_scraped", True)),
         "registry_validation": str(obs.get("registry_validation") or "VERIFIED"),
         "registry_confidence": int(obs.get("registry_confidence") or 100),
         "is_price_anomaly": bool(obs.get("is_price_anomaly", False)),
+        "quality_score": int(obs.get("quality_score") or 100),
+        "is_usable": bool(obs.get("is_usable", True)),
     }
+
+    return {k: v for k, v in payload.items() if k in SUPABASE_FLIGHT_COLUMNS}
+
 
 
 def save_observations_to_supabase(observations: List[Dict[str, Any]], table_name: str = "flight_observations") -> bool:

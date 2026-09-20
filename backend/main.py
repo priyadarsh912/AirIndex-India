@@ -75,12 +75,30 @@ app.add_middleware(
 
 @app.on_event("startup")
 def on_startup():
-    """Ensure database tables are initialized on startup."""
+    """Ensure database tables are initialized on startup and start autonomous scheduler."""
     try:
         from models.database import init_db
         init_db()
     except Exception as e:
         print(f"[AirScope] Notice: DB init on startup: {e}")
+
+    try:
+        from autonomous_scheduler import scheduler
+        scheduler.start()
+        print("[AirScope] Autonomous 6x/day scraper & econometric retraining engine active.")
+    except Exception as e:
+        print(f"[AirScope] Warning: Failed to start autonomous scheduler: {e}")
+
+
+@app.on_event("shutdown")
+def on_shutdown():
+    """Gracefully stop autonomous scraper worker on application shutdown."""
+    try:
+        from autonomous_scheduler import scheduler
+        scheduler.stop()
+    except Exception as e:
+        print(f"[AirScope] Notice: Scheduler shutdown: {e}")
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  PYDANTIC RESPONSE CONTRACTS (V2 API)
@@ -1312,10 +1330,10 @@ async def _async_scrape_task(routes: List[str], sources: List[str], cluster: Opt
     global SCRAPE_IN_PROGRESS
     SCRAPE_IN_PROGRESS = True
     try:
-        await run_scraping_job(sources=sources, routes=routes, windows=["T+1", "T+7"], cluster=cluster)
-        refresh_pipeline_data()
+        from autonomous_scheduler import scheduler
+        await scheduler.run_pipeline_cycle(forced=True)
     except Exception as e:
-        print(f"Async scrape task error: {e}")
+        print(f"Async scrape pipeline error: {e}")
     finally:
         SCRAPE_IN_PROGRESS = False
 
@@ -1327,11 +1345,14 @@ async def trigger_live_scrape(
     sources: Optional[List[str]] = Query(default=["all"]),
     cluster: Optional[str] = Query(default=None),
 ):
+    """
+    Triggers an on-demand complete 4-stage scrape, filtering, retraining, and Supabase persistence cycle.
+    """
     global SCRAPE_IN_PROGRESS
     if SCRAPE_IN_PROGRESS:
         return {
             "status": "BUSY",
-            "message": "Scrape task already running in background.",
+            "message": "Scrape and retraining pipeline is already executing.",
             "in_progress": True,
         }
 
@@ -1339,23 +1360,37 @@ async def trigger_live_scrape(
     background_tasks.add_task(_async_scrape_task, target_routes, sources, cluster)
     return {
         "status": "ACCEPTED",
-        "message": f"Scrape task launched across {len(ROUTES_CONFIG) if 'all' in target_routes else len(target_routes)} corridors"
-        + (f" (Cluster: {cluster})" if cluster else ""),
+        "message": f"Autonomous pipeline initiated across all {len(ROUTES_CONFIG)} domestic corridors with Supabase persistence and econometric retraining.",
         "in_progress": True,
     }
+
+
+@app.get("/api/scrape/scheduler")
+def get_scraper_scheduler_status():
+    """
+    Returns real-time status, upcoming runs, and statistics of the autonomous 5-6x daily scraper engine.
+    """
+    from autonomous_scheduler import scheduler
+    return scheduler.get_status()
 
 
 @app.get("/api/scrape/status")
 def get_scrape_status():
     meta = get_latest_scrape_metadata()
-    status_str = "running" if SCRAPE_IN_PROGRESS else "completed" if meta.get("status") == "AVAILABLE" else "idle"
+    from autonomous_scheduler import scheduler
+    sched_status = scheduler.get_status()
+    is_busy = SCRAPE_IN_PROGRESS or sched_status.get("state") in ["SCRAPING", "FILTERING", "TRAINING", "PERSISTING"]
+    status_str = "running" if is_busy else "completed" if meta.get("status") == "AVAILABLE" else "idle"
+
     return {
         "status": status_str,
-        "in_progress": SCRAPE_IN_PROGRESS,
+        "in_progress": is_busy,
+        "scheduler": sched_status,
         "total_live_scraped_observations": len(SCRAPED_DATA),
         "latest_scrape_metadata": meta,
-        "sources_active": ["MakeMyTrip (Playwright)", "Ixigo (Playwright)"],
+        "sources_active": ["MakeMyTrip (Playwright)", "Ixigo (Playwright)", "Master Flight Registry Fallback"],
     }
+
 
 
 @app.get("/api/health")

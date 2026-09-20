@@ -234,9 +234,9 @@ def partition_observations(
     for obs in observations:
         orig = obs.get("origin", "").strip().upper()
         dest = obs.get("destination", "").strip().upper()
-        base = float(obs.get("base_fare", 0.0))
-        taxes = float(obs.get("taxes", 0.0))
-        total = float(obs.get("total_fare", 0.0))
+        base = float(obs.get("base_fare") or 0.0)
+        taxes = float(obs.get("taxes") or 0.0)
+        total = float(obs.get("total_fare") or 0.0)
         dist = active_engine._haversine_distance(orig, dest)
         fare_km = total / max(dist, 100.0)
         tax_r = taxes / max(base, 1.0)
@@ -259,10 +259,10 @@ def partition_observations(
         orig = obs_copy.get("origin", "").strip().upper()
         dest = obs_copy.get("destination", "").strip().upper()
         route = obs_copy.get("route", f"{orig}-{dest}").strip().upper()
-        base = float(obs_copy.get("base_fare", 0.0))
-        taxes = float(obs_copy.get("taxes", 0.0))
-        fees = float(obs_copy.get("fees", 0.0))
-        total = float(obs_copy.get("total_fare", 0.0))
+        base = float(obs_copy.get("base_fare") or 0.0)
+        taxes = float(obs_copy.get("taxes") or 0.0)
+        fees = float(obs_copy.get("fees") or 0.0)
+        total = float(obs_copy.get("total_fare") or 0.0)
 
         # Track route drifts per flight number
         if fn:

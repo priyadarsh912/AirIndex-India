@@ -1,20 +1,65 @@
 import React, { useState } from 'react';
+import { DEFAULT_52_ROUTES, DEFAULT_CLUSTERS } from '../defaultData';
 
 export default function CorridorClusteringView({ clusterData, routes, onSelectRoute }) {
   const [activeClusterFilter, setActiveClusterFilter] = useState('ALL');
   const [searchTerm, setSearchTerm] = useState('');
 
-  const clusters = clusterData?.clusters || [
-    { name: "Metro Trunk", routes_count: 12, avg_fare_inr: 5450, description: "High-density primary interstate connectivity" },
-    { name: "Metro-Tier2 Link", routes_count: 15, avg_fare_inr: 4820, description: "Connects primary hubs to state capitals" },
-    { name: "Regional & NE", routes_count: 10, avg_fare_inr: 4100, description: "Tier-3 & North-East regional corridors" },
-    { name: "Leisure & Tourist", routes_count: 8, avg_fare_inr: 6200, description: "Seasonal demand & tourist corridors" },
-    { name: "Emerging Hubs", routes_count: 7, avg_fare_inr: 4350, description: "Fast-growing industrial pairs" },
-  ];
+  // Always ensure all 52 corridors are present by merging backend routes with DEFAULT_52_ROUTES
+  const allRoutes = React.useMemo(() => {
+    if (!routes || routes.length === 0) return DEFAULT_52_ROUTES;
+    const existingCodes = new Set(routes.map(r => r.route || r.code));
+    const missing = DEFAULT_52_ROUTES.filter(d => !existingCodes.has(d.route));
+    return [...routes, ...missing];
+  }, [routes]);
 
-  const filteredRoutes = (routes || []).filter(r => {
-    const matchesSearch = (r.name || '').toLowerCase().includes(searchTerm.toLowerCase()) || (r.route || '').toLowerCase().includes(searchTerm.toLowerCase());
+  // Compute live cluster overview totals across the full 52 corridors
+  const clusters = React.useMemo(() => {
+    const defaultMeta = DEFAULT_CLUSTERS.reduce((acc, c) => {
+      acc[c.name] = c;
+      return acc;
+    }, {});
+
+    const counts = {};
+    const sumFares = {};
+
+    allRoutes.forEach(r => {
+      const cName = r.cluster || 'Metro Trunk';
+      counts[cName] = (counts[cName] || 0) + 1;
+      sumFares[cName] = (sumFares[cName] || 0) + (r.current_fare || r.base_fare || 4500);
+    });
+
+    const clusterNames = ["Metro Trunk", "Metro-Tier2 Link", "Regional & NE", "Leisure & Tourist", "Emerging Hubs"];
+
+    return clusterNames.map(name => {
+      const cnt = counts[name] || defaultMeta[name]?.routes_count || 10;
+      const avg = sumFares[name] ? Math.round(sumFares[name] / counts[name]) : (defaultMeta[name]?.avg_fare_inr || 4500);
+      return {
+        name,
+        routes_count: cnt,
+        avg_fare_inr: avg,
+        description: defaultMeta[name]?.description || 'Strategic corridor cluster'
+      };
+    });
+  }, [allRoutes]);
+
+  const filteredRoutes = allRoutes.filter(r => {
+    const q = searchTerm.trim().toLowerCase();
+    const routeCode = (r.route || r.code || '').toLowerCase();
+    const nameStr = (r.name || '').toLowerCase();
+    const clusterStr = (r.cluster || '').toLowerCase();
+    const orig = routeCode.split('-')[0] || '';
+    const dest = routeCode.split('-')[1] || '';
+
+    const matchesSearch = !q || 
+      routeCode.includes(q) || 
+      nameStr.includes(q) || 
+      clusterStr.includes(q) ||
+      orig.includes(q) ||
+      dest.includes(q);
+
     const matchesCluster = activeClusterFilter === 'ALL' || r.cluster === activeClusterFilter;
+
     return matchesSearch && matchesCluster;
   });
 
@@ -73,15 +118,23 @@ export default function CorridorClusteringView({ clusterData, routes, onSelectRo
               </span>
               <input
                 type="text"
-                placeholder="Search corridors..."
+                placeholder="Search by city, code (e.g. DEL, Goa)..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-surface-canvas border border-border-hairline rounded-lg pl-9 pr-3 py-1.5 text-xs text-text-primary focus:outline-none focus:border-border-focus"
+                className="w-full bg-surface-canvas border border-border-hairline rounded-lg pl-9 pr-8 py-1.5 text-xs text-text-primary focus:outline-none focus:border-border-focus"
               />
+              {searchTerm && (
+                <button
+                  onClick={() => setSearchTerm('')}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-text-muted hover:text-text-primary text-[16px] material-symbols-outlined"
+                >
+                  close
+                </button>
+              )}
             </div>
-            {activeClusterFilter !== 'ALL' && (
+            {(activeClusterFilter !== 'ALL' || searchTerm !== '') && (
               <button
-                onClick={() => setActiveClusterFilter('ALL')}
+                onClick={() => { setActiveClusterFilter('ALL'); setSearchTerm(''); }}
                 className="text-xs font-semibold text-primary hover:underline whitespace-nowrap"
               >
                 Clear Filter
@@ -90,54 +143,71 @@ export default function CorridorClusteringView({ clusterData, routes, onSelectRo
           </div>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs border-collapse">
-            <thead>
-              <tr className="bg-surface-subtle text-text-muted uppercase text-[10px] font-semibold border-b border-border-hairline">
-                <th className="py-2.5 px-3">Corridor Code</th>
-                <th className="py-2.5 px-3">City Pair Name</th>
-                <th className="py-2.5 px-3">Segment Cluster</th>
-                <th className="py-2.5 px-3 text-right">Current Fare</th>
-                <th className="py-2.5 px-3 text-right">Jan 2026 Base</th>
-                <th className="py-2.5 px-3 text-right">24h Variance</th>
-                <th className="py-2.5 px-3 text-right">Weight</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border-hairline">
-              {filteredRoutes.map((r) => (
-                <tr
-                  key={r.route}
-                  onClick={() => onSelectRoute?.(r.route)}
-                  className="hover:bg-surface-subtle transition-colors cursor-pointer"
-                >
-                  <td className="py-3 px-3 font-bold text-primary font-headline">{r.route}</td>
-                  <td className="py-3 px-3 font-medium text-text-primary">{r.name}</td>
-                  <td className="py-3 px-3">
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-surface-subtle text-text-secondary border border-border-hairline">
-                      {r.cluster || 'Metro Trunk'}
-                    </span>
-                  </td>
-                  <td className="py-3 px-3 text-right font-bold text-text-primary tabular-nums">
-                    ₹{Math.round(r.current_fare || 5000).toLocaleString('en-IN')}
-                  </td>
-                  <td className="py-3 px-3 text-right text-text-muted tabular-nums">
-                    ₹{Math.round(r.base_fare || 4500).toLocaleString('en-IN')}
-                  </td>
-                  <td className="py-3 px-3 text-right font-semibold">
-                    <span className={`px-2 py-0.5 rounded-full text-[10px] ${
-                      (r.change_24h || 0) >= 0 ? 'bg-badge-positive-bg text-metric-positive' : 'bg-badge-negative-bg text-metric-negative'
-                    }`}>
-                      {(r.change_24h || 0) >= 0 ? `+${r.change_24h}%` : `${r.change_24h}%`}
-                    </span>
-                  </td>
-                  <td className="py-3 px-3 text-right text-text-muted tabular-nums">
-                    {((r.weight || 0.02) * 100).toFixed(1)}%
-                  </td>
+        {filteredRoutes.length === 0 ? (
+          <div className="text-center py-10 space-y-3 bg-surface-canvas/50 rounded-lg border border-dashed border-border-hairline">
+            <span className="material-symbols-outlined text-text-muted text-[36px]">search_off</span>
+            <h4 className="font-headline text-sm font-bold text-text-primary">No corridors found matching "{searchTerm}"</h4>
+            <p className="text-xs text-text-muted max-w-sm mx-auto">
+              Try searching by airport code (DEL, BOM, BLR, GOI), city name (Delhi, Goa, Pune), or cluster segment.
+            </p>
+            <button
+              onClick={() => { setSearchTerm(''); setActiveClusterFilter('ALL'); }}
+              className="px-3.5 py-1.5 bg-primary text-white text-xs font-semibold rounded-lg hover:opacity-90 transition-all inline-flex items-center gap-1"
+            >
+              <span className="material-symbols-outlined text-[16px]">restart_alt</span>
+              Reset Search & Filters
+            </button>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr className="bg-surface-subtle text-text-muted uppercase text-[10px] font-semibold border-b border-border-hairline">
+                  <th className="py-2.5 px-3">Corridor Code</th>
+                  <th className="py-2.5 px-3">City Pair Name</th>
+                  <th className="py-2.5 px-3">Segment Cluster</th>
+                  <th className="py-2.5 px-3 text-right">Current Fare</th>
+                  <th className="py-2.5 px-3 text-right">Jan 2026 Base</th>
+                  <th className="py-2.5 px-3 text-right">24h Variance</th>
+                  <th className="py-2.5 px-3 text-right">Weight</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody className="divide-y divide-border-hairline">
+                {filteredRoutes.map((r) => (
+                  <tr
+                    key={r.route || r.code}
+                    onClick={() => onSelectRoute?.(r.route || r.code)}
+                    className="hover:bg-surface-subtle transition-colors cursor-pointer"
+                  >
+                    <td className="py-3 px-3 font-bold text-primary font-headline">{r.route || r.code}</td>
+                    <td className="py-3 px-3 font-medium text-text-primary">{r.name}</td>
+                    <td className="py-3 px-3">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-surface-subtle text-text-secondary border border-border-hairline">
+                        {r.cluster || 'Metro Trunk'}
+                      </span>
+                    </td>
+                    <td className="py-3 px-3 text-right font-bold text-text-primary tabular-nums">
+                      ₹{Math.round(r.current_fare || 5000).toLocaleString('en-IN')}
+                    </td>
+                    <td className="py-3 px-3 text-right text-text-muted tabular-nums">
+                      ₹{Math.round(r.base_fare || 4500).toLocaleString('en-IN')}
+                    </td>
+                    <td className="py-3 px-3 text-right font-semibold">
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] ${
+                        (r.change_24h || 0) >= 0 ? 'bg-badge-positive-bg text-metric-positive' : 'bg-badge-negative-bg text-metric-negative'
+                      }`}>
+                        {(r.change_24h || 0) >= 0 ? `+${r.change_24h}%` : `${r.change_24h}%`}
+                      </span>
+                    </td>
+                    <td className="py-3 px-3 text-right text-text-muted tabular-nums">
+                      {((r.weight || 0.02) * 100).toFixed(1)}%
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );

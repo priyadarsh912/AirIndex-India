@@ -469,7 +469,15 @@ def get_index_history_v2(
         window=window if window != "ALL" else None,
     )
     
-    # If corridor filter yields 0 observations in exact window, fall back to route config or clean store
+    # If corridor filter yields 0 observations in exact window, fall back to all available records for that corridor
+    if not records:
+        records = query_clean_store(
+            route=route if route != "ALL" else None,
+            airline=airline if airline != "ALL" else None,
+            window=window if window != "ALL" else None,
+        )
+
+    # If still empty (e.g. brand new corridor), query clean store general observations
     if not records:
         records = query_clean_store(
             start_date=resolved_end - timedelta(days=29),
@@ -763,6 +771,7 @@ def get_index_history(
             "usable_observations": len(filtered_obs),
         },
         "history": trend,
+        "daily_trend": trend,
         "routes": idx_res.get("routes", []),
         "airlines": idx_res.get("airlines", []),
         "elasticity": idx_res.get("elasticity", []),

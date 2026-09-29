@@ -175,7 +175,11 @@ export default function IndexTrendChart({
       ) : (
         <div className="h-[320px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={trendData} margin={{ top: 10, right: 15, left: -10, bottom: 0 }}>
+            <AreaChart 
+              key={`chart-${filters.route || 'ALL'}-${filters.airline || 'ALL'}-${activeFreq}`}
+              data={trendData} 
+              margin={{ top: 10, right: 15, left: -10, bottom: 0 }}
+            >
               <defs>
                 <linearGradient id="liveIndexGrad" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#2F6FED" stopOpacity={0.35} />

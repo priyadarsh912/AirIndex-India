@@ -74,19 +74,23 @@ app.add_middleware(
 
 @app.on_event("startup")
 def on_startup():
-    """Ensure database tables are initialized on startup and start autonomous scheduler."""
+    """Ensure database tables are initialized on startup and start autonomous scheduler if enabled."""
     try:
         from models.database import init_db
         init_db()
     except Exception as e:
         print(f"[AirScope] Notice: DB init on startup: {e}")
 
-    try:
-        from autonomous_scheduler import scheduler
-        scheduler.start()
-        print("[AirScope] Autonomous 6x/day scraper & econometric retraining engine active.")
-    except Exception as e:
-        print(f"[AirScope] Warning: Failed to start autonomous scheduler: {e}")
+    enable_scheduler = os.getenv("ENABLE_AUTONOMOUS_SCRAPER", "false").lower() in ("true", "1", "yes")
+    if enable_scheduler:
+        try:
+            from autonomous_scheduler import scheduler
+            scheduler.start()
+            print("[AirScope] Autonomous 6x/day scraper & econometric retraining engine active.")
+        except Exception as e:
+            print(f"[AirScope] Warning: Failed to start autonomous scheduler: {e}")
+    else:
+        print("[AirScope] Autonomous background scraper is dormant on boot to protect 512MB RAM ceiling (set ENABLE_AUTONOMOUS_SCRAPER=true to activate). API on-demand scraping remains available.")
 
 
 @app.on_event("shutdown")
@@ -127,9 +131,11 @@ class HistoryResponse(BaseModel):
 #  GLOBAL DATASET CACHE & PARTITIONED STORES
 # ─────────────────────────────────────────────────────────────────────────────
 
+import gc
+
 _cached_history = load_extended_history()
-FIXTURE_DATA = _cached_history if (_cached_history and "raw_observations" in _cached_history) else generate_fixture_dataset(90)
-SCRAPED_DATA = load_scraped_observations()
+FIXTURE_DATA = _cached_history if (_cached_history and "raw_observations" in _cached_history) else generate_fixture_dataset(30)
+SCRAPED_DATA = load_scraped_observations(limit=2500)
 COMBINED_RAW = merge_scraped_with_fixture(FIXTURE_DATA["raw_observations"], SCRAPED_DATA)
 
 # Partition observations: Strict separation of Clean vs Quarantined records
@@ -145,6 +151,9 @@ INDEX_RESULTS = compute_airfare_indexes(CLEANED_DATA)
 ANOMALIES_RESULTS = detect_airfare_anomalies(CLEANED_DATA)
 CLUSTER_RESULTS = compute_route_clusters(CLEANED_DATA)
 BACKTEST_RESULTS = run_dgca_backtest(INDEX_RESULTS.get("daily_trend", []), FIXTURE_DATA["dgca_benchmark"])
+
+# Force garbage collection to free transient pandas/numpy arrays and stay well within 512MB RAM
+gc.collect()
 
 SCRAPE_IN_PROGRESS = False
 LAST_SCRAPE_STATUS = get_latest_scrape_metadata()
@@ -1486,6 +1495,7 @@ def get_scrape_status():
 
 
 
+@app.get("/health")
 @app.get("/api/health")
 def get_pipeline_health():
     return {

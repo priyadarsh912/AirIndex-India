@@ -15,15 +15,15 @@ logger = logging.getLogger(__name__)
 SCRAPED_DATA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "scraped_data")
 
 
-def load_scraped_observations() -> List[Dict[str, Any]]:
-    """Loads all JSON scraped observations from Supabase database and/or local scraped_data/ directory."""
+def load_scraped_observations(limit: int = 3000) -> List[Dict[str, Any]]:
+    """Loads JSON scraped observations from Supabase database and/or local scraped_data/ directory up to limit."""
     all_observations = []
     seen_ids = set()
 
     # 1. Try loading from Supabase Cloud DB
     try:
         from db_client import fetch_observations_from_supabase
-        db_obs = fetch_observations_from_supabase(limit=10000)
+        db_obs = fetch_observations_from_supabase(limit=limit)
         for obs in db_obs:
             if not obs.get("capture_date") and obs.get("timestamp"):
                 obs["capture_date"] = str(obs["timestamp"])[:10]
@@ -31,17 +31,21 @@ def load_scraped_observations() -> List[Dict[str, Any]]:
             if obs_id and obs_id not in seen_ids:
                 seen_ids.add(obs_id)
                 all_observations.append(obs)
+                if len(all_observations) >= limit:
+                    break
         if db_obs:
-            logger.info(f"Loaded {len(db_obs)} observations from Supabase Database.")
+            logger.info(f"Loaded {len(all_observations)} observations from Supabase Database.")
     except Exception as db_err:
         logger.warning(f"Could not load observations from Supabase: {db_err}")
 
-    # 2. Load from local JSON files as fallback or supplement
-    if os.path.exists(SCRAPED_DATA_DIR):
+    # 2. Load from local JSON files as fallback or supplement if under limit
+    if len(all_observations) < limit and os.path.exists(SCRAPED_DATA_DIR):
         json_files = glob.glob(os.path.join(SCRAPED_DATA_DIR, "scrape_*.json"))
         if json_files:
             json_files.sort(key=os.path.getmtime, reverse=True)
             for filepath in json_files:
+                if len(all_observations) >= limit:
+                    break
                 try:
                     with open(filepath, "r", encoding="utf-8") as f:
                         payload = json.load(f)
@@ -53,10 +57,12 @@ def load_scraped_observations() -> List[Dict[str, Any]]:
                             if obs_id and obs_id not in seen_ids:
                                 seen_ids.add(obs_id)
                                 all_observations.append(obs)
+                                if len(all_observations) >= limit:
+                                    break
                 except Exception as e:
                     logger.error(f"Error reading scraped data file {filepath}: {str(e)}")
 
-    logger.info(f"Loaded total {len(all_observations)} unique scraped observations.")
+    logger.info(f"Loaded total {len(all_observations)} unique scraped observations (capped at {limit}).")
     return all_observations
 
 

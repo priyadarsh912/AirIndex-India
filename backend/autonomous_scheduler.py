@@ -213,7 +213,8 @@ class AutonomousScheduler:
                 self.last_run_stats = cycle_report
                 self.runs_today_count += 1
                 self.total_records_today += scrape_stats.get("total_records", 0)
-                self.current_state = "COMPLETED"
+                import gc
+                gc.collect()
 
                 logger.info(f"[{cycle_id}] Successfully finished autonomous cycle in {duration_seconds:.1f}s. Total records: {scrape_stats.get('total_records', 0)}")
                 return cycle_report
@@ -229,6 +230,8 @@ class AutonomousScheduler:
                     "cycle_id": cycle_id,
                     "error": str(exc),
                 })
+                import gc
+                gc.collect()
                 return cycle_report
 
     async def _loop(self):
@@ -240,20 +243,24 @@ class AutonomousScheduler:
         needs_today_scrape = True
 
         from data_loader import load_scraped_observations
-        existing_scrapes = load_scraped_observations()
+        existing_scrapes = load_scraped_observations(limit=100)
         today_records = [o for o in existing_scrapes if (o.get("capture_date") or o.get("timestamp", ""))[:10] == today_str]
 
         if len(today_records) >= 50:
             logger.info(f"[Scheduler Loop] Found {len(today_records)} records already scraped for today ({today_str}).")
             needs_today_scrape = False
         else:
-            logger.info(f"[Scheduler Loop] Today's scrape ({today_str}) not detected or incomplete ({len(today_records)} records). Triggering immediate scrape cycle...")
+            logger.info(f"[Scheduler Loop] Today's scrape ({today_str}) not detected or incomplete ({len(today_records)} records).")
 
         if needs_today_scrape:
-            try:
-                await self.run_pipeline_cycle(forced=True)
-            except Exception as e:
-                logger.error(f"[Scheduler Loop] Error during startup scrape: {e}")
+            # Delay startup scrape by 3 minutes so server completes cloud port binding & health checks first
+            logger.info("[Scheduler Loop] Scheduled startup scrape will begin in 180s after web server health verification...")
+            await asyncio.sleep(180)
+            if self.is_running:
+                try:
+                    await self.run_pipeline_cycle(forced=True)
+                except Exception as e:
+                    logger.error(f"[Scheduler Loop] Error during startup scrape: {e}")
 
         # 2. Main scheduled loop
         while self.is_running:

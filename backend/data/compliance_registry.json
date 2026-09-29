@@ -132,8 +132,8 @@
     "requests_per_hour": 300,
     "concurrency_limit": 1,
     "cooldown_seconds": 12.0,
-    "last_compliance_check": "2026-09-19T21:26:22.627339",
-    "compliance_notes": "Restored after test (Updated: 2026-09-19T21:26:22.627339)",
+    "last_compliance_check": "2026-09-20T01:00:00Z",
+    "compliance_notes": "National flag carrier; public fare query paths monitored with conservative pacing.",
     "circuit_breaker_failures": 0,
     "circuit_breaker_state": "CLOSED",
     "last_failure_timestamp": null

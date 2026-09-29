@@ -8,13 +8,13 @@ from sqlalchemy import func
 try:
     from backend.models.database import SessionLocal, FareObservation, CollectionRun, upsert_fare_observations
     from backend.providers.serpapi_provider import SerpApiGoogleFlightsProvider
-    from backend.providers.fixture_provider import FixtureProvider
+    from backend.providers.fast_flights_provider import FastFlightsGoogleFlightsProvider
     from backend.providers.base import FareProvider
     from backend.fee_deriver import flag_outliers_iqr
 except ImportError:
     from models.database import SessionLocal, FareObservation, CollectionRun, upsert_fare_observations
     from providers.serpapi_provider import SerpApiGoogleFlightsProvider
-    from providers.fixture_provider import FixtureProvider
+    from providers.fast_flights_provider import FastFlightsGoogleFlightsProvider
     from providers.base import FareProvider
     from fee_deriver import flag_outliers_iqr
 
@@ -144,11 +144,15 @@ class CollectorRunner:
         if provider:
             self.provider = provider
         else:
-            serp_provider = SerpApiGoogleFlightsProvider()
-            if serp_provider.is_configured():
-                self.provider = serp_provider
+            ff_provider = FastFlightsGoogleFlightsProvider()
+            if ff_provider.is_configured():
+                self.provider = ff_provider
             else:
-                self.provider = FixtureProvider()
+                serp_provider = SerpApiGoogleFlightsProvider()
+                if serp_provider.is_configured():
+                    self.provider = serp_provider
+                else:
+                    raise RuntimeError("No live scraping provider configured. Please ensure fast-flights is installed.")
 
     def run_collection(
         self,
@@ -235,15 +239,6 @@ class CollectorRunner:
                 err_msg = f"Error fetching {orig}->{dest} on {dep_date} via {self.provider.name}: {str(e)}"
                 logger.error(err_msg)
                 errors.append(err_msg)
-                # If provider is SerpApi and fails, fallback to fixture for remaining batch
-                if isinstance(self.provider, SerpApiGoogleFlightsProvider):
-                    logger.warning("SerpApi encountered error, falling back to FixtureProvider")
-                    self.provider = FixtureProvider()
-                    try:
-                        fallback_quotes = self.provider.fetch(orig, dest, dep_date, lead_days, cabin)
-                        all_quotes.extend(fallback_quotes)
-                    except Exception as fe:
-                        errors.append(f"Fallback error: {fe}")
 
         # 3. Clean and flag IQR outliers
         cleaned_quotes = flag_outliers_iqr(all_quotes)

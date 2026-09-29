@@ -7,10 +7,10 @@ import { DEFAULT_52_ROUTES } from '../defaultData';
 // OFFICIAL LOGO VECTOR ASSETS (Pixel-Perfect Reproductions)
 // ─────────────────────────────────────────────────────────────────────────────
 
-// 2. MoSPI Official Logo (Ashoka Chakra, Orange Sun Rays, Green Base, Hindi Slogan)
-function MoSPILogoSvg({ className = "h-12 w-auto" }) {
+// 2. MoSPI Official Logo (Ashoka Chakra, Orange Sun Rays, Green Base, English Slogan underneath)
+function MoSPILogoSvg({ className = "h-14 lg:h-16 w-auto" }) {
   return (
-    <svg viewBox="0 0 140 100" className={className} xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 140 110" className={className} xmlns="http://www.w3.org/2000/svg">
       {/* Rising Sun Rays (Saffron/Orange) */}
       <path d="M70 48 L70 20 M70 48 L82 23 M70 48 L93 30 M70 48 L100 40 M70 48 L103 52 M70 48 L58 23 M70 48 L47 30 M70 48 L40 40 M70 48 L37 52" stroke="#ff7700" strokeWidth="2.5" strokeLinecap="round" />
       {/* Bar Chart Bars Inside Sunrise */}
@@ -40,26 +40,27 @@ function MoSPILogoSvg({ className = "h-12 w-auto" }) {
         d="M34 52 C52 64 88 64 106 52 C94 68 46 68 34 52 Z"
         fill="#138808"
       />
-      {/* MoSPI Motto Text: आंकड़े प्रगति के लिए */}
+      {/* MoSPI Motto Text: DATA FOR DEVELOPMENT */}
       <text
         x="70"
-        y="78"
+        y="82"
         textAnchor="middle"
-        fontFamily="'Tiro Devanagari Hindi', 'Noto Sans Devanagari', sans-serif"
-        fontSize="10"
-        fontWeight="bold"
+        fontFamily="sans-serif"
+        fontSize="8"
+        fontWeight="800"
         fill="#003399"
+        letterSpacing="0.4"
       >
-        आंकड़े प्रगति के लिए
+        DATA FOR DEVELOPMENT
       </text>
     </svg>
   );
 }
 
 // 3. Swachh Bharat Logo (Gandhi Spectacles with Slogan)
-function SwachhBharatSvg({ className = "h-11 w-auto" }) {
+function SwachhBharatSvg({ className = "h-14 lg:h-16 w-auto" }) {
   return (
-    <svg viewBox="0 0 160 85" className={className} xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 160 95" className={className} xmlns="http://www.w3.org/2000/svg">
       {/* Left Temple Arm */}
       <path d="M22 28 Q35 15 50 25" stroke="#262626" strokeWidth="2.4" fill="none" strokeLinecap="round" />
       {/* Left Spectacle Lens */}
@@ -95,10 +96,10 @@ function SwachhBharatSvg({ className = "h-11 w-auto" }) {
       {/* Tagline: एक कदम स्वच्छता की ओर */}
       <text
         x="80"
-        y="68"
+        y="72"
         textAnchor="middle"
         fontFamily="'Tiro Devanagari Hindi', 'Noto Sans Devanagari', sans-serif"
-        fontSize="9"
+        fontSize="9.5"
         fontWeight="bold"
         fill="#333333"
       >
@@ -109,9 +110,9 @@ function SwachhBharatSvg({ className = "h-11 w-auto" }) {
 }
 
 // 4. Stay Safe Online Logo (MeitY / G20 Initiative)
-function StaySafeOnlineSvg({ className = "h-11 w-auto" }) {
+function StaySafeOnlineSvg({ className = "h-14 lg:h-16 w-auto" }) {
   return (
-    <svg viewBox="0 0 140 85" className={className} xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 140 95" className={className} xmlns="http://www.w3.org/2000/svg">
       {/* Dual Colored Saffron / Cyan Shield Arch */}
       <path
         d="M40 38 C40 22 55 12 70 12 C70 12 70 38 70 38 Z"
@@ -136,7 +137,7 @@ function StaySafeOnlineSvg({ className = "h-11 w-auto" }) {
         y="58"
         textAnchor="middle"
         fontFamily="sans-serif"
-        fontSize="8.5"
+        fontSize="9"
         fontWeight="900"
         fill="#002b66"
         letterSpacing="0.4"
@@ -145,10 +146,10 @@ function StaySafeOnlineSvg({ className = "h-11 w-auto" }) {
       </text>
       <text
         x="70"
-        y="70"
+        y="72"
         textAnchor="middle"
         fontFamily="'Tiro Devanagari Hindi', 'Noto Sans Devanagari', sans-serif"
-        fontSize="7.5"
+        fontSize="8"
         fontWeight="bold"
         fill="#555555"
       >
@@ -401,26 +402,26 @@ export default function Header({
         </div>
 
         {/* Right Side: MoSPI, Swachh Bharat & Stay Safe Online Logos */}
-        <div className="hidden sm:flex items-center gap-3 md:gap-5 ml-auto shrink-0">
+        <div className="hidden sm:flex items-center gap-4 md:gap-6 ml-auto shrink-0 py-1">
           {/* 1. Official MoSPI Emblem */}
           <div className="flex items-center justify-center hover:opacity-90 transition-opacity">
-            <MoSPILogoSvg className="h-12 lg:h-13 w-auto" />
+            <MoSPILogoSvg className="h-14 lg:h-16 w-auto" />
           </div>
 
           {/* Vertical Hairline Divider */}
-          <div className="h-10 w-[1px] bg-slate-200" />
+          <div className="h-12 w-[1px] bg-slate-300" />
 
           {/* 2. Swachh Bharat Logo */}
           <div className="flex items-center justify-center hover:opacity-90 transition-opacity">
-            <SwachhBharatSvg className="h-11 lg:h-12 w-auto" />
+            <SwachhBharatSvg className="h-14 lg:h-16 w-auto" />
           </div>
 
           {/* Vertical Hairline Divider */}
-          <div className="h-10 w-[1px] bg-slate-200" />
+          <div className="h-12 w-[1px] bg-slate-300" />
 
           {/* 3. Stay Safe Online Initiative */}
           <div className="flex items-center justify-center hover:opacity-90 transition-opacity">
-            <StaySafeOnlineSvg className="h-11 lg:h-12 w-auto" />
+            <StaySafeOnlineSvg className="h-14 lg:h-16 w-auto" />
           </div>
         </div>
       </div>
@@ -598,7 +599,7 @@ export default function Header({
           <div className="inline-block animate-marquee hover:pause text-[11.5px] font-medium text-white/95">
             <span className="text-amber-300 font-bold">Implementation</span>
             <span className="mx-2 text-amber-300 font-bold">◆</span>
-            <span>MoSPI Update: Base Year 2012=100 | CPI Airfare Sub-Component Active</span>
+            <span>MoSPI Update: Base Year 2024=100 | CPI Airfare Sub-Component Active</span>
             <span className="mx-2 text-amber-300 font-bold">◆</span>
             <span>System Status: Live scraping active across 52 domestic flight corridors</span>
             <span className="mx-2 text-amber-300 font-bold">◆</span>

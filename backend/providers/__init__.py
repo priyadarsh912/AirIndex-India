@@ -1,15 +1,17 @@
+"""
+AirIndex India - Fare Providers Package
+Google Flights via fast-flights v3.0 is the sole live data source.
+"""
+
 try:
     from backend.providers.base import FareProvider, FareQuote
-    from backend.providers.serpapi_provider import SerpApiGoogleFlightsProvider
-    from backend.providers.fixture_provider import FixtureProvider
+    from backend.providers.fast_flights_provider import FastFlightsGoogleFlightsProvider
 except ImportError:
     from providers.base import FareProvider, FareQuote
-    from providers.serpapi_provider import SerpApiGoogleFlightsProvider
-    from providers.fixture_provider import FixtureProvider
+    from providers.fast_flights_provider import FastFlightsGoogleFlightsProvider
 
 __all__ = [
     "FareProvider",
     "FareQuote",
-    "SerpApiGoogleFlightsProvider",
-    "FixtureProvider",
+    "FastFlightsGoogleFlightsProvider",
 ]

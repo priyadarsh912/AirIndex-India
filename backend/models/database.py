@@ -201,11 +201,42 @@ def upsert_fare_observations(session: Session, records: List[Dict[str, Any]]) ->
 
     BATCH_SIZE = 500
     total_written = 0
+    valid_cols = {c.name for c in FareObservation.__table__.columns}
 
     for i in range(0, len(records), BATCH_SIZE):
-        batch = records[i : i + BATCH_SIZE]
+        raw_batch = records[i : i + BATCH_SIZE]
+        clean_batch = []
+        for r in raw_batch:
+            item = {}
+            # Map aliases
+            carrier = r.get("carrier") or r.get("airline") or "Unknown"
+            flight_no = r.get("flight_no") or r.get("flight_number") or "Unknown"
+            dep_date = r.get("departure_date") or r.get("travel_date") or ""
+            total_fare = r.get("total_fare") if r.get("total_fare") is not None else r.get("fare") or 0.0
+            taxes_fees = r.get("taxes_fees") if r.get("taxes_fees") is not None else r.get("taxes")
+
+            mapped = dict(r)
+            mapped["carrier"] = carrier
+            mapped["flight_no"] = flight_no
+            mapped["departure_date"] = dep_date
+            mapped["total_fare"] = total_fare
+            if taxes_fees is not None:
+                mapped["taxes_fees"] = taxes_fees
+            if "source" not in mapped:
+                mapped["source"] = "LIVE_SCRAPE"
+
+            for k, v in mapped.items():
+                if k in valid_cols:
+                    if k == "id" and not isinstance(v, int):
+                        continue
+                    item[k] = v
+            clean_batch.append(item)
+
+        if not clean_batch:
+            continue
+
         if is_sqlite:
-            stmt = sqlite_upsert(FareObservation).values(batch)
+            stmt = sqlite_upsert(FareObservation).values(clean_batch)
             set_dict = {col: getattr(stmt.excluded, col) for col in update_cols}
             stmt = stmt.on_conflict_do_update(
                 index_elements=["dedup_key"],
@@ -213,7 +244,7 @@ def upsert_fare_observations(session: Session, records: List[Dict[str, Any]]) ->
             )
             session.execute(stmt)
         elif pg_upsert is not None:
-            stmt = pg_upsert(FareObservation).values(batch)
+            stmt = pg_upsert(FareObservation).values(clean_batch)
             set_dict = {col: getattr(stmt.excluded, col) for col in update_cols}
             stmt = stmt.on_conflict_do_update(
                 index_elements=["dedup_key"],
@@ -222,7 +253,7 @@ def upsert_fare_observations(session: Session, records: List[Dict[str, Any]]) ->
             session.execute(stmt)
         else:
             # Generic fallback
-            for r in batch:
+            for r in clean_batch:
                 existing = session.query(FareObservation).filter_by(dedup_key=r["dedup_key"]).first()
                 if existing:
                     for k, v in r.items():
@@ -230,7 +261,7 @@ def upsert_fare_observations(session: Session, records: List[Dict[str, Any]]) ->
                 else:
                     session.add(FareObservation(**r))
 
-        total_written += len(batch)
+        total_written += len(clean_batch)
 
     session.commit()
     return total_written

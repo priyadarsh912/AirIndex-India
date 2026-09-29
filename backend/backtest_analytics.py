@@ -41,12 +41,8 @@ def load_30day_dataset() -> pd.DataFrame:
         except Exception as e:
             logger.warning(f"Failed to fetch observations from Supabase: {e}")
 
-    logger.warning("No scraped data found in CSV or Supabase. Running scraper pipeline automatically...")
-    from selenium_scraper import run_30day_selenium_backtest_scrape
-    obs, _ = run_30day_selenium_backtest_scrape()
-    return pd.DataFrame(obs)
-
-    return pd.DataFrame(obs)
+    logger.warning("No scraped data found in CSV or Supabase. Run the Google Flights scraper to collect observations first.")
+    return pd.DataFrame()
 
 
 def compute_30day_airfare_index(df: pd.DataFrame = None) -> Dict[str, Any]:

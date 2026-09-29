@@ -292,6 +292,16 @@ class PSDBasketManager:
             "routes": DEFAULT_52_INITIAL_BASKET
         }
 
+    def get_route_spec(self, corridor_or_route: str, basket_version: Optional[str] = None) -> Optional[Dict[str, Any]]:
+        """Look up route specification and official weight from active PSD basket."""
+        basket = self.get_active_basket()
+        target = corridor_or_route.upper().replace(" ", "")
+        for r in basket.get("routes", []):
+            corr = (r.get("corridor") or f"{r.get('origin')}-{r.get('destination')}").upper()
+            if corr == target:
+                return r
+        return None
+
     def list_basket_versions(self) -> List[Dict[str, Any]]:
         versions = []
         active_id = self.get_active_version_id()

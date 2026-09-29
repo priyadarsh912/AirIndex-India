@@ -3,9 +3,10 @@
 ```text
  ┌────────────────────────────────────────────────────────┐
  │                 DATA SOURCES & CONNECTORS              │
- │  MakeMyTrip (OTA) | Ixigo (OTA) [Playwright Scrapers] │
- │  Airline Direct APIs: Planned (IndiGo, AI, IX, QP)    │
- │  (Rate limiting: 3.0s + jitter, robots.txt compliant) │
+ │  Google Flights [fast-flights v3.0 HTTP Scraper]       │
+ │  MakeMyTrip (OTA) | Ixigo (OTA) [Playwright Scrapers]  │
+ │  Airline Direct APIs: Planned (IndiGo, AI, IX, QP)     │
+ │  (Rate limiting: 2.0s + jitter, robots.txt compliant)  │
  └──────────────────────────┬─────────────────────────────┘
                             ↓
  ┌────────────────────────────────────────────────────────┐

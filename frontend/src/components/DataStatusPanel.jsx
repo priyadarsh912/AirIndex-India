@@ -26,11 +26,11 @@ export default function DataStatusPanel({ onCollectionSuccess }) {
     return () => clearInterval(interval);
   }, []);
 
-  const handleTriggerCollect = async (forceFixture = false) => {
+  const handleTriggerCollect = async () => {
     setCollecting(true);
     setCollectMsg(null);
     try {
-      const res = await fetch(`/api/collector/run?max_searches=5&force_fixture=${forceFixture}`, {
+      const res = await fetch('/api/collector/run?max_searches=5', {
         method: 'POST',
       });
       let data = {};
@@ -50,6 +50,40 @@ export default function DataStatusPanel({ onCollectionSuccess }) {
         if (onCollectionSuccess) onCollectionSuccess();
       } else {
         setCollectMsg({ type: 'error', text: data.detail || 'Collection failed.' });
+      }
+    } catch (err) {
+      setCollectMsg({ type: 'error', text: err.message || 'Network request failed' });
+    } finally {
+      setCollecting(false);
+    }
+  };
+
+  const handleScrapeGoogleFlights = async () => {
+    setCollecting(true);
+    setCollectMsg(null);
+    try {
+      const targetDate = new Date(Date.now() + 14 * 86400000).toISOString().split('T')[0];
+      const res = await fetch(`/scrape?origin=DEL&destination=BOM&travel_date=${targetDate}&currency=INR&persist=true`);
+      let data = {};
+      try {
+        data = await res.json();
+      } catch {
+        data = { detail: `Server responded with status ${res.status}` };
+      }
+
+      if (res.ok) {
+        const topObs = data.observations?.[0];
+        const sampleAnalysis = data.psd_sample_analysis?.[0];
+        const priceInfo = topObs ? `(Sample: ${topObs.airline} ${topObs.flight_number} ₹${topObs.price})` : '';
+        const psdInfo = sampleAnalysis ? ` | Rel: ${sampleAnalysis.price_relative} (PSD Weight: ${(sampleAnalysis.psd_weight * 100).toFixed(1)}%)` : '';
+        setCollectMsg({
+          type: 'success',
+          text: `Google Flights (fast-flights v3): Scraped ${data.count} live quotes for DEL→BOM on ${targetDate}. ${priceInfo}${psdInfo}`,
+        });
+        fetchStatus();
+        if (onCollectionSuccess) onCollectionSuccess();
+      } else {
+        setCollectMsg({ type: 'error', text: data.detail || 'Google Flights scrape failed.' });
       }
     } catch (err) {
       setCollectMsg({ type: 'error', text: err.message || 'Network request failed' });
@@ -94,7 +128,7 @@ export default function DataStatusPanel({ onCollectionSuccess }) {
               )}
             </h3>
             <p className="text-[11px] text-text-muted">
-              Real-time airfare ingestion, idempotent upsert ledger, and budget governance
+              Google Flights (fast-flights v3.0) ingestion, idempotent upsert ledger, and PSD governance
             </p>
           </div>
         </div>
@@ -102,7 +136,19 @@ export default function DataStatusPanel({ onCollectionSuccess }) {
         {/* Action Buttons */}
         <div className="flex items-center gap-2">
           <button
-            onClick={() => handleTriggerCollect(false)}
+            onClick={handleScrapeGoogleFlights}
+            disabled={collecting}
+            className="px-3 py-1.5 bg-emerald-600 text-white text-xs font-semibold rounded-lg hover:bg-emerald-700 transition-all flex items-center gap-1.5 shadow-sm disabled:opacity-50"
+            title="Scrape real-time fares from Google Flights via fast-flights v3.0"
+          >
+            <span className={`material-symbols-outlined text-[16px] ${collecting ? 'animate-spin' : ''}`}>
+              {collecting ? 'progress_activity' : 'travel_explore'}
+            </span>
+            <span>{collecting ? 'Scraping...' : 'Scrape Google Flights (Live)'}</span>
+          </button>
+
+          <button
+            onClick={handleTriggerCollect}
             disabled={collecting || budgetRemain <= 0}
             className="px-3 py-1.5 bg-primary text-white text-xs font-semibold rounded-lg hover:bg-primary/90 transition-all flex items-center gap-1.5 shadow-sm disabled:opacity-50"
             title="Execute scheduled collection run"
@@ -111,15 +157,6 @@ export default function DataStatusPanel({ onCollectionSuccess }) {
               {collecting ? 'progress_activity' : 'cloud_download'}
             </span>
             <span>{collecting ? 'Collecting...' : 'Run Collector (5 Routes)'}</span>
-          </button>
-
-          <button
-            onClick={() => handleTriggerCollect(true)}
-            disabled={collecting}
-            className="px-2.5 py-1.5 bg-surface-subtle text-text-secondary text-xs font-medium rounded-lg hover:bg-surface-subtle/80 border border-border-hairline transition-all"
-            title="Run calibrated synthetic fixture ingestion"
-          >
-            Simulate Fixture
           </button>
         </div>
       </div>
@@ -148,25 +185,18 @@ export default function DataStatusPanel({ onCollectionSuccess }) {
           </span>
           <div className="space-y-1.5 text-xs">
             <div className="flex justify-between items-center">
+              <span className="flex items-center gap-1.5 text-blue-600 font-medium">
+                <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                LIVE_SCRAPE (fast-flights)
+              </span>
+              <strong className="font-mono text-text-primary">{sources.LIVE_SCRAPE || 0}</strong>
+            </div>
+            <div className="flex justify-between items-center">
               <span className="flex items-center gap-1.5 text-emerald-600 font-medium">
                 <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
                 LIVE_API (SerpApi)
               </span>
               <strong className="font-mono text-text-primary">{sources.LIVE_API || 0}</strong>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="flex items-center gap-1.5 text-amber-600 font-medium">
-                <span className="w-2 h-2 rounded-full bg-amber-500"></span>
-                FIXTURE (Calibrated)
-              </span>
-              <strong className="font-mono text-text-primary">{sources.FIXTURE || 0}</strong>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="flex items-center gap-1.5 text-blue-600 font-medium">
-                <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                LIVE_SCRAPE
-              </span>
-              <strong className="font-mono text-text-primary">{sources.LIVE_SCRAPE || 0}</strong>
             </div>
             <div className="flex justify-between items-center pt-1 border-t border-border-hairline text-text-primary font-bold">
               <span>Total DB Quotes</span>
@@ -226,13 +256,23 @@ export default function DataStatusPanel({ onCollectionSuccess }) {
           </span>
           <div className="space-y-1 text-xs">
             <div className="flex justify-between items-center">
-              <span className="text-text-secondary">SerpApi Key:</span>
+              <span className="text-text-secondary">fast-flights Engine:</span>
+              <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
+                statusData?.fast_flights_configured 
+                  ? 'bg-emerald-500/15 text-emerald-600' 
+                  : 'bg-red-500/15 text-red-600'
+              }`}>
+                {statusData?.fast_flights_configured ? 'LIVE v3.1 (ACTIVE)' : 'OFFLINE'}
+              </span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-text-secondary">SerpApi Fallback:</span>
               <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
                 statusData?.serpapi_configured 
                   ? 'bg-emerald-500/15 text-emerald-600' 
-                  : 'bg-amber-500/15 text-amber-600'
+                  : 'bg-surface-canvas text-text-muted border border-border-hairline'
               }`}>
-                {statusData?.serpapi_configured ? 'CONFIGURED' : 'USING FIXTURE'}
+                {statusData?.serpapi_configured ? 'CONFIGURED' : 'STANDBY'}
               </span>
             </div>
             <div className="flex justify-between items-center">

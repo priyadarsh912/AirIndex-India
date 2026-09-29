@@ -96,7 +96,7 @@ def sanitize_record(obs: Dict[str, Any]) -> Dict[str, Any]:
         "fees": fees,
         "total_fare": total_fare,
         "currency": str(obs.get("currency") or "INR"),
-        "seat_availability": int(obs.get("seat_availability") or 9) if raw_avail == "AVAILABLE" else 0,
+        "seat_availability": int(obs.get("seat_availability") if obs.get("seat_availability") is not None else 9) if raw_avail == "AVAILABLE" else 0,
         "status": raw_avail,
         "simulated_outlier": bool(obs.get("simulated_outlier", False)),
         "missing_field": bool(obs.get("missing_field", False)),

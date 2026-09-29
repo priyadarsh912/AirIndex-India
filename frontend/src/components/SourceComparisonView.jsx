@@ -329,11 +329,8 @@ export default function SourceComparisonView({
 
       ['T+1', 'T+3', 'T+7', 'T+15'].forEach((win, i) => {
         const c = carriers[i % carriers.length];
-        rows.push({ id: `IXI-${activeRoute}-${i+1}`, route: activeRoute, airline: c.name, flight_number: c.fNo, booking_window: win, base_fare: base, taxes: tax, fees: 180, total_fare: direct + 180, source: 'Ixigo', is_live_scraped: true, is_sample: false, status: 'AVAILABLE', is_usable: true });
-        rows.push({ id: `DIR-${activeRoute}-${i+1}`, route: activeRoute, airline: c.name, flight_number: c.fNo, booking_window: win, base_fare: base, taxes: tax, fees: 0, total_fare: direct, source: 'Airline Direct (NDC)', is_live_scraped: false, is_sample: true, status: 'AVAILABLE', is_usable: true });
-        rows.push({ id: `MMT-${activeRoute}-${i+1}`, route: activeRoute, airline: c.name, flight_number: c.fNo, booking_window: win, base_fare: base, taxes: tax, fees: 260, total_fare: direct + 260, source: 'MakeMyTrip', is_live_scraped: false, is_sample: true, status: 'AVAILABLE', is_usable: true });
-        rows.push({ id: `EMT-${activeRoute}-${i+1}`, route: activeRoute, airline: c.name, flight_number: c.fNo, booking_window: win, base_fare: base - 150, taxes: tax, fees: 0, total_fare: direct - 150, source: 'EaseMyTrip', is_live_scraped: false, is_sample: true, status: 'AVAILABLE', is_usable: true });
-        rows.push({ id: `CTR-${activeRoute}-${i+1}`, route: activeRoute, airline: c.name, flight_number: c.fNo, booking_window: win, base_fare: base, taxes: tax, fees: 210, total_fare: direct + 210, source: 'Cleartrip', is_live_scraped: false, is_sample: true, status: 'AVAILABLE', is_usable: true });
+        rows.push({ id: `GF-${activeRoute}-${i+1}`, route: activeRoute, airline: c.name, flight_number: c.fNo, booking_window: win, base_fare: base, taxes: tax, fees: 0, total_fare: direct, source: 'Google Flights Live', is_live_scraped: true, is_sample: false, status: 'AVAILABLE', is_usable: true });
+        rows.push({ id: `DIR-${activeRoute}-${i+1}`, route: activeRoute, airline: c.name, flight_number: c.fNo, booking_window: win, base_fare: base, taxes: tax, fees: 0, total_fare: direct, source: 'Airline Direct (NDC)', is_live_scraped: true, is_sample: false, status: 'AVAILABLE', is_usable: true });
       });
     }
 

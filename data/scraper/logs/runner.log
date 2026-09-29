@@ -1,0 +1,956 @@
+2026-09-24 23:41:01,373 INFO 1 corridors x 1 dates = 1 searches per sweep
+2026-09-24 23:41:01,382 INFO [20260924T2100] pass 1: 1 searches, 3 workers
+2026-09-24 23:41:04,102 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSVhCcgUSA0lYQ0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:41:04,342 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:41:04,345 WARNING Attempt 1/3 failed for IXB->IXC: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:41:08,073 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSVhCcgUSA0lYQ0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:41:08,350 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:41:08,354 WARNING Attempt 2/3 failed for IXB->IXC: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:41:14,495 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSVhCcgUSA0lYQ0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:41:14,668 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:41:14,672 WARNING Attempt 3/3 failed for IXB->IXC: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:41:14,672 WARNING FAILED IXB-IXC|2026-09-24: Google Flights scrape failed for IXB->IXC on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:41:14,680 INFO [20260924T2100] retrying 1 failed/missed searches after a short pause
+2026-09-24 23:42:14,682 INFO [20260924T2100] pass 2 (retry): 1 searches, 3 workers
+2026-09-24 23:42:17,639 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSVhCcgUSA0lYQ0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:42:17,841 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:42:17,849 WARNING Attempt 1/3 failed for IXB->IXC: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:42:22,070 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSVhCcgUSA0lYQ0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:42:22,304 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:42:22,326 WARNING Attempt 2/3 failed for IXB->IXC: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:42:28,013 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSVhCcgUSA0lYQ0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:42:28,230 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:42:28,238 WARNING Attempt 3/3 failed for IXB->IXC: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:42:28,239 WARNING FAILED IXB-IXC|2026-09-24: Google Flights scrape failed for IXB->IXC on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:42:28,291 INFO [20260924T2100] PARTIAL: 0/1 searches, 0 rows, 0 corridors published
+2026-09-24 23:42:37,748 INFO 2 corridors x 2 dates = 4 searches per sweep
+2026-09-24 23:42:37,760 INFO Resuming slot 20260924T2100: 0 searches already done.
+2026-09-24 23:42:37,766 INFO [20260924T2100] pass 1: 4 searches, 3 workers
+2026-09-24 23:42:39,545 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSVhCcgUSA0lYQ0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:42:39,797 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:42:39,800 WARNING Attempt 1/3 failed for IXB->IXC: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:42:40,802 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0JPTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:42:41,003 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:42:41,005 WARNING Attempt 1/3 failed for DEL->BOM: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:42:41,029 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjVqBRIDREVMcgUSA0JPTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:42:41,642 INFO Parsed 50 unique itineraries from 59 listed (9 unparseable)
+2026-09-24 23:42:41,646 INFO [Google Flights] 50 validated flights DEL->BOM on 2026-09-25
+2026-09-24 23:42:43,438 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjVqBRIDSVhCcgUSA0lYQ0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:42:43,477 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSVhCcgUSA0lYQ0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:42:43,669 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:42:43,672 WARNING Attempt 2/3 failed for IXB->IXC: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:42:43,707 INFO Parsed 3 unique itineraries from 12 listed (9 unparseable)
+2026-09-24 23:42:43,709 INFO [Google Flights] 3 validated flights IXB->IXC on 2026-09-25
+2026-09-24 23:42:44,421 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0JPTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:42:44,682 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:42:44,685 WARNING Attempt 2/3 failed for DEL->BOM: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:42:48,817 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSVhCcgUSA0lYQ0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:42:49,070 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:42:49,072 WARNING Attempt 3/3 failed for IXB->IXC: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:42:49,072 WARNING FAILED IXB-IXC|2026-09-24: Google Flights scrape failed for IXB->IXC on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:42:50,240 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0JPTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:42:50,501 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:42:50,504 WARNING Attempt 3/3 failed for DEL->BOM: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:42:50,505 WARNING FAILED DEL-BOM|2026-09-24: Google Flights scrape failed for DEL->BOM on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:42:50,513 INFO [20260924T2100] retrying 2 failed/missed searches after a short pause
+2026-09-24 23:43:50,513 INFO [20260924T2100] pass 2 (retry): 2 searches, 3 workers
+2026-09-24 23:43:52,532 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0JPTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:43:52,762 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:43:52,767 WARNING Attempt 1/3 failed for DEL->BOM: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:43:52,953 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSVhCcgUSA0lYQ0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:43:53,159 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:43:53,168 WARNING Attempt 1/3 failed for IXB->IXC: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:43:56,304 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSVhCcgUSA0lYQ0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:43:56,625 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:43:56,639 WARNING Attempt 2/3 failed for IXB->IXC: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:43:56,667 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0JPTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:43:56,936 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:43:56,949 WARNING Attempt 2/3 failed for DEL->BOM: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:44:02,209 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSVhCcgUSA0lYQ0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:44:02,491 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:44:02,500 WARNING Attempt 3/3 failed for IXB->IXC: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:44:02,502 WARNING FAILED IXB-IXC|2026-09-24: Google Flights scrape failed for IXB->IXC on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:44:02,509 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0JPTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:44:02,738 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:44:02,743 WARNING Attempt 3/3 failed for DEL->BOM: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:44:02,745 WARNING FAILED DEL-BOM|2026-09-24: Google Flights scrape failed for DEL->BOM on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:44:16,160 INFO HTTP Request: POST https://zqnsfqrftyismwnkkdgp.supabase.co/rest/v1/flight_observations?on_conflict=id&columns=%22flight_number%22%2C%22composite_key%22%2C%22missing_field%22%2C%22cabin_class%22%2C%22fees%22%2C%22is_usable%22%2C%22is_price_anomaly%22%2C%22id%22%2C%22source%22%2C%22registry_confidence%22%2C%22is_live_scraped%22%2C%22route%22%2C%22fare_class%22%2C%22departure_time%22%2C%22timestamp%22%2C%22quality_score%22%2C%22base_fare%22%2C%22airline%22%2C%22taxes%22%2C%22currency%22%2C%22seat_availability%22%2C%22registry_validation%22%2C%22booking_window%22%2C%22status%22%2C%22total_fare%22%2C%22simulated_outlier%22%2C%22arrival_time%22 "HTTP/2 201 Created"
+2026-09-24 23:44:16,191 INFO Uploaded 52 rows.
+2026-09-24 23:44:16,221 INFO [20260924T2100] PARTIAL: 2/4 searches, 53 rows, 2 corridors published
+2026-09-24 23:49:31,455 WARNING 100 corridors loaded but 52 expected - add the missing ones to corridors.json
+2026-09-24 23:49:31,455 INFO 100 corridors x 31 dates = 3100 searches per sweep
+2026-09-24 23:49:31,465 INFO Resuming slot 20260924T2100: 2 searches already done.
+2026-09-24 23:49:31,469 INFO [20260924T2100] pass 1: 3099 searches, 3 workers
+2026-09-24 23:49:33,270 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSVhCcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:49:33,532 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:49:33,532 WARNING Attempt 1/3 failed for IXB->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:33,586 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDTkFHcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:49:33,764 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:49:33,764 WARNING Attempt 1/3 failed for NAG->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:33,927 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0JMUkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:49:34,135 INFO Parsed 1 unique itineraries from 10 listed (9 unparseable)
+2026-09-24 23:49:34,137 INFO [Google Flights] 1 validated flights DEL->BLR on 2026-09-24
+2026-09-24 23:49:36,966 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQkxScgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:49:37,133 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSVhCcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:49:37,172 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:49:37,173 WARNING Attempt 1/3 failed for BLR->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:37,245 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDTkFHcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:49:37,314 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:49:37,316 WARNING Attempt 2/3 failed for IXB->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:37,434 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:49:37,436 WARNING Attempt 2/3 failed for NAG->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:40,961 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQkxScgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:49:41,145 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:49:41,145 WARNING Attempt 2/3 failed for BLR->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:42,546 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDTkFHcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:49:42,626 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSVhCcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:49:42,683 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:49:42,683 WARNING Attempt 3/3 failed for NAG->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:42,683 WARNING FAILED NAG-DEL|2026-09-24: Google Flights scrape failed for NAG->DEL on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:42,806 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:49:42,806 WARNING Attempt 3/3 failed for IXB->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:42,809 WARNING FAILED IXB-DEL|2026-09-24: Google Flights scrape failed for IXB->DEL on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:45,628 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQkxScgUSA1ZUWkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:49:45,829 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:49:45,829 WARNING Attempt 1/3 failed for BLR->VTZ: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:45,952 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQ09LcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:49:46,137 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:49:46,138 WARNING Attempt 1/3 failed for COK->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:46,207 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQkxScgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:49:46,482 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:49:46,482 WARNING Attempt 3/3 failed for BLR->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:46,482 WARNING FAILED BLR-DEL|2026-09-24: Google Flights scrape failed for BLR->DEL on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:48,427 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0hZREIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:49:48,687 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:49:48,691 WARNING Attempt 1/3 failed for DEL->HYD: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:49,072 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQkxScgUSA1ZUWkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:49:49,316 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:49:49,316 WARNING Attempt 2/3 failed for BLR->VTZ: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:49,329 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQ09LcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:49:49,537 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:49:49,539 WARNING Attempt 2/3 failed for COK->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:51,987 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0hZREIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:49:52,181 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:49:52,183 WARNING Attempt 2/3 failed for DEL->HYD: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:54,737 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQ09LcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:49:54,796 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQkxScgUSA1ZUWkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:49:54,928 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:49:54,929 WARNING Attempt 3/3 failed for COK->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:54,930 WARNING FAILED COK-DEL|2026-09-24: Google Flights scrape failed for COK->DEL on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:54,979 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:49:54,981 WARNING Attempt 3/3 failed for BLR->VTZ: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:54,981 WARNING FAILED BLR-VTZ|2026-09-24: Google Flights scrape failed for BLR->VTZ on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:57,260 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQk9NcgUSA0FNREIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:49:57,396 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0hZREIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:49:57,450 INFO Parsed 1 unique itineraries from 10 listed (9 unparseable)
+2026-09-24 23:49:57,451 INFO [Google Flights] 1 validated flights BOM->AMD on 2026-09-24
+2026-09-24 23:49:57,591 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:49:57,591 WARNING Attempt 3/3 failed for DEL->HYD: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:57,591 WARNING FAILED DEL-HYD|2026-09-24: Google Flights scrape failed for DEL->HYD on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:57,620 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0lYTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:49:57,804 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:49:57,806 WARNING Attempt 1/3 failed for DEL->IXM: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:49:59,215 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQ0NVcgUSA0lYQkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:49:59,397 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:49:59,399 WARNING Attempt 1/3 failed for CCU->IXB: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:00,296 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDTUFBcgUSA0JMUkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:00,552 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:00,553 WARNING Attempt 1/3 failed for MAA->BLR: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:01,409 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0lYTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:01,599 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:01,603 WARNING Attempt 2/3 failed for DEL->IXM: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:02,877 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQ0NVcgUSA0lYQkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:03,124 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:03,127 WARNING Attempt 2/3 failed for CCU->IXB: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:04,180 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDTUFBcgUSA0JMUkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:04,360 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:04,363 WARNING Attempt 2/3 failed for MAA->BLR: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:07,515 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0lYTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:07,707 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:07,711 WARNING Attempt 3/3 failed for DEL->IXM: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:07,712 WARNING FAILED DEL-IXM|2026-09-24: Google Flights scrape failed for DEL->IXM on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:09,180 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQ0NVcgUSA0lYQkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:09,361 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:09,363 WARNING Attempt 3/3 failed for CCU->IXB: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:09,365 WARNING FAILED CCU-IXB|2026-09-24: Google Flights scrape failed for CCU->IXB on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:09,406 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDR09JcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:09,668 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:09,672 WARNING Attempt 1/3 failed for GOI->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:10,587 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDTUFBcgUSA0JMUkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:10,766 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:10,769 WARNING Attempt 3/3 failed for MAA->BLR: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:10,770 WARNING FAILED MAA-BLR|2026-09-24: Google Flights scrape failed for MAA->BLR on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:11,427 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA1NYUkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:11,687 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:11,691 WARNING Attempt 1/3 failed for DEL->SXR: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:13,467 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDR09JcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:13,487 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0lYQ0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:13,641 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:13,644 WARNING Attempt 2/3 failed for GOI->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:13,677 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:13,680 WARNING Attempt 1/3 failed for DEL->IXC: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:14,934 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA1NYUkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:15,118 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:15,122 WARNING Attempt 2/3 failed for DEL->SXR: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:17,085 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0lYQ0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:17,278 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:17,281 WARNING Attempt 2/3 failed for DEL->IXC: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:18,812 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDR09JcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:19,002 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:19,004 WARNING Attempt 3/3 failed for GOI->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:19,004 WARNING FAILED GOI-DEL|2026-09-24: Google Flights scrape failed for GOI->DEL on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:20,388 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA1NYUkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:20,563 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:20,571 WARNING Attempt 3/3 failed for DEL->SXR: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:20,572 WARNING FAILED DEL-SXR|2026-09-24: Google Flights scrape failed for DEL->SXR on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:20,876 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQU1EcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:21,124 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:21,128 WARNING Attempt 1/3 failed for AMD->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:22,678 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0lYQ0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:22,864 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:22,866 WARNING Attempt 3/3 failed for DEL->IXC: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:22,868 WARNING FAILED DEL-IXC|2026-09-24: Google Flights scrape failed for DEL->IXC on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:23,393 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDR09JcgUSA0JPTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:23,579 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:23,583 WARNING Attempt 1/3 failed for GOI->BOM: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:24,968 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQU1EcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:25,216 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSVhCcgUSA0NDVUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:25,278 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:25,280 WARNING Attempt 2/3 failed for AMD->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:25,392 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:25,392 WARNING Attempt 1/3 failed for IXB->CCU: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:27,555 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDR09JcgUSA0JPTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:27,741 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:27,743 WARNING Attempt 2/3 failed for GOI->BOM: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:29,525 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSVhCcgUSA0NDVUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:29,707 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:29,710 WARNING Attempt 2/3 failed for IXB->CCU: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:30,784 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQU1EcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:30,995 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:30,999 WARNING Attempt 3/3 failed for AMD->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:30,999 WARNING FAILED AMD-DEL|2026-09-24: Google Flights scrape failed for AMD->DEL on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:32,684 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDUlBScgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:32,885 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:32,887 WARNING Attempt 1/3 failed for RPR->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:33,299 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDR09JcgUSA0JPTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:33,484 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:33,487 WARNING Attempt 3/3 failed for GOI->BOM: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:33,489 WARNING FAILED GOI-BOM|2026-09-24: Google Flights scrape failed for GOI->BOM on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:35,574 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSVhCcgUSA0NDVUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:35,756 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQ0NVcgUSA0dBVUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:35,763 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:35,767 WARNING Attempt 3/3 failed for IXB->CCU: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:35,767 WARNING FAILED IXB-CCU|2026-09-24: Google Flights scrape failed for IXB->CCU on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:35,959 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:35,964 WARNING Attempt 1/3 failed for CCU->GAU: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:36,322 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDUlBScgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:36,598 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:36,598 WARNING Attempt 2/3 failed for RPR->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:38,421 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQ09LcgUSA0JMUkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:38,591 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:38,603 WARNING Attempt 1/3 failed for COK->BLR: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:39,241 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQ0NVcgUSA0dBVUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:39,429 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:39,431 WARNING Attempt 2/3 failed for CCU->GAU: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:42,421 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDUlBScgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:42,497 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQ09LcgUSA0JMUkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:42,608 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:42,612 WARNING Attempt 3/3 failed for RPR->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:42,612 WARNING FAILED RPR-DEL|2026-09-24: Google Flights scrape failed for RPR->DEL on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:42,691 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:42,693 WARNING Attempt 2/3 failed for COK->BLR: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:44,941 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSVhFcgUSA0JMUkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:45,215 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:45,219 WARNING Attempt 1/3 failed for IXE->BLR: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:45,355 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQ0NVcgUSA0dBVUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:45,611 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:45,613 WARNING Attempt 3/3 failed for CCU->GAU: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:45,615 WARNING 12 failures in a row (rate limit?). Cooling down 300s (1/3).
+2026-09-24 23:50:45,616 WARNING FAILED CCU-GAU|2026-09-24: Google Flights scrape failed for CCU->GAU on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:47,595 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQkJJcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:47,790 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:47,793 WARNING Attempt 1/3 failed for BBI->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:48,621 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQ09LcgUSA0JMUkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:48,796 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:48,801 WARNING Attempt 3/3 failed for COK->BLR: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:48,801 WARNING FAILED COK-BLR|2026-09-24: Google Flights scrape failed for COK->BLR on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:48,833 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSVhFcgUSA0JMUkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:49,091 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:49,095 WARNING Attempt 2/3 failed for IXE->BLR: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:51,222 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQkJJcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:51,395 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:51,398 WARNING Attempt 2/3 failed for BBI->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:54,604 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSVhFcgUSA0JMUkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:54,791 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:54,796 WARNING Attempt 3/3 failed for IXE->BLR: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:54,796 WARNING FAILED IXE-BLR|2026-09-24: Google Flights scrape failed for IXE->BLR on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:56,848 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQkJJcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:50:57,038 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:50:57,040 WARNING Attempt 3/3 failed for BBI->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:50:57,040 WARNING FAILED BBI-DEL|2026-09-24: Google Flights scrape failed for BBI->DEL on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:55:47,689 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0FUUUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:55:47,748 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDR0FVcgUSA0NDVUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:55:47,888 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:55:47,888 WARNING Attempt 1/3 failed for DEL->ATQ: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:55:47,942 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:55:47,952 WARNING Attempt 1/3 failed for GAU->CCU: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:55:48,317 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQk9NcgUSA0dPSUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:55:48,466 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:55:48,484 WARNING Attempt 1/3 failed for BOM->GOI: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:55:51,077 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0FUUUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:55:51,272 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:55:51,272 WARNING Attempt 2/3 failed for DEL->ATQ: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:55:51,674 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDR0FVcgUSA0NDVUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:55:51,959 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:55:51,959 WARNING Attempt 2/3 failed for GAU->CCU: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:55:52,524 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQk9NcgUSA0dPSUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:55:52,737 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:55:52,759 WARNING Attempt 2/3 failed for BOM->GOI: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:55:56,524 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0FUUUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:55:56,784 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:55:56,789 WARNING Attempt 3/3 failed for DEL->ATQ: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:55:56,794 WARNING FAILED DEL-ATQ|2026-09-24: Google Flights scrape failed for DEL->ATQ on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:55:57,150 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDR0FVcgUSA0NDVUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:55:57,352 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:55:57,354 WARNING Attempt 3/3 failed for GAU->CCU: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:55:57,368 WARNING FAILED GAU-CCU|2026-09-24: Google Flights scrape failed for GAU->CCU on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:55:58,217 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQk9NcgUSA0dPSUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:55:58,430 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:55:58,434 WARNING Attempt 3/3 failed for BOM->GOI: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:55:58,441 WARNING FAILED BOM-GOI|2026-09-24: Google Flights scrape failed for BOM->GOI on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:55:58,462 INFO [20260924T2100] progress 4/3100 done, 2 rows
+2026-09-24 23:55:59,011 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSFlEcgUSA1ZUWkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:55:59,208 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:55:59,223 WARNING Attempt 1/3 failed for HYD->VTZ: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:00,141 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQk9NcgUSA0JCSUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:00,322 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:00,334 WARNING Attempt 1/3 failed for BOM->BBI: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:01,483 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDVURScgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:01,691 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:01,697 WARNING Attempt 1/3 failed for UDR->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:03,148 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSFlEcgUSA1ZUWkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:03,329 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:03,335 WARNING Attempt 2/3 failed for HYD->VTZ: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:03,714 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQk9NcgUSA0JCSUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:03,988 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:04,001 WARNING Attempt 2/3 failed for BOM->BBI: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:05,780 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDVURScgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:05,990 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:05,997 WARNING Attempt 2/3 failed for UDR->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:09,262 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSFlEcgUSA1ZUWkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:09,468 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:09,481 WARNING Attempt 3/3 failed for HYD->VTZ: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:09,481 WARNING FAILED HYD-VTZ|2026-09-24: Google Flights scrape failed for HYD->VTZ on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:10,118 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQk9NcgUSA0JCSUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:10,439 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:10,459 WARNING Attempt 3/3 failed for BOM->BBI: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:10,463 WARNING FAILED BOM-BBI|2026-09-24: Google Flights scrape failed for BOM->BBI on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:11,793 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA1JQUkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:11,947 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDVURScgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:12,015 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:12,023 WARNING Attempt 1/3 failed for DEL->RPR: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:12,217 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:12,259 WARNING Attempt 3/3 failed for UDR->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:12,272 WARNING FAILED UDR-DEL|2026-09-24: Google Flights scrape failed for UDR->DEL on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:12,646 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0lYQkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:12,837 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:12,837 WARNING Attempt 1/3 failed for DEL->IXB: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:14,781 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQk9NcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:14,986 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:14,986 WARNING Attempt 1/3 failed for BOM->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:16,128 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA1JQUkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:16,330 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:16,333 WARNING Attempt 2/3 failed for DEL->RPR: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:16,693 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0lYQkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:16,912 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:16,922 WARNING Attempt 2/3 failed for DEL->IXB: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:18,376 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQk9NcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:18,587 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:18,607 WARNING Attempt 2/3 failed for BOM->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:21,950 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA1JQUkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:22,149 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0lYQkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:22,224 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:22,229 WARNING Attempt 3/3 failed for DEL->RPR: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:22,238 WARNING FAILED DEL-RPR|2026-09-24: Google Flights scrape failed for DEL->RPR on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:22,388 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:22,396 WARNING Attempt 3/3 failed for DEL->IXB: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:22,404 WARNING FAILED DEL-IXB|2026-09-24: Google Flights scrape failed for DEL->IXB on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:24,530 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQk9NcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:24,745 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:24,755 WARNING Attempt 3/3 failed for BOM->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:24,756 WARNING 12 failures in a row (rate limit?). Cooling down 300s (2/3).
+2026-09-24 23:56:24,760 WARNING FAILED BOM-DEL|2026-09-24: Google Flights scrape failed for BOM->DEL on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:25,074 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0dBVUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:25,264 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDTEtPcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:25,272 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:25,285 WARNING Attempt 1/3 failed for DEL->GAU: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:25,568 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:25,574 WARNING Attempt 1/3 failed for LKO->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:26,752 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQk9NcgUSA0hZREIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:27,065 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:27,073 WARNING Attempt 1/3 failed for BOM->HYD: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:28,933 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDTEtPcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:29,128 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:29,132 WARNING Attempt 2/3 failed for LKO->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:29,262 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0dBVUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:29,470 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:29,479 WARNING Attempt 2/3 failed for DEL->GAU: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:30,751 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQk9NcgUSA0hZREIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:30,979 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:30,989 WARNING Attempt 2/3 failed for BOM->HYD: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:35,057 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDTEtPcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:35,152 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0dBVUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:35,324 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:35,331 WARNING Attempt 3/3 failed for LKO->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:35,338 WARNING FAILED LKO-DEL|2026-09-24: Google Flights scrape failed for LKO->DEL on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:35,367 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:35,378 WARNING Attempt 3/3 failed for DEL->GAU: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:35,381 WARNING FAILED DEL-GAU|2026-09-24: Google Flights scrape failed for DEL->GAU on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:36,414 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQk9NcgUSA0hZREIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:56:36,696 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:56:36,702 WARNING Attempt 3/3 failed for BOM->HYD: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:56:36,712 WARNING FAILED BOM-HYD|2026-09-24: Google Flights scrape failed for BOM->HYD on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:57:40,490 INFO 2 corridors x 2 dates = 4 searches per sweep
+2026-09-24 23:57:40,490 ERROR Another runner is active (lock heartbeat < 15 min old). Exiting.
+2026-09-24 23:58:03,202 INFO 2 corridors x 2 dates = 4 searches per sweep
+2026-09-24 23:58:03,211 INFO Resuming slot 20260924T2100: 4 searches already done.
+2026-09-24 23:58:03,215 INFO [20260924T2100] pass 1: 3 searches, 2 workers
+2026-09-24 23:58:06,666 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQk9NcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:58:06,907 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:58:06,922 WARNING [Rate-Limit Engine] Google rate-limit detected for BOM->DEL. Adaptive backoff pause for 7.9s (Attempt 1/3)...
+2026-09-24 23:58:06,987 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0JPTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:58:07,270 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:58:07,289 WARNING [Rate-Limit Engine] Google rate-limit detected for DEL->BOM. Adaptive backoff pause for 6.8s (Attempt 1/3)...
+2026-09-24 23:58:14,661 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0JPTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:58:14,971 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:58:14,980 WARNING [Rate-Limit Engine] Google rate-limit detected for DEL->BOM. Adaptive backoff pause for 12.1s (Attempt 2/3)...
+2026-09-24 23:58:15,536 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQk9NcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:58:15,825 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:58:15,834 WARNING [Rate-Limit Engine] Google rate-limit detected for BOM->DEL. Adaptive backoff pause for 13.4s (Attempt 2/3)...
+2026-09-24 23:58:27,307 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0JPTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:58:27,729 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:58:27,737 WARNING [Rate-Limit Engine] Google rate-limit detected for DEL->BOM. Adaptive backoff pause for 29.2s (Attempt 3/3)...
+2026-09-24 23:58:30,010 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQk9NcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:58:30,133 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-24 23:58:30,141 WARNING [Rate-Limit Engine] Google rate-limit detected for BOM->DEL. Adaptive backoff pause for 31.7s (Attempt 3/3)...
+2026-09-24 23:58:56,907 WARNING [Anti Rate-Limit Engine] Google rate-limit/CAPTCHA detected by worker. Pausing all threads for 30s to clear IP rate bucket...
+2026-09-24 23:58:56,908 WARNING FAILED DEL-BOM|2026-09-24: Google Flights scrape failed for DEL->BOM on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:58:59,999 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjVqBRIDQk9NcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-24 23:59:00,734 INFO Parsed 45 unique itineraries from 54 listed (9 unparseable)
+2026-09-24 23:59:00,751 INFO [Google Flights] 45 validated flights BOM->DEL on 2026-09-25
+2026-09-24 23:59:01,892 WARNING FAILED BOM-DEL|2026-09-24: Google Flights scrape failed for BOM->DEL on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-24 23:59:01,904 INFO [20260924T2100] retrying 2 failed/missed searches after a short pause
+2026-09-25 00:00:01,905 INFO [20260924T2100] pass 2 (retry): 2 searches, 2 workers
+2026-09-25 00:00:05,689 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0JPTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:00:05,890 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQk9NcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:00:05,990 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:00:05,998 WARNING [Rate-Limit Engine] Google rate-limit detected for DEL->BOM. Adaptive backoff pause for 6.0s (Attempt 1/3)...
+2026-09-25 00:00:06,092 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:00:06,098 WARNING [Rate-Limit Engine] Google rate-limit detected for BOM->DEL. Adaptive backoff pause for 7.5s (Attempt 1/3)...
+2026-09-25 00:00:12,616 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0JPTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:00:12,903 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:00:12,911 WARNING [Rate-Limit Engine] Google rate-limit detected for DEL->BOM. Adaptive backoff pause for 11.8s (Attempt 2/3)...
+2026-09-25 00:00:13,934 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQk9NcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:00:14,141 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:00:14,150 WARNING [Rate-Limit Engine] Google rate-limit detected for BOM->DEL. Adaptive backoff pause for 11.3s (Attempt 2/3)...
+2026-09-25 00:00:25,335 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0JPTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:00:25,560 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:00:25,568 WARNING [Rate-Limit Engine] Google rate-limit detected for DEL->BOM. Adaptive backoff pause for 29.2s (Attempt 3/3)...
+2026-09-25 00:00:26,130 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQk9NcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:00:26,320 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:00:26,329 WARNING [Rate-Limit Engine] Google rate-limit detected for BOM->DEL. Adaptive backoff pause for 30.2s (Attempt 3/3)...
+2026-09-25 00:00:54,787 WARNING [Anti Rate-Limit Engine] Google rate-limit/CAPTCHA detected by worker. Pausing all threads for 30s to clear IP rate bucket...
+2026-09-25 00:00:54,788 WARNING FAILED DEL-BOM|2026-09-24: Google Flights scrape failed for DEL->BOM on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:00:56,488 WARNING 3 failures in a row (rate limit?). Cooling down 120s (1/5).
+2026-09-25 00:00:56,488 WARNING FAILED BOM-DEL|2026-09-24: Google Flights scrape failed for BOM->DEL on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:04,116 INFO HTTP Request: POST https://zqnsfqrftyismwnkkdgp.supabase.co/rest/v1/flight_observations?on_conflict=id&columns=%22is_price_anomaly%22%2C%22source%22%2C%22currency%22%2C%22simulated_outlier%22%2C%22arrival_time%22%2C%22registry_confidence%22%2C%22composite_key%22%2C%22registry_validation%22%2C%22airline%22%2C%22route%22%2C%22quality_score%22%2C%22departure_time%22%2C%22cabin_class%22%2C%22fees%22%2C%22fare_class%22%2C%22taxes%22%2C%22is_live_scraped%22%2C%22id%22%2C%22status%22%2C%22missing_field%22%2C%22base_fare%22%2C%22booking_window%22%2C%22total_fare%22%2C%22is_usable%22%2C%22timestamp%22%2C%22flight_number%22%2C%22seat_availability%22 "HTTP/2 201 Created"
+2026-09-25 00:01:04,174 INFO Uploaded 97 rows.
+2026-09-25 00:01:04,203 INFO [20260924T2100] PARTIAL: 5/4 searches, 100 rows, 2 corridors published
+2026-09-25 00:01:26,545 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDVFJWcgUSA0JPTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:26,819 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:26,825 WARNING Attempt 1/3 failed for TRV->BOM: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:28,228 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQkxScgUSA0JPTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:28,460 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSkFJcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:28,499 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:28,508 WARNING Attempt 1/3 failed for BLR->BOM: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:28,734 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:28,741 WARNING Attempt 1/3 failed for JAI->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:30,953 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDVFJWcgUSA0JPTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:31,163 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:31,175 WARNING Attempt 2/3 failed for TRV->BOM: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:31,963 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQkxScgUSA0JPTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:32,032 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSkFJcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:32,217 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:32,225 WARNING Attempt 2/3 failed for BLR->BOM: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:32,229 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:32,244 WARNING Attempt 2/3 failed for JAI->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:36,424 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDVFJWcgUSA0JPTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:36,626 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:36,635 WARNING Attempt 3/3 failed for TRV->BOM: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:36,641 WARNING FAILED TRV-BOM|2026-09-24: Google Flights scrape failed for TRV->BOM on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:37,480 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQkxScgUSA0JPTUIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:37,768 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:37,777 WARNING Attempt 3/3 failed for BLR->BOM: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:37,778 WARNING FAILED BLR-BOM|2026-09-24: Google Flights scrape failed for BLR->BOM on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:38,009 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSkFJcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:38,225 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:38,255 WARNING Attempt 3/3 failed for JAI->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:38,266 WARNING FAILED JAI-DEL|2026-09-24: Google Flights scrape failed for JAI->DEL on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:39,166 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSURScgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:39,452 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:39,485 WARNING Attempt 1/3 failed for IDR->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:39,983 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQkxScgUSA0NPS0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:40,240 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:40,248 WARNING Attempt 1/3 failed for BLR->COK: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:40,298 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQkxScgUSA0hZREIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:40,595 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:40,600 WARNING Attempt 1/3 failed for BLR->HYD: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:42,858 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSURScgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:43,087 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:43,097 WARNING Attempt 2/3 failed for IDR->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:43,910 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQkxScgUSA0NPS0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:44,122 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:44,133 WARNING Attempt 2/3 failed for BLR->COK: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:44,625 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQkxScgUSA0hZREIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:44,860 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:44,876 WARNING Attempt 2/3 failed for BLR->HYD: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:49,103 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQkxScgUSA0NPS0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:49,234 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDSURScgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:49,367 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:49,376 WARNING Attempt 3/3 failed for BLR->COK: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:49,377 WARNING FAILED BLR-COK|2026-09-24: Google Flights scrape failed for BLR->COK on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:49,493 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:49,500 WARNING Attempt 3/3 failed for IDR->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:49,501 WARNING FAILED IDR-DEL|2026-09-24: Google Flights scrape failed for IDR->DEL on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:50,903 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDQkxScgUSA0hZREIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:51,108 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:51,113 WARNING Attempt 3/3 failed for BLR->HYD: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:51,114 WARNING FAILED BLR-HYD|2026-09-24: Google Flights scrape failed for BLR->HYD on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:51,405 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0NPS0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:51,736 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:51,747 WARNING Attempt 1/3 failed for DEL->COK: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:52,653 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0xLT0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:52,913 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:52,920 WARNING Attempt 1/3 failed for DEL->LKO: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:53,863 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDUE5RcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:54,063 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:54,067 WARNING Attempt 1/3 failed for PNQ->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:55,862 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0NPS0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:56,041 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:56,047 WARNING Attempt 2/3 failed for DEL->COK: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:56,169 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0xLT0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:56,454 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:56,462 WARNING Attempt 2/3 failed for DEL->LKO: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:01:57,285 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDUE5RcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:01:57,536 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:01:57,562 WARNING Attempt 2/3 failed for PNQ->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:02:01,540 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0NPS0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:02:01,745 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:02:01,754 WARNING Attempt 3/3 failed for DEL->COK: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:02:01,756 WARNING FAILED DEL-COK|2026-09-24: Google Flights scrape failed for DEL->COK on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:02:02,614 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDREVMcgUSA0xLT0IBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:02:02,897 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:02:02,904 WARNING Attempt 3/3 failed for DEL->LKO: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:02:02,908 WARNING FAILED DEL-LKO|2026-09-24: Google Flights scrape failed for DEL->LKO on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:02:03,372 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDUE5RcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:02:03,576 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:02:03,583 WARNING Attempt 3/3 failed for PNQ->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:02:03,585 WARNING 12 failures in a row (rate limit?). Cooling down 300s (3/3).
+2026-09-25 00:02:03,586 WARNING FAILED PNQ-DEL|2026-09-24: Google Flights scrape failed for PNQ->DEL on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:02:04,506 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDR09JcgUSA0JMUkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:02:04,703 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:02:04,708 WARNING Attempt 1/3 failed for GOI->BLR: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:02:05,055 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDTUFBcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:02:05,260 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:02:05,269 WARNING Attempt 1/3 failed for MAA->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:02:06,620 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDUEFUcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:02:06,836 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:02:06,838 WARNING Attempt 1/3 failed for PAT->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:02:07,942 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDR09JcgUSA0JMUkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:02:08,135 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:02:08,144 WARNING Attempt 2/3 failed for GOI->BLR: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:02:08,647 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDTUFBcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:02:08,928 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:02:08,947 WARNING Attempt 2/3 failed for MAA->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:02:10,610 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDUEFUcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:02:10,842 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:02:10,851 WARNING Attempt 2/3 failed for PAT->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:02:14,193 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDR09JcgUSA0JMUkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:02:14,556 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:02:14,577 WARNING Attempt 3/3 failed for GOI->BLR: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:02:14,586 WARNING FAILED GOI-BLR|2026-09-24: Google Flights scrape failed for GOI->BLR on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:02:14,881 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDTUFBcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:02:15,178 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:02:15,190 WARNING Attempt 3/3 failed for MAA->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:02:15,192 WARNING FAILED MAA-DEL|2026-09-24: Google Flights scrape failed for MAA->DEL on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:02:16,880 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjRqBRIDUEFUcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-25 00:02:17,141 INFO Parsed 0 unique itineraries from 9 listed (9 unparseable)
+2026-09-25 00:02:17,159 WARNING Attempt 3/3 failed for PAT->DEL: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-25 00:02:17,161 WARNING FAILED PAT-DEL|2026-09-24: Google Flights scrape failed for PAT->DEL on 2026-09-24: Google rate-limit/CAPTCHA page returned (slow down or use AIRINDEX_PROXY)
+2026-09-26 00:57:58,933 INFO 5 corridors x 3 dates = 15 searches per sweep
+2026-09-26 00:57:58,957 INFO [20260926T0000] pass 1: 15 searches, 1 workers
+2026-09-26 00:58:07,196 INFO [Google Flights] Request through direct connection
+2026-09-26 00:58:07,950 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjZqBRIDREVMcgUSA0JMUkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-26 00:58:08,392 ERROR [Google Circuit Breaker] Source blocked. Collection paused for 131 seconds.
+2026-09-26 00:58:08,392 ERROR [SOURCE BLOCKED] DEL -> BLR 2026-09-26: Google returned CAPTCHA
+2026-09-26 00:58:08,394 WARNING [Anti Rate-Limit Engine] Google rate-limit/CAPTCHA detected by worker. Pausing all threads for 300s to clear IP rate bucket...
+2026-09-26 00:58:08,394 ERROR Source block detected. Pausing new requests.
+2026-09-26 00:58:08,394 WARNING FAILED DEL-BLR|2026-09-26: Google returned CAPTCHA
+2026-09-26 00:58:17,760 WARNING [Google Circuit Breaker] Paused for 122 seconds
+2026-09-26 00:58:22,762 WARNING [Google Circuit Breaker] Paused for 117 seconds
+2026-09-26 00:58:27,764 WARNING [Google Circuit Breaker] Paused for 112 seconds
+2026-09-26 00:58:32,766 WARNING [Google Circuit Breaker] Paused for 107 seconds
+2026-09-26 00:58:37,767 WARNING [Google Circuit Breaker] Paused for 102 seconds
+2026-09-26 00:58:42,768 WARNING [Google Circuit Breaker] Paused for 97 seconds
+2026-09-26 00:58:47,770 WARNING [Google Circuit Breaker] Paused for 92 seconds
+2026-09-26 01:25:21,591 INFO 10 corridors x 4 dates = 40 searches per sweep
+2026-09-26 01:25:21,606 INFO Resuming slot 20260926T0000: 0 searches already done.
+2026-09-26 01:25:21,611 INFO [20260926T0000] pass 1: 40 searches, 1 workers
+2026-09-26 01:25:42,907 INFO [Google Flights] Request through http://127.0.0.1:18000
+2026-09-26 01:25:44,420 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjZqBRIDQk9NcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-26 01:25:45,092 INFO Raw Google response saved in ./data/raw (stamp 1790366145068)
+2026-09-26 01:25:45,092 ERROR [Google Circuit Breaker] Source blocked. Collection paused for 139 seconds.
+2026-09-26 01:25:45,092 ERROR [SOURCE BLOCKED] BOM -> DEL 2026-09-26: Google returned CAPTCHA
+2026-09-26 01:25:45,092 WARNING [Anti Rate-Limit Engine] Google rate-limit/CAPTCHA detected by worker. Pausing all threads for 300s to clear IP rate bucket...
+2026-09-26 01:25:45,092 ERROR Source block detected. Pausing new requests.
+2026-09-26 01:25:45,095 WARNING FAILED BOM-DEL|2026-09-26: Google returned CAPTCHA
+2026-09-26 01:26:09,783 WARNING [Google Circuit Breaker] Paused for 114 seconds
+2026-09-26 01:26:14,785 WARNING [Google Circuit Breaker] Paused for 109 seconds
+2026-09-26 01:26:19,788 WARNING [Google Circuit Breaker] Paused for 104 seconds
+2026-09-26 01:26:24,790 WARNING [Google Circuit Breaker] Paused for 99 seconds
+2026-09-26 01:26:29,791 WARNING [Google Circuit Breaker] Paused for 94 seconds
+2026-09-26 01:26:34,793 WARNING [Google Circuit Breaker] Paused for 89 seconds
+2026-09-26 01:26:39,794 WARNING [Google Circuit Breaker] Paused for 84 seconds
+2026-09-26 01:26:44,795 WARNING [Google Circuit Breaker] Paused for 79 seconds
+2026-09-26 01:26:49,796 WARNING [Google Circuit Breaker] Paused for 74 seconds
+2026-09-26 01:26:54,797 WARNING [Google Circuit Breaker] Paused for 69 seconds
+2026-09-26 01:26:59,799 WARNING [Google Circuit Breaker] Paused for 64 seconds
+2026-09-26 01:27:04,805 WARNING [Google Circuit Breaker] Paused for 59 seconds
+2026-09-26 01:27:09,807 WARNING [Google Circuit Breaker] Paused for 54 seconds
+2026-09-26 01:27:14,808 WARNING [Google Circuit Breaker] Paused for 49 seconds
+2026-09-26 01:27:19,811 WARNING [Google Circuit Breaker] Paused for 44 seconds
+2026-09-26 01:27:24,812 WARNING [Google Circuit Breaker] Paused for 39 seconds
+2026-09-26 01:27:29,813 WARNING [Google Circuit Breaker] Paused for 34 seconds
+2026-09-26 01:27:34,814 WARNING [Google Circuit Breaker] Paused for 29 seconds
+2026-09-26 01:27:39,816 WARNING [Google Circuit Breaker] Paused for 24 seconds
+2026-09-26 01:27:44,818 WARNING [Google Circuit Breaker] Paused for 19 seconds
+2026-09-26 01:27:49,822 WARNING [Google Circuit Breaker] Paused for 14 seconds
+2026-09-26 01:27:54,823 WARNING [Google Circuit Breaker] Paused for 9 seconds
+2026-09-26 01:27:59,824 WARNING [Google Circuit Breaker] Paused for 4 seconds
+2026-09-26 01:28:04,092 INFO [Google Flights] Request through http://127.0.0.1:18000
+2026-09-26 01:28:34,110 WARNING [TRANSPORT ERROR] CCU -> DEL: Network/proxy request failed: error sending request for url (https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjZqBRIDQ0NVcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR) > operation timed out
+2026-09-26 01:28:38,979 INFO [Google Flights] Request through http://127.0.0.1:18000
+2026-09-26 01:29:05,406 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjZqBRIDQ0NVcgUSA0RFTEIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-26 01:29:06,706 INFO Raw Google response saved in ./data/raw (stamp 1790366346615)
+2026-09-26 01:29:06,721 ERROR [Google Circuit Breaker] Source blocked. Collection paused for 250 seconds.
+2026-09-26 01:29:06,721 ERROR [SOURCE BLOCKED] CCU -> DEL 2026-09-26: Google returned CAPTCHA
+2026-09-26 01:29:06,721 ERROR Source block detected. Pausing new requests.
+2026-09-26 01:29:06,730 WARNING FAILED CCU-DEL|2026-09-26: Google returned CAPTCHA
+2026-09-26 01:31:03,862 WARNING [Google Circuit Breaker] Paused for 132 seconds
+2026-09-26 01:31:08,864 WARNING [Google Circuit Breaker] Paused for 127 seconds
+2026-09-26 01:31:13,870 WARNING [Google Circuit Breaker] Paused for 122 seconds
+2026-09-26 01:31:18,873 WARNING [Google Circuit Breaker] Paused for 117 seconds
+2026-09-26 01:31:23,877 WARNING [Google Circuit Breaker] Paused for 112 seconds
+2026-09-26 01:31:28,878 WARNING [Google Circuit Breaker] Paused for 107 seconds
+2026-09-26 01:31:33,880 WARNING [Google Circuit Breaker] Paused for 102 seconds
+2026-09-26 01:31:38,883 WARNING [Google Circuit Breaker] Paused for 97 seconds
+2026-09-26 01:31:43,887 WARNING [Google Circuit Breaker] Paused for 92 seconds
+2026-09-26 01:31:48,889 WARNING [Google Circuit Breaker] Paused for 87 seconds
+2026-09-26 01:31:53,890 WARNING [Google Circuit Breaker] Paused for 82 seconds
+2026-09-26 01:31:58,891 WARNING [Google Circuit Breaker] Paused for 77 seconds
+2026-09-26 01:32:03,896 WARNING [Google Circuit Breaker] Paused for 72 seconds
+2026-09-26 01:32:08,898 WARNING [Google Circuit Breaker] Paused for 67 seconds
+2026-09-26 01:32:13,908 WARNING [Google Circuit Breaker] Paused for 62 seconds
+2026-09-26 01:32:18,922 WARNING [Google Circuit Breaker] Paused for 57 seconds
+2026-09-26 01:32:23,928 WARNING [Google Circuit Breaker] Paused for 52 seconds
+2026-09-26 01:32:28,932 WARNING [Google Circuit Breaker] Paused for 47 seconds
+2026-09-26 01:32:33,934 WARNING [Google Circuit Breaker] Paused for 42 seconds
+2026-09-26 01:32:38,935 WARNING [Google Circuit Breaker] Paused for 37 seconds
+2026-09-26 01:32:43,936 WARNING [Google Circuit Breaker] Paused for 32 seconds
+2026-09-26 01:32:48,936 WARNING [Google Circuit Breaker] Paused for 27 seconds
+2026-09-26 01:32:53,937 WARNING [Google Circuit Breaker] Paused for 22 seconds
+2026-09-26 01:32:58,939 WARNING [Google Circuit Breaker] Paused for 17 seconds
+2026-09-26 01:33:03,940 WARNING [Google Circuit Breaker] Paused for 12 seconds
+2026-09-26 01:33:08,941 WARNING [Google Circuit Breaker] Paused for 7 seconds
+2026-09-26 01:33:13,942 WARNING [Google Circuit Breaker] Paused for 2 seconds
+2026-09-26 01:33:16,242 INFO [Google Flights] Request through http://127.0.0.1:18000
+2026-09-26 01:33:46,248 WARNING [TRANSPORT ERROR] DEL -> BLR: Network/proxy request failed: error sending request for url (https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjZqBRIDREVMcgUSA0JMUkIBAUgBmAEC&hl=en&curr=INR) > operation timed out
+2026-09-26 01:33:50,804 INFO [Google Flights] Request through http://127.0.0.1:18000
+2026-09-26 01:33:51,736 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjZqBRIDREVMcgUSA0JMUkIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-26 01:33:52,493 INFO Raw Google response saved in ./data/raw (stamp 1790366632339)
+2026-09-26 01:33:52,507 ERROR [Google Circuit Breaker] Source blocked. Collection paused for 496 seconds.
+2026-09-26 01:33:52,509 ERROR [SOURCE BLOCKED] DEL -> BLR 2026-09-26: Google returned CAPTCHA
+2026-09-26 01:33:52,514 WARNING 3 failures in a row (rate limit?). Cooling down 120s (1/5).
+2026-09-26 01:33:52,514 ERROR Source block detected. Pausing new requests.
+2026-09-26 01:33:52,514 WARNING FAILED DEL-BLR|2026-09-26: Google returned CAPTCHA
+2026-09-26 01:34:13,874 WARNING [Google Circuit Breaker] Paused for 474 seconds
+2026-09-26 01:34:18,878 WARNING [Google Circuit Breaker] Paused for 469 seconds
+2026-09-26 01:34:23,884 WARNING [Google Circuit Breaker] Paused for 464 seconds
+2026-09-26 01:34:28,891 WARNING [Google Circuit Breaker] Paused for 459 seconds
+2026-09-26 01:34:33,893 WARNING [Google Circuit Breaker] Paused for 454 seconds
+2026-09-26 01:34:38,894 WARNING [Google Circuit Breaker] Paused for 449 seconds
+2026-09-26 01:34:43,896 WARNING [Google Circuit Breaker] Paused for 444 seconds
+2026-09-26 01:34:48,897 WARNING [Google Circuit Breaker] Paused for 439 seconds
+2026-09-26 01:34:53,898 WARNING [Google Circuit Breaker] Paused for 434 seconds
+2026-09-26 01:34:58,899 WARNING [Google Circuit Breaker] Paused for 429 seconds
+2026-09-26 01:35:03,900 WARNING [Google Circuit Breaker] Paused for 424 seconds
+2026-09-26 01:35:08,901 WARNING [Google Circuit Breaker] Paused for 419 seconds
+2026-09-26 01:35:13,903 WARNING [Google Circuit Breaker] Paused for 414 seconds
+2026-09-26 01:35:18,904 WARNING [Google Circuit Breaker] Paused for 409 seconds
+2026-09-26 01:35:23,905 WARNING [Google Circuit Breaker] Paused for 404 seconds
+2026-09-26 01:35:28,906 WARNING [Google Circuit Breaker] Paused for 399 seconds
+2026-09-26 01:35:33,908 WARNING [Google Circuit Breaker] Paused for 394 seconds
+2026-09-26 01:35:38,909 WARNING [Google Circuit Breaker] Paused for 389 seconds
+2026-09-26 01:35:43,911 WARNING [Google Circuit Breaker] Paused for 384 seconds
+2026-09-26 01:35:48,912 WARNING [Google Circuit Breaker] Paused for 379 seconds
+2026-09-26 01:35:53,913 WARNING [Google Circuit Breaker] Paused for 374 seconds
+2026-09-26 01:35:58,915 WARNING [Google Circuit Breaker] Paused for 369 seconds
+2026-09-26 01:36:03,916 WARNING [Google Circuit Breaker] Paused for 364 seconds
+2026-09-26 01:36:08,917 WARNING [Google Circuit Breaker] Paused for 359 seconds
+2026-09-26 01:36:13,918 WARNING [Google Circuit Breaker] Paused for 354 seconds
+2026-09-26 01:36:18,919 WARNING [Google Circuit Breaker] Paused for 349 seconds
+2026-09-26 01:36:23,920 WARNING [Google Circuit Breaker] Paused for 344 seconds
+2026-09-26 01:36:28,921 WARNING [Google Circuit Breaker] Paused for 339 seconds
+2026-09-26 01:36:33,922 WARNING [Google Circuit Breaker] Paused for 334 seconds
+2026-09-26 01:36:38,924 WARNING [Google Circuit Breaker] Paused for 329 seconds
+2026-09-26 01:36:43,925 WARNING [Google Circuit Breaker] Paused for 324 seconds
+2026-09-26 01:36:48,926 WARNING [Google Circuit Breaker] Paused for 319 seconds
+2026-09-26 01:36:53,927 WARNING [Google Circuit Breaker] Paused for 314 seconds
+2026-09-26 01:36:58,928 WARNING [Google Circuit Breaker] Paused for 309 seconds
+2026-09-26 01:37:03,929 WARNING [Google Circuit Breaker] Paused for 304 seconds
+2026-09-26 01:37:08,930 WARNING [Google Circuit Breaker] Paused for 299 seconds
+2026-09-26 01:37:13,931 WARNING [Google Circuit Breaker] Paused for 294 seconds
+2026-09-26 01:37:18,932 WARNING [Google Circuit Breaker] Paused for 289 seconds
+2026-09-26 01:37:23,933 WARNING [Google Circuit Breaker] Paused for 284 seconds
+2026-09-26 01:37:28,935 WARNING [Google Circuit Breaker] Paused for 279 seconds
+2026-09-26 01:37:33,936 WARNING [Google Circuit Breaker] Paused for 274 seconds
+2026-09-26 01:37:38,936 WARNING [Google Circuit Breaker] Paused for 269 seconds
+2026-09-26 01:37:43,937 WARNING [Google Circuit Breaker] Paused for 264 seconds
+2026-09-26 01:37:48,938 WARNING [Google Circuit Breaker] Paused for 259 seconds
+2026-09-26 01:37:53,940 WARNING [Google Circuit Breaker] Paused for 254 seconds
+2026-09-26 01:37:58,941 WARNING [Google Circuit Breaker] Paused for 249 seconds
+2026-09-26 01:38:03,942 WARNING [Google Circuit Breaker] Paused for 244 seconds
+2026-09-26 01:38:08,942 WARNING [Google Circuit Breaker] Paused for 239 seconds
+2026-09-26 01:38:13,943 WARNING [Google Circuit Breaker] Paused for 234 seconds
+2026-09-26 01:38:18,944 WARNING [Google Circuit Breaker] Paused for 229 seconds
+2026-09-26 01:38:23,945 WARNING [Google Circuit Breaker] Paused for 224 seconds
+2026-09-26 01:38:28,947 WARNING [Google Circuit Breaker] Paused for 219 seconds
+2026-09-26 01:38:33,949 WARNING [Google Circuit Breaker] Paused for 214 seconds
+2026-09-26 01:38:38,949 WARNING [Google Circuit Breaker] Paused for 209 seconds
+2026-09-26 01:38:43,950 WARNING [Google Circuit Breaker] Paused for 204 seconds
+2026-09-26 01:38:48,952 WARNING [Google Circuit Breaker] Paused for 199 seconds
+2026-09-26 01:38:53,953 WARNING [Google Circuit Breaker] Paused for 194 seconds
+2026-09-26 01:38:58,954 WARNING [Google Circuit Breaker] Paused for 189 seconds
+2026-09-26 01:39:03,955 WARNING [Google Circuit Breaker] Paused for 184 seconds
+2026-09-26 01:39:08,957 WARNING [Google Circuit Breaker] Paused for 179 seconds
+2026-09-26 01:39:13,958 WARNING [Google Circuit Breaker] Paused for 174 seconds
+2026-09-26 01:39:18,959 WARNING [Google Circuit Breaker] Paused for 169 seconds
+2026-09-26 01:39:23,960 WARNING [Google Circuit Breaker] Paused for 164 seconds
+2026-09-26 01:39:28,961 WARNING [Google Circuit Breaker] Paused for 159 seconds
+2026-09-26 01:39:33,963 WARNING [Google Circuit Breaker] Paused for 154 seconds
+2026-09-26 01:39:38,963 WARNING [Google Circuit Breaker] Paused for 149 seconds
+2026-09-26 01:39:43,964 WARNING [Google Circuit Breaker] Paused for 144 seconds
+2026-09-26 01:39:48,965 WARNING [Google Circuit Breaker] Paused for 139 seconds
+2026-09-26 01:39:53,967 WARNING [Google Circuit Breaker] Paused for 134 seconds
+2026-09-26 01:39:58,968 WARNING [Google Circuit Breaker] Paused for 129 seconds
+2026-09-26 01:40:03,969 WARNING [Google Circuit Breaker] Paused for 124 seconds
+2026-09-26 01:40:08,970 WARNING [Google Circuit Breaker] Paused for 119 seconds
+2026-09-26 01:40:13,971 WARNING [Google Circuit Breaker] Paused for 114 seconds
+2026-09-26 01:40:18,973 WARNING [Google Circuit Breaker] Paused for 109 seconds
+2026-09-26 01:40:23,974 WARNING [Google Circuit Breaker] Paused for 104 seconds
+2026-09-26 01:40:28,975 WARNING [Google Circuit Breaker] Paused for 99 seconds
+2026-09-26 01:40:33,976 WARNING [Google Circuit Breaker] Paused for 94 seconds
+2026-09-26 01:40:38,978 WARNING [Google Circuit Breaker] Paused for 89 seconds
+2026-09-26 01:40:43,979 WARNING [Google Circuit Breaker] Paused for 84 seconds
+2026-09-26 01:40:48,979 WARNING [Google Circuit Breaker] Paused for 79 seconds
+2026-09-26 01:40:53,980 WARNING [Google Circuit Breaker] Paused for 74 seconds
+2026-09-26 01:40:58,981 WARNING [Google Circuit Breaker] Paused for 69 seconds
+2026-09-26 01:41:03,982 WARNING [Google Circuit Breaker] Paused for 64 seconds
+2026-09-26 01:41:08,983 WARNING [Google Circuit Breaker] Paused for 59 seconds
+2026-09-26 01:41:13,984 WARNING [Google Circuit Breaker] Paused for 54 seconds
+2026-09-26 01:41:18,985 WARNING [Google Circuit Breaker] Paused for 49 seconds
+2026-09-26 01:41:23,987 WARNING [Google Circuit Breaker] Paused for 44 seconds
+2026-09-26 01:41:28,988 WARNING [Google Circuit Breaker] Paused for 39 seconds
+2026-09-26 01:41:33,989 WARNING [Google Circuit Breaker] Paused for 34 seconds
+2026-09-26 01:41:38,990 WARNING [Google Circuit Breaker] Paused for 29 seconds
+2026-09-26 01:41:43,991 WARNING [Google Circuit Breaker] Paused for 24 seconds
+2026-09-26 01:41:48,992 WARNING [Google Circuit Breaker] Paused for 19 seconds
+2026-09-26 01:41:53,994 WARNING [Google Circuit Breaker] Paused for 14 seconds
+2026-09-26 01:41:58,995 WARNING [Google Circuit Breaker] Paused for 9 seconds
+2026-09-26 01:42:03,996 WARNING [Google Circuit Breaker] Paused for 4 seconds
+2026-09-26 01:42:08,360 INFO [Google Flights] Request through http://127.0.0.1:18000
+2026-09-26 01:42:08,370 WARNING h2 connection driver error: peer closed connection without sending TLS close_notify: https://docs.rs/rustls/latest/rustls/manual/_03_howto/index.html#unexpected-eof
+2026-09-26 01:42:38,364 WARNING [TRANSPORT ERROR] DEL -> HYD: Network/proxy request failed: error sending request for url (https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjZqBRIDREVMcgUSA0hZREIBAUgBmAEC&hl=en&curr=INR) > operation timed out
+2026-09-26 01:42:44,323 INFO [Google Flights] Request through http://127.0.0.1:18000
+2026-09-26 01:43:14,328 WARNING [TRANSPORT ERROR] DEL -> HYD: Network/proxy request failed: error sending request for url (https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjZqBRIDREVMcgUSA0hZREIBAUgBmAEC&hl=en&curr=INR) > operation timed out
+2026-09-26 01:43:24,208 INFO [Google Flights] Request through http://127.0.0.1:18000
+2026-09-26 01:43:26,055 INFO response: https://www.google.com/travel/flights?tfs=GhoSCjIwMjYtMDktMjZqBRIDREVMcgUSA0hZREIBAUgBmAEC&hl=en&curr=INR 200
+2026-09-26 01:43:26,727 INFO Raw Google response saved in ./data/raw (stamp 1790367206696)
+2026-09-26 01:43:26,731 ERROR [Google Circuit Breaker] Source blocked. Collection paused for 973 seconds.
+2026-09-26 01:43:26,731 ERROR [SOURCE BLOCKED] DEL -> HYD 2026-09-26: Google returned CAPTCHA
+2026-09-26 01:43:26,731 WARNING [Anti Rate-Limit Engine] Google rate-limit/CAPTCHA detected by worker. Pausing all threads for 300s to clear IP rate bucket...
+2026-09-26 01:43:26,731 ERROR Source block detected. Pausing new requests.
+2026-09-26 01:43:26,731 WARNING FAILED DEL-HYD|2026-09-26: Google returned CAPTCHA
+2026-09-26 01:43:39,712 WARNING [Google Circuit Breaker] Paused for 960 seconds
+2026-09-26 01:43:44,713 WARNING [Google Circuit Breaker] Paused for 955 seconds
+2026-09-26 01:43:49,714 WARNING [Google Circuit Breaker] Paused for 950 seconds
+2026-09-26 01:43:54,715 WARNING [Google Circuit Breaker] Paused for 945 seconds
+2026-09-26 01:43:59,717 WARNING [Google Circuit Breaker] Paused for 940 seconds
+2026-09-26 01:44:04,718 WARNING [Google Circuit Breaker] Paused for 935 seconds
+2026-09-26 01:44:09,721 WARNING [Google Circuit Breaker] Paused for 930 seconds
+2026-09-26 01:44:14,722 WARNING [Google Circuit Breaker] Paused for 925 seconds
+2026-09-26 01:44:19,723 WARNING [Google Circuit Breaker] Paused for 920 seconds
+2026-09-26 01:44:24,724 WARNING [Google Circuit Breaker] Paused for 915 seconds
+2026-09-26 01:44:29,726 WARNING [Google Circuit Breaker] Paused for 910 seconds
+2026-09-26 01:44:34,727 WARNING [Google Circuit Breaker] Paused for 905 seconds
+2026-09-26 01:44:39,728 WARNING [Google Circuit Breaker] Paused for 900 seconds
+2026-09-26 01:44:44,730 WARNING [Google Circuit Breaker] Paused for 895 seconds
+2026-09-26 01:44:49,732 WARNING [Google Circuit Breaker] Paused for 890 seconds
+2026-09-26 01:44:54,733 WARNING [Google Circuit Breaker] Paused for 885 seconds
+2026-09-26 01:44:59,734 WARNING [Google Circuit Breaker] Paused for 880 seconds
+2026-09-26 01:45:04,736 WARNING [Google Circuit Breaker] Paused for 875 seconds
+2026-09-26 01:45:09,738 WARNING [Google Circuit Breaker] Paused for 870 seconds
+2026-09-26 01:45:14,740 WARNING [Google Circuit Breaker] Paused for 865 seconds
+2026-09-26 01:45:19,742 WARNING [Google Circuit Breaker] Paused for 860 seconds
+2026-09-26 01:45:24,743 WARNING [Google Circuit Breaker] Paused for 855 seconds
+2026-09-26 01:45:29,744 WARNING [Google Circuit Breaker] Paused for 850 seconds
+2026-09-26 01:45:34,745 WARNING [Google Circuit Breaker] Paused for 845 seconds
+2026-09-26 01:45:39,746 WARNING [Google Circuit Breaker] Paused for 840 seconds
+2026-09-26 01:45:44,747 WARNING [Google Circuit Breaker] Paused for 835 seconds
+2026-09-26 01:45:49,748 WARNING [Google Circuit Breaker] Paused for 830 seconds
+2026-09-26 01:45:54,749 WARNING [Google Circuit Breaker] Paused for 825 seconds
+2026-09-26 01:45:59,750 WARNING [Google Circuit Breaker] Paused for 820 seconds
+2026-09-26 01:46:04,751 WARNING [Google Circuit Breaker] Paused for 815 seconds
+2026-09-26 01:46:09,753 WARNING [Google Circuit Breaker] Paused for 810 seconds
+2026-09-26 01:46:14,754 WARNING [Google Circuit Breaker] Paused for 805 seconds
+2026-09-26 01:46:19,756 WARNING [Google Circuit Breaker] Paused for 800 seconds
+2026-09-26 01:46:24,758 WARNING [Google Circuit Breaker] Paused for 795 seconds
+2026-09-26 01:46:29,761 WARNING [Google Circuit Breaker] Paused for 790 seconds
+2026-09-26 01:46:34,762 WARNING [Google Circuit Breaker] Paused for 785 seconds
+2026-09-26 01:46:39,763 WARNING [Google Circuit Breaker] Paused for 780 seconds
+2026-09-26 01:46:44,764 WARNING [Google Circuit Breaker] Paused for 775 seconds
+2026-09-26 01:46:49,765 WARNING [Google Circuit Breaker] Paused for 770 seconds
+2026-09-26 01:46:54,766 WARNING [Google Circuit Breaker] Paused for 765 seconds
+2026-09-26 01:46:59,767 WARNING [Google Circuit Breaker] Paused for 760 seconds
+2026-09-26 01:47:04,769 WARNING [Google Circuit Breaker] Paused for 755 seconds
+2026-09-26 01:47:09,770 WARNING [Google Circuit Breaker] Paused for 750 seconds
+2026-09-26 01:47:14,771 WARNING [Google Circuit Breaker] Paused for 745 seconds
+2026-09-26 01:47:19,772 WARNING [Google Circuit Breaker] Paused for 740 seconds
+2026-09-26 01:47:24,774 WARNING [Google Circuit Breaker] Paused for 735 seconds
+2026-09-26 01:47:29,775 WARNING [Google Circuit Breaker] Paused for 730 seconds
+2026-09-26 01:47:34,776 WARNING [Google Circuit Breaker] Paused for 725 seconds
+2026-09-26 01:47:39,778 WARNING [Google Circuit Breaker] Paused for 720 seconds
+2026-09-26 01:47:44,779 WARNING [Google Circuit Breaker] Paused for 715 seconds
+2026-09-26 01:47:49,787 WARNING [Google Circuit Breaker] Paused for 710 seconds
+2026-09-26 01:47:54,788 WARNING [Google Circuit Breaker] Paused for 705 seconds
+2026-09-26 01:47:59,790 WARNING [Google Circuit Breaker] Paused for 700 seconds
+2026-09-26 01:48:04,791 WARNING [Google Circuit Breaker] Paused for 695 seconds
+2026-09-26 01:48:09,792 WARNING [Google Circuit Breaker] Paused for 690 seconds
+2026-09-26 01:48:14,793 WARNING [Google Circuit Breaker] Paused for 685 seconds
+2026-09-26 01:48:19,794 WARNING [Google Circuit Breaker] Paused for 680 seconds
+2026-09-26 01:48:24,795 WARNING [Google Circuit Breaker] Paused for 675 seconds
+2026-09-26 01:48:29,796 WARNING [Google Circuit Breaker] Paused for 670 seconds
+2026-09-26 01:48:34,798 WARNING [Google Circuit Breaker] Paused for 665 seconds
+2026-09-26 01:48:39,799 WARNING [Google Circuit Breaker] Paused for 660 seconds
+2026-09-26 01:48:44,800 WARNING [Google Circuit Breaker] Paused for 655 seconds
+2026-09-26 01:48:49,801 WARNING [Google Circuit Breaker] Paused for 650 seconds
+2026-09-26 01:48:54,802 WARNING [Google Circuit Breaker] Paused for 645 seconds
+2026-09-26 01:48:59,803 WARNING [Google Circuit Breaker] Paused for 640 seconds
+2026-09-26 01:49:04,804 WARNING [Google Circuit Breaker] Paused for 635 seconds
+2026-09-26 01:49:09,806 WARNING [Google Circuit Breaker] Paused for 630 seconds
+2026-09-26 01:49:14,807 WARNING [Google Circuit Breaker] Paused for 625 seconds
+2026-09-26 01:49:19,809 WARNING [Google Circuit Breaker] Paused for 620 seconds
+2026-09-26 01:49:24,809 WARNING [Google Circuit Breaker] Paused for 615 seconds
+2026-09-26 01:49:29,810 WARNING [Google Circuit Breaker] Paused for 610 seconds
+2026-09-26 01:49:34,812 WARNING [Google Circuit Breaker] Paused for 605 seconds
+2026-09-26 01:49:39,814 WARNING [Google Circuit Breaker] Paused for 600 seconds
+2026-09-26 01:49:44,814 WARNING [Google Circuit Breaker] Paused for 595 seconds
+2026-09-26 01:49:49,816 WARNING [Google Circuit Breaker] Paused for 590 seconds
+2026-09-26 01:49:54,817 WARNING [Google Circuit Breaker] Paused for 585 seconds
+2026-09-26 01:49:59,820 WARNING [Google Circuit Breaker] Paused for 580 seconds
+2026-09-26 01:50:04,821 WARNING [Google Circuit Breaker] Paused for 575 seconds
+2026-09-26 01:50:09,822 WARNING [Google Circuit Breaker] Paused for 570 seconds
+2026-09-26 01:50:14,823 WARNING [Google Circuit Breaker] Paused for 565 seconds
+2026-09-26 01:50:19,825 WARNING [Google Circuit Breaker] Paused for 560 seconds
+2026-09-26 01:50:24,826 WARNING [Google Circuit Breaker] Paused for 555 seconds
+2026-09-26 01:50:29,827 WARNING [Google Circuit Breaker] Paused for 550 seconds
+2026-09-26 01:50:34,828 WARNING [Google Circuit Breaker] Paused for 545 seconds
+2026-09-26 01:50:39,830 WARNING [Google Circuit Breaker] Paused for 540 seconds
+2026-09-26 01:50:44,831 WARNING [Google Circuit Breaker] Paused for 535 seconds
+2026-09-26 01:50:49,832 WARNING [Google Circuit Breaker] Paused for 530 seconds
+2026-09-26 01:50:54,833 WARNING [Google Circuit Breaker] Paused for 525 seconds
+2026-09-26 01:50:59,834 WARNING [Google Circuit Breaker] Paused for 520 seconds
+2026-09-26 01:51:04,836 WARNING [Google Circuit Breaker] Paused for 515 seconds
+2026-09-26 01:51:09,840 WARNING [Google Circuit Breaker] Paused for 510 seconds
+2026-09-26 01:51:14,841 WARNING [Google Circuit Breaker] Paused for 505 seconds
+2026-09-26 01:51:19,843 WARNING [Google Circuit Breaker] Paused for 500 seconds
+2026-09-26 01:51:24,844 WARNING [Google Circuit Breaker] Paused for 495 seconds
+2026-09-26 01:51:29,845 WARNING [Google Circuit Breaker] Paused for 490 seconds
+2026-09-26 01:51:34,846 WARNING [Google Circuit Breaker] Paused for 485 seconds
+2026-09-26 01:51:39,847 WARNING [Google Circuit Breaker] Paused for 480 seconds
+2026-09-26 01:51:44,848 WARNING [Google Circuit Breaker] Paused for 475 seconds
+2026-09-26 01:51:49,850 WARNING [Google Circuit Breaker] Paused for 470 seconds
+2026-09-26 01:51:54,851 WARNING [Google Circuit Breaker] Paused for 465 seconds
+2026-09-26 01:51:59,854 WARNING [Google Circuit Breaker] Paused for 460 seconds
+2026-09-26 01:52:04,855 WARNING [Google Circuit Breaker] Paused for 455 seconds
+2026-09-26 01:52:09,861 WARNING [Google Circuit Breaker] Paused for 450 seconds
+2026-09-26 01:52:14,862 WARNING [Google Circuit Breaker] Paused for 445 seconds
+2026-09-26 01:52:19,863 WARNING [Google Circuit Breaker] Paused for 440 seconds
+2026-09-26 01:52:24,865 WARNING [Google Circuit Breaker] Paused for 435 seconds
+2026-09-26 01:52:29,866 WARNING [Google Circuit Breaker] Paused for 430 seconds
+2026-09-26 01:52:34,868 WARNING [Google Circuit Breaker] Paused for 425 seconds
+2026-09-26 01:52:39,869 WARNING [Google Circuit Breaker] Paused for 420 seconds
+2026-09-26 01:52:44,870 WARNING [Google Circuit Breaker] Paused for 415 seconds
+2026-09-26 01:52:49,871 WARNING [Google Circuit Breaker] Paused for 410 seconds
+2026-09-26 01:52:54,872 WARNING [Google Circuit Breaker] Paused for 405 seconds
+2026-09-26 01:52:59,873 WARNING [Google Circuit Breaker] Paused for 400 seconds
+2026-09-26 01:53:04,875 WARNING [Google Circuit Breaker] Paused for 395 seconds
+2026-09-26 01:53:09,877 WARNING [Google Circuit Breaker] Paused for 390 seconds
+2026-09-26 01:53:14,878 WARNING [Google Circuit Breaker] Paused for 385 seconds
+2026-09-26 01:53:19,879 WARNING [Google Circuit Breaker] Paused for 380 seconds
+2026-09-26 01:53:24,880 WARNING [Google Circuit Breaker] Paused for 375 seconds
+2026-09-26 01:53:29,882 WARNING [Google Circuit Breaker] Paused for 370 seconds
+2026-09-26 01:53:34,883 WARNING [Google Circuit Breaker] Paused for 365 seconds
+2026-09-26 01:53:39,885 WARNING [Google Circuit Breaker] Paused for 360 seconds
+2026-09-26 01:53:44,886 WARNING [Google Circuit Breaker] Paused for 355 seconds
+2026-09-26 01:53:49,887 WARNING [Google Circuit Breaker] Paused for 350 seconds
+2026-09-26 01:53:54,889 WARNING [Google Circuit Breaker] Paused for 345 seconds
+2026-09-26 01:53:59,891 WARNING [Google Circuit Breaker] Paused for 340 seconds
+2026-09-26 01:54:04,892 WARNING [Google Circuit Breaker] Paused for 335 seconds
+2026-09-26 01:54:09,899 WARNING [Google Circuit Breaker] Paused for 330 seconds
+2026-09-26 01:54:14,900 WARNING [Google Circuit Breaker] Paused for 325 seconds
+2026-09-26 01:54:19,901 WARNING [Google Circuit Breaker] Paused for 320 seconds
+2026-09-26 01:54:24,902 WARNING [Google Circuit Breaker] Paused for 315 seconds
+2026-09-26 01:54:29,904 WARNING [Google Circuit Breaker] Paused for 310 seconds
+2026-09-26 01:54:34,905 WARNING [Google Circuit Breaker] Paused for 305 seconds
+2026-09-26 01:54:39,905 WARNING [Google Circuit Breaker] Paused for 300 seconds
+2026-09-26 01:54:44,906 WARNING [Google Circuit Breaker] Paused for 295 seconds
+2026-09-26 01:54:49,907 WARNING [Google Circuit Breaker] Paused for 290 seconds
+2026-09-26 01:54:54,909 WARNING [Google Circuit Breaker] Paused for 285 seconds
+2026-09-26 01:54:59,911 WARNING [Google Circuit Breaker] Paused for 280 seconds
+2026-09-26 01:55:04,912 WARNING [Google Circuit Breaker] Paused for 275 seconds
+2026-09-26 01:55:09,913 WARNING [Google Circuit Breaker] Paused for 270 seconds
+2026-09-26 01:55:14,914 WARNING [Google Circuit Breaker] Paused for 265 seconds
+2026-09-26 01:55:19,915 WARNING [Google Circuit Breaker] Paused for 260 seconds
+2026-09-26 01:55:24,917 WARNING [Google Circuit Breaker] Paused for 255 seconds
+2026-09-26 01:55:29,918 WARNING [Google Circuit Breaker] Paused for 250 seconds
+2026-09-26 01:55:34,920 WARNING [Google Circuit Breaker] Paused for 245 seconds
+2026-09-26 01:55:39,922 WARNING [Google Circuit Breaker] Paused for 240 seconds
+2026-09-26 01:55:44,923 WARNING [Google Circuit Breaker] Paused for 235 seconds
+2026-09-26 01:55:49,924 WARNING [Google Circuit Breaker] Paused for 230 seconds
+2026-09-26 01:55:54,926 WARNING [Google Circuit Breaker] Paused for 225 seconds
+2026-09-26 01:55:59,927 WARNING [Google Circuit Breaker] Paused for 220 seconds
+2026-09-26 01:56:04,929 WARNING [Google Circuit Breaker] Paused for 215 seconds
+2026-09-26 01:56:09,930 WARNING [Google Circuit Breaker] Paused for 210 seconds
+2026-09-26 01:56:14,931 WARNING [Google Circuit Breaker] Paused for 205 seconds
+2026-09-26 01:56:19,932 WARNING [Google Circuit Breaker] Paused for 200 seconds
+2026-09-26 01:56:24,934 WARNING [Google Circuit Breaker] Paused for 195 seconds
+2026-09-26 01:56:29,935 WARNING [Google Circuit Breaker] Paused for 190 seconds
+2026-09-26 01:56:34,936 WARNING [Google Circuit Breaker] Paused for 185 seconds
+2026-09-26 01:56:39,938 WARNING [Google Circuit Breaker] Paused for 180 seconds
+2026-09-26 01:56:44,939 WARNING [Google Circuit Breaker] Paused for 175 seconds
+2026-09-26 01:56:49,940 WARNING [Google Circuit Breaker] Paused for 170 seconds
+2026-09-26 01:56:54,941 WARNING [Google Circuit Breaker] Paused for 165 seconds
+2026-09-26 01:56:59,943 WARNING [Google Circuit Breaker] Paused for 160 seconds
+2026-09-26 01:57:04,944 WARNING [Google Circuit Breaker] Paused for 155 seconds
+2026-09-26 01:57:09,957 WARNING [Google Circuit Breaker] Paused for 150 seconds

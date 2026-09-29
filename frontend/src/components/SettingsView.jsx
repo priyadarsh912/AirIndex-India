@@ -34,11 +34,7 @@ const INITIAL_CONFIG = {
       { id: 'SG', name: 'SpiceJet', code: 'SG', latency: '1,200ms', lastSync: '5m ago', status: 'Throttled (429 Rate Limit)', enabled: true },
     ],
     otas: [
-      { id: 'MMT', name: 'MakeMyTrip', icon: 'travel_explore', lastRun: '30s ago', status: 'Online', enabled: true },
-      { id: 'GO', name: 'Goibibo', icon: 'flight', lastRun: '1m ago', status: 'Online', enabled: true },
-      { id: 'IXI', name: 'Ixigo', icon: 'alt_route', lastRun: '4m ago', status: 'Captcha Challenge', enabled: true },
-      { id: 'CT', name: 'Cleartrip', icon: 'connecting_airports', lastRun: '2m ago', status: 'Online', enabled: true },
-      { id: 'YT', name: 'Yatra', icon: 'flight_class', lastRun: '2h ago • Inactive', status: 'Offline', enabled: false },
+      { id: 'GF', name: 'Google Flights (Live Engine)', icon: 'travel_explore', lastRun: '10s ago', status: 'Online', enabled: true },
     ],
   },
   methodology: {
